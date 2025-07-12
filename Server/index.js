@@ -3,6 +3,16 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 dotenv.config({path: './.env'});
 
+// Importing routers
+import homeRouter from './Routes/homeRouter.js';
+import aboutRouter from './Routes/aboutRouter.js';
+import skillsRouter from './Routes/skillsRouter.js';
+import projectsRouter from './Routes/projectsRouter.js';
+import testimonialsRouter from './Routes/testimonialsRouter.js';
+import articlesRouter from './Routes/articlesRouter.js';
+import contactRouter from './Routes/contactRouter.js';
+
+
 const app = express();
 
 // Middleware
@@ -11,6 +21,16 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+
+// Routes
+app.use("api/home", homeRouter);
+app.use("api/about", aboutRouter);
+app.use("api/skills", skillsRouter);
+app.use("api/projects", projectsRouter);
+app.use("api/testimonials", testimonialsRouter);
+app.use("api/articles", articlesRouter);
+app.use("api/contact", contactRouter);
 
 
 // Server listening
