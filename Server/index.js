@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import mongoose from 'mongoose';
 dotenv.config({path: './.env'});
 
 // Importing routers
@@ -35,7 +36,15 @@ app.use("api/contact", contactRouter);
 
 // Server listening
 const PORT = process.env.PORT;
+const MONGODB_URI = process.env.MONGODB_URI;
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+
+mongoose.connect(MONGODB_URI)
+        .then(() => {
+            app.listen(PORT, () => {
+                console.log(`Server is running on port ${PORT}`);
+            });
+        })
+        .catch((error) => {
+            console.error("Error connecting to MongoDB:", error.message);
+        });
