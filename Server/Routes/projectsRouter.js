@@ -1,15 +1,16 @@
 import express from 'express';
+import { getProjects, addProject, updateProject, deleteProject } from '../Controllers/projects.js';
 
 
 const projectsRouter = express.Router();
 
 // Define your projects routes here
-projectsRouter.get("/", getProjectsPage);
+projectsRouter.get("/", getProjects);
 
-projectsRouter.post("/", postProjectsPage);
+projectsRouter.post("/", addProject);
 
-projectsRouter.patch("/:id", updateProjectsPage);
+projectsRouter.patch("/:id", updateProject);
 
-projectsRouter.delete("/:id", deleteProjectsPage);
+projectsRouter.delete("/:id", deleteProject);
 
 export default projectsRouter;

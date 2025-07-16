@@ -1,15 +1,24 @@
 import express from 'express';
-
+import { getAdminContact, updateAdminContact, addSocialLink, deleteSocialLink,
+         getClientMessages, addClientMessage, deleteClientMessage } from '../Controllers/contacts.js';
 
 const contactRouter = express.Router();
 
-// Define your contact routes here
-contactRouter.get("/", getContactPage);
 
-contactRouter.post("/", postContactPage);
+// Admin contact
+contactRouter.get('/admin', getAdminContact);
 
-contactRouter.patch("/:id", updateContactPage);
+contactRouter.patch('/admin', updateAdminContact);
 
-contactRouter.delete("/:id", deleteContactPage);
+contactRouter.post('/admin/social', addSocialLink);
+
+contactRouter.delete('/admin/social/:id', deleteSocialLink);
+
+// Client messages
+contactRouter.get('/client', getClientMessages);
+
+contactRouter.post('/client', addClientMessage);
+
+contactRouter.delete('/client/:id', deleteClientMessage);
 
 export default contactRouter;

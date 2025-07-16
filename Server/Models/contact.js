@@ -9,6 +9,10 @@ const socialLinksSchema = new mongoose.Schema({
                 type: String,
                 required: true,
         },
+        url: {
+                type: String,
+                required: true,
+        },
 });
 
 const adminContactSchema = new mongoose.Schema({
@@ -47,12 +51,9 @@ const clientContactSchema = new mongoose.Schema({
                 type: String,
                 required: true,
         },
-});
+}, { timestamps: true });
 
-const contactSchema = new mongoose.Schema({
-        adminContact: {type: adminContactSchema, required: true},
-        clientContact: {type: clientContactSchema, required: true},       
-})
 
-const ContactModel = mongoose.model('Contact', contactSchema);
-export default ContactModel;
+const AdminContactModel = mongoose.model('AdminContact', adminContactSchema);
+const ClientContactModel = mongoose.model('ClientContact', clientContactSchema);
+export { AdminContactModel, ClientContactModel };

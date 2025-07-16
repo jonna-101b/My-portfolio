@@ -37,8 +37,8 @@ const projectSchema = new mongoose.Schema({
         githubLink: {
                 type: String,
                 required: true,
-        }
-});
+        },
+}, { timestamps: true });
 
 
 const ProjectModel = mongoose.model('Project', projectSchema);

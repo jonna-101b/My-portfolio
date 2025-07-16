@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const homeSchema = new mongoose.Schema({
-        logoImage: {
+        logoURL: {
                 type: String,
                 required: true,
         },

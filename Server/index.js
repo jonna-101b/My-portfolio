@@ -25,13 +25,13 @@ app.use(express.json());
 
 
 // Routes
-app.use("api/home", homeRouter);
-app.use("api/about", aboutRouter);
-app.use("api/skills", skillsRouter);
-app.use("api/projects", projectsRouter);
-app.use("api/testimonials", testimonialsRouter);
-app.use("api/articles", articlesRouter);
-app.use("api/contact", contactRouter);
+app.use("/api/home", homeRouter);
+app.use("/api/about", aboutRouter);
+app.use("/api/skills", skillsRouter);
+app.use("/api/projects", projectsRouter);
+app.use("/api/testimonials", testimonialsRouter);
+app.use("/api/articles", articlesRouter);
+app.use("/api/contact", contactRouter);
 
 
 // Server listening

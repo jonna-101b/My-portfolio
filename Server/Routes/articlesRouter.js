@@ -1,15 +1,16 @@
 import express from 'express';
+import { getArticles, addArticle, updateArticle,  deleteArticle } from "../Controllers/articles.js";
 
 
 const articlesRouter = express.Router();
 
 // Define your articles routes here
-articlesRouter.get("/", getArticlesPage);
+articlesRouter.get("/", getArticles);
 
-articlesRouter.post("/", postArticlesPage);
+articlesRouter.post("/", addArticle);
 
-articlesRouter.patch("/:id", updateArticlesPage);
+articlesRouter.patch("/:id", updateArticle);
 
-articlesRouter.delete("/:id", deleteArticlesPage);
+articlesRouter.delete("/:id", deleteArticle);
 
 export default articlesRouter;

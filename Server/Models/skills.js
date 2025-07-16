@@ -20,11 +20,6 @@ const conceptualSkillsSchema = new mongoose.Schema({
         description: { type: String, required: true },
 });
 
-const skillsSchema = new mongoose.Schema({
-        technicalSkills: {type: [technicalSkillsSchema], required: true},
-        conceptualSkills: {type: [conceptualSkillsSchema], required: true},
-});
-
-
-const skillsModel = mongoose.model('Skills', skillsSchema);
-export default skillsModel;
+const TechnicalSkillsModel = mongoose.model('TechnicalSkills', technicalSkillsSchema);
+const ConceptualSkillsModel = mongoose.model('ConceptualSkills', conceptualSkillsSchema);
+export { TechnicalSkillsModel, ConceptualSkillsModel };

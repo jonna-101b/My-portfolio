@@ -1,15 +1,12 @@
 import express from 'express';
+import { getHomePage, updateHomePage } from '../Controllers/home.js';
 
 
 const homeRouter = express.Router();
 
-// Define your home routes here
+// Defining the home routers
 homeRouter.get("/", getHomePage);
 
-homeRouter.post("/", postHomePage);
-
-homeRouter.patch("/:id", updateHomePage);
-
-homeRouter.delete("/:id", deleteHomePage);
+homeRouter.patch("/", updateHomePage);
 
 export default homeRouter;

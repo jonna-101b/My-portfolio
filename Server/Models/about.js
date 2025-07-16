@@ -59,13 +59,14 @@ const aboutSchema = new mongoose.Schema({
                 type: String,
                 required: true,
         },
-        educationAndExperianceMessage: {
+        educationAndExperienceMessage: {
                 type: String,
                 required: true,
         },
-        education: { type: educationSchema, required: true },
-        experience: { type: experienceSchema, required: true },
 });
 
+
+const EducationModel = mongoose.model('Education', educationSchema);
+const ExperienceModel =mongoose.model('Experience', experienceSchema);
 const AboutModel = mongoose.model('About', aboutSchema);
-export default AboutModel;
+export { AboutModel, EducationModel, ExperienceModel };
