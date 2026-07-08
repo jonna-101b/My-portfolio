@@ -21,6 +21,25 @@ const addTechnicalSkill = async (req, res) => {
     }
 };
 
+const updateTechnicalSkill = async (req, res) => {
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such skill' });
+    }
+
+    try {
+        const skill = await TechnicalSkillsModel.findByIdAndUpdate(id, { ...req.body }, { new: true });
+        if (skill) {
+            res.status(200).json(skill);
+        } else {
+            res.status(404).json({ error: 'No such skill' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const deleteTechnicalSkill = async (req, res) => {
     const id = req.params.id;
 
@@ -42,7 +61,7 @@ const deleteTechnicalSkill = async (req, res) => {
 
 const addTech = async (req, res) => {
         try {
-                const { id, name, icon } = req.body;
+                const id = req.params.id;
                 
                 if (!mongoose.Types.ObjectId.isValid(id)) {
                         return res.status(404).json({ error: 'No such skill' });
@@ -54,7 +73,7 @@ const addTech = async (req, res) => {
                         return res.status(404).json({ error: 'No such tech!' });
                 }
 
-                skill.techStack.push({ name, icon });
+                skill.techStack.push({ ...req.body });
                 await skill.save();
                 res.status(201).json(skill);
         }
@@ -67,21 +86,23 @@ const addTech = async (req, res) => {
 const deleteTech = async (req, res) => {
         try {
                 const { id, techId } = req.params;
-                if (!mongoose.Types.ObjectId.isValid(id)) {
+                if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(techId)) {
                         return res.status(404).json({ error: 'No such skill' });
                 }
         
                 const skill = await TechnicalSkillsModel.findById(id);
 
                 if (!skill) {
-                        return res.status(404).json({ error: 'No such skill' });
+                    return res.status(404).json({ error: 'No such skill' });
                 }
+                
+                const skillTech = skill.techStack.id(techId);
 
-                const skillTech = skill.techStack.id(techId).remove();
                 if (!skillTech) {
                         return res.status(404).json({ error: "No such tech!" })
                 }
 
+                skill.skillTech.pull();
                 await skill.save();
                 res.status(200).json(skill);
 
@@ -130,4 +151,4 @@ const deleteConceptualSkill = async (req, res) => {
     }
 };
 
-export { getTechnicalSkills, addTechnicalSkill, deleteTechnicalSkill, addTech, deleteTech, getConceptualSkills, addConceptualSkill, deleteConceptualSkill };
+export { getTechnicalSkills, addTechnicalSkill, updateTechnicalSkill, deleteTechnicalSkill, addTech, deleteTech, getConceptualSkills, addConceptualSkill, deleteConceptualSkill };

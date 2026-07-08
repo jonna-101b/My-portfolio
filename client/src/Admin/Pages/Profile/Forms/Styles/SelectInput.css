@@ -1,0 +1,147 @@
+.admin .profile .info .select-input {
+        display: grid;
+        grid-template-columns: 15% 1fr 15%;
+        padding-bottom: 1vh;
+        position: relative;
+}
+
+.admin .profile .info .select-input .label {
+        place-self: center start;
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #888888;
+        width: fit-content;
+}
+
+.admin .profile .info .select-input .value {
+        display: flex;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        padding: 1.5vh;
+}
+
+.admin .profile .info .select-input .value input {
+        flex-grow: 1;
+        font-size: 0.875rem;
+        color: #ededed;
+        text-align: center;
+        background-color: #0b0d0e;
+        border: none;
+        outline: none;
+        padding-left: 2vh;
+        transition: color 0.15s linear;
+}
+
+.admin .profile .info .select-input .value input:disabled {
+        color: #888888;
+}
+
+.admin .profile .info .select-input .edit-button {
+        place-self: center end;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border-radius: 2vh;
+        width: fit-content;
+        height: fit-content;
+        padding: 0.5vh 2.5vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear;
+}
+
+.admin .profile .info .select-input .edit-button:focus,
+.admin .profile .info .select-input .edit-button:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.admin .profile .info .select-input .edit-button.cancel {
+        color: #ff4500;
+        background-color: rgba(255, 68, 0, 0.1);
+}
+
+.admin .profile .info .select-input .edit-button.cancel:focus,
+.admin .profile .info .select-input .edit-button.cancel:hover {
+        background-color: rgba(255, 68, 0, 0.25);
+}
+
+.admin .profile .info .select-input .edit-button .icon {
+        display: grid;
+        place-content: center;
+        position: relative;
+}
+
+.admin .profile .info .select-input .edit-button .icon img {
+        width: 2vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .profile .info .select-input .edit-button .icon .hover {
+        position: absolute;
+        place-self: center;
+        opacity: 0;
+}
+
+.admin .profile .info .select-input .focused .icon .hover,
+.admin .profile .info .select-input .focused .icon .hover {
+        opacity: 1;
+}
+
+.admin .profile .info .select-input .new-select {
+        display: grid;
+        gap: 1vh;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        box-shadow: 0 0 1vh #0b0d0e;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        width: 10vw;
+        padding: 1vh;
+        z-index: 2;
+}
+
+.admin .profile .info .select-input .new-select .option {
+        display: flex;
+        align-items: center;
+        gap: 1.5vh;
+        font-size: 0.875rem;
+        color: #888888;
+        border-radius: 2vh;
+        padding: 0.75vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .profile .info .select-input .new-select .option:focus,
+.admin .profile .info .select-input .new-select .option:hover {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+}
+
+.admin .profile .info .select-input .new-select .option.focused {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.admin .profile .info .select-input .new-select .option.focused:focus,
+.admin .profile .info .select-input .new-select .option.focused:hover {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.admin .profile .info .select-input .new-select .option.focused span {
+        display: grid;
+        place-content: center;
+        background-color: #ededed;
+        border-radius: 50%;
+        width: 1.5vh;
+        height: 1.5vh;
+}

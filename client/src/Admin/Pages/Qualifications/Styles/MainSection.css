@@ -1,0 +1,205 @@
+.admin .qualifications .main-section {
+        display: grid;
+        gap: 2vh;
+        margin: 0;
+        padding: 0;
+}
+
+.admin .qualifications .main-section img {
+        width: 2vh;
+}
+
+.admin .qualifications .main-section .labels {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+}
+
+.admin .qualifications .main-section .labels p {
+        display: flex;
+        justify-content: center;
+        font-size: 0.875rem;
+        color: #888888;
+}
+
+.admin .qualifications .main-section .list {
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .qualifications .main-section .list .qualification-layout {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        border-radius: 2vh;
+        padding-block: 2vh;
+        transition: background-color 0.15s linear;
+}
+
+.admin .qualifications .main-section .list .qualification-layout p,
+.admin .qualifications .main-section .list .qualification-layout div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 0.875rem;
+        color: #888888;
+}
+
+.admin .qualifications .main-section .list .qualification-layout:nth-child(odd) {
+        background-color: #202020;
+        border: 1px solid #333333;
+}
+
+.admin .qualifications .main-section .list .qualification-layout:focus, 
+.admin .qualifications .main-section .list .qualification-layout:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .qualifications .main-section .list .qualification-layout .actions {
+        display: flex;
+        justify-content: center;
+        gap: 2vh;
+}
+
+.admin .qualifications .main-section .list .qualification-layout .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .qualifications .main-section .list .qualification-layout .actions p:focus, 
+.admin .qualifications .main-section .list .qualification-layout .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .qualifications .main-section .list .qualification-layout .actions p:focus .hover, 
+.admin .qualifications .main-section .list .qualification-layout .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .qualifications .main-section .list .qualification-layout .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .qualifications .main-section .list .qualification-layout .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .qualifications .main-section .list .qualification-layout .shadow {
+        display: none;
+}
+
+.admin .qualifications .main-section .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4vh;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 2vh;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 4vh;
+        transition: background-color 0.15s linear;
+        overflow: hidden;
+        position: relative;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout p,
+.admin .qualifications .main-section .grid .qualification-layout div {
+        display: grid;
+        place-content: center start;
+        font-size: 0.875rem;
+        color: #888888;
+        z-index: 1;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .discipline {
+        grid-column: span 2;
+        font-size: 1rem;
+        color: #ededed;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .type {
+        grid-column: span 2;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .organization {
+        grid-column: span 2;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .organization span {
+        display: inline-block;
+        font-size: 0.75rem;
+        background-color: #0b0d0e;
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .duration {
+        font-size: 0.75rem;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout:focus, 
+.admin .qualifications .main-section .grid .qualification-layout:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .actions {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 0.25vh;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .actions p:focus, 
+.admin .qualifications .main-section .grid .qualification-layout .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .actions p:focus .hover, 
+.admin .qualifications .main-section .grid .qualification-layout .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+
+.admin .qualifications .main-section .grid .qualification-layout .shadow {
+        position: absolute;
+        right: -8vh;
+        top: -8vh;
+        z-index: 0;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .shadow img {
+        width: 32vh;
+}

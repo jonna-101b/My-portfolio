@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 
+const descriptionSchema = new mongoose.Schema({
+        brief: { type: String, required: true },
+        detailed: { type: String, required: true },
+});
 
 const techSchema = new mongoose.Schema({
         name: { type: String, required: true },
@@ -11,20 +15,20 @@ const projectSchema = new mongoose.Schema({
                 type: String,
                 required: true,
         },
-        concept: {
-                type: String,
+        domains: {
+                type: [String],
                 required: true,
         }, 
         description: {
-                type: String,
+                type: descriptionSchema,
                 required: true,
         },
         image: {
                 type: String,
                 required: true,
         },
-        functions: {
-                type: String
+        features: {
+                type: [String]
         },
         techStack: {
                 type: [techSchema],
@@ -35,6 +39,10 @@ const projectSchema = new mongoose.Schema({
                 required: true,
         },
         githubLink: {
+                type: String,
+                required: true,
+        },
+        contribution: {
                 type: String,
                 required: true,
         },

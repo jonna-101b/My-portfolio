@@ -9,24 +9,21 @@ const testimonialsSchema = new mongoose.Schema({
                 type: String,
                 required: true,
         },
-        image: {
+        picture: {
                 type: String,
         },
-        testimonial: {
+        testimony: {
                 type: String,
                 required: true,
         },
         company: {
                 type: String,
         },
-        companyLink: {
+        email: {
                 type: String,
+                required: true,
         },
-        date: {
-                type: Date,
-                default: Date.now,
-        },
-});
+}, { timestamps: true });
 
 const TestimonialsModel = mongoose.model('Testimonials', testimonialsSchema);
 export default TestimonialsModel;

@@ -1,0 +1,19 @@
+.contact-info {
+        width: 65%;
+}
+
+.contact-info .title {
+        font-size: 1.5rem;
+        color: #ededed;
+        font-weight: 600;
+        padding-block: 2vh;
+}
+
+.contact-info .info {
+        display: grid;
+        gap: 1vh;
+}
+
+.contact-info .info .input {
+        border-bottom: 1px solid #333333;
+}

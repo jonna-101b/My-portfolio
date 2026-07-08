@@ -1,0 +1,84 @@
+.admin .edit.active .wrapper form .text-input {
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .edit.active .wrapper form .text-input .label {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ededed;
+        width: fit-content;
+}
+
+.admin .edit.active .wrapper form .text-input .label .edited {
+        display: grid;
+        place-content: center;
+        background-color: #c6ff00;
+        border-radius: 2vh;
+        width: 1.25vh;
+        height: 1.25vh;
+}
+
+.admin .edit.active .wrapper form .text-input .value {
+        display: flex;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        padding: 1.5vh;
+}
+
+.admin .edit.active .wrapper form .text-input .value input {
+        flex-grow: 1;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: #0b0d0e;
+        border: none;
+        outline: none;
+        padding-left: 2vh;
+        transition: color 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .text-input .value input:disabled {
+        color: #888888;
+}
+
+.admin .edit.active .wrapper form .text-input .value .edit-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border-radius: 2vh;
+        padding: 0.5vh 2.5vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .text-input .value .edit-button:focus,
+.admin .edit.active .wrapper form .text-input .value .edit-button:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.admin .edit.active .wrapper form .text-input .value .focused {
+        color: #c6ff00;
+        background-color: rgba(198, 255, 0, 0.1);
+}
+
+.admin .edit.active .wrapper form .text-input .value .focused:focus,
+.admin .edit.active .wrapper form .text-input .value .focused:hover {
+        background-color: rgba(198, 255, 0, 0.25);
+}
+
+.admin .edit.active .wrapper form .text-input .value .edit-button .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .edit.active .wrapper form .text-input .value .edit-button .icon img {
+        width: 2vh;
+}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTechnicalSkills, addTechnicalSkill, deleteTechnicalSkill, addTech, deleteTech, getConceptualSkills, addConceptualSkill, deleteConceptualSkill} from '../Controllers/skills.js';
+import { getTechnicalSkills, addTechnicalSkill, updateTechnicalSkill, deleteTechnicalSkill, addTech, deleteTech, getConceptualSkills, addConceptualSkill, deleteConceptualSkill} from '../Controllers/skills.js';
 
 const skillsRouter = express.Router();
 
@@ -9,11 +9,13 @@ skillsRouter.get("/technical", getTechnicalSkills);
 
 skillsRouter.post("/technical", addTechnicalSkill);
 
+skillsRouter.patch("/technical/:id", updateTechnicalSkill);
+
 skillsRouter.delete("/technical/:id", deleteTechnicalSkill);
 
-skillsRouter.post("/technical/tech", addTech);
+skillsRouter.post("/technical/:id/tech", addTech);
 
-skillsRouter.delete("/technical/:id/tech/:id", deleteTech);
+skillsRouter.delete("/technical/:id/tech/:techId", deleteTech);
 
 
 // Conceptual skills controller functions

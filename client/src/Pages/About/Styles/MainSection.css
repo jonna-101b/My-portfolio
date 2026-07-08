@@ -1,0 +1,74 @@
+.about .main-section {
+        place-self: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10vh;
+        width: 75%;
+        margin-block: 17.5vh;
+        border-radius: 2vh;
+}
+
+.about .main-section .picture {
+        display: grid;
+        place-content: center;
+        gap: 4vh;
+        background-color: #ededed;
+        box-shadow: 0 0 1rem #000;
+        padding: 4vh;
+        width: fit-content;
+        transform: rotate(-2.5deg);
+        position: relative;
+}
+
+.about .main-section .picture .tape {
+        display: grid;
+        place-content: center;
+        position: absolute;
+        place-self: start center;
+        width: fit-content;
+        transform: translateY(-60%);
+}
+
+.about .main-section .picture .tape img {
+        width: 15vh;
+        height: 15vh;
+}
+
+.about .main-section .picture .profile-picture {
+        display: grid;
+        place-content: center;
+        width: 100%;
+}
+
+.about .main-section .picture .profile-picture img {
+        width: 20vw;
+}
+
+.about .main-section .picture .name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #0b0d0e;
+}
+
+.about .main-section .description {
+        display: grid;
+        gap: 2vh;
+}
+
+.about .main-section .description .intro {
+        display: inline-block;
+        font-size: 2.25rem;
+        font-weight: 700;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        padding: 0.25vh;
+}
+
+.about .main-section .description .details {
+        font-size: 0.875rem;
+        color: #888888;
+        text-align: justify;
+}

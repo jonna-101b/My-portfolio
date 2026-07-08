@@ -1,0 +1,11 @@
+.more-info {
+        display: grid;
+        gap: 4vh;
+        width: 65%;
+}
+
+.more-info .title {
+        font-size: 1.5rem;
+        color: #ededed;
+        font-weight: 600;
+}

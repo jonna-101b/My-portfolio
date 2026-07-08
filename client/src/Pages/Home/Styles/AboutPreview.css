@@ -1,0 +1,141 @@
+.about-preview {
+        display: grid;
+        place-content: center;
+        gap: 4vh;
+        margin: 17.5vh 0;
+}
+
+.about-preview .title {
+        display: grid;
+        place-content: center;
+}
+
+.about-preview .title p {
+        font-family: 'Poppins', Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color: #888888;
+}
+
+.about-preview .intro-text {
+        display: grid;
+        place-content: center;
+}
+
+.about-preview .intro-text p {
+        display: inline-block;
+        font-size: 2.25rem;
+        font-weight: 700;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        padding: 0.25vh;
+}
+
+.about-preview .main-content {
+        place-self: center;
+        display: grid;
+        gap: 2vh;
+        background: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        width: 70%;
+        position: relative;
+}
+
+.about-preview .main-content .top {
+        display: flex;
+        align-items: center;
+        gap: 3vh;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ededed;
+        background-color: rgba(11, 13, 14, 0.5);
+        border-radius: 2vh 2vh 0 0;
+        padding: 4vh 8vh;
+        z-index: 1;
+        position: relative;
+}
+
+.about-preview .main-content .top .profile-picture {
+        display: grid;
+        place-content: center;
+        background-color: #202020;
+        border: 1.25vh solid #202020;
+        border-radius: 50%;
+        width: fit-content;
+}
+
+.about-preview .main-content .top .profile-picture img {
+        border-radius: 50%;
+        width: 20vh;
+}
+
+.about-preview .main-content .top .right {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+}
+
+.about-preview .main-content .top .right .availability {
+        display: grid;
+        place-content: center;
+        font-size: 0.875rem;
+        font-weight: normal;
+        color: #c6ff00;
+        background-color: rgba(200, 255, 0, 0.1);
+        border-radius: 10vh;
+        flex: 0 0 50%;
+        padding: 0.5vh 3vh;
+}
+
+.about-preview .main-content .top .shadow {
+        display: grid;
+        place-content: center;
+        position: absolute;
+        right: 8vh;
+        bottom: -1vh;
+}
+
+.about-preview .main-content .top .shadow img {
+        width: 28vh;
+}
+
+.about-preview .main-content .description {
+        font-size: 0.9375rem;
+        color: #888888;
+        line-height: 1.75;
+        padding: 8vh;
+        padding-top: 0;
+}
+
+.about-preview .more {
+        display: grid;
+        place-content: center;
+}
+
+.about-preview .more .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #0b0d0e;
+        text-decoration: none;
+        background-color: #ededed;
+        border-radius: 10vh;
+        padding: 0.75vh 3.5vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear;
+}
+
+.about-preview .more .button:focus,
+.about-preview .more .button:hover {
+        background-color: #c6ff00;
+}
+
+.about-preview .more .button img {
+        height: 2vh;
+}

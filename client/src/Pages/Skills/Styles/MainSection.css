@@ -1,0 +1,139 @@
+.skills .main-section {
+        display: grid;
+        gap: 10vh;
+        width: 100%;
+        padding-inline: 10vh;
+}
+
+.skills .main-section .technical-skills {
+        display: grid;
+        gap: 5vh;
+}
+
+.skills .main-section .technical-skills .skills {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2vh;
+}
+
+.skills .main-section .technical-skills .skills p {
+        font-size: 0.875rem;
+        color: #888888;
+        border-radius: 10vh;
+        padding: 0.5vh 3vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear, color 0.15s linear;
+}
+
+.skills .main-section .technical-skills .skills p:focus,
+.skills .main-section .technical-skills .skills p:hover {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.skills .main-section .technical-skills .skills .focused {
+        font-weight: 700;
+        color: #0b0d0e;
+        background-color: #ededed;
+}
+
+.skills .main-section .technical-skills .skills .focused:focus, 
+.skills .main-section .technical-skills .skills .focused:hover {
+        color: #0b0d0e;
+        background-color: #ededed;
+}
+
+.skills .main-section .technical-skills .tech-stack {
+        display: flex;
+        justify-content: center;
+        gap: 4vh;
+}
+
+.skills .main-section .technical-skills .tech-stack .tech {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2vh;
+        background-color: rgb(32, 32, 32, 0.6);
+        border-radius: 2vh;
+        width: 25vh;
+        height: 23vh;
+        padding: 2vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear;
+}
+
+.skills .main-section .technical-skills .tech-stack .tech:focus,
+.skills .main-section .technical-skills .tech-stack .tech:hover {
+        background-color: #202020;
+}
+
+.skills .main-section .technical-skills .tech-stack .tech:focus .name,
+.skills .main-section .technical-skills .tech-stack .tech:hover .name {
+        color: #ededed;
+}
+
+.skills .main-section .technical-skills .tech-stack .tech .icon {
+        display: grid;
+        place-content: center;
+        /* width: 100%; */
+}
+
+.skills .main-section .technical-skills .tech-stack .tech .icon img {
+        width: 12.5vh;
+}
+
+.skills .main-section .technical-skills .tech-stack .tech .name {
+        font-size: 0.875rem;
+        color: #888888;
+        transition: color 0.15s linear;
+}
+
+.skills .main-section .conceptual-skills .skills {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4vh;
+}
+
+.skills .main-section .conceptual-skills .skills .skill {
+        display: grid;
+        gap: 4vh;
+        border-radius: 2vh;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        padding: 4vh;
+        cursor: pointer;
+}
+
+.skills .main-section .conceptual-skills .skills .skill:focus .content .title, 
+.skills .main-section .conceptual-skills .skills .skill:hover .content .title {
+        transform: scale(1.05);
+}
+
+.skills .main-section .conceptual-skills .skills .skill .content {
+        display: flex;
+        align-items: center;
+        gap: 3vh;
+}
+
+.skills .main-section .conceptual-skills .skills .skill .content .icon {
+        display: grid;
+        place-content: center;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        width: 7vh;
+        height: 7vh;
+}
+
+.skills .main-section .conceptual-skills .skills .skill .content .title {
+        display: grid;
+        place-content: center;
+        font-weight: 700;
+        color: #0b0d0e;
+        transition: transform 0.15s linear;
+}
+
+.skills .main-section .conceptual-skills .skills .skill .description {
+        font-size: 0.875rem;
+        color: #0b0d0e;
+}

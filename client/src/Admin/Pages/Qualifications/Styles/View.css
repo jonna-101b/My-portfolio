@@ -1,0 +1,126 @@
+.admin .qualifications .view {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s linear;
+}
+
+.admin .qualifications .active {
+        display: grid;
+        place-content: center;
+        opacity: 1;
+        z-index: 2;
+        background: rgba(11, 13, 14, 0.5); /* translucent background */
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px); /* for Safari */
+}
+
+.admin .qualifications .active .wrapper {
+        place-self: center;
+        display: grid;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        box-shadow: 0 0 5rem #000;
+        width: 50%;
+        max-height: 80vh;
+        padding: 6vh 6vh;
+        padding-right: 1vh;
+}
+
+.admin .qualifications .active .wrapper .container {
+        display: grid;
+        gap: 4vh;
+        font-size: 0.875rem;
+        padding-right: 5vh;
+        overflow: auto;
+        position: relative;
+}
+
+/* Scrollbar track */
+.admin .qualifications .active .wrapper .container::-webkit-scrollbar {
+        width: 9px; /* Vertical scrollbar width */
+        /* height: 12px; Horizontal scrollbar height */
+}
+
+/* Scrollbar track background */
+.admin .qualifications .active .wrapper .container::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+/* Scrollbar thumb (the draggable part) */
+.admin .qualifications .active .wrapper .container::-webkit-scrollbar-thumb {
+        width: 10px;
+        background: #131313;
+        border-radius: 6px;
+}
+
+/* Hover effect */
+.admin .qualifications .active .wrapper .container::-webkit-scrollbar-thumb:hover {
+        background: #0b0d0e;
+}
+
+.admin .qualifications .active .wrapper .container .info {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 2vh;
+}
+
+.admin .qualifications .active .wrapper .container .info .details {
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .qualifications .active .wrapper .container .info .details .discipline {
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #ededed;
+}
+
+.admin .qualifications .active .wrapper .container .info .details .discipline .type {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 10vh;
+        height: fit-content;
+        padding: 0.25vh 2vh;
+}
+
+.admin .qualifications .active .wrapper .container .info .details .organization {
+        font-size: 0.875rem;
+        color: #888888;
+}
+
+.admin .qualifications .active .wrapper .container .info .duration {
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.15);
+        border: none;
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+}
+
+.admin .qualifications .active .wrapper .container .description {
+        color: #888888;
+}
+
+.admin .qualifications .active .wrapper .container .active {
+        place-self: center start;
+        display: grid;
+        place-content: center;
+        color: #c6ff00;
+        background-color: rgba(200, 255, 0, 0.1);
+        border-radius: 10vh;
+        width: fit-content;
+        padding: 0.5vh 3vh;
+}

@@ -1,0 +1,359 @@
+.projects-preview {
+        display: grid;
+        gap: 5vh;
+        margin: 17.5vh 0;
+}
+
+.projects-preview .title {
+        display: grid;
+        place-content: center;
+}
+
+.projects-preview .title p {
+        font-family: 'Poppins', Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color: #888888;
+}
+
+.projects-preview .projects-message {
+        display: grid;
+        place-content: center;
+}
+
+.projects-preview .projects-message p {
+        display: inline-block;
+        font-size: 2.25rem;
+        font-weight: 700;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        padding: 0.25vh;
+}
+
+.projects-preview .projects {
+        place-self: center;
+        display: grid;
+        width: calc(87.5vw + 2rem);
+        overflow-x: hidden;
+}
+
+.projects-preview .projects .wrapper {
+        display: flex;
+        gap: 2.5vw;
+        padding: 1rem;
+        transition: transform 0.3s linear;
+}
+
+.projects-preview .projects .project {
+        flex: 0 0 27.5vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        box-shadow: 0 0 1rem #000;
+        width: 27.5vw;
+        transition: background-color 0.15s linear;
+        overflow:hidden;
+        position: relative;
+}
+
+.projects-preview .projects .project:focus,
+.projects-preview .projects .project:hover {
+        background-color: rgba(32, 32, 32, 0.75);
+}
+
+.projects-preview .projects .project:focus .image .main,
+.projects-preview .projects .project:hover .image .main {
+        transform: scale(1.01);
+}
+
+.projects-preview .projects .project .image {
+        display: grid;
+        place-content: center;
+        background-color: #0b0d0e;
+        width: 100%;
+        height: fit-content;
+        aspect-ratio: 16 / 9;
+        position: relative;
+}
+
+.projects-preview .projects .project .image .contribution {
+        display: grid;
+        place-content: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #ededed;
+        background-color: #202020;
+        border-radius: 10vh;
+        position: absolute;
+        left: 2vh;
+        bottom: 2vh;
+        padding: 0.5vh 3vh;
+}
+
+.projects-preview .projects .project .image .detail {
+        display: grid;
+        place-content: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #ededed;
+        text-decoration: none;
+        background-color: #202020;
+        border-radius: 50%;
+        position: absolute;
+        right: 2vh;
+        bottom: 2vh;
+        width: 5vh;
+        height: 5vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear;
+}
+
+.projects-preview .projects .project .image .detail:focus,
+.projects-preview .projects .project .image .detail:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.projects-preview .projects .project .image .detail img {
+        width: 2.25vh;
+}
+
+.projects-preview .projects .project .image img {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease-out;
+}
+
+.projects-preview .projects .project .project-title {
+        font-size: 0.9375rem;
+        font-weight: bold;
+        padding-inline: 4vh;
+}
+
+.projects-preview .projects .project .domains {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 2vh;
+        padding-inline: 4vh;
+}
+
+.projects-preview .projects .project .domains p {
+        display: grid;
+        place-content: center;
+        font-size: 0.75rem;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+}
+
+.projects-preview .projects .project .description {
+        color: #888888;
+        padding-inline: 4vh;
+}
+
+.projects-preview .projects .project .techs {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75vh;
+        margin: 2vh 0;
+        cursor: pointer;
+        padding-inline: 4vh;
+}
+
+.projects-preview .projects .project .techs .tech {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border: 3px solid #202020;
+        border-radius: 10vh;
+        width: 6vh;
+        height: 6vh;
+}
+
+.projects-preview .projects .project .techs .tech img {
+        width: 2.5vh;
+}
+
+.projects-preview .projects .project .techs .more-techs {
+        display: grid;
+        place-content: center;
+        font-size: 0.75rem;
+        font-weight: bolder;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border: 3px solid #202020;
+        border-radius: 50%;
+        width: 6vh;
+        height: 6vh;
+        transform: translateX(-10vh);
+}
+
+.projects-preview .projects .project .hidden-techs {
+        display: none;
+}
+
+.projects-preview .projects .project .links {
+        display: flex;
+        gap: 2vh;
+        padding-inline: 4vh;
+        margin-bottom: 4vh;
+}
+
+.projects-preview .projects .project .links a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5vh;
+        font-weight: bold;
+        color: #0b0d0e;
+        text-decoration: none;
+        background-color: #ededed;
+        border: none;
+        border-radius: 2vh;
+        width: 100%;
+        padding: 1vh 0;
+        transition: background-color 0.15s linear;
+}
+
+.projects-preview .projects .project .links a img {
+        height: 2.5vh;
+}
+
+.projects-preview .projects .project .links a:focus,
+.projects-preview .projects .project .links a:hover {
+        background-color: #c6ff00;
+}
+
+.projects-preview .projects .project .links .github-link {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        transition: background-color 0.15s linear;
+}
+
+.projects-preview .projects .project .links .github-link:focus,
+.projects-preview .projects .project .links .github-link:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.projects-preview .pagination {
+        place-self: center;
+        display: flex;
+        align-items: center;
+        gap: 8vh;
+        width: fit-content;
+}
+
+.projects-preview .pagination .slide {
+        display: grid;
+        place-content: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border: none;
+        border-radius: 2vh;
+        padding: 0.75vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.projects-preview .pagination .slide:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+}
+
+.projects-preview .pagination .slide:focus,
+.projects-preview .pagination .slide:hover {
+        background-color: #c6ff00;
+}
+
+.projects-preview .pagination .slide:disabled:focus,
+.projects-preview .pagination .slide:disabled:hover {
+        background-color: #ededed;
+}
+
+.projects-preview .pagination .indices {
+        display: grid;
+        width: 40vh;
+        overflow-x: hidden;
+}
+
+.projects-preview .pagination .indices .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vh;
+        transition: transform 0.3s linear;
+}
+
+.projects-preview .pagination .indices .wrapper p {
+        display: grid;
+        place-content: center;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border-radius: 1vh;
+        width: 5vh;
+        height: 5vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+        cursor: pointer;
+}
+
+.projects-preview .pagination .indices .wrapper .focused {
+        color: #c6ff00;
+        background-color: rgba(200, 255, 0, 0.2);
+}
+
+.projects-preview .pagination .indices .wrapper p:focus,
+.projects-preview .pagination .indices .wrapper p:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.projects-preview .pagination .indices .wrapper .focused:focus,
+.projects-preview .pagination .indices .wrapper .focused:hover {
+        background-color: rgba(200, 255, 0, 0.2);
+}
+
+.projects-preview .more {
+        display: grid;
+        place-content: center;
+}
+
+.projects-preview .more .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #0b0d0e;
+        text-decoration: none;
+        background-color: #ededed;
+        border-radius: 10vh;
+        padding: 0.75vh 3.5vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear;
+}
+
+.projects-preview .more .button:focus,
+.projects-preview .more .button:hover {
+        background-color: #c6ff00;
+}
+
+.projects-preview .more .button img {
+        height: 2vh;
+}

@@ -1,0 +1,260 @@
+.side-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4vh;
+        background-color: #202020;
+        border-right: 1px solid #333333;
+        max-width: fit-content;
+        position: relative;
+        transition: width 0.5s linear;
+}
+
+.side-bar.expanded {
+        padding: 4vh 3vh;
+}
+
+.side-bar.collapsed {
+        padding: 4vh 1vh;
+}
+
+.side-bar .top {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        width: 100%;
+        position: relative;
+}
+
+.side-ba.expanded .top {
+        justify-content: space-between;
+        align-items: center;
+}
+
+.side-bar.collapsed .top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+
+.side-bar.side-bar.collapsed .top .logo {
+        display: none;
+}
+
+.side-bar.expanded .top .logo {
+        display: grid;
+        place-content: center;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #ededed;
+        max-width: 70%;
+        position: absolute;
+        place-self: center start;
+}
+
+.side-bar.expanded .top .logo img {
+        max-width: inherit;
+}
+
+.side-bar .top .layout {
+        display: grid;
+        place-content: center;
+        border-radius: 2vh;
+        width: 6vh;
+        height: 6vh;
+        position: relative;
+        transition: background-color 0.15s linear;
+}
+
+.side-bar .top .layout:focus, 
+.side-bar .top .layout:hover {
+        background-color: rgba(200, 255, 0, 0.075);
+}
+
+.side-bar .top .layout img {
+        place-self: center;
+        position: absolute;
+        width: 4vh;
+        opacity: 0;
+        transition: opacity 0.15s linear;
+}
+
+.side-bar.expanded .top .layout .main {
+        opacity: 1;
+}
+
+.side-bar.expanded .top .layout:focus .hover, 
+.side-bar.expanded .top .layout:hover .hover {
+        opacity: 1;
+}
+
+.side-bar .profile-bar {
+        align-self: center;
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+        text-decoration: none;
+        background-color: rgba(237, 237, 237, 0.075);
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.side-bar .profile-bar.active {
+        background-color: rgba(237, 237, 237, 0.15);
+}
+
+.side-bar .profile-bar:focus,
+.side-bar .profile-bar:hover {
+        background-color: rgba(237, 237, 237, 0.15);
+}
+
+.side-bar.expanded .profile-bar {
+        border-radius: 2vh;
+        padding: 1vh 3vh;
+}
+
+.side-bar.collapsed .profile-bar {
+        border-radius: 50%;
+        padding: 1vh;
+}
+
+.side-bar.expanded .info {
+        display: block;
+}
+
+.side-bar.collapsed .info {
+        display: none;
+}
+
+.side-bar.expanded .profile-bar .info {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+}
+
+.side-bar.expanded .profile-bar .info .user-name {
+        display: grid;
+        place-content: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #ededed;
+        text-align: start;
+        transition: color 0.15s linear;
+}
+
+.side-bar.expanded .profile-bar .info .title {
+        display: grid;
+        place-content: center;
+        font-size: 0.75rem;
+        color: #888888;
+        text-align: start;
+        transition: color 0.15s linear;
+}
+
+.side-bar .profile-bar .picture {
+        display: grid;
+        place-content: center;
+}
+
+.side-bar .profile-bar .picture img {
+        width: 6vh;
+        border-radius: 50%;
+}
+
+.side-bar nav {
+        display: grid;
+        gap: 1vh;
+}
+
+.side-bar nav .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        border-radius: 2vh;
+        text-decoration: none;
+        transition: background-color 0.15s linear, color 0.15s linear;
+}
+
+.side-bar.expanded nav .nav-link {
+        padding: 1.5vh 3vh;
+}
+
+.side-bar.collapsed nav .nav-link {
+        padding: 1.5vh;
+}
+
+.side-bar nav .nav-link:focus,
+.side-bar nav .nav-link:hover {
+        background-color: rgba(200, 255, 0, 0.05);
+        color: #c6ff00;
+}
+
+.side-bar nav .nav-link:focus .icon .main,
+.side-bar nav .nav-link:hover .icon .main {
+        opacity: 0;
+}
+
+.side-bar nav .nav-link:focus .icon .hover,
+.side-bar nav .nav-link:hover .icon .hover {
+        opacity: 1;
+}
+
+.side-bar nav .focused {
+        background-color: rgba(200, 255, 0, 0.2);
+        color: #c6ff00;
+}
+
+.side-bar nav .focused:focus,
+.side-bar nav .focused:hover {
+        background-color: rgba(200, 255, 0, 0.2);
+        color: #c6ff00;
+}
+
+
+.side-bar nav .focused:focus .icon .hover,
+.side-bar nav .focused:hover .icon .hover {
+        opacity: 0;
+}
+
+.side-bar nav .nav-link .icon {
+        display: grid;
+        place-content: center;
+}
+
+.side-bar nav .nav-link .icon img {
+        place-self: center;
+        width: 2.5vh;
+        transition: opacity 0.15s linear;
+}
+
+.side-bar nav .nav-link .icon .hover, 
+.side-bar nav .nav-link .icon .active {
+        position: absolute;
+        opacity: 0;
+} 
+
+.side-bar nav .focused .icon .active {
+        opacity: 1;
+}
+
+.side-bar nav .focused .icon .main, 
+.side-bar nav .focused .icon .hover {
+        opacity: 0;
+}
+
+.side-bar.collapsed .top .layout .active {
+        opacity: 1;
+}
+
+.side-bar.collapsed .top .layout:focus .active-hover, 
+.side-bar.collapsed .top .layout:hover .active-hover {
+        opacity: 1;
+}
+
+.side-bar.collapsed nav .nav-link .name {
+        display: none;
+}

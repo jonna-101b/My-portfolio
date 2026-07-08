@@ -1,0 +1,99 @@
+.admin .profile .info .text-input {
+        display: grid;
+        grid-template-columns: 15% 1fr 15%;
+        padding-bottom: 1vh;
+}
+
+.admin .profile .info .text-input .label {
+        place-self: center start;
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #888888;
+        width: fit-content;
+}
+
+.admin .profile .info .text-input .label .edited {
+        display: grid;
+        place-content: center;
+        background-color: #c6ff00;
+        border-radius: 2vh;
+        width: 1.25vh;
+        height: 1.25vh;
+}
+
+.admin .profile .info .text-input .value {
+        display: flex;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        padding: 1.5vh;
+}
+
+.admin .profile .info .text-input .value input {
+        flex-grow: 1;
+        font-size: 0.875rem;
+        color: #ededed;
+        text-align: center;
+        background-color: #0b0d0e;
+        border: none;
+        outline: none;
+        padding-left: 2vh;
+        transition: color 0.15s linear;
+}
+
+.admin .profile .info .text-input .value input:disabled {
+        color: #888888;
+}
+
+.admin .profile .info .text-input .edit-button {
+        place-self: center end;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border-radius: 2vh;
+        width: fit-content;
+        height: fit-content;
+        padding: 0.5vh 2.5vh;
+        cursor: pointer;
+        transition: background-color 0.15s linear;
+}
+
+.admin .profile .info .text-input .edit-button:focus,
+.admin .profile .info .text-input .edit-button:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.admin .profile .info .text-input .save {
+        color: #c6ff00;
+        background-color: rgba(198, 255, 0, 0.1);
+}
+
+.admin .profile .info .text-input .save:focus,
+.admin .profile .info .text-input .save:hover {
+        background-color: rgba(198, 255, 0, 0.25);
+}
+
+.admin .profile .info .text-input .cancel {
+        color: #ff4500;
+        background-color: rgba(255, 68, 0, 0.1);
+}
+
+.admin .profile .info .text-input .cancel:focus,
+.admin .profile .info .text-input .cancel:hover {
+        background-color: rgba(255, 68, 0, 0.25);
+}
+
+.admin .profile .info .text-input .edit-button .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .profile .info .text-input .edit-button .icon img {
+        width: 2vh;
+}

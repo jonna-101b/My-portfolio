@@ -1,0 +1,31 @@
+.admin .qualifications {
+        display: flex;
+        flex-direction: column;
+        gap: 3vh;
+        width: 100%;
+        height: 94vh;
+        padding: 2vh 6vh;
+        overflow-y: auto;
+}
+
+/* Scrollbar track */
+.admin .qualifications::-webkit-scrollbar {
+        width: 10px; /* Vertical scrollbar width */
+        /* height: 12px; Horizontal scrollbar height */
+}
+
+/* Scrollbar track background */
+.admin .qualifications::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+/* Scrollbar thumb (the draggable part) */
+.admin .qualifications::-webkit-scrollbar-thumb {
+        background: #202020;
+        border-radius: 6px;
+}
+
+/* Hover effect */
+.admin .qualifications::-webkit-scrollbar-thumb:hover {
+        background: #333333;
+}

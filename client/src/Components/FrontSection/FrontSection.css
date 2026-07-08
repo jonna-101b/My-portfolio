@@ -1,0 +1,105 @@
+.front-section {
+        display: grid;
+        place-content: center;
+        gap: 10vh;
+        margin-bottom: 17.5vh;
+        position: relative;
+}
+
+.front-section .intro {
+        place-self: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10vh;
+        width: 70vw;
+        height: 99vh;
+}
+
+.front-section .intro .social-links {
+        display: grid;
+        gap: 4vh;
+        color: #888888;
+        position: absolute;
+        left: 10vh;
+}
+
+.front-section .intro .social-links a {
+        display: grid;
+        place-content: center;
+        background-color: transparent;
+        border: none;
+        border-radius: 1vh;
+        width: 5.5vh;
+        height: 5.5vh;
+        transition: background-color 0.15s linear;
+}
+
+.front-section .intro .social-links a:focus,
+.front-section .intro .social-links a:hover {
+        background-color: rgba(237, 237, 237, 0.1);
+}
+
+.front-section .intro .social-links a img {
+        height: 3.25vh;
+}
+
+.front-section .intro .info {
+        display: grid;
+        gap: 4vh;
+}
+
+.front-section .intro .info .title {
+        font-size: 2.625rem;
+        font-weight: bold;
+        color: #c6ff00;
+}
+
+.front-section .intro .info .intro-text {
+        font-size: 1.125rem;
+        color: #ededed;
+}
+
+.front-section .intro .details {
+        font-size: 0.875rem;
+        color: #888888;
+}
+
+.front-section .intro .contact button {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        background-color: rgba(200, 255, 0, 0.75);
+        border: none;
+        border-radius: 2vh;
+        padding: 1vh 4vh;
+        transition: background-color 0.15s linear;
+}
+
+.front-section .intro .contact button:focus,
+.front-section .intro .contact button:hover {
+        background-color: #c6ff00;
+}
+
+.front-section .intro .contact button img {
+        width: 2vh;
+}
+
+.front-section .intro .image img{
+        width: 35vw;
+}
+
+.front-section .scroll-down {
+        justify-self: center;
+        display: flex;
+        justify-content: center;
+        gap: 2vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        position: absolute;
+        top: 90vh;
+}
+
+.front-section .scroll-down .image img {
+        height: 2.75vh;
+}

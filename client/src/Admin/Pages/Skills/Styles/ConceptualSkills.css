@@ -1,0 +1,147 @@
+.admin .conceptual-skills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4vh;
+}
+
+.admin .conceptual-skills .title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ededed;
+        width: fit-content;
+}
+
+.admin .conceptual-skills .new-skill {
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 2vh;
+        width: fit-content;
+        padding: 1.5vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .conceptual-skills .new-skill:focus,
+.admin .conceptual-skills .new-skill:hover {
+        background-color: #c6ff00;
+}
+
+.admin .conceptual-skills .new-skill .icon img {
+        width: 2vh;
+}
+
+.admin .conceptual-skills .grid {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4vh;
+}
+
+.admin .conceptual-skills .grid .skill {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 4vh;
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 4vh;
+        transition: background-color 0.15s linear;
+        overflow: hidden;
+        position: relative;
+}
+
+.admin .conceptual-skills .grid .skill:focus,
+.admin .conceptual-skills .grid .skill:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .conceptual-skills .grid .skill p, 
+.admin .conceptual-skills .grid .skill div {
+        z-index: 1;
+}
+
+.admin .conceptual-skills .grid .skill .content {
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+}
+
+.admin .conceptual-skills .grid .skill .content .icon {
+        display: grid;
+        place-content: center;
+        background-color: #0b0d0e;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        width: 8vh;
+        height: 8vh;
+        aspect-ratio: 1;
+}
+
+.admin .conceptual-skills .grid .skill .content .icon img {
+        width: 4.75vh;
+}
+
+.admin .conceptual-skills .grid .skill .title {
+        font-size: 0.9375rem;
+        font-weight: normal;
+}
+
+.admin .conceptual-skills .grid .skill .actions {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 0.25vh;
+}
+
+.admin .conceptual-skills .grid .skill .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .conceptual-skills .grid .skill .actions p:focus, 
+.admin .conceptual-skills .grid .skill .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .conceptual-skills .grid .skill .actions p:focus .hover, 
+.admin .conceptual-skills .grid .skill .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .conceptual-skills .grid .skill .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .conceptual-skills .grid .skill .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .conceptual-skills .grid .skill .description {
+        grid-column: span 2;
+}
+
+.admin .conceptual-skills .grid .skill .shadow {
+        position: absolute;
+        right: -7vh;
+        top: -7vh;
+        z-index: 0;
+}
+
+.admin .conceptual-skills .grid .skill .shadow img {
+        width: 28vh;
+}

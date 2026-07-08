@@ -8,7 +8,7 @@ const techSchema = new mongoose.Schema({
 
 
 const technicalSkillsSchema = new mongoose.Schema({
-        concept: { type: String, required: true },
+        title: { type: String, required: true },
         techStack: {
                 type: [techSchema],
                 required: true,
@@ -16,8 +16,9 @@ const technicalSkillsSchema = new mongoose.Schema({
 });
 
 const conceptualSkillsSchema = new mongoose.Schema({
-        concept: { type: String, required: true },
+        title: { type: String, required: true },
         description: { type: String, required: true },
+        icon: { type: String }
 });
 
 const TechnicalSkillsModel = mongoose.model('TechnicalSkills', technicalSkillsSchema);

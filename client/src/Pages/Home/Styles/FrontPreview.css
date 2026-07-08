@@ -1,0 +1,125 @@
+.front-preview {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5vh;
+        height: 99vh;
+        padding: 0 10vh;
+        padding-top: 10vh;
+        position: relative;
+}
+
+.front-preview .name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+}
+
+.front-preview .name .code-open {
+        height: 5vh;
+}
+
+.front-preview .name .code-close {
+        position: relative;
+        left: -2.25vh;
+        height: 5vh;
+        transform: rotate(180deg);
+}
+
+.front-preview .name .slash {
+        height: 5vh;
+}
+
+.front-preview .name p {
+        font-size: 1.125rem;
+        color: #ededed;
+        display: inline-block;
+        margin: 0 1vh;
+}
+
+.front-preview .name p span {
+        font-weight: 700;
+        color: #c6ff00;
+}
+
+.front-preview .professions {
+        display: grid;
+        justify-content: center;
+        gap: 2vh;
+        font-size: 2.625rem;
+        font-weight: bold;
+        color: #ededed;
+        text-align: center;
+        width: 50%;
+}
+
+.front-preview .professions p span {
+        color: #c6ff00;
+}
+
+.front-preview .hero-text {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: #888888;
+        width: 50%;
+}
+
+.front-preview .links {
+        display: flex;
+        justify-content: center;
+        gap: 4vh;
+        width: 50%;
+}
+
+.front-preview .links .hire-me {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+}
+
+.front-preview .links .resume {
+        color: #0b0d0e;
+        background-color: rgba(200, 255, 0, 0.75);
+}
+
+.front-preview .links a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.875rem;
+        text-decoration: none;
+        gap: 1vh;
+        border: none;
+        border-radius: 10vh;
+        outline: none;
+        padding: 0.75vh 4vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.front-preview .links .hire-me:focus, 
+.front-preview .links .hire-me:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.front-preview .links .resume:focus, 
+.front-preview .links .resume:hover {
+        background-color: #c6ff00;
+}
+
+.front-preview .links a img {
+        height: 2vh;
+}
+
+.front-preview .front-image {
+        position: absolute;
+        top: 0;
+        right: 10vh;
+        height: 100%;
+}
+
+.front-preview .front-image img {
+        height: 100%;
+}
+

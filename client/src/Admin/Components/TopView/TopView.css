@@ -1,0 +1,103 @@
+.top-view {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4vh;
+        width: 100%;
+        height: fit-content;
+}
+
+.top-view .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #c6ff00;
+}
+
+.top-view .main-content {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 2vh;
+}
+
+.top-view .main-content .tool {
+        border-radius: 2vh;
+        padding: 1vh;
+}
+
+.top-view .main-content .tool:focus, 
+.top-view .main-content .tool:hover {
+        background-color: rgba(200, 255, 0, 0.1);
+}
+
+.top-view .main-content .tool {
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+        position: relative;
+}
+
+.top-view .main-content .tool:focus .hover,
+.top-view .main-content .tool:hover .hover {
+        opacity: 1;
+}
+
+.top-view .main-content .tool img {
+        place-self: center;
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.top-view .main-content .tool .hover,
+.top-view .main-content .tool .active {
+        position: absolute;
+        opacity: 0;
+}
+
+.top-view .main-content .active {
+        background-color: rgba(200, 255, 0, 0.1);
+} 
+
+.top-view .main-content .active .active {
+        opacity: 1;
+} 
+
+.top-view .main-content .active:focus .hover,
+.top-view .main-content .active:hover .hover {
+        opacity: 0;
+}
+
+.top-view .main-content .active .main, 
+.top-view .main-content .active .hover {
+        opacity: 0;
+} 
+
+.top-view .main-content .tool.activity img {
+        width: 3.5vh;
+        transition: opacity 0.15s linear;
+}
+
+.top-view .main-content .date {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5vh;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #0b0d0e;
+        background-color: blueviolet;
+        border-radius: 2vh;
+        padding: 1.5vh 3vh;
+}
+
+.top-view .main-content .date .icon {
+        display: grid;
+        place-content: center;
+}
+
+.top-view .main-content .date .icon img {
+        width: 2.75vh;
+}

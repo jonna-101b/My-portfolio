@@ -1,0 +1,90 @@
+.admin .edit.active .wrapper form .radio-input {
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .edit.active .wrapper form .radio-input .label {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ededed;
+        width: fit-content;
+}
+
+.admin .edit.active .wrapper form .radio-input .label .edited {
+        display: grid;
+        place-content: center;
+        background-color: #c6ff00;
+        border-radius: 2vh;
+        width: 1.25vh;
+        height: 1.25vh;
+}
+
+.admin .edit.active .wrapper form .radio-input .options {
+        display: flex;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        padding: 1.5vh;
+}
+
+.admin .edit.active .wrapper form .radio-input .options .option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border-radius: 2vh;
+        padding: 0.75vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+        cursor: pointer;
+        position: relative;
+}
+
+
+.admin .edit.active .wrapper form .radio-input .options .option:focus,
+.admin .edit.active .wrapper form .radio-input .options .option:hover {
+        background-color: rgba(237, 237, 237, 0.25);
+}
+
+.admin .edit.active .wrapper form .radio-input .options .option input {
+        position: absolute;
+        top: 1vh;
+        left: 2vh;
+        width: 2.75vh;
+        height: 2.75vh;
+        opacity: 0;
+}
+
+.admin .edit.active .wrapper form .radio-input .options .option .icon {
+        display: grid;
+        place-content: center;
+        background-color: #0b0d0e;
+        border-radius: 100vh;
+        width: 2.75vh;
+        height: 2.75vh;
+}
+
+.admin .edit.active .wrapper form .radio-input .options .option .icon img {
+        width: 1.35vh;
+        opacity: 0;
+        transition: opacity 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .radio-input .options .checked {
+        color: #c6ff00;
+        background-color: rgba(200, 255, 0, 0.1);
+}
+
+.admin .edit.active .wrapper form .radio-input .options .checked:focus,
+.admin .edit.active .wrapper form .radio-input .options .checked:hover {
+        background-color: rgba(200, 255, 0, 0.1);
+}
+
+.admin .edit.active .wrapper form .radio-input .options .checked .icon img {
+        opacity: 1;
+}

@@ -1,0 +1,166 @@
+.admin .technical-skills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4vh;
+}
+
+.admin .technical-skills .title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ededed;
+        width: fit-content;
+}
+
+.admin .technical-skills .new-skill {
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 2vh;
+        width: fit-content;
+        padding: 1.5vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .technical-skills .new-skill:focus,
+.admin .technical-skills .new-skill:hover {
+        background-color: #c6ff00;
+}
+
+.admin .technical-skills .new-skill .icon img {
+        width: 2vh;
+}
+
+.admin .technical-skills .grid {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4vh;
+}
+
+.admin .technical-skills .grid .skill {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 4vh;
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 4vh;
+        transition: background-color 0.15s linear;
+        overflow: hidden;
+        position: relative;
+}
+
+.admin .technical-skills .grid .skill:focus,
+.admin .technical-skills .grid .skill:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .technical-skills .grid .skill p,
+.admin .technical-skills .grid .skill div {
+        z-index: 1;
+}
+
+.admin .technical-skills .grid .skill .title {
+        grid-column: span 2;
+        font-size: 0.9375rem;
+        font-weight: normal;
+}
+
+.admin .technical-skills .grid .skill .tech-stack {
+        grid-column: span 2;
+        display: flex;
+}
+
+.admin .technical-skills .grid .skill .tech-stack p {
+        display: grid;
+        place-content: center;
+        background-color: #0b0d0e;
+        border: 2px solid #202020;
+        border-radius: 50%;
+        width: 5.5vh;
+        height: 5.5vh;
+        position: relative;
+}
+
+.admin .technical-skills .grid .skill .tech-stack p img {
+        width: 2.5vh;
+}
+
+.admin .technical-skills .grid .skill .tech-stack .more {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #ededed;
+        left: -6vh;
+}
+
+.admin .technical-skills .grid .skill .see-all p {
+        display: inline-block;
+        font-size: 0.75rem;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 2vh;
+        padding: 0.5vh 2vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .technical-skills .grid .skill .see-all p:focus,
+.admin .technical-skills .grid .skill .see-all p:hover {
+        background-color: #c6ff00;
+}
+
+.admin .technical-skills .grid .skill .actions {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 0.25vh;
+}
+
+.admin .technical-skills .grid .skill .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .technical-skills .grid .skill .actions p:focus, 
+.admin .technical-skills .grid .skill .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .technical-skills .grid .skill .actions p:focus .hover, 
+.admin .technical-skills .grid .skill .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .technical-skills .grid .skill .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .technical-skills .grid .skill .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .technical-skills .grid .skill .shadow {
+        position: absolute;
+        right: -7vh;
+        top: -7vh;
+        z-index: 0;
+}
+
+.admin .technical-skills .grid .skill .shadow img {
+        width: 28vh;
+}

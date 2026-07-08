@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 
+const linksSchema = new mongoose.Schema({
+        title: { type: String, required: true, },
+        url: { type: String, required: true, },
+});
 
 const articlesSchema = new mongoose.Schema({
         author: {
@@ -9,11 +13,11 @@ const articlesSchema = new mongoose.Schema({
                 type: String,
                 required: true, 
         },
-        description: {
+        intro: {
                 type: String,
                 required: true,
         },
-        content: {
+        description: {
                 type: String,
                 required: true,
         },
@@ -27,11 +31,11 @@ const articlesSchema = new mongoose.Schema({
         image: {
                 type: String,
         },
-        link: {
-                type: String,
+        links: {
+                type: [ linksSchema ],
                 required: true,
         },
-});
+}, { timestamps: true });
 
 const ArticlesModel = mongoose.model('Articles', articlesSchema);
 export default ArticlesModel;

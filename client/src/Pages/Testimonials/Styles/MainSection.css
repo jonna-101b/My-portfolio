@@ -1,0 +1,77 @@
+.testimonials .main-section {
+        display: grid;
+        gap: 5vh;
+        margin: 17.5vh 0;
+        padding-inline: 10vh;
+}
+
+.testimonials .main-section .testimonials {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7.5vh;
+}
+
+.testimonials .main-section .testimonials .testimonial {
+        display: grid;
+        gap: 4vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: #202020;
+        border: 1px solid #888888;
+        border-radius: 2vh;
+        box-shadow: 0 0 1rem #000;
+        padding: 10vh 4vh;
+        position: relative;
+}
+
+.testimonials .main-section .testimonials .testimonial:focus .quote svg,
+.testimonials .main-section .testimonials .testimonial:hover .quote svg {
+        stroke: #c6ff00;
+}
+
+.testimonials .main-section .testimonials .testimonial:focus .info .image ,
+.testimonials .main-section .testimonials .testimonial:hover .info .image  {
+        background-color: #c6ff00;
+}
+
+.testimonials .main-section .testimonials .testimonial .quote {
+        display: grid;
+        place-content: center;
+        position: absolute;
+        top: 4vh;
+        right: 4vh;
+}
+
+.testimonials .main-section .testimonials .testimonial .quote svg {
+        stroke: #0b0d0e;
+        width: 10vh;
+        opacity: 75%;
+        transition: stroke 0.25s linear;
+}
+
+
+.testimonials .main-section .testimonials .testimonial .info {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 2vh;
+}
+
+.testimonials .main-section .testimonials .testimonial .info .image {
+        display: grid;
+        place-content: center;
+        background-color: #0b0d0e;
+        border-radius: 50%;
+        width: 10vh;
+        height: 10vh;
+        transition: background-color 0.25s linear;
+}
+
+.testimonials .main-section .testimonials .testimonial .info .details .position {
+        font-size: 0.75rem;
+        color: #888888;
+}
+
+.testimonials .main-section .testimonials .testimonial .testimony {
+        color: #888888;
+}

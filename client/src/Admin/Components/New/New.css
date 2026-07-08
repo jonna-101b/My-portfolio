@@ -1,0 +1,130 @@
+.admin .new {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 1s linear;
+        z-index: 3;
+}
+
+.admin .new.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        background: rgba(11, 13, 14, 0.5); /* translucent background */
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px); /* for Safari */
+}
+
+.admin .new.active .wrapper img {
+        width: 2vh;
+}
+
+.admin .new.active .wrapper {
+        flex: 0 0 50%;
+        place-self: center;
+        display: grid;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        height: 80vh;
+        padding: 6vh;
+        padding-right: 1vh;
+}
+
+.admin .new.active .wrapper form {
+        display: grid;
+        gap: 4vh;
+        overflow-y: auto;
+        padding-right: 5vh;
+}
+
+/* Scrollbar track */
+.admin .new.active .wrapper form::-webkit-scrollbar {
+        width: 9px; /* Vertical scrollbar width */
+        /* height: 12px; Horizontal scrollbar height */
+}
+
+/* Scrollbar track background */
+.admin .new.active .wrapper form::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+/* Scrollbar thumb (the draggable part) */
+.admin .new.active .wrapper form::-webkit-scrollbar-thumb {
+        background: #131313;
+        border-radius: 6px;
+}
+
+/* Hover effect */
+.admin .new.active .wrapper form::-webkit-scrollbar-thumb:hover {
+        background: #0b0d0e;
+}
+
+.admin .new.active .wrapper form .component-name {
+        justify-self: center;
+        display: grid;
+        place-content: center;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #ededed;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        width: fit-content;
+        padding: 1vh 3vh;
+}
+
+.admin .new.active .wrapper form .changes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4vh;
+}
+
+.admin .new.active .wrapper form .changes button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border: none;
+        border-radius: 2vh;
+        padding-block: 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .new.active .wrapper form .changes button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+}
+
+.admin .new.active .wrapper form .changes button:disabled:focus, 
+.admin .new.active .wrapper form .changes button:disabled:hover {
+        background-color: #ededed;
+}
+
+.admin .new.active .wrapper form .changes .save:focus, 
+.admin .new.active .wrapper form .changes .save:hover {
+        background-color: #c6ff00;
+}
+
+.admin .new.active .wrapper form .changes .discard:focus, 
+.admin .new.active .wrapper form .changes .discard:hover {
+        background-color: #ff4500;
+}
+
+.admin .new.active .wrapper form .changes button .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .new.active .wrapper form .changes button .icon img {
+        width: 2.5vh;
+}

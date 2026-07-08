@@ -1,0 +1,165 @@
+.qualifications-section {
+        display: grid;
+        gap: 5vh;
+        margin: 17.5vh 0;
+}
+
+.qualifications-section .title {
+        display: grid;
+        place-content: center;
+}
+
+.qualifications-section .title p {
+        font-family: 'Poppins', Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color: #888888;
+        text-align: center;
+        padding-inline: 10vh;
+}
+
+.qualifications-section .qualifications-message {
+        display: grid;
+        place-content: center;
+        margin-bottom: 4vh;
+        text-align: center;
+        padding-inline: 10vh;
+}
+
+.qualifications-section .qualifications-message p {
+        display: inline-block;
+        font-size: 2.25rem;
+        font-weight: 700;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        padding: 0.25vh;
+}
+
+.qualifications-section .qualifications {
+        place-self: center;
+        display: grid;
+        font-size: 14px;
+        color: #888888;
+        width: 75%;
+}
+
+.qualifications-section .qualifications .qualification {
+        display: grid;
+        gap: 2vh;
+        width: 50%;
+        position: relative;
+        padding-bottom: 8vh;
+}
+
+.qualifications-section .qualifications .qualification:hover .info .details .discipline {
+        color: #c6ff00;
+}
+
+.qualifications-section .qualifications .qualification:nth-child(odd) {
+        border-right: 2px solid #333333;
+        padding-right: 10vh;
+}
+
+.qualifications-section .qualifications .qualification:nth-child(even) {
+        justify-self: end;
+        border-left: 2px solid #333333;
+        padding-left: 10vh;
+}
+
+.qualifications-section .qualifications .qualification .info {
+        display: flex;
+        justify-content: space-between;
+}
+
+.qualifications-section .qualifications .qualification .info .details {
+        display: grid;
+        gap: 2vh;
+}
+
+.qualifications-section .qualifications .qualification .info .details .discipline {
+        font-size: 0.9375rem;
+        color: #ededed;
+        transition: color 0.15s linear;
+}
+
+.qualifications-section .qualifications .qualification .info .details .organization {
+        font-size: 0.75rem;
+        transition: color 0.15s linear;
+}
+
+.qualifications-section .qualifications .qualification:focus .info .details .organization,
+.qualifications-section .qualifications .qualification:hover .info .details .organization {
+        color: #ededed;
+}
+
+.qualifications-section .qualifications .qualification .info .duration p {
+        font-size: 0.75rem;
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+        border-radius: 10vh;
+        padding: 0.5vh 2.5vh;
+}
+
+.qualifications-section .qualifications .qualification .description {
+        font-size: 0.9375rem;
+}
+
+.qualifications-section .qualifications .qualification .icon {
+        display: grid;
+        place-content: center;
+        background-color: #202020;
+        border: 2px solid #333333;
+        border-radius: 50%;
+        width: 7vh;
+        height: 7vh;
+        position: relative;
+}
+
+.qualifications-section .qualifications .qualification  .icon::after,
+.qualifications-section .qualifications .qualification  .icon::after {
+        content: "";
+        display: grid;
+        place-content: center;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: background-color 0.15s linear;
+}
+
+.qualifications-section .qualifications .qualification:focus  .icon::after,
+.qualifications-section .qualifications .qualification:hover  .icon::after {
+        background-color: rgba(200, 255, 0, 0.1);
+}
+
+.qualifications-section .qualifications .qualification:hover .icon .hover {
+        opacity: 1;
+}
+
+.qualifications-section .qualifications .qualification:nth-child(odd) .icon {
+        position: absolute;
+        top: 0;
+        right: -3.5vh;
+}
+
+.qualifications-section .qualifications .qualification:nth-child(even) .icon {
+        position: absolute;
+        top: 0;
+        left: -3.5vh;
+}
+
+.qualifications-section .qualifications .qualification .icon img {
+        width: 3.5vh;
+}
+
+.qualifications-section .qualifications .qualification .icon  .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.15s linear;
+}

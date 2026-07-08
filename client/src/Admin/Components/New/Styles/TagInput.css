@@ -1,0 +1,315 @@
+.admin .new.active .wrapper form .tag-input {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .label {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        place-self: center start;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ededed;
+}
+
+.admin .new.active .wrapper form .tag-input .label .add-state {
+        display: grid;
+        place-content: center;
+        background-color: #ff4500;
+        border-radius: 2vh;
+        width: 1.25vh;
+        height: 1.25vh;
+        transition: background-color 0.15s linear;
+}
+
+.admin .new.active .wrapper form .tag-input .label .added {
+        background-color: #c6ff00;
+}
+
+.admin .new.active .wrapper form .tag-input .add {
+        place-self: center end;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5vh;
+        font-size: 0.875rem;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 2vh;
+        width: fit-content;
+        height: fit-content;
+        padding: 0.5vh 2vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2vh;
+        background-color: rgba(11, 13, 14, 0.5);
+        border-radius: 2vh;
+        padding: 4vh;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .label {
+        grid-column: span 2;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #ededed;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs {
+        grid-column: span 2;
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        padding: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input input {
+        flex-grow: 1;
+        font-size: 0.875rem;
+        color: #ededed;
+        background-color: #0b0d0e;
+        border: none;
+        outline: none;
+        padding-left: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select {
+        flex-grow: 1;
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: #0b0d0e;
+        border: none;
+        outline: none;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__control {
+        flex-grow: 1;
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: #0b0d0e;
+        border: none;
+        border-radius: 2vh;
+        width: 100%;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__placeholder {
+        color: #888888;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__input-container {
+        color: #888888;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__control {
+        outline: none;
+        box-shadow: none;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__single-value {
+        color: #ededed;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__menu {
+        display: grid;
+        color: #888888;
+        background-color: #0b0d0e;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__option {
+        border-radius: 2vh;
+        cursor: pointer;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__option--is-focused {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__option--is-selected {
+        background-color: #202020;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__menu-list::-webkit-scrollbar {
+        width: 9px;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__menu-list::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__menu-list::-webkit-scrollbar-thumb {
+        background: #202020;
+        border-radius: 5px;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .select__menu-list::-webkit-scrollbar-thumb:hover {
+        background: #333333;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .cancel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ff4500;
+        background-color: rgba(255, 68, 0, 0.1);
+        border-radius: 2vh;
+        padding: 0.5vh 2.5vh;
+        cursor: pointer;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .cancel:focus,
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .cancel:hover {
+        background-color: rgba(255, 68, 0, 0.25);
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .cancel .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .inputs .input .cancel .icon img {
+        width: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        background-color: #ededed;
+        border: none;
+        border-radius: 2vh;
+        width: fit-content;
+        height: fit-content;
+        padding: 0.5vh 2.5vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .done {
+        place-self: center end;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .more:focus,
+.admin .new.active .wrapper form .tag-input .new-tag .more:hover {
+        background-color: #c6ff00;
+}
+
+.admin .new.active .wrapper form .tag-input .new-tag .done:focus,
+.admin .new.active .wrapper form .tag-input .new-tag .done:hover {
+        background-color: #c6ff00;
+}
+
+.admin .new.active .wrapper form .tag-input .add .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .new.active .wrapper form .tag-input .add .icon img {
+        width: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .add:focus,
+.admin .new.active .wrapper form .tag-input .add:hover {
+        background-color: #c6ff00;
+}
+
+.admin .new.active .wrapper form .tag-input .list {
+        grid-column: span 2;
+        display: grid;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        padding: 2vh 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.875rem;
+        color: #888888;
+        border-radius: 1vh;
+        padding: 0.5vh 2vh;
+        transition: background-color 0.15s linear;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .value {
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .value .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .value .icon img {
+        width: 2.5vh;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label:focus,
+.admin .new.active .wrapper form .tag-input .list .sub-label:hover {
+        background-color: rgba(32, 32, 32, 0.25);
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .delete {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        width: 5vh;
+        height: 5vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+        position: relative;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .delete:focus,
+.admin .new.active .wrapper form .tag-input .list .sub-label .delete:hover {
+        background-color: rgba(32, 32, 32, 0.75);
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .delete:focus .hover,
+.admin .new.active .wrapper form .tag-input .list .sub-label .delete:hover .hover {
+        opacity: 1;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .delete img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .new.active .wrapper form .tag-input .list .sub-label .delete .hover {
+        position: absolute;
+        place-self: center;
+        opacity: 0;
+}
+
+.admin .new.active .wrapper form .tag-input .list .no-values {
+        display: grid;
+        place-content: center;
+        align-items: center;
+        font-size: 1rem;
+        color: #888888;
+        border-radius: 1vh;
+        padding: 0.25vh 2vh;
+        transition: background-color 0.15s linear;
+}

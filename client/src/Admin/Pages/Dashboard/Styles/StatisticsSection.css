@@ -1,0 +1,23 @@
+.statistics-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        height: 50vh;
+}
+
+.statistics-section .title {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: #ededed;
+}
+
+.statistics-section .chart {
+        flex-grow: 1;
+        display: grid;
+        place-content: center;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 3vh 5vh;
+        height: 15vh;
+}

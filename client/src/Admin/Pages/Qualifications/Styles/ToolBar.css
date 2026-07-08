@@ -1,0 +1,106 @@
+.qualifications .tool-bar {
+        display: grid;
+        gap: 6vh;
+}
+
+.qualifications .tool-bar .search-bar {
+        display: flex;
+        gap: 3vh;
+}
+
+.qualifications .tool-bar .search-bar .search {
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+        font-size: 0.875rem;
+        background-color: #202020;
+        border: 1px solid #888888;
+        border-radius: 10vh;
+        padding: 0.5vh 3vh;
+}
+
+.qualifications .tool-bar .search-bar .search input {
+        color: #888888;
+        background-color: transparent;
+        border: none;
+        width: 20vw;
+        height: 4vh;
+        outline: none;
+}
+
+.qualifications .tool-bar .search-bar .search img {
+        width: 2vh;
+}
+
+.qualifications .tool-bar .action-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1vh;
+}
+
+.qualifications .tool-bar .action-bar .new-qualification {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 2vh;
+        padding: 1.5vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.qualifications .tool-bar .action-bar .new-qualification:focus,
+.qualifications .tool-bar .action-bar .new-qualification:hover {
+        background-color: #c6ff00;
+}
+
+.qualifications .tool-bar .action-bar .new-qualification img {
+        width: 2vh;
+}
+
+.qualifications .tool-bar .action-bar .layout {
+        display: flex;
+        gap: 2vh;
+}
+
+.qualifications .tool-bar .action-bar .layout p {
+        display: flex;
+        align-items: center;
+        gap: 1.25vh;
+        font-size: 0.875rem;
+        color: #888888;
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+        cursor: pointer;
+}
+
+.qualifications .tool-bar .action-bar .layout p:focus,
+.qualifications .tool-bar .action-bar .layout p:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+        color: #c6ff00;
+}
+
+.qualifications .tool-bar .action-bar .layout p:focus .icon .hover,
+.qualifications .tool-bar .action-bar .layout p:hover .icon .hover{
+        opacity: 1;
+}
+
+.qualifications .tool-bar .action-bar .layout p .icon {
+        display: grid;
+        place-content: center;
+        position: relative;
+}
+
+.qualifications .tool-bar .action-bar .layout p .icon img {
+        width: 2vh;
+        transition: opacity 0.15s linear;
+}
+
+.qualifications .tool-bar .action-bar .layout p .icon .hover {
+        position: absolute;
+        opacity: 0;
+}

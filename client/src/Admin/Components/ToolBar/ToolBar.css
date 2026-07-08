@@ -1,0 +1,369 @@
+.admin .tool-bar {
+        display: grid;
+        gap: 3vh;
+}
+
+.admin .tool-bar .search-bar {
+        display: flex;
+        gap: 3vh;
+}
+
+.admin .tool-bar .search-bar .search {
+        display: flex;
+        align-items: center;
+        gap: 2vh;
+        font-size: 0.875rem;
+        background-color: #202020;
+        border: 1px solid #888888;
+        border-radius: 10vh;
+        padding: 0.5vh 3vh;
+}
+
+.admin .tool-bar .search-bar .search input {
+        color: #888888;
+        background-color: transparent;
+        border: none;
+        width: 20vw;
+        height: 4vh;
+        outline: none;
+}
+
+.admin .tool-bar .search-bar .search img {
+        width: 2vh;
+}
+
+.admin .tool-bar .search-bar .filter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #0b0d0e;
+        background-color: rgba(237, 237, 238, 0.75);
+        border-radius: 10vh;
+        padding: 0.5vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+        position: relative;
+}
+
+.admin .tool-bar .search-bar .filter:focus,
+.admin .tool-bar .search-bar .filter:hover {
+        background-color: #ededed;
+}
+
+.admin .tool-bar .search-bar .filter.active {
+        background-color: #ededed;
+}
+
+.admin .tool-bar .search-bar .filter .icon {
+        display: grid;
+        place-content: center;
+        position: relative;
+}
+
+.admin .tool-bar .search-bar .filter .icon img {
+        width: 2.75vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .tool-bar .search-bar .filter .icon .active {
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .tool-bar .search-bar .filter .filters {
+        display: none;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters {
+        display: grid;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        position: absolute;
+        left: 0;
+        top: calc(100% + 2vh);
+        width: max-content;
+        padding: 2vh;
+        z-index: 3;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters .wrapper {
+        display: grid;
+        gap: 1vh;
+        width: fit-content;
+        height: 40vh;
+        overflow-y: auto;
+        padding-right: 2vh;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar {
+        width: 9px;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar-thumb {
+        background: rgba(11, 13, 14, 0.75);
+        border-radius: 9px;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar-thumb:hover {
+        background: #0b0d0e;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters .wrapper p {
+        display: flex;
+        justify-content: start;
+        gap: 2vh;
+        align-items: center;
+        color: #888888;
+        border-radius: 1.5vh;
+        width: 20vw;
+        min-width: max-content;
+        padding: 0.75vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+}
+
+.admin .tool-bar .search-bar .filter.active .filters .wrapper p:focus,
+.admin .tool-bar .search-bar .filter.active .filters .wrapper p:hover {
+        background-color: rgba(11, 13, 14, 0.5);
+        color: #ededed;
+}
+
+.admin .tool-bar .filtered-items {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 2vh;
+}
+
+.admin .tool-bar .filtered-items p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5vh;
+        font-size: 0.75rem;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 10vh;
+        padding: 0.25vh 2vh;
+        padding-left: 3vh;
+}
+
+.admin .tool-bar .filtered-items p .icon {
+        display: grid;
+        place-content: center;
+        border-radius: 1.25vh;
+        width: 3.5vh;
+        height: 3.5vh;
+        cursor: pointer;
+}
+
+.admin .tool-bar .filtered-items p .icon:focus,
+.admin .tool-bar .filtered-items p .icon:hover {
+        background-color: rgba(32, 32, 32, 0.2);
+}
+
+.admin .tool-bar .filtered-items p .icon img {
+        width: 1.75vh;
+}
+
+.admin .tool-bar .action-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1vh;
+}
+
+.admin .tool-bar .action-bar .new-button p {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 2vh;
+        padding: 1.5vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .tool-bar .action-bar .new-button p:focus,
+.admin .tool-bar .action-bar .new-button p:hover {
+        background-color: #c6ff00;
+}
+
+.admin .tool-bar .action-bar .new-button img {
+        width: 2vh;
+}
+
+.admin .tool-bar .action-bar .other-actions {
+        display: flex;
+        gap: 2vh;
+}
+
+.admin .tool-bar .action-bar .layout {
+        display: flex;
+        align-items: center;
+        gap: 1.25vh;
+        font-size: 0.875rem;
+        color: #888888;
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .tool-bar .action-bar .other-actions .layout:focus,
+.admin .tool-bar .action-bar .other-actions .layout:hover {
+        background-color: rgba(200, 255, 0, 0.1);
+        color: #c6ff00;
+}
+
+.admin .tool-bar .action-bar .other-actions .layout:focus .icon .hover,
+.admin .tool-bar .action-bar .other-actions .layout:hover .icon .hover{
+        opacity: 1;
+}
+
+.admin .tool-bar .action-bar .other-actions .layout .icon {
+        display: grid;
+        place-content: center;
+        position: relative;
+}
+
+.admin .tool-bar .action-bar .other-actions .layout .icon img {
+        width: 2vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .tool-bar .action-bar .other-actions .layout .icon .hover {
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort {
+        display: flex;
+        gap: 2vh;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort {
+        display: flex;
+        align-items: center;
+        gap: 1.25vh;
+        font-size: 0.875rem;
+        color: #888888;
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+        cursor: pointer;
+        position: relative;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active {
+        color: #c6ff00;
+        background-color: rgba(200, 255, 0, 0.1);
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .icon .hover.sort-icon {
+        opacity: 1;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort:focus,
+.admin .tool-bar .action-bar .other-actions .sort:hover {
+        background-color: rgba(200, 255, 0, 0.1);
+        color: #c6ff00;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort:focus .icon .hover,
+.admin .tool-bar .action-bar .other-actions .sort:hover .icon .hover{
+        opacity: 1;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort .icon {
+        display: grid;
+        place-content: center;
+        position: relative;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort .icon img {
+        width: 2vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort .icon .hover {
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort .method {
+        display: none;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method {
+        display: grid;
+        gap: 1vh;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        position: absolute;
+        right: 0;
+        top: calc(100% + 2vh);
+        width: fit-content;
+        padding: 2vh;
+        z-index: 3;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method p {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #888888;
+        border-radius: 1.5vh;
+        min-width: fit-content;
+        width: 17.5vw;
+        padding: 0.75vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method .active {
+        background-color: rgba(11, 13, 14, 0.75);
+        color: #ededed;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method .active:focus, 
+.admin .tool-bar .action-bar .other-actions .sort.active .method .active:hover {
+        background-color: rgba(11, 13, 14, 0.75);
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method:focus .active .icon .hover, 
+.admin .tool-bar .action-bar .other-actions .sort.active .method:hover .active .icon .hover {
+        opacity: 1;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method p:focus,
+.admin .tool-bar .action-bar .other-actions .sort.active .method p:hover {
+        background-color: rgba(11, 13, 14, 0.5);
+        color: #ededed;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active:focus .method p .icon .hover,
+.admin .tool-bar .action-bar .other-actions .sort.active:hover .method p .icon .hover {
+        opacity: 0;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method p:focus .icon .hover,
+.admin .tool-bar .action-bar .other-actions .sort.active .method p:hover .icon .hover {
+        opacity: 1;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method p .icon img {
+        width: 2.25vh;
+}
+
+.admin .tool-bar .action-bar .other-actions .sort.active .method .active .icon .hover {
+        opacity: 1;
+}

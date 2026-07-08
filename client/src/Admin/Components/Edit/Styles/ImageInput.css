@@ -1,0 +1,476 @@
+.admin .edit.active .wrapper form .image-input {
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .edit.active .wrapper form .image-input .label {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ededed;
+        width: fit-content;
+}
+
+.admin .edit.active .wrapper form .image-input .label .edited {
+        display: grid;
+        place-content: center;
+        background-color: #c6ff00;
+        border-radius: 2vh;
+        width: 1.25vh;
+        height: 1.25vh;
+}
+
+.admin .edit.active .wrapper form .image-input .value {
+        display: grid;
+        place-content: center;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        width: 100%;
+        aspect-ratio: 16/9;
+        height: fit-content;
+        overflow: hidden;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .value img {
+        width: 100%;
+}
+
+.admin .edit.active .wrapper form .image-input .value .backup {
+        place-self: center;
+        width: fit-content;
+        height: 40%;
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button {
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        background-color: #202020;
+        border-radius: 2vh;
+        position: absolute;
+        left: 2vh;
+        bottom: 2vh;
+        overflow: hidden;
+        cursor: pointer;
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button p {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        padding: 0.75vh 2vh;
+        transition: background-color 0.15s linear, color 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button p:focus,
+.admin .edit.active .wrapper form .image-input .value .upload-button p:hover {
+        color: #c6ff00;
+        background-color: rgba(200, 255, 0, 0.1);
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button p:focus .icon .main,
+.admin .edit.active .wrapper form .image-input .value .upload-button p:hover .icon .main {
+        opacity: 0;
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button p:focus .icon .hover,
+.admin .edit.active .wrapper form .image-input .value .upload-button p:hover .icon .hover {
+        opacity: 1;
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button p .icon {
+        display: grid;
+        place-content: center;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button p .icon img {
+        width: 2.5vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .image-input .value .upload-button p .icon .hover {
+        position: absolute;
+        place-self: center;
+        opacity: 0;
+}
+
+
+.admin .edit.active .wrapper form .image-input .upload {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border: 4px dashed #000;
+        border-radius: 2vh;
+        width: 100%;
+        aspect-ratio: 16/9;
+        height: fit-content;
+        transition: background-color 0.15s linear, border-color 0.15s linear;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .icon {
+        display: grid;
+        place-content: center;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .icon img {
+        width: 10vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .icon .drop {
+        position: absolute;
+        place-self: center;
+        opacity: 0;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .drop-active .drop {
+        opacity: 1;
+}
+
+.admin .edit.active .wrapper form .image-input .upload p {
+        display: grid;
+        place-content: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #000;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .drag {
+        font-size: 1.125rem;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .browse {
+        align-self: center;
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        font-weight: normal;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border: none;
+        border-radius: 2vh;
+        width: fit-content;
+        padding: 0.75vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .browse:focus, 
+.admin .edit.active .wrapper form .image-input .upload .browse:hover {
+        background-color: #c6ff00;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .browse .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .browse .icon img {
+        width: 2.25vh;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .detail {
+        font-size: 0.75rem;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .cancel {
+        place-self: center;
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        font-weight: normal;
+        color: #0b0d0e;
+        background-color: #ededed;
+        border: none;
+        border-radius: 2vh;
+        width: fit-content;
+        padding: 0.75vh 3vh;
+        transition: background-color 0.15s linear;
+        cursor: pointer;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .cancel:focus, 
+.admin .edit.active .wrapper form .image-input .upload .cancel:hover {
+        background-color: #ff4500;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .cancel .icon {
+        display: grid;
+        place-content: center;
+}
+
+.admin .edit.active .wrapper form .image-input .upload .cancel .icon img {
+        width: 1.75vh;
+}
+
+/* Profile picture */
+
+.admin .edit.active .wrapper form .image-input .label.profile {
+        display: flex;
+        flex-direction: row;
+        justify-self: center;
+        height: fit-content;
+        padding: 0;
+}
+
+.admin .edit.active .wrapper form .image-input .value.profile {
+        justify-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border: 4px solid #0b0d0e;
+        border-radius: 50%;
+        width: 32vh;
+        aspect-ratio: 1;
+        height: fit-content;
+        padding: 0;
+        overflow: visible;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .value.profile .preview-image {
+        width: 100%;
+        /* height: 32vh; */
+        border-radius: 50%;
+}
+
+.admin .edit.active .wrapper form .image-input .value.profile .backup {
+        place-self: center;
+        width: fit-content;
+        height: 65%;
+        border-radius: 0;
+}
+
+
+.admin .edit.active .wrapper form .image-input .value.profile .upload-button {
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        background-color: #202020;
+        border: 3px solid #0b0d0e;
+        border-radius: 50%;
+        position: absolute;
+        left: calc(75% - 3px);
+        top: calc(75% - 3px);
+        width: calc(6vh + 3px);
+        height: calc(6vh + 3px);
+        overflow: hidden;
+        cursor: pointer;
+}
+
+.admin .edit.active .wrapper form .image-input .value.profile .upload-button p {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        width: calc(6vh + 3px);
+        height: calc(6vh + 3px);
+        padding: 0;
+        transition: background-color 0.15s linear, color 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .image-input .value.profile .upload-button p .icon {
+        width: calc(6vh + 3px);
+        height: calc(6vh + 3px);
+}
+
+.admin .edit.active .wrapper form .image-input .upload.profile {
+        justify-self: center;
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        border-radius: 50%;
+        width: 32vh;
+        aspect-ratio: 1;
+        height: fit-content;
+        overflow: visible;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.profile .upload-icon img {
+        width: 8vh;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.profile .drag {
+        font-size: 1rem;
+        text-align: center;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.profile .browse {
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        border-radius: 50%;
+        position: absolute;
+        right: 75%;
+        top: 75%;
+        width: 6vh;
+        height: 6vh;
+        padding: 0;
+        overflow: hidden;
+        cursor: pointer;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.profile .cancel {
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        border-radius: 50%;
+        position: absolute;
+        left: 75%;
+        top: 75%;
+        width: 6vh;
+        height: 6vh;
+        padding: 0;
+        overflow: hidden;
+        cursor: pointer;
+}
+/* Icon image */
+
+.admin .edit.active .wrapper form .image-input .label.icon {
+        display: flex;
+        flex-direction: row;
+        justify-self: center;
+        height: fit-content;
+        padding: 0;
+}
+
+.admin .edit.active .wrapper form .image-input .value.icon {
+        justify-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vh;
+        background-color: #0b0d0e;
+        border: 4px solid #0b0d0e;
+        border-radius: 50%;
+        width: 32vh;
+        aspect-ratio: 1;
+        height: fit-content;
+        padding: 0;
+        overflow: visible;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .value.icon .preview-image {
+        width: 75%;
+}
+
+.admin .edit.active .wrapper form .image-input .value.icon .backup {
+        place-self: center;
+        width: fit-content;
+        height: 65%;
+        border-radius: 0;
+}
+
+
+.admin .edit.active .wrapper form .image-input .value.icon .upload-button {
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        background-color: #202020;
+        border: 3px solid #0b0d0e;
+        border-radius: 50%;
+        position: absolute;
+        left: calc(75% - 3px);
+        top: calc(75% - 3px);
+        width: calc(6vh + 3px);
+        height: calc(6vh + 3px);
+        overflow: hidden;
+        cursor: pointer;
+}
+
+.admin .edit.active .wrapper form .image-input .value.icon .upload-button p {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        color: #ededed;
+        width: calc(6vh + 3px);
+        height: calc(6vh + 3px);
+        padding: 0;
+        transition: background-color 0.15s linear, color 0.15s linear;
+}
+
+.admin .edit.active .wrapper form .image-input .value.icon .upload-button p .icon {
+        width: calc(6vh + 3px);
+        height: calc(6vh + 3px);
+}
+
+.admin .edit.active .wrapper form .image-input .upload.icon {
+        justify-self: center;
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        border-radius: 50%;
+        width: 32vh;
+        aspect-ratio: 1;
+        height: fit-content;
+        overflow: visible;
+        position: relative;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.icon .upload-icon img {
+        width: 8vh;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.icon .drag {
+        place-self: center;
+        font-size: 1rem;
+        text-align: center;
+        width: 60%;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.icon .browse {
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        border-radius: 50%;
+        position: absolute;
+        right: 75%;
+        top: 75%;
+        width: 6vh;
+        height: 6vh;
+        padding: 0;
+        overflow: hidden;
+        cursor: pointer;
+}
+
+.admin .edit.active .wrapper form .image-input .upload.icon .cancel {
+        display: grid;
+        place-content: center;
+        gap: 1vh;
+        font-size: 0.875rem;
+        border-radius: 50%;
+        position: absolute;
+        left: 75%;
+        top: 75%;
+        width: 6vh;
+        height: 6vh;
+        padding: 0;
+        overflow: hidden;
+        cursor: pointer;
+}

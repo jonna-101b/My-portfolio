@@ -1,0 +1,8 @@
+.admin {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0;
+        width: 100%;
+        min-height: 100vh;
+        max-height: 100vh;
+}

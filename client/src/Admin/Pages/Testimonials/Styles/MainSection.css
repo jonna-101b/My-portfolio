@@ -1,0 +1,205 @@
+.admin .testimonials .main-section {
+        display: grid;
+        gap: 2vh;
+        margin: 0;
+        padding: 0;
+}
+
+.admin .testimonials .main-section img {
+        width: 2vh;
+}
+
+.admin .testimonials .main-section .labels {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+}
+
+.admin .testimonials .main-section .labels p {
+        display: flex;
+        justify-content: center;
+        font-size: 0.875rem;
+        color: #888888;
+}
+
+.admin .testimonials .main-section .list {
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        border-radius: 2vh;
+        padding-block: 2vh;
+        transition: background-color 0.15s linear;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout p,
+.admin .testimonials .main-section .list .testimonial-layout div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.875rem;
+        color: #888888;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout:nth-child(odd) {
+        background-color: #202020;
+        border: 1px solid #333333;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout:focus, 
+.admin .testimonials .main-section .list .testimonial-layout:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .testimonials .main-section .list .testimonial-layout .actions {
+        display: flex;
+        justify-content: center;
+        gap: 2vh;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout .actions p:focus, 
+.admin .testimonials .main-section .list .testimonial-layout .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .testimonials .main-section .list .testimonial-layout .actions p:focus .hover, 
+.admin .testimonials .main-section .list .testimonial-layout .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout .shadow {
+        display: none;
+}
+
+
+.admin .testimonials .main-section .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4vh;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 2vh;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 4vh;
+        transition: background-color 0.15s linear;
+        overflow: hidden;
+        position: relative;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout p,
+.admin .testimonials .main-section .grid .testimonial-layout div {
+        display: grid;
+        place-content: center start;
+        font-size: 0.875rem;
+        color: #888888;
+        z-index: 1;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .name {
+        grid-column: span 2;
+        font-size: 1rem;
+        color: #ededed;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .position {
+        grid-column: span 2;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .company {
+        grid-column: span 2;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .company span {
+        display: inline-block;
+        font-size: 0.75rem;
+        background-color: #0b0d0e;
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .date {
+        font-size: 0.75rem;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout:focus, 
+.admin .testimonials .main-section .grid .testimonial-layout:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .actions {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 0.25vh;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .actions p:focus, 
+.admin .testimonials .main-section .grid .testimonial-layout .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .actions p:focus .hover, 
+.admin .testimonials .main-section .grid .testimonial-layout .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .shadow {
+        position: absolute;
+        right: -7vh;
+        top: -7vh;
+        z-index: 0;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .shadow img {
+        width: 28vh;
+}

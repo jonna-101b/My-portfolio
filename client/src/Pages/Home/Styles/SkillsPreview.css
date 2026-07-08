@@ -1,0 +1,233 @@
+.skills-preview {
+        display: grid;
+        gap: 2vh;
+        margin: 17.5vh 0;
+}
+
+.skills-preview .main-title {
+        display: grid;
+        place-content: center;
+}
+
+.skills-preview .main-title p {
+        font-family: 'Poppins', Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color: #888888;
+}
+
+.skills-preview .technical-skills .sub-title {
+        display: grid;
+        place-content: center;
+        width: 100%;
+}
+
+.skills-preview .technical-skills {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5vh;
+        /* padding-inline: 10vh; */
+        margin-bottom: 5vh;
+}
+
+.skills-preview .technical-skills .sub-title p {
+        display: inline-block;
+        font-size: 2.25rem;
+        font-weight: 700;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        padding: 0.25vh;
+}
+
+.skills-preview .technical-skills .skills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2vh;
+        background-color: rgba(32, 32, 32, 0.5);
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 4vh;
+        width: fit-content;
+        max-width: 70%;
+}
+
+.skills-preview .technical-skills .skills p {
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: rgba(32, 32, 32, 0.75);
+        border-radius: 10vh;
+        padding: 0.5vh 3vh ;
+        cursor: pointer;
+        transition: color 0.15s linear, background-color 0.15s linear;
+}
+
+.skills-preview .technical-skills .skills p:focus, 
+.skills-preview .technical-skills .skills p:hover {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.1);
+}
+
+.skills-preview .technical-skills .skills .focused {
+        color: #0b0d0e;
+        background-color: #ededed;
+        border-radius: 10vh;
+        transition: none;
+}
+
+.skills-preview .technical-skills .skills .focused:focus, 
+.skills-preview .technical-skills .skills .focused:hover {
+        color: #0b0d0e;
+        background-color: #ededed;
+}
+
+.skills-preview .technical-skills .techs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4vh;
+        padding-inline: 10vh;
+}
+
+.skills-preview .technical-skills .techs .tech {
+        display: grid;
+        place-content: center;
+        gap: 2vh;
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: rgba(32, 32, 32, 0.5);
+        border-radius: 2vh;
+        width: 24vh;
+        height: 24vh;
+        transition: color 0.15s linear, background-color 0.15s linear;
+}
+
+.skills-preview .technical-skills .techs .tech:focus,
+.skills-preview .technical-skills .techs .tech:hover {
+        background-color: rgba(32, 32, 32, 0.75);
+        color: #ededed;
+}
+
+.skills-preview .technical-skills .techs .tech .icon {
+        display: grid;
+        place-content: center;
+}
+
+.skills-preview .technical-skills .techs .tech .icon img {
+        width: 12vh;
+        height: 12vh;
+}
+
+.skills-preview .technical-skills .techs .tech .name {
+        display: grid;
+        place-content: center;
+        text-align: center;
+}
+
+.skills-preview .conceptual-skills {
+        display: grid;
+        place-content: center;
+        gap: 5vh;
+        width: 100%;
+        margin-bottom: 5vh;
+        overflow: hidden;
+}
+
+.skills-preview .conceptual-skills .sub-title {
+        display: grid;
+        place-content: center;
+}
+
+.skills-preview .conceptual-skills .sub-title p {
+        display: inline-block;
+        font-size: 2.25rem;
+        font-weight: 700;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        padding: 0.25vh;
+}
+
+.skills-preview .conceptual-skills .skills-loop {
+        place-self: center;
+        width: calc(100% - 20vh);
+        overflow: hidden;
+        -webkit-mask: linear-gradient(to right, transparent, #0b0d0e 10%, #0b0d0e 90%, transparent);
+        mask: linear-gradient(to right, transparent, #0b0d0e 10%, #0b0d0e 90%, transparent);
+}
+
+.skills-preview .conceptual-skills .skills-track {
+        display: flex;
+        width: max-content;
+        gap: 5vh;
+        animation: skills-scroll 25s linear infinite;
+}
+
+.skills-preview .conceptual-skills .skills-track:hover {
+        animation-play-state: paused;
+}
+
+@keyframes skills-scroll {
+        from {
+                transform: translateX(0);
+        }
+        to {
+                transform: translateX(-50%);
+        }
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill {
+        flex: none;
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        box-shadow: 0 0 1rem #000;
+        width: 20vw;
+        padding: 6vh;
+        overflow: hidden;
+        transition: background-color 0.15s linear;
+        position: relative;
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill:focus,
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill:hover {
+        background-color: rgba(32, 32, 32, 0.75);
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill .icon {
+        display: grid;
+        place-content: center;
+        background-color: #0b0d0e;
+        border-radius: 2vh;
+        width: 8vh;
+        height: 8vh;
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill .shadow {
+        display: grid;
+        place-content: center;
+        position: absolute;
+        top: -6vh;
+        right: -6vh;
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill .shadow img {
+        width: 24vh;
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill .icon img {
+        width: 3vh;
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill .title {
+        font-weight: bold;
+        color: #ededed;
+        margin: 2vh 0;
+}

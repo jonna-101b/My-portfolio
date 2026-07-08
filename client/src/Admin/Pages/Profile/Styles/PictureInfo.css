@@ -1,0 +1,7 @@
+.picture-info {
+        place-self: center;
+        display: grid;
+        place-content: center;
+        width: 65%;
+        padding: 4vh;
+}
