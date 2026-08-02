@@ -1,6 +1,9 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useProfileReducer from '../../../Hooks/useProfileReducer';
 import MaleIllustration from '../../../assets/Icons/Home/man.png';
+import MaleLightIllustration from '../../../assets/Icons/Home/man-light.png';
 import FemaleIllustration from '../../../assets/Icons/Home/pharmacist.png';
 import GoToIcon from '../../../assets/Icons/Home/right-arrow with a line.png';
 import '../Styles/AboutPreview.css';
@@ -8,15 +11,16 @@ import '../Styles/AboutPreview.css';
 function AboutPreview() {
         const { profile } = useProfileReducer();
         const { firstName, lastName, description, picture, availability, gender } = profile;
+        const { theme, toggleTheme } = useContext(ThemeContext);
 
         return (
                 <div className="about-preview">
                         <div className="title">
-                                <p>About me</p>
+                                <p>About Me</p>
                         </div>
 
                         <div className="intro-text">
-                                <p>Here's a little about who I am and what I do</p>
+                                <p>Here's a Little About Who I Am and What I Do</p>
                         </div>
 
                         <div className="main-content">
@@ -36,7 +40,7 @@ function AboutPreview() {
                                         </div>
 
                                         <div className="shadow">
-                                                <img src={ gender.toLowerCase() === "male" ? MaleIllustration : FemaleIllustration } alt="Man illustration" />
+                                                <img src={ gender.toLowerCase() === "male" ? ( theme === 'dark' ? MaleIllustration : MaleLightIllustration ) : FemaleIllustration } alt="Man illustration" />
                                         </div>
                                 </div>
 

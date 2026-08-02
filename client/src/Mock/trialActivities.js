@@ -44,7 +44,7 @@ const activities = [
   {
     _id: "64b7f6a2e7d4f23a8c9d1240",
     action: "edit",
-    destination: "article",
+    destination: "blog",
     title: "Scaling Node.js Applications",
     date: new Date("2025-08-22T13:10:00Z")
   },
@@ -72,7 +72,7 @@ const activities = [
   {
     _id: "64f7c3e8a4b1c2d3e4f5a603",
     action: "delete",
-    destination: "article",
+    destination: "blog",
     title: "Obsolete Guide to ES5",
     date: new Date("2025-08-22T16:05:00Z")
   },

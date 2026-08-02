@@ -13,7 +13,7 @@
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
         font-size: 1.5rem;
         font-weight: bolder;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .projects-preview .projects-message {
@@ -25,11 +25,15 @@
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
+}
+
+:root[data-theme='light'] .projects-preview .projects-message p {
+        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
 }
 
 .projects-preview .projects {
@@ -53,11 +57,11 @@
         justify-content: space-between;
         gap: 2vh;
         font-size: 0.875rem;
-        color: #ededed;
-        background-color: #202020;
-        border: 1px solid #333333;
+        color: var(--text);
+        background-color: var(--surface);
+        border: 1px solid var(--border);
         border-radius: 2vh;
-        box-shadow: 0 0 1rem #000;
+        box-shadow: var(--shadow);
         width: 27.5vw;
         transition: background-color 0.15s linear;
         overflow:hidden;
@@ -66,7 +70,7 @@
 
 .projects-preview .projects .project:focus,
 .projects-preview .projects .project:hover {
-        background-color: rgba(32, 32, 32, 0.75);
+        background-color: var(--theme-card-hover);
 }
 
 .projects-preview .projects .project:focus .image .main,
@@ -77,7 +81,7 @@
 .projects-preview .projects .project .image {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
+        background-color: var(--bg);
         width: 100%;
         height: fit-content;
         aspect-ratio: 16 / 9;
@@ -89,8 +93,8 @@
         place-content: center;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #ededed;
-        background-color: #202020;
+        color: var(--text);
+        background-color: var(--surface);
         border-radius: 10vh;
         position: absolute;
         left: 2vh;
@@ -103,9 +107,9 @@
         place-content: center;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--text);
         text-decoration: none;
-        background-color: #202020;
+        background-color: var(--surface);
         border-radius: 50%;
         position: absolute;
         right: 2vh;
@@ -118,7 +122,7 @@
 
 .projects-preview .projects .project .image .detail:focus,
 .projects-preview .projects .project .image .detail:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--button-hover-soft);
 }
 
 .projects-preview .projects .project .image .detail img {
@@ -132,7 +136,7 @@
 }
 
 .projects-preview .projects .project .project-title {
-        font-size: 0.9375rem;
+        font-size: 1.25rem;
         font-weight: bold;
         padding-inline: 4vh;
 }
@@ -149,14 +153,19 @@
         display: grid;
         place-content: center;
         font-size: 0.75rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
         border-radius: 10vh;
         padding: 0.5vh 2vh;
 }
 
+:root[data-theme='light'] .projects-preview .projects .project .domains p {
+        background-color: var(--bg);
+}
+
 .projects-preview .projects .project .description {
-        color: #888888;
+        font-size: 0.9375rem;
+        color: var(--text-muted);
         padding-inline: 4vh;
 }
 
@@ -176,8 +185,8 @@
         justify-content: center;
         align-items: center;
         gap: 2vh;
-        background-color: #0b0d0e;
-        border: 3px solid #202020;
+        background-color: var(--bg);
+        border: 3px solid var(--surface);
         border-radius: 10vh;
         width: 6vh;
         height: 6vh;
@@ -192,9 +201,9 @@
         place-content: center;
         font-size: 0.75rem;
         font-weight: bolder;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border: 3px solid #202020;
+        color: var(--text);
+        background-color: var(--surface-soft);
+        border: 3px solid var(--surface);
         border-radius: 50%;
         width: 6vh;
         height: 6vh;
@@ -218,9 +227,9 @@
         align-items: center;
         gap: 1.5vh;
         font-weight: bold;
-        color: #0b0d0e;
+        color: var(--text-ink);
         text-decoration: none;
-        background-color: #ededed;
+        background-color: var(--button-bg);
         border: none;
         border-radius: 2vh;
         width: 100%;
@@ -234,18 +243,24 @@
 
 .projects-preview .projects .project .links a:focus,
 .projects-preview .projects .project .links a:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover);
 }
 
 .projects-preview .projects .project .links .github-link {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
         transition: background-color 0.15s linear;
 }
 
+:root[data-theme='light'] .projects-preview .projects .project .links .github-link {
+        background-color: var(--bg);
+}
+
+:root[data-theme='light'] .projects-preview .projects .project .links .github-link:focus,
+:root[data-theme='light'] .projects-preview .projects .project .links .github-link:hover,
 .projects-preview .projects .project .links .github-link:focus,
 .projects-preview .projects .project .links .github-link:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--button-hover-soft);
 }
 
 .projects-preview .pagination {
@@ -261,8 +276,8 @@
         place-content: center;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
         border: none;
         border-radius: 2vh;
         padding: 0.75vh 3vh;
@@ -277,12 +292,12 @@
 
 .projects-preview .pagination .slide:focus,
 .projects-preview .pagination .slide:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover);
 }
 
 .projects-preview .pagination .slide:disabled:focus,
 .projects-preview .pagination .slide:disabled:hover {
-        background-color: #ededed;
+        background-color: var(--button-bg);
 }
 
 .projects-preview .pagination .indices {
@@ -304,8 +319,8 @@
         place-content: center;
         font-size: 1rem;
         font-weight: 600;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
         border-radius: 1vh;
         width: 5vh;
         height: 5vh;
@@ -313,19 +328,26 @@
         cursor: pointer;
 }
 
-.projects-preview .pagination .indices .wrapper .focused {
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.2);
+:root[data-theme='light'] .projects-preview .pagination .indices .wrapper p {
+        background-color: var(--button-bg);
 }
 
+:root[data-theme='light'] .projects-preview .pagination .indices .wrapper .focused,
+.projects-preview .pagination .indices .wrapper .focused {
+        color: var(--accent);
+        background-color: var(--pill-soft);
+}
+
+:root[data-theme='light'] .projects-preview .pagination .indices .wrapper p:focus,
+:root[data-theme='light'] .projects-preview .pagination .indices .wrapper p:hover,
 .projects-preview .pagination .indices .wrapper p:focus,
 .projects-preview .pagination .indices .wrapper p:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--button-hover-soft);
 }
 
 .projects-preview .pagination .indices .wrapper .focused:focus,
 .projects-preview .pagination .indices .wrapper .focused:hover {
-        background-color: rgba(200, 255, 0, 0.2);
+        background-color: var(--pill-soft);
 }
 
 .projects-preview .more {
@@ -340,9 +362,9 @@
         gap: 1vh;
         font-size: 0.9rem;
         font-weight: 600;
-        color: #0b0d0e;
+        color: var(--text-ink);
         text-decoration: none;
-        background-color: #ededed;
+        background-color: var(--button-bg);
         border-radius: 10vh;
         padding: 0.75vh 3.5vh;
         cursor: pointer;
@@ -351,7 +373,7 @@
 
 .projects-preview .more .button:focus,
 .projects-preview .more .button:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover);
 }
 
 .projects-preview .more .button img {

@@ -15,7 +15,7 @@ import useConceptualSkillsReducer from '../../../../Hooks/useConceptualSkillsRed
 import useQualificationsReducer from '../../../../Hooks/useQualificationsReducer';
 import useProjectsReducer from '../../../../Hooks/useProjectsReducer';
 import useTestimonialsReducer from '../../../../Hooks/useTestimonialsReducer';
-import useArticlesReducer from '../../../../Hooks/useArticlesReducer';
+import useBlogReducer from '../../../../Hooks/useBlogReducer';
 import '../Styles/StatisticsSection.css';
 
 
@@ -37,7 +37,7 @@ function StatisticsSection() {
         const { state: qualifications } = useQualificationsReducer();
         const { state: projects } = useProjectsReducer();
         const { state: testimonials } = useTestimonialsReducer();
-        const { state: articles } = useArticlesReducer();
+        const { state: blogs } = useBlogReducer();
 
         useEffect(() => {
                 const fetchData = async () => {
@@ -47,7 +47,7 @@ function StatisticsSection() {
                                 { label: "Qualifications", value: qualifications.qualifications.length },
                                 { label: "Projects", value: projects.projects.length },
                                 { label: "Testimonials", value: testimonials.testimonials.length },
-                                { label: "Articles", value: articles.articles.length }
+                                { label: "Blogs", value: blogs.blogs.length }
                         ];
 
                         setChartData({

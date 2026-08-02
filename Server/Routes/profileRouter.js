@@ -1,21 +1,22 @@
 import express from 'express';
+import authenticate from '../Middleware/authenticate.js';
 import { getProfilePage, updateProfilePage, updateDescription, addSocialLinks, updateSocialLink, deleteSocialLink } from '../Controllers/profile.js';
 
 
 const profileRouter = express.Router();
 
-// Defining the profile routers
+
 profileRouter.get("/", getProfilePage);
 
-profileRouter.patch("/", updateProfilePage);
+profileRouter.patch("/", authenticate. updateProfilePage);
 
-profileRouter.patch("/description", updateDescription);
+profileRouter.patch("/description", authenticate, updateDescription);
 
-profileRouter.post('/social', addSocialLinks);
+profileRouter.post('/social', authenticate, addSocialLinks);
 
-profileRouter.delete('/social/:id', updateSocialLink);
+profileRouter.delete('/social/:id', authenticate, updateSocialLink);
 
-profileRouter.delete('/social/:id', deleteSocialLink);
+profileRouter.delete('/social/:id', authenticate, deleteSocialLink);
 
 
 export default profileRouter;

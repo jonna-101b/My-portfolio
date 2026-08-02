@@ -3,7 +3,7 @@
         grid-template-columns: 1fr 1.5fr;
         gap: 5vh;
         background-image: linear-gradient(to right, #ff5757, #9e005d);
-        border: 1px solid #888888;
+        border: 1px solid var(--border);
         border-radius: 2vh;
         margin: 17.5vh 10vh;
         padding: 5vh;
@@ -16,7 +16,7 @@
         align-items: center;
         justify-content: space-evenly;
         font-size: 0.875rem;
-        color: #0b0d0e;
+        color: var(--text-ink);
         text-align: center;
 }
 
@@ -39,7 +39,7 @@
         display: grid;
         gap: 2vh;
         font-size: 0.875rem;
-        color: #0b0d0e;
+        color: var(--text-ink);
 }
 
 .new-testimonial .main-content form {
@@ -55,8 +55,8 @@
 }
 
 .new-testimonial .main-content form .input input {
-        color: #888888;
-        background-color: #0b0d0e;
+        color: var(--text-muted);
+        background-color: var(--bg);
         border: none;
         border-radius: 2vh;
         width: 100%;
@@ -69,8 +69,8 @@
 }
 
 .new-testimonial .main-content form .text-area textarea {
-        color: #888888;
-        background-color: #0b0d0e;
+        color: var(--text-muted);
+        background-color: var(--bg);
         border: none;
         border-radius: 2vh;
         width: 100%;
@@ -87,8 +87,8 @@
         place-content: center;
         gap: 1vh;
         font-weight: 600;
-        color: #0b0d0e;
-        border: 4px dashed #0b0d0e;
+        color: var(--text-ink);
+        border: 4px dashed var(--text-ink);
         border-radius: 2vh;
         text-align: center;
         padding: 2vh 0;
@@ -106,8 +106,8 @@
 
 .new-testimonial .main-content form button {
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
         border: none;
         border-radius: 2vh;
         text-align: center;
@@ -118,7 +118,7 @@
 
 .new-testimonial .main-content form button:focus, 
 .new-testimonial .main-content form button:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover);
 }
 
 .new-testimonial .main-content form .reminder {

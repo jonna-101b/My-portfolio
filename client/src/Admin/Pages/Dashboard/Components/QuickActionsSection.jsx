@@ -5,7 +5,7 @@ import { technicalForm, conceptualForm  } from '../../Skills/Components/Form';
 import qualificationsForm from '../../Qualifications/Components/Form';
 import projectsForm from '../../Projects/Components/Form';
 import testimonialsForm from '../../Testimonials/Components/Form';
-import articlesForm from '../../Articles/Components/Form';
+import blogForm from '../../Blog/Components/Form';
 import AddIcon from '../../../../assets/Icons/Admin/Common/add.png';
 import '../Styles/QuickActionsSection.css';
 
@@ -39,7 +39,7 @@ function QuickActionsSection() {
                 { name: "qualification", form: qualificationsForm, route: "qualifications" }, 
                 { name: "project", form: projectsForm, route: "projects" }, 
                 { name: "testimonial", form: testimonialsForm, route: "testimonials" }, 
-                { name: "article", form: articlesForm, route: "articles" }, 
+                { name: "blog", form: blogForm, route: "blogs" }, 
         ];
         
         const colors = [

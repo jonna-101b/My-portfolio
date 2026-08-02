@@ -7,7 +7,7 @@ import Qualifications from './Pages/Qualifications/Qualifications';
 import Skills from './Pages/Skills/Skills';
 import Projects from './Pages/Projects/Projects';
 import Testimonials from './Pages/Testimonials/Testimonials';
-import Articles from './Pages/Articles/Articles';
+import Blog from './Pages/Blog/Blog';
 import Profile from './Pages/Profile/Profile';
 import Settings from './Pages/Settings/Settings';
 import './Admin.css';
@@ -28,7 +28,7 @@ function Admin() {
                                                         <Route path="qualifications" element={<Qualifications />} />
                                                         <Route path="projects" element={<Projects />} />
                                                         <Route path="testimonials" element={<Testimonials />} />
-                                                        <Route path="articles" element={<Articles />} />
+                                                        <Route path="blog" element={<Blog />} />
                                                         <Route path="profile" element={<Profile />} />
                                                         <Route path="settings/*" element={<Settings />} />
                                                 </Routes>

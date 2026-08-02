@@ -4,11 +4,11 @@
         flex-direction: column;
        align-items: center;
        gap: 3vh;
-       color: #888888;
-        background-color: #202020;
-        border-top: 1px solid #333333;
-        box-shadow: inset 0 -5vh 2rem rgba(11, 13, 14, 0.75);
-        padding: 3vh;
+       color: var(--text-muted);
+        background-color: var(--surface);
+        border-top: 1px solid var(--border);
+        box-shadow: var(--shadow-inset);
+        padding-bottom: 6vh;
         z-index: 2;
 }
 
@@ -17,7 +17,7 @@
         place-content: center;
         font-size: 1.25rem;
         font-weight: 700;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .footer .logo img {
@@ -26,14 +26,14 @@
 
 .footer .nav {
         display: flex;
-        gap: 6vh;
+        gap: 10vh;
 }
 
 .footer .nav .nav-link {
         display: grid;
         place-content: center;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--text-muted);
         text-decoration: none;
         transition: color 0.15s linear;
         cursor: pointer;
@@ -42,7 +42,7 @@
 
 .footer .nav .nav-link:focus,
 .footer .nav .nav-link:hover {
-        color: #ededed;
+        color: var(--text);
 }
 
 .footer .nav .nav-link::after {
@@ -50,12 +50,12 @@
         content: "";
         display: grid;
         place-content: center;
-        background-color: #888888;
+        background-color: var(--text-muted);
         border-radius: 50%;
         width: 1vh;
         height: 1vh;
         position: absolute;
-        right: -3.5vh;
+        right: -5vh;
 }
 
 .footer .nav .nav-link:last-child:after {
@@ -70,9 +70,9 @@
 .footer .social-links a {
         display: grid;
         place-content: center;
-        color: #ededed;
+        color: var(--text);
         text-decoration: none;
-        background-color: rgba(237, 237, 237, 0.1);
+        background-color: var(--surface-soft);
         border-radius: 50%;
         width: 6vh;
         height: 6vh;
@@ -80,11 +80,18 @@
         cursor: pointer;
 }
 
+:root[data-theme='light'] .footer .social-links a {
+        background-color: var(--button-bg);
+}
+
+:root[data-theme='light'] .footer .social-links a:focus,
+:root[data-theme='light'] .footer .social-links a:hover,
 .footer .social-links a:focus,
 .footer .social-links a:hover {
-        color: #c6ff00;
-        background-color: rgba(237, 237, 237, 0.25);
+        color: var(--accent);
+        background-color: var(--button-hover-soft);
 }
+
 
 .footer .social-links a img {
         width: 3vh;
@@ -92,6 +99,6 @@
 
 .footer .copyright {
         font-size: 0.875rem;
-        border-top: 1px solid #333333;
-        padding-top: 1.5vh;
+        border-top: 1px solid var(--border);
+        padding-top: 2.5vh;
 }

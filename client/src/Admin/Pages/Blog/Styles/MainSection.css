@@ -1,0 +1,207 @@
+.admin .blogs .main-section {
+        display: grid;
+        gap: 2vh;
+        padding: 0;
+}
+
+.admin .blogs .main-section img {
+        width: 2vh;
+}
+
+.admin .blogs .main-section .labels {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+}
+
+.admin .blogs .main-section .labels p {
+        display: flex;
+        justify-content: center;
+        font-size: 0.875rem;
+        color: #888888;
+}
+
+.admin .blogs .main-section .list {
+        display: grid;
+        gap: 2vh;
+}
+
+.admin .blogs .main-section .blog-layout {
+        transition: background-color 0.15s linear;
+}
+
+.admin .blogs .main-section .list .blog-layout {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        border-radius: 2vh;
+        padding-block: 2vh;
+}
+
+.admin .blogs .main-section .list .blog-layout p,
+.admin .blogs .main-section .list .blog-layout div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.875rem;
+        color: #888888;
+        text-align: center;
+}
+
+.admin .blogs .main-section .list .blog-layout:nth-child(odd) {
+        background-color: #202020;
+        border: 1px solid #333333;
+}
+
+.admin .blogs .main-section .list .blog-layout:focus, 
+.admin .blogs .main-section .list .blog-layout:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .blogs .main-section .list .blog-layout .actions {
+        display: flex;
+        justify-content: center;
+        gap: 2vh;
+}
+
+.admin .blogs .main-section .list .blog-layout .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .blogs .main-section .blog-layout .actions p:focus, 
+.admin .blogs .main-section .blog-layout .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .blogs .main-section .list .blog-layout .actions p:focus .hover, 
+.admin .blogs .main-section .list .blog-layout .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .blogs .main-section .list .blog-layout .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .blogs .main-section .list .blog-layout .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .blogs .main-section .list .blog-layout .shadow {
+        display: none;
+}
+
+.admin .blogs .main-section .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4vh;
+}
+
+.admin .blogs .main-section .grid .blog-layout {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 2vh;
+        font-size: 0.875rem;
+        color: #888888;
+        background-color: #202020;
+        border: 1px solid #333333;
+        border-radius: 2vh;
+        padding: 4vh;
+        overflow: hidden;
+        position: relative;
+}
+
+.admin .blogs .main-section .grid .blog-layout p,
+.admin .blogs .main-section .grid .blog-layout div {
+        z-index: 1;
+}
+
+.admin .blogs .main-section .grid .blog-layout .title {
+        grid-column: span 2;
+        font-size: 1rem;
+        color: #ededed;
+}
+
+.admin .blogs .main-section .grid .blog-layout .author {
+        grid-column: span 2;
+}
+
+.admin .blogs .main-section .grid .blog-layout .author span {
+        display: inline-block;
+        font-size: 0.75rem;
+        background-color: #0b0d0e;
+        border-radius: 10vh;
+        padding: 0.5vh 2vh;
+}
+
+.admin .blogs .main-section .grid .blog-layout .published-on {
+        grid-column: span 2;
+}
+
+.admin .blogs .main-section .grid .blog-layout .last-updated {
+        font-size: 0.75rem;
+}
+
+.admin .blogs .main-section .grid .blog-layout .date {
+        font-size: 0.75rem;
+}
+
+.admin .blogs .main-section .grid .blog-layout:focus, 
+.admin .blogs .main-section .grid .blog-layout:hover {
+        background-color: rgba(32, 32, 32, 0.5);
+}
+
+.admin .blogs .main-section .grid .blog-layout .actions {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 0.25vh;
+}
+
+.admin .blogs .main-section .grid .blog-layout .actions p {
+        display: grid;
+        place-content: center;
+        border-radius: 1vh;
+        padding: 1vh;
+        transition: background-color 0.15s linear;
+        position: relative;
+        cursor: pointer;
+}
+
+.admin .blogs .main-section .grid .blog-layout .actions p:focus, 
+.admin .blogs .main-section .grid .blog-layout .actions p:hover {
+        background-color: rgb(32, 32, 32);
+}
+
+.admin .blogs .main-section .grid .blog-layout .actions p:focus .hover, 
+.admin .blogs .main-section .grid .blog-layout .actions p:hover .hover {
+        opacity: 1;
+}
+
+.admin .blogs .main-section .grid .blog-layout .actions p img {
+        width: 3vh;
+        transition: opacity 0.15s linear;
+}
+
+.admin .blogs .main-section .grid .blog-layout .actions p .hover {
+        place-self: center;
+        position: absolute;
+        opacity: 0;
+}
+
+.admin .blogs .main-section .grid .blog-layout .shadow {
+        position: absolute;
+        right: -7vh;
+        top: -7vh;
+        z-index: 0;
+}
+
+.admin .blogs .main-section .grid .blog-layout .shadow img {
+        width: 28vh;
+}

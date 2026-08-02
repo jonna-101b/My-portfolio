@@ -3,7 +3,7 @@ import AboutPreview from './Components/AboutPreview';
 import SkillsPreview from './Components/SkillsPreview';
 import ProjectsPreview from './Components/ProjectsPreview';
 import TestimonialsPreview from './Components/TestimonialsPreview';
-import ArticlesSection from '../../Components/Articles/Articles';
+import BlogSection from '../../Components/Blog/Blog';
 
 function Home() {
         return (
@@ -18,7 +18,7 @@ function Home() {
 
                         <TestimonialsPreview />
                         
-                        <ArticlesSection />
+                        <BlogSection />
                 </div>
         );
 }

@@ -14,7 +14,7 @@
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
         font-size: 1.5rem;
         font-weight: bolder;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .about-preview .intro-text {
@@ -26,20 +26,25 @@
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
+}
+
+:root[data-theme='light'] .about-preview .intro-text p {
+        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
 }
 
 .about-preview .main-content {
         place-self: center;
         display: grid;
         gap: 2vh;
-        background: #202020;
-        border: 1px solid #333333;
+        background: var(--surface);
+        border: 1px solid var(--border);
         border-radius: 2vh;
+        box-shadow: var(--shadow);
         width: 70%;
         position: relative;
 }
@@ -50,19 +55,23 @@
         gap: 3vh;
         font-size: 1.5rem;
         font-weight: 600;
-        color: #ededed;
-        background-color: rgba(11, 13, 14, 0.5);
+        color: var(--text);
+        background-color: var(--overlay);
         border-radius: 2vh 2vh 0 0;
         padding: 4vh 8vh;
         z-index: 1;
         position: relative;
 }
 
+:root[data-theme='light'] .about-preview .main-content .top {
+        background-color: var(--bg);
+}
+
 .about-preview .main-content .top .profile-picture {
         display: grid;
         place-content: center;
-        background-color: #202020;
-        border: 1.25vh solid #202020;
+        background-color: var(--surface);
+        border: 1.25vh solid var(--surface);
         border-radius: 50%;
         width: fit-content;
 }
@@ -83,11 +92,16 @@
         place-content: center;
         font-size: 0.875rem;
         font-weight: normal;
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
+        color: var(--accent);
+        background-color: var(--pill-soft);
         border-radius: 10vh;
         flex: 0 0 50%;
         padding: 0.5vh 3vh;
+}
+
+:root[data-theme='light'] .about-preview .main-content .top .right .availability {
+        color: var(--text-ink);
+        background-color: var(--surface);
 }
 
 .about-preview .main-content .top .shadow {
@@ -103,11 +117,12 @@
 }
 
 .about-preview .main-content .description {
-        font-size: 0.9375rem;
-        color: #888888;
+        font-size: 1rem;
+        text-align: justify;
+        color: var(--text-muted);
         line-height: 1.75;
         padding: 8vh;
-        padding-top: 0;
+        padding-top: 6vh;
 }
 
 .about-preview .more {
@@ -122,9 +137,9 @@
         gap: 1vh;
         font-size: 0.9rem;
         font-weight: 600;
-        color: #0b0d0e;
+        color: var(--text-ink);
         text-decoration: none;
-        background-color: #ededed;
+        background-color: var(--button-bg);
         border-radius: 10vh;
         padding: 0.75vh 3.5vh;
         cursor: pointer;
@@ -133,7 +148,7 @@
 
 .about-preview .more .button:focus,
 .about-preview .more .button:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover);
 }
 
 .about-preview .more .button img {

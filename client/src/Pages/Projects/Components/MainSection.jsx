@@ -1,11 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ThemeContext } from "../../../Contexts/ThemeContext";
 import useProjectsReducer from '../../../Hooks/useProjectsReducer';
 import ShadowIcon from '../../../assets/Icons/Common/cube-shadow.png';
+import ShadowLightIcon from '../../../assets/Icons/Common/cube-light.png';
 import ArrowIcon from '../../../assets/Icons/Projects/arrow-right.png';
 import ViewIcon from '../../../assets/Icons/Projects/view.png';
+import ViewLightIcon from '../../../assets/Icons/Projects/view-light.png';
 import GithubIcon from '../../../assets/Icons/Projects/github.png';
+import GithubLightIcon from '../../../assets/Icons/Projects/github-light.png';
 import LinkIcon from '../../../assets/Icons/Projects/link.png';
+import LinkLightIcon from '../../../assets/Icons/Projects/link-light.png';
 import ExternalLinkIcon from '../../../assets/Icons/Projects/external.png';
 import '../Styles/MainSection.css';
 
@@ -25,6 +30,8 @@ const Domain = ({ domain, isSelected, handleDomainSelection }) => (
 );
 
 function Project({ project }) {
+        const { theme } = useContext(ThemeContext);
+        
         return (
                 <div className="project">
                         <div className="sub-content">
@@ -50,12 +57,12 @@ function Project({ project }) {
                                 <div className="links">
                                         <a className="github-link" href={project.githubLink} target="_blank" >
                                                 Github repo
-                                                <img src={ GithubIcon } alt="Github logo" />
+                                                <img src={ theme === 'dark' ? GithubIcon : GithubLightIcon } alt="Github logo" />
                                         </a>
         
                                         <a className="project-link" href={project.projectLink} target="_blank" >
                                                 View project
-                                                <img src={ ExternalLinkIcon } alt="External link Icon" />
+                                                <img src={ theme === 'dark' ? LinkIcon : LinkLightIcon } alt="External link Icon" />
                                         </a>
                                 </div>
                         </div>
@@ -66,11 +73,12 @@ function Project({ project }) {
 function ProjectCard({ project, handleProjectSelection }) {
         const techStack = project.techStack.slice(0, 4);
         const leftTechLength = project.techStack.length - techStack.length;
+        const { theme } = useContext(ThemeContext);
 
         return (
                 <div className="project-card">
                         <p className="shadow">
-                                <img src={ShadowIcon} alt="Shadow icon" />
+                                <img src={theme === 'dark' ? ShadowIcon : ShadowLightIcon} alt="Shadow icon" />
                         </p>
 
                         <p className="title">{ project.title }</p>
@@ -85,11 +93,11 @@ function ProjectCard({ project, handleProjectSelection }) {
                         <div className="buttons">
                                 <div className="links">
                                         <a className="github-icon" href={project.githubLink} target="_blank" >
-                                                <img src={ GithubIcon } alt="Github icon" />
+                                                <img src={ theme === 'dark' ? GithubIcon : GithubLightIcon } alt="Github icon" />
                                         </a>
                                         
                                         <a className="link-icon" href={project.projectLink} target="_blank" >
-                                                <img src={LinkIcon } alt="Project icon" />
+                                                <img src={theme === 'dark' ? LinkIcon : LinkLightIcon } alt="Project icon" />
                                         </a>
                                 </div>
 
@@ -97,7 +105,7 @@ function ProjectCard({ project, handleProjectSelection }) {
                                         <p onClick={ () => {handleProjectSelection(project)}} >
                                                 view
                                                 <span className="icon">
-                                                        <img src={ViewIcon} alt="View icon" />
+                                                        <img src={theme === 'dark' ? ViewIcon : ViewLightIcon} alt="View icon" />
                                                 </span>
                                         </p>
                                </div>

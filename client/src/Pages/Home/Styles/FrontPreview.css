@@ -33,14 +33,14 @@
 
 .front-preview .name p {
         font-size: 1.125rem;
-        color: #ededed;
+        font-weight: 600;
+        color: var(--text);
         display: inline-block;
         margin: 0 1vh;
 }
 
 .front-preview .name p span {
-        font-weight: 700;
-        color: #c6ff00;
+        color: var(--accent);
 }
 
 .front-preview .professions {
@@ -49,20 +49,20 @@
         gap: 2vh;
         font-size: 2.625rem;
         font-weight: bold;
-        color: #ededed;
+        color: var(--text);
         text-align: center;
         width: 50%;
 }
 
 .front-preview .professions p span {
-        color: #c6ff00;
+        color: var(--accent);
 }
 
 .front-preview .hero-text {
         display: flex;
         justify-content: center;
         text-align: center;
-        color: #888888;
+        color: var(--text-muted);
         width: 50%;
 }
 
@@ -74,13 +74,17 @@
 }
 
 .front-preview .links .hire-me {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
+}
+
+:root[data-theme='light'] .front-preview .links .hire-me {
+        background-color: var(--button-bg);
 }
 
 .front-preview .links .resume {
-        color: #0b0d0e;
-        background-color: rgba(200, 255, 0, 0.75);
+        color: var(--text-ink);
+        background-color: var(--pill-strong);
 }
 
 .front-preview .links a {
@@ -88,6 +92,7 @@
         justify-content: center;
         align-items: center;
         font-size: 0.875rem;
+        font-weight: 600;
         text-decoration: none;
         gap: 1vh;
         border: none;
@@ -98,14 +103,16 @@
         cursor: pointer;
 }
 
+:root[data-theme='light'] .front-preview .links .hire-me:focus,
+:root[data-theme='light'] .front-preview .links .hire-me:hover,
 .front-preview .links .hire-me:focus, 
 .front-preview .links .hire-me:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--button-hover-soft);
 }
 
 .front-preview .links .resume:focus, 
 .front-preview .links .resume:hover {
-        background-color: #c6ff00;
+        background-color: var(--accent);
 }
 
 .front-preview .links a img {

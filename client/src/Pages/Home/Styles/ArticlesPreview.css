@@ -1,120 +1,119 @@
-.articles-preview {
+.blogs-preview {
         display: grid;
         gap: 5vh;
         margin-block: 17.5vh; 
         padding-inline: 10vh;
 }
 
-.articles-preview .main-title {
+.blogs-preview .main-title {
         display: grid;
         place-content: center;
 }
 
-.articles-preview .main-title p {
+.blogs-preview .main-title p {
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
         font-size: 1.5rem;
         font-weight: bolder;
-        color: #888888;
+        color: var(--text-muted);
 }
 
-.articles-preview .articles-message {
+.blogs-preview .blogs-message {
         display: grid;
         place-content: center;
 }
 
-.articles-preview .articles-message p {
+.blogs-preview .blogs-message p {
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
 }
 
-.articles-preview .articles {
+.blogs-preview .blogs {
         display: grid;
         gap: 10vh;
-        background-color: #202020;
-        border: 1px solid #888;
+        background-color: var(--surface);
+        border: 1px solid var(--text-muted);
         border-radius: 2vh;
         width: 100%;
         padding: 4vh;
 }
 
-.articles-preview .articles .article {
+.blogs-preview .blogs .blog {
         display: flex;
         justify-content: space-between;
         gap: 4vh;
         position: relative;
 }
 
-.articles-preview .articles .article::after {
+.blogs-preview .blogs .blog::after {
         content: "";
-        border-bottom: 3px dotted #0b0d0e;
+        border-bottom: 3px dotted var(--bg);
         position: absolute;
         left: 0;
         bottom: -5vh;
         width: 100%;
 }
 
-.articles-preview .articles .article:last-child::after {
+.blogs-preview .blogs .blog:last-child::after {
         display: none;
 }
 
-.articles-preview .articles .article .main-content {
+.blogs-preview .blogs .blog .main-content {
         display: flex;
         flex-direction: column;
         gap: 2vh;
 }
 
-.articles-preview .articles .article .main-content .title p {
+.blogs-preview .blogs .blog .main-content .title p {
         display: inline-block;
         font-size: 0.875rem;
-        color: #888888;
-        background-color: #0b0d0e;
+        color: var(--text-muted);
+        background-color: var(--bg);
         border-radius: 4vh;
         padding: 0.75vh 3vh;
 }
 
-.articles-preview .articles .article .main-content .intro-text {
+.blogs-preview .blogs .blog .main-content .intro-text {
         font-size: 1.25rem;
         font-weight: bold;
-        color: #ededed;
+        color: var(--text);
 }
 
-.articles-preview .articles .article .main-content .tags {
+.blogs-preview .blogs .blog .main-content .tags {
         display: flex;
         gap: 2vh;
 }
 
-.articles-preview .articles .article .main-content .tags .tag {
+.blogs-preview .blogs .blog .main-content .tags .tag {
         display: grid;
         place-content: center;
         font-size: 0.625rem;
-        /* font-weight: 600; */
-        color: #0b0d0e;
-        background-color: #0b0d0e;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
         border-radius: 4vh;
         padding: 0.25vh 2vh;
 }
 
-.articles-preview .articles .article .main-content .description {
+.blogs-preview .blogs .blog .main-content .description {
         font-size: 0.9375rem;
-        color: #888888;
+        color: var(--text-muted);
         margin-block: 2vh;
 }
 
-.articles-preview .articles .article .main-content .links {
+.blogs-preview .blogs .blog .main-content .links {
         display: flex;
         gap: 2vh;
 }
 
-.articles-preview .articles .article .main-content .links .link {
+.blogs-preview .blogs .blog .main-content .links .link {
         font-size: 0.75rem;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
         border: none;
         border-radius: 6vh;
         padding: 0.5vh 3vh;
@@ -123,55 +122,55 @@
         transition: background-color 0.15s linear;
 }
 
-.articles-preview .articles .article .main-content .links .link:focus,
-.articles-preview .articles .article .main-content .links .link:hover {
-        background-color: #c6ff00;
+.blogs-preview .blogs .blog .main-content .links .link:focus,
+.blogs-preview .blogs .blog .main-content .links .link:hover {
+        background-color: var(--button-hover);
 }
 
-.articles-preview .articles .article .sub-content .image {
+.blogs-preview .blogs .blog .sub-content .image {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
+        background-color: var(--bg);
         border-radius: 2vh;
         width: 30vw;
         height: 80%;
 } 
 
-.articles-preview .articles .article .sub-content .info {
+.blogs-preview .blogs .blog .sub-content .info {
         display: flex;
         justify-content: space-between;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--text-muted);
         margin-top: 2vh;
 } 
 
 
-.articles-preview .more {
+.blogs-preview .more {
         display: grid;
         place-content: center;
 }
 
-.articles-preview .more .button {
+.blogs-preview .more .button {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 1vh;
         font-size: 0.9rem;
         font-weight: 600;
-        color: #0b0d0e;
+        color: var(--text-ink);
         text-decoration: none;
-        background-color: #ededed;
+        background-color: var(--button-bg);
         border-radius: 10vh;
         padding: 0.75vh 3.5vh;
         cursor: pointer;
         transition: background-color 0.15s linear;
 }
 
-.articles-preview .more .button:focus,
-.articles-preview .more .button:hover {
-        background-color: #c6ff00;
+.blogs-preview .more .button:focus,
+.blogs-preview .more .button:hover {
+        background-color: var(--button-hover);
 }
 
-.articles-preview .more .button img {
+.blogs-preview .more .button img {
         height: 2vh;
 }

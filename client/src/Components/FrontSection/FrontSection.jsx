@@ -1,5 +1,8 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../Contexts/ThemeContext';
 import useProfileReducer from '../../Hooks/useProfileReducer';
-import SendIcon from '../../assets/Icons/Common/paper-plane.png';
+import SendIcon from '../../assets/Icons/Common/send.png';
+import SendLightIcon from '../../assets/Icons/Common/send-light.png';
 import MouseIcon from '../../assets/Icons/Common/mouse.png';
 import ArrowIcon from '../../assets/Icons/Common/arrow-small-down.png';
 import './FrontSection.css';
@@ -22,6 +25,7 @@ const ScrollDown = () => (
 function MainSection({ pageTitle, pageIntro, pageDescription, pageImage  }) {
         const { profile } = useProfileReducer();
         const { socialLinks } = profile;
+        const{ theme } = useContext(ThemeContext);
         
         return (
                 <div className="front-section">
@@ -44,7 +48,7 @@ function MainSection({ pageTitle, pageIntro, pageDescription, pageImage  }) {
 
                                         <div className="contact">
                                                 <button>Contact me
-                                                        <img src={ SendIcon } alt="Send icon" />
+                                                        <img src={ theme === 'dark' ? SendIcon : SendLightIcon } alt="Send icon" />
                                                 </button>
                                         </div>
                                 </div>

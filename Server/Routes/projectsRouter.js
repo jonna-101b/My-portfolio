@@ -1,4 +1,5 @@
 import express from 'express';
+import authenticate from '../Middleware/authenticate.js';
 import { getProjects, addProject, updateProject, deleteProject } from '../Controllers/projects.js';
 
 
@@ -7,10 +8,10 @@ const projectsRouter = express.Router();
 // Define your projects routes here
 projectsRouter.get("/", getProjects);
 
-projectsRouter.post("/", addProject);
+projectsRouter.post("/", authenticate, addProject);
 
-projectsRouter.patch("/:id", updateProject);
+projectsRouter.patch("/:id", authenticate, updateProject);
 
-projectsRouter.delete("/:id", deleteProject);
+projectsRouter.delete("/:id", authenticate, deleteProject);
 
 export default projectsRouter;

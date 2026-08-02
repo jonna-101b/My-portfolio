@@ -1,4 +1,5 @@
 import express from 'express';
+import authenticate from '../Middleware/authenticate.js';
 import { getQualifications, addQualification, updateQualification, deleteQualification } from '../Controllers/qualifications.js';
 
 
@@ -7,10 +8,10 @@ const qualificationsRouter = express.Router();
 // Define your qualifications routes here
 qualificationsRouter.get("/", getQualifications);
 
-qualificationsRouter.post("/", addQualification);
+qualificationsRouter.post("/", authenticate, addQualification);
 
-qualificationsRouter.patch("/:id", updateQualification);
+qualificationsRouter.patch("/:id", authenticate, updateQualification);
 
-qualificationsRouter.delete("/:id", deleteQualification);
+qualificationsRouter.delete("/:id", authenticate, deleteQualification);
 
 export default qualificationsRouter;

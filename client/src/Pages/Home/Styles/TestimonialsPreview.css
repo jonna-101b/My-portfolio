@@ -13,7 +13,7 @@
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
         font-size: 1.5rem;
         font-weight: bolder;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .testimonials-preview .testimonials-message {
@@ -25,11 +25,15 @@
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
+}
+
+:root[data-theme='light'] .testimonials-preview .testimonials-message p {
+        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
 }
 
 .testimonials-preview .testimonials {
@@ -49,12 +53,12 @@
 .testimonials-preview .testimonials .wrapper .testimonial {
         display: grid;
         gap: 4vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        background-color: #202020;
-        border: 1px solid #333333;
+        font-size: 0.9375rem;
+        color: var(--text);
+        background-color: var(--surface);
+        border: 1px solid var(--border);
         border-radius: 2vh;
-        box-shadow: 0 0 1rem #000;
+        box-shadow: var(--shadow);
         width: 27.5vw;
         padding: 10vh 4vh;
         transition: background-color 0.15s linear;
@@ -64,7 +68,7 @@
 
 .testimonials-preview .testimonials .wrapper .testimonial:focus,
 .testimonials-preview .testimonials .wrapper .testimonial:hover {
-        background-color: rgba(32, 32, 32, 0.75);
+        background-color: var(--theme-card-hover);
 }
 
 .testimonials-preview .testimonials .wrapper .testimonial p,
@@ -86,7 +90,7 @@
 }
 
 .testimonials-preview .testimonials .wrapper .testimonial .shadow svg {
-        stroke: #0b0d0e;
+        stroke: var(--bg);
         width: 10vh;
         opacity: 75%;
         transition: stroke 0.25s linear;
@@ -103,7 +107,7 @@
 .testimonials-preview .testimonials .wrapper .testimonial .info .image {
         display: grid;
         place-content: center;
-        background-color: rgba(11, 13, 14, 0.55);
+        background-color: var(--overlay);
         border-radius: 50%;
         width: 14vh;
         height: 14vh;
@@ -118,13 +122,23 @@
         height: 100%;
 }
 
+.testimonials-preview .testimonials .wrapper .testimonial .info .details {
+        display: grid;
+        gap: 1vh;
+}
+
+.testimonials-preview .testimonials .wrapper .testimonial .info .details .name {
+        font-size: 1.05rem;
+        font-weight: bold;
+}
+
 .testimonials-preview .testimonials .wrapper .testimonial .info .details .position {
-        font-size: 0.75rem;
-        color: #888888;
+        font-size: 0.875rem;
+        color: var(--text-muted);
 }
 
 .testimonials-preview .testimonials .wrapper .testimonial .testimony {
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .testimonials-preview .pagination {
@@ -137,7 +151,7 @@
 .testimonials-preview .pagination p {
         display: grid;
         place-content: center;
-        background-color: rgba(237, 237, 237, 0.1);
+        background-color: var(--surface-soft);
         border-radius: 50%;
         width: 1.5vh;
         height: 1.5vh;
@@ -145,18 +159,25 @@
         cursor: pointer;
 }
 
-.testimonials-preview .pagination .focused {
-        background-color: #c6ff00;
+:root[data-theme='light']  .testimonials-preview .pagination p {
+        background-color: var(--button-bg);
 }
 
+:root[data-theme='light']  .testimonials-preview .pagination .focused, 
+.testimonials-preview .pagination .focused {
+        background-color: var(--accent);
+}
+
+:root[data-theme='light']  .testimonials-preview .pagination p:focus, 
+:root[data-theme='light']  .testimonials-preview .pagination p:hover, 
 .testimonials-preview .pagination p:focus,
 .testimonials-preview .pagination p:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--button-hover-soft);
 }
 
 .testimonials-preview .pagination .focused:focus,
 .testimonials-preview .pagination .focused:hover {
-        background-color: #c6ff00;
+        background-color: var(--accent);
 }
 
 .testimonials-preview .new-testimonial {
@@ -164,7 +185,7 @@
         grid-template-columns: 1fr 1.5fr;
         gap: 5vh;
         background-image: linear-gradient(to right, #ff5757, #9e005d);
-        border: 1px solid #333333;
+        border: 1px solid var(--border);
         border-radius: 2vh;
         margin: 0 10vh;
         padding: 10vh;
@@ -177,14 +198,14 @@
         align-items: center;
         justify-content: space-evenly;
         font-size: 0.875rem;
-        color: #0b0d0e;
+        color: var(--text-ink);
         text-align: center;
 }
 
 .testimonials-preview .new-testimonial .sub-content .title {
         font-size: 2.25rem;
         font-weight: bold;
-        color: #ededed;
+        color: var(--text);
 }
 
 .testimonials-preview .new-testimonial .sub-content .image {
@@ -201,7 +222,7 @@
         display: grid;
         gap: 2vh;
         font-size: 0.875rem;
-        color: #0b0d0e;
+        color: var(--text-ink);
 }
 
 .testimonials-preview .new-testimonial .main-content form {
@@ -217,8 +238,8 @@
 }
 
 .testimonials-preview .new-testimonial .main-content form .input input {
-        color: #888888;
-        background-color: #0b0d0e;
+        color: var(--text-muted);
+        background-color: var(--bg);
         border: none;
         border-radius: 2vh;
         width: 100%;
@@ -231,8 +252,8 @@
 }
 
 .testimonials-preview .new-testimonial .main-content form .text-area textarea {
-        color: #888888;
-        background-color: #0b0d0e;
+        color: var(--text-muted);
+        background-color: var(--bg);
         border: none;
         border-radius: 2vh;
         width: 100%;
@@ -249,8 +270,8 @@
         place-content: center;
         gap: 1vh;
         font-weight: 600;
-        color: #0b0d0e;
-        border: 4px dashed #0b0d0e;
+        color: var(--text-ink);
+        border: 4px dashed var(--text-ink);
         border-radius: 2vh;
         text-align: center;
         padding: 2vh 0;
@@ -268,8 +289,8 @@
 
 .testimonials-preview .new-testimonial .main-content form button {
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
         border: none;
         border-radius: 2vh;
         text-align: center;
@@ -280,7 +301,7 @@
 
 .testimonials-preview .new-testimonial .main-content form button:focus, 
 .testimonials-preview .new-testimonial .main-content form button:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover);
 }
 
 .testimonials-preview .new-testimonial .main-content form .reminder {

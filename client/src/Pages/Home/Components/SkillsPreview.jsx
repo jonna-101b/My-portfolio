@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTechnicalSkillsReducer from '../../../Hooks/useTechnicalSkillsReducer';
 import useConceptualSkillsReducer from '../../../Hooks/useConceptualSkillsReducer';
 import ShadowIcon from '../../../assets/Icons/Common/star-shadow.png';
+import ShadowLightIcon from '../../../assets/Icons/Common/star-light.png';
 import '../Styles/SkillsPreview.css';
 
 const Tech = ({ tech }) => (
@@ -16,6 +18,7 @@ const Tech = ({ tech }) => (
 );
 
 function ConceptualSkill({ skill }) {
+        const { theme } = useContext(ThemeContext);
         return (
                 <div className="skill">
                         <p className="icon">
@@ -23,7 +26,7 @@ function ConceptualSkill({ skill }) {
                         </p>
 
                         <p className="shadow">
-                                <img src={ShadowIcon} alt="Shadow icon" />
+                                <img src={theme === 'dark' ? ShadowIcon : ShadowLightIcon} alt="Shadow icon" />
                         </p>
 
                         <div className="main-content">
@@ -49,12 +52,12 @@ function SkillsPreview() {
         return (
                 <div className="skills-preview">
                         <div className="main-title">
-                                <p>My skills</p>
+                                <p>My Skills</p>
                         </div>
 
                         <div className="technical-skills">
                                 <div className="sub-title">
-                                        <p>Technical skills</p>
+                                        <p>Technical Skills</p>
                                 </div>
 
                                 <div className="skills">
@@ -71,7 +74,7 @@ function SkillsPreview() {
 
                         <div className="conceptual-skills">
                                 <div className="sub-title">
-                                        <p>Conceptual skills</p>
+                                        <p>Conceptual Skills</p>
                                 </div>
 
                                 <div className="skills-loop">

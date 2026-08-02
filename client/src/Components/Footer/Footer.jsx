@@ -18,8 +18,6 @@ function Footer() {
                                 <NavLink className="about nav-link" to={"/about"} >About</NavLink>
 
                                 <NavLink className="projects nav-link" to={"/projects"} >Projects</NavLink>
-
-                                <NavLink className="contact nav-link" to={"/articles"} >Articles</NavLink>
                         </div>
 
                         <div className="social-links">

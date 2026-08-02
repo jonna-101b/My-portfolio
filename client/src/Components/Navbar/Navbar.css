@@ -2,14 +2,20 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-image: linear-gradient(to bottom, #0b0d0e, transparent);
+        background-image: linear-gradient(to bottom, var(--bg), transparent);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         padding: 0 10vh;
-        /* padding-top: 5vh; */
         z-index: 3;
+}
+
+:root[data-theme='light'] .navbar {
+        background-image: linear-gradient(to bottom, #000000, transparent);
+        background-image: none;
 }
 
 .navbar .logo {
@@ -33,7 +39,7 @@
         display: inline-block;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--text);
         text-decoration: none;
         border-radius: 10vh;
         padding: 0.5vh 2vh;
@@ -43,25 +49,31 @@
 
 .navbar nav .nav-link:focus, 
 .navbar nav .nav-link:hover {
-        background-color: rgba(237, 237, 237, 0.1);
+        background-color: var(--surface-soft);
+}
+
+:root[data-theme='light'] .navbar nav .nav-link:focus, 
+:root[data-theme='light'] .navbar nav .nav-link:hover {
+        background-color: var(--surface);
 }
 
 .navbar nav .active {
-        background-color: #c6ff00;
-        color: #0b0d0e;
+        background-color: var(--accent);
+        color: var(--text-ink);
         border-radius: 10vh;
 }
 
 .navbar nav .active:focus, 
 .navbar nav .active:hover {
-        color: #0b0d0e;
-        background-color: #c6ff00;
+        color: var(--text-ink);
+        background-color: var(--accent);
 }
 
 .navbar nav .appearance {
         display: grid;
         place-content: center;
-        background-color: rgba(237, 237, 237, 0.1);
+        background-color: var(--surface);
+        border: none;
         border-radius: 1.5vh;
         width: 4.5vh;
         height: 4.5vh;
@@ -72,7 +84,7 @@
 
 .navbar nav .appearance:focus,
 .navbar nav .appearance:hover {
-        background-color: rgba(200, 255, 0, 0.1);
+        background-color: var(--pill-soft);
 }
 
 .navbar nav .appearance img {

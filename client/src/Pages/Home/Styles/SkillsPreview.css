@@ -13,7 +13,7 @@
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
         font-size: 1.5rem;
         font-weight: bolder;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .skills-preview .technical-skills .sub-title {
@@ -35,11 +35,15 @@
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
+}
+
+:root[data-theme='light'] .skills-preview .technical-skills .sub-title p {
+        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
 }
 
 .skills-preview .technical-skills .skills {
@@ -48,8 +52,8 @@
         justify-content: center;
         align-items: center;
         gap: 2vh;
-        background-color: rgba(32, 32, 32, 0.5);
-        border: 1px solid #333333;
+        background-color: var(--panel);
+        border: 1px solid var(--border);
         border-radius: 2vh;
         padding: 4vh;
         width: fit-content;
@@ -58,8 +62,8 @@
 
 .skills-preview .technical-skills .skills p {
         font-size: 0.875rem;
-        color: #888888;
-        background-color: rgba(32, 32, 32, 0.75);
+        color: var(--text-muted);
+        background-color: var(--panel-strong);
         border-radius: 10vh;
         padding: 0.5vh 3vh ;
         cursor: pointer;
@@ -68,21 +72,35 @@
 
 .skills-preview .technical-skills .skills p:focus, 
 .skills-preview .technical-skills .skills p:hover {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
+}
+
+:root[data-theme='light'] .skills-preview .technical-skills .skills p:focus,
+:root[data-theme='light'] .skills-preview .technical-skills .skills p:hover {
+        background-color: var(--button-hover-soft);
 }
 
 .skills-preview .technical-skills .skills .focused {
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
         border-radius: 10vh;
         transition: none;
 }
 
+:root[data-theme='light'] .skills-preview .technical-skills .skills .focused {
+        background-color: var(--bg);
+}
+
 .skills-preview .technical-skills .skills .focused:focus, 
 .skills-preview .technical-skills .skills .focused:hover {
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
+}
+
+:root[data-theme='light'] .skills-preview .technical-skills .skills .focused:focus,
+:root[data-theme='light'] .skills-preview .technical-skills .skills .focused:hover {
+        background-color: var(--bg);
 }
 
 .skills-preview .technical-skills .techs {
@@ -98,8 +116,8 @@
         place-content: center;
         gap: 2vh;
         font-size: 0.875rem;
-        color: #888888;
-        background-color: rgba(32, 32, 32, 0.5);
+        color: var(--text-muted);
+        background-color: var(--panel);
         border-radius: 2vh;
         width: 24vh;
         height: 24vh;
@@ -108,8 +126,8 @@
 
 .skills-preview .technical-skills .techs .tech:focus,
 .skills-preview .technical-skills .techs .tech:hover {
-        background-color: rgba(32, 32, 32, 0.75);
-        color: #ededed;
+        background-color: var(--theme-card-hover);
+        color: var(--text);
 }
 
 .skills-preview .technical-skills .techs .tech .icon {
@@ -146,19 +164,23 @@
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
+}
+
+:root[data-theme='light'] .skills-preview .conceptual-skills .sub-title p {
+        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
 }
 
 .skills-preview .conceptual-skills .skills-loop {
         place-self: center;
         width: calc(100% - 20vh);
         overflow: hidden;
-        -webkit-mask: linear-gradient(to right, transparent, #0b0d0e 10%, #0b0d0e 90%, transparent);
-        mask: linear-gradient(to right, transparent, #0b0d0e 10%, #0b0d0e 90%, transparent);
+        -webkit-mask: linear-gradient(to right, transparent, var(--hero-mask) 10%, var(--hero-mask) 90%, transparent);
+        mask: linear-gradient(to right, transparent, var(--hero-mask) 10%, var(--hero-mask) 90%, transparent);
 }
 
 .skills-preview .conceptual-skills .skills-track {
@@ -183,12 +205,12 @@
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill {
         flex: none;
-        font-size: 0.875rem;
-        color: #888888;
-        background-color: #202020;
-        border: 1px solid #333333;
+        font-size: 0.9375rem;
+        color: var(--text-muted);
+        background-color: var(--surface);
+        border: 1px solid var(--border);
         border-radius: 2vh;
-        box-shadow: 0 0 1rem #000;
+        box-shadow: var(--shadow);
         width: 20vw;
         padding: 6vh;
         overflow: hidden;
@@ -198,13 +220,13 @@
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill:focus,
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill:hover {
-        background-color: rgba(32, 32, 32, 0.75);
+        background-color: var(--theme-card-hover);
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill .icon {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
+        background-color: var(--bg);
         border-radius: 2vh;
         width: 8vh;
         height: 8vh;
@@ -227,7 +249,8 @@
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill .title {
+        font-size: 1rem;
         font-weight: bold;
-        color: #ededed;
+        color: var(--text);
         margin: 2vh 0;
 }

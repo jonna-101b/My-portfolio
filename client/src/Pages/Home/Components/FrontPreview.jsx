@@ -1,8 +1,11 @@
+import { useContext } from "react";
+import { ThemeContext } from "../../../Contexts/ThemeContext";
 import useProfileReducer from "../../../Hooks/useProfileReducer";
 import CoolGuyCoding from "../../../assets/Images/Home/Cool guy coding.svg";
 import CodeIcon from "../../../assets/Icons/Home/is-less-than.png";
 import SlashIcon from "../../../assets/Icons/Home/slash.png";
 import BriefcaseIcon from '../../../assets/Icons/Home/briefcase.png';
+import BriefcaseLightIcon from '../../../assets/Icons/Home/briefcase-light.png';
 import DownloadIcon from '../../../assets/Icons/Home/downloads.png';
 import '../Styles/FrontPreview.css';
 
@@ -22,6 +25,7 @@ function Profession( profession ) {
 function FrontPage() {
         const { profile } = useProfileReducer();
         const { firstName, lastName, professions, bio, availability, hireMe, resumeLink } = profile;
+        const { theme, toggleTheme } = useContext(ThemeContext);
 
         return (
                 <div className="front-preview">
@@ -51,7 +55,7 @@ function FrontPage() {
                                 { availability ?
                                         <a className="hire-me" href={hireMe} target="_blank" >
                                                 Hire me
-                                                <img src={ BriefcaseIcon } alt="Briefcase" />
+                                                <img src={ theme === 'dark' ? BriefcaseIcon : BriefcaseLightIcon } alt="Briefcase" />
                                         </a>
                                         :
                                         null

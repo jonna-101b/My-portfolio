@@ -5,7 +5,7 @@ const profile = {
   gender: "Male",
   availability: true,
   birthDate: new Date("1990-05-15"),
-  professions: ["Full Stack Developer", "Software Engineer", "UI/UX Designer"],
+  professions: ["Full Stack Developer", "Electrical Engineer", "UI/UX Designer"],
   picture: "https://randomuser.me/api/portraits/men/32.jpg",
   bio: "Passionate software developer with 10+ years of experience in full-stack development.",
   // logo: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png",

@@ -11,8 +11,8 @@
         flex-wrap: wrap;
         justify-content: center;
         gap: 2vh;
-        background-color: rgba(32, 32, 32, 0.5);
-        border: 1px solid #333333;
+        background-color: var(--panel);
+        border: 1px solid var(--border);
         border-radius: 2vh;
         width: calc(100% - 20vh);
         padding: 4vh;
@@ -20,8 +20,8 @@
 
 .projects .main-section .categories p {
         font-size: 0.875rem;
-        color: #888888;
-        background-color: rgba(32, 32, 32, 0.75);
+        color: var(--text-muted);
+        background-color: var(--panel-strong);
         border-radius: 10vh;
         padding: 0.5vh 3vh;
         cursor: pointer;
@@ -30,19 +30,33 @@
 
 .projects .main-section .categories p:focus,
 .projects .main-section .categories p:hover {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
+}
+
+:root[data-theme='light'] .projects .main-section .categories p:focus, 
+:root[data-theme='light'] .projects .main-section .categories p:hover {
+        background-color: var(--button-hover-soft);
 }
 
 .projects .main-section .categories .focused {
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
+}
+
+:root[data-theme='light'] .projects .main-section .categories .focused {
+        background-color: var(--bg);
 }
 
 .projects .main-section .categories .focused:focus, 
 .projects .main-section .categories .focused:hover {
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--text-ink);
+        background-color: var(--button-bg);
+}
+
+:root[data-theme='light'] .projects .main-section .categories p:focus, 
+:root[data-theme='light'] .projects .main-section .categories p:hover {
+        background-color: var(--bg);
 }
 
 .projects .main-section .projects {
@@ -54,10 +68,10 @@
 .projects .main-section .projects .project-card {
         display: grid;
         gap: 1vh;
-        background-color: #202020;
-        border: 1px solid #333333;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
         border-radius: 2vh;
-        box-shadow: 0 0 1rem #000;
+        box-shadow: var(--shadow);
         padding: 4vh;
         overflow: hidden;
         position: relative;
@@ -66,7 +80,7 @@
 
 .projects .main-section .projects .project-card:focus,
 .projects .main-section .projects .project-card:hover {
-        background-color: rgba(32, 32, 32, 0.75);
+        background-color: var(--theme-card-hover);
 }
 
 .projects .main-section .projects .project-card .shadow {
@@ -82,28 +96,31 @@
 }
 
 .projects .main-section .projects .project-card .title {
-        font-size: 1rem;
+        font-size: 1.25rem;
         font-weight: 700;
-        color: #ededed;
+        color: var(--text);
         transition: transform 0.15s linear;
+        z-index: 1;
 }
 
 .projects .main-section .projects .project-card .contribution {
-        font-size: 0.875rem;
-        color: #888888;
+        font-size: 1rem;
+        color: var(--text-muted);
+        z-index: 1;
 }
 
 .projects .main-section .projects .project-card .techStack {
         display: flex;
         gap: -2vh;
         margin-top: 4vh;
+        z-index: 1;
 }
 
 .projects .main-section .projects .project-card .techStack .tech {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
-        border: 3px solid #202020;
+        background-color: var(--bg);
+        border: 3px solid var(--surface);
         border-radius: 50%;
         width: 6vh;
         height: 6vh;
@@ -118,9 +135,9 @@
         place-content: center;
         font-weight: 700;
         font-size: 0.75rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border: 3px solid #202020;
+        color: var(--text);
+        background-color: var(--surface-soft);
+        border: 3px solid var(--surface);
         border-radius: 50%;
         width: 6vh;
         height: 6vh;
@@ -131,6 +148,7 @@
 .projects .main-section .projects .project-card .buttons {
         display: flex;
         justify-content: space-between;
+        z-index: 1;
 }
 
 .projects .main-section .projects .project-card .buttons .links {
@@ -151,7 +169,12 @@
 
 .projects .main-section .projects .project-card .buttons .links a:focus, 
 .projects .main-section .projects .project-card .buttons .links a:hover {
-        background-color: rgba(237, 237, 237, 0.1);
+        background-color: var(--surface-soft);
+}
+
+:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .links a:focus, 
+:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .links a:hover {
+        background-color: var(--surface);
 }
 
 .projects .main-section .projects .project-card .buttons .links a img {
@@ -172,18 +195,28 @@
         justify-content: center;
         align-items: center;
         gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--text);
+        background-color: var(--surface-soft);
         border-radius: 10vh;
-        padding: 0.5vh 3vh;
+        padding: 0.75vh 3vh;
         cursor: pointer;
         transition: background-color 0.15s linear;
 }
 
+:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .view p {
+        background-color: var(--surface-softer);
+}
+
 .projects .main-section .projects .project-card .buttons .view p:focus,
 .projects .main-section .projects .project-card .buttons .view p:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--button-hover-soft);
+}
+
+:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .view p:focus,
+:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .view p:hover {
+        background-color: var(--surface);
 }
 
 .projects .main-section .projects .project-card .buttons .view p .icon  {
@@ -215,7 +248,7 @@
 .projects .main-section .project .sub-content .image {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
+        background-color: var(--bg);
         width: 100%;
         height: 45vh;
 }
@@ -232,12 +265,12 @@
 .projects .main-section .project .content .title {
         font-size: 1.125rem;
         font-weight: bold;
-        color: #ededed;
+        color: var(--text);
 }
 
 .projects .main-section .project .content .description {
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .projects .main-section .project .content .features {
@@ -250,7 +283,7 @@
         align-items: center;
         gap: 2vh;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .projects .main-section .project .content .features p img {
@@ -269,8 +302,8 @@
         align-items: center;
         gap: 1vh;
         font-size: 0.75rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
         border-radius: 10vh;
         padding: 0.75vh 3vh;
 }
@@ -301,9 +334,9 @@
         gap: 1vh;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #0b0d0e;
+        color: var(--text-ink);
         text-decoration: none;
-        background-color: #ededed;
+        background-color: var(--button-bg);
         border: none;
         border-radius: 2vh;
         padding: 0.75vh 3vh;
@@ -312,18 +345,18 @@
 }
 
 .projects .main-section .project .content .links .github-link {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--text);
+        background-color: var(--surface-soft);
 }
 
 .projects .main-section .project .content .links a:focus, 
 .projects .main-section .project .content .links a:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover);
 }
 
 .projects .main-section .project .content .links .github-link:focus, 
 .projects .main-section .project .content .links .github-link:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--button-hover-soft);
 }
 
 .projects .main-section .project .content .links a img {

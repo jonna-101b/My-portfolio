@@ -13,7 +13,7 @@
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
         font-size: 1.5rem;
         font-weight: bolder;
-        color: #888888;
+        color: var(--text-muted);
         text-align: center;
         padding-inline: 10vh;
 }
@@ -30,18 +30,22 @@
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
+}
+
+:root[data-theme='light'] .qualifications-section .qualifications-message p {
+        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
 }
 
 .qualifications-section .qualifications {
         place-self: center;
         display: grid;
         font-size: 14px;
-        color: #888888;
+        color: var(--text-muted);
         width: 75%;
 }
 
@@ -54,17 +58,17 @@
 }
 
 .qualifications-section .qualifications .qualification:hover .info .details .discipline {
-        color: #c6ff00;
+        color: var(--accent);
 }
 
 .qualifications-section .qualifications .qualification:nth-child(odd) {
-        border-right: 2px solid #333333;
+        border-right: 2px solid var(--border);
         padding-right: 10vh;
 }
 
 .qualifications-section .qualifications .qualification:nth-child(even) {
         justify-self: end;
-        border-left: 2px solid #333333;
+        border-left: 2px solid var(--border);
         padding-left: 10vh;
 }
 
@@ -79,27 +83,34 @@
 }
 
 .qualifications-section .qualifications .qualification .info .details .discipline {
-        font-size: 0.9375rem;
-        color: #ededed;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--text);
         transition: color 0.15s linear;
 }
 
 .qualifications-section .qualifications .qualification .info .details .organization {
-        font-size: 0.75rem;
+        font-size: 0.875rem;
+        color: var(--text-muted);
         transition: color 0.15s linear;
 }
 
 .qualifications-section .qualifications .qualification:focus .info .details .organization,
 .qualifications-section .qualifications .qualification:hover .info .details .organization {
-        color: #ededed;
+        color: var(--text);
 }
 
 .qualifications-section .qualifications .qualification .info .duration p {
-        font-size: 0.75rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text);
+        background-color: var(--surface-soft);
         border-radius: 10vh;
         padding: 0.5vh 2.5vh;
+}
+
+:root[data-theme='light'] .qualifications-section .qualifications .qualification .info .duration p {
+        background-color: var(--surface);
 }
 
 .qualifications-section .qualifications .qualification .description {
@@ -109,8 +120,8 @@
 .qualifications-section .qualifications .qualification .icon {
         display: grid;
         place-content: center;
-        background-color: #202020;
-        border: 2px solid #333333;
+        background-color: var(--surface);
+        border: 2px solid var(--border);
         border-radius: 50%;
         width: 7vh;
         height: 7vh;
@@ -134,7 +145,7 @@
 
 .qualifications-section .qualifications .qualification:focus  .icon::after,
 .qualifications-section .qualifications .qualification:hover  .icon::after {
-        background-color: rgba(200, 255, 0, 0.1);
+        background-color: var(--pill-soft);
 }
 
 .qualifications-section .qualifications .qualification:hover .icon .hover {

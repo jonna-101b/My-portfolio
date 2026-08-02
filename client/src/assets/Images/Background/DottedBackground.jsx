@@ -1,6 +1,10 @@
 import React from "react";
+import { useContext } from "react";
+import { ThemeContext } from "../../../Contexts/ThemeContext";
 
 const DottedBackground = ({ width = 800, height = 600, dotCount = 250 }) => {
+        const { theme } = useContext(ThemeContext);
+
         const dots = Array.from({ length: dotCount }).map((_, index) => {
                 const x = Math.random() * width;
                 const y = Math.random() * height;
@@ -15,7 +19,7 @@ const DottedBackground = ({ width = 800, height = 600, dotCount = 250 }) => {
                                 cx={x}
                                 cy={y}
                                 r={radius}
-                                fill="#888888"
+                                fill={theme === 'dark' ? '#888888' : '#f9f5f3'}
                                 filter="url(#blurFilter)"
                                 opacity={0.2 + Math.random() * 0.3}
                         >

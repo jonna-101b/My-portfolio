@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTestimonialsReducer from '../../../Hooks/useTestimonialsReducer';
 import TestimonialImage from '../../../assets/Images/Testimonials/1.svg';
 import UploadIcon from '../../../assets/Icons/Home/image.png';
 import QuoteShadowIcon from '../../../assets/Icons/Common/quote-shadow.png';
+import QuoteLightShadowIcon from '../../../assets/Icons/Common/quote-light.png';
 import "../Styles/TestimonialsPreview.css";
 
 
@@ -73,10 +75,12 @@ function NewTestimonial() {
 
 
 function Testimonial({ testimonial }) {
+        const { theme } = useContext(ThemeContext);
+
         return (
                 <div className="testimonial">
                         <p className="shadow">
-                                <img src={QuoteShadowIcon} alt="Quote shadow icon" />
+                                <img src={theme === 'dark' ? QuoteShadowIcon : QuoteLightShadowIcon} alt="Quote shadow icon" />
                         </p>
 
                         <div className="info">
@@ -126,7 +130,7 @@ function TestimonialsPreview() {
                         </div>
 
                         <div className="testimonials-message">
-                                <p>Don't just take my word for it — see what others have to say</p>
+                                <p>Don't Just Take My Word For It — See What Others Have to Say</p>
                         </div>
 
                         <div className="testimonials">

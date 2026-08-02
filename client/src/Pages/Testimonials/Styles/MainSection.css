@@ -15,23 +15,23 @@
         display: grid;
         gap: 4vh;
         font-size: 0.875rem;
-        color: #ededed;
-        background-color: #202020;
-        border: 1px solid #888888;
+        color: var(--text);
+        background-color: var(--surface);
+        border: 1px solid var(--border);
         border-radius: 2vh;
-        box-shadow: 0 0 1rem #000;
+        box-shadow: var(--shadow);
         padding: 10vh 4vh;
         position: relative;
 }
 
 .testimonials .main-section .testimonials .testimonial:focus .quote svg,
 .testimonials .main-section .testimonials .testimonial:hover .quote svg {
-        stroke: #c6ff00;
+        stroke: var(--accent);
 }
 
 .testimonials .main-section .testimonials .testimonial:focus .info .image ,
 .testimonials .main-section .testimonials .testimonial:hover .info .image  {
-        background-color: #c6ff00;
+        background-color: var(--accent);
 }
 
 .testimonials .main-section .testimonials .testimonial .quote {
@@ -43,7 +43,7 @@
 }
 
 .testimonials .main-section .testimonials .testimonial .quote svg {
-        stroke: #0b0d0e;
+        stroke: var(--bg);
         width: 10vh;
         opacity: 75%;
         transition: stroke 0.25s linear;
@@ -60,7 +60,7 @@
 .testimonials .main-section .testimonials .testimonial .info .image {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
+        background-color: var(--bg);
         border-radius: 50%;
         width: 10vh;
         height: 10vh;
@@ -69,9 +69,9 @@
 
 .testimonials .main-section .testimonials .testimonial .info .details .position {
         font-size: 0.75rem;
-        color: #888888;
+        color: var(--text-muted);
 }
 
 .testimonials .main-section .testimonials .testimonial .testimony {
-        color: #888888;
+        color: var(--text-muted);
 }

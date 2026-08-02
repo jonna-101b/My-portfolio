@@ -175,12 +175,12 @@ const pro = [
   }
 ];
 
-const articles = [
+const blogs = [
   {
     author: "Jane Doe",
     title: "Understanding React Server Components",
     introText: "A brief look at how React Server Components are shaping the future of frontend development.",
-    description: "React Server Components (RSCs) allow you to build modern applications with better performance by moving the rendering process to the server. In this article, we’ll explore what RSCs are, why they matter, and how to integrate them into your workflow.",
+    description: "React Server Components (RSCs) allow you to build modern applications with better performance by moving the rendering process to the server. In this blog, we’ll explore what RSCs are, why they matter, and how to integrate them into your workflow.",
     datePublished: "2024-12-05",
     tags: ["react", "javascript", "web development", "server components"],
     image: "https://example.com/images/react-server-components.png",
@@ -199,7 +199,7 @@ const articles = [
     author: "Emily Tran",
     title: "The Psychology of Color in UI Design",
     introText: "Colors do more than make your UI look pretty — they influence perception and action.",
-    description: "This article delves into how color psychology impacts user behavior in digital interfaces. Learn how to choose color palettes that align with your brand and improve user experience.",
+    description: "This blog delves into how color psychology impacts user behavior in digital interfaces. Learn how to choose color palettes that align with your brand and improve user experience.",
     datePublished: "2025-02-15",
     tags: ["UI/UX", "design", "psychology", "colors"],
     image: "https://example.com/images/color-psychology-ui.jpg",
@@ -214,7 +214,7 @@ const articles = [
     author: "Dr. Amir Hassan",
     title: "Ethical Dilemmas in AI: What Developers Should Know",
     introText: "As AI evolves, so do the ethical questions developers must face.",
-    description: "From facial recognition to bias in language models, the ethical implications of AI technologies are increasingly complex. This article provides a roadmap for ethical thinking in AI development and deployment.",
+    description: "From facial recognition to bias in language models, the ethical implications of AI technologies are increasingly complex. This blog provides a roadmap for ethical thinking in AI development and deployment.",
     datePublished: "2025-06-01",
     tags: ["AI", "ethics", "machine learning", "technology"],
     image: "https://example.com/images/ai-ethics.jpg",
@@ -335,4 +335,4 @@ const qualifications = [
 
 
 
-export { TS, CS, pro, articles, testimonies, qualifications }
+export { TS, CS, pro, blogs, testimonies, qualifications }

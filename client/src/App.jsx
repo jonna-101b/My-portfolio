@@ -5,9 +5,10 @@ import { TechnicalSkillsContextProvider } from './Contexts/TechnicalSkillsContex
 import { ConceptualSkillsContextProvider } from './Contexts/ConceptualSkillsContext';
 import { ProjectsContextProvider } from './Contexts/ProjectsContext';
 import { TestimonialsContextProvider } from './Contexts/TestimonialsContext';
-import { ArticlesContextProvider } from './Contexts/ArticlesContext';
+import { BlogContextProvider } from './Contexts/BlogContext';
 import { NotificationsContextProvider } from './Contexts/NotificationsContext';
 import { ActivitiesContextProvider } from './Contexts/ActivitiesContext';
+import { ThemeContextProvider } from './Contexts/ThemeContext';
 import Navbar from './Components/Navbar/Navbar';
 import Contacts from './Components/Contacts/Contacts';
 import Footer from './Components/Footer/Footer';
@@ -16,8 +17,8 @@ import About from './Pages/About/About';
 import Skills from './Pages/Skills/Skills';
 import Projects from './Pages/Projects/Projects';
 // import Testimonials from './Pages/Testimonials/Testimonials';
-import Articles from './Pages/Articles/Articles';
-import PageContacts from './Pages/Contacts/Contacts';
+// import Blog from './Pages/Articles/Articles';
+// import PageContacts from './Pages/Contacts/Contacts';
 import DottedBackground from './assets/Images/Background/DottedBackground';
 import Admin from './Admin/Admin';
 import './App.css';
@@ -44,9 +45,9 @@ function MainLayout() {
 
                                         {/* <Route path="/testimonials" element={<Testimonials />} /> */}
 
-                                        <Route path="/articles" element={<Articles />} />
+                                        {/* <Route path="/blogs" element={<Blog />} /> */}
 
-                                        <Route path="/contacts" element={<PageContacts />} />
+                                        {/* <Route path="/contacts" element={<PageContacts />} /> */}
                                 </Routes>
 
                         </div>
@@ -69,24 +70,26 @@ function App() {
                                         <QualificationsContextProvider>
                                                 <ProjectsContextProvider>
                                                         <TestimonialsContextProvider>
-                                                                <ArticlesContextProvider>
+                                                                <BlogContextProvider>
                                                                         <NotificationsContextProvider>
                                                                                 <ActivitiesContextProvider>
 
-                                                                                        <div className="app">
-                                                                                                <BrowserRouter>
+                                                                                                <ThemeContextProvider>
+                                                                                                        <div className="app">
+                                                                                                                <BrowserRouter>
 
-                                                                                                        <Routes>
-                                                                                                                <Route path="/*" element={<MainLayout />} />
+                                                                                                                        <Routes>
+                                                                                                                                <Route path="/*" element={<MainLayout />} />
 
-                                                                                                                <Route path="/admin/*" element={<Admin />} />
-                                                                                                        </Routes>
-                                                                                                </BrowserRouter>
-                                                                                        </div>
+                                                                                                                                <Route path="/admin/*" element={<Admin />} />
+                                                                                                                        </Routes>
+                                                                                                                </BrowserRouter>
+                                                                                                        </div>
+                                                                                                </ThemeContextProvider>
 
                                                                                 </ActivitiesContextProvider>
                                                                         </NotificationsContextProvider>
-                                                                </ArticlesContextProvider>
+                                                                </BlogContextProvider>
                                                         </TestimonialsContextProvider>
                                                 </ProjectsContextProvider>
                                         </QualificationsContextProvider>

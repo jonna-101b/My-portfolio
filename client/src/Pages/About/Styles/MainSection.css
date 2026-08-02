@@ -13,8 +13,8 @@
         display: grid;
         place-content: center;
         gap: 4vh;
-        background-color: #ededed;
-        box-shadow: 0 0 1rem #000;
+        background-color: var(--button-bg);
+        box-shadow: var(--shadow);
         padding: 4vh;
         width: fit-content;
         transform: rotate(-2.5deg);
@@ -48,7 +48,7 @@
 .about .main-section .picture .name {
         font-size: 1rem;
         font-weight: 600;
-        color: #0b0d0e;
+        color: var(--text-ink);
 }
 
 .about .main-section .description {
@@ -60,15 +60,19 @@
         display: inline-block;
         font-size: 2.25rem;
         font-weight: 700;
-        background-clip: text;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
-        background-image: linear-gradient(to right, #c6ff00, #ededed);
+        background-image: linear-gradient(to right, var(--accent), var(--text));
         padding: 0.25vh;
 }
 
+:root[data-theme='light'] .about .main-section .description .intro {
+        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
+}
+
 .about .main-section .description .details {
-        font-size: 0.875rem;
-        color: #888888;
+        font-size: 0.9375rem;
+        color: var(--text-muted);
         text-align: justify;
 }

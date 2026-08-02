@@ -125,11 +125,11 @@ function ProjectsPreview() {
         return (
                 <div className="projects-preview">
                         <div className="title">
-                                <p>My projects</p>
+                                <p>My Projects</p>
                         </div>
 
                         <div className="projects-message">
-                                <p>A look at the things I've been tinkering with.</p>
+                                <p>A Look at the Things I've Been Tinkering with</p>
                         </div>
 
                         <div className="projects">

@@ -7,7 +7,7 @@ import QualificationsIcon from '../../../assets/Icons/Admin/Sidebar/medal.png';
 import SkillsIcon from '../../../assets/Icons/Admin/Sidebar/star.png';
 import ProjectsIcon from '../../../assets/Icons/Admin/Sidebar/cube.png';
 import TestimonialsIcon from '../../../assets/Icons/Admin/Sidebar/quote.png';
-import ArticlesIcon from '../../../assets/Icons/Admin/Sidebar/article.png';
+import BlogIcon from '../../../assets/Icons/Admin/Sidebar/article.png';
 import SidebarIcon from '../../../assets/Icons/Admin/Sidebar/sidebar.png';
 // Icons for hover
 import DashboardHoverIcon from '../../../assets/Icons/Admin/Sidebar/dashboard-hover.png';
@@ -15,7 +15,7 @@ import QualificationsHoverIcon from '../../../assets/Icons/Admin/Sidebar/medal-h
 import SkillsHoverIcon from '../../../assets/Icons/Admin/Sidebar/star-hover.png';
 import ProjectsHoverIcon from '../../../assets/Icons/Admin/Sidebar/cube-hover.png';
 import TestimonialsHoverIcon from '../../../assets/Icons/Admin/Sidebar/quote-hover.png';
-import ArticlesHoverIcon from '../../../assets/Icons/Admin/Sidebar/article-hover.png';
+import BlogHoverIcon from '../../../assets/Icons/Admin/Sidebar/article-hover.png';
 import SidebarHoverIcon from '../../../assets/Icons/Admin/Sidebar/sidebar-hover.png';
 // Icons for active state
 import DashboardActiveIcon from '../../../assets/Icons/Admin/Sidebar/dashboard-active.png';
@@ -23,7 +23,7 @@ import QualificationsActiveIcon from '../../../assets/Icons/Admin/Sidebar/medal-
 import SkillsActiveIcon from '../../../assets/Icons/Admin/Sidebar/star-active.png';
 import ProjectsActiveIcon from '../../../assets/Icons/Admin/Sidebar/cube-active.png';
 import TestimonialsActiveIcon from '../../../assets/Icons/Admin/Sidebar/quote-active.png';
-import ArticlesActiveIcon from '../../../assets/Icons/Admin/Sidebar/article-active.png';
+import BlogActiveIcon from '../../../assets/Icons/Admin/Sidebar/article-active.png';
 import SidebarActiveIcon from '../../../assets/Icons/Admin/Sidebar/sidebar-active.png';
 // Icons for active hover
 import SidebarActiveHoverIcon from '../../../assets/Icons/Admin/Sidebar/sidebar-active-hover.png';
@@ -57,7 +57,7 @@ function Sidebar() {
                 { name: "Qualifications", icon: QualificationsIcon, hoverIcon: QualificationsHoverIcon, activeIcon: QualificationsActiveIcon },
                 { name: "Projects", icon: ProjectsIcon, hoverIcon: ProjectsHoverIcon, activeIcon: ProjectsActiveIcon },
                 { name: "Testimonials", icon: TestimonialsIcon, hoverIcon: TestimonialsHoverIcon, activeIcon: TestimonialsActiveIcon },
-                { name: "Articles", icon: ArticlesIcon, hoverIcon: ArticlesHoverIcon, activeIcon: ArticlesActiveIcon },
+                { name: "Blog", icon: BlogIcon, hoverIcon: BlogHoverIcon, activeIcon: BlogActiveIcon },
         ];
 
         const [ collapsed, setCollapsed ] = useState(false);

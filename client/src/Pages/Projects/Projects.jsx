@@ -1,6 +1,6 @@
 import FrontSection from '../../Components/FrontSection/FrontSection';
 import MainSection from "./Components/MainSection";
-import ArticlesSection from '../../Components/Articles/Articles';
+import BlogSection from '../../Components/Blog/Blog';
 import AboutImage from '../../assets/Images/Projects/projects.svg';
 
 
@@ -15,7 +15,7 @@ function Projects() {
 
                         <MainSection />
 
-                        <ArticlesSection />
+                        <BlogSection />
                 </div>
         );
 }

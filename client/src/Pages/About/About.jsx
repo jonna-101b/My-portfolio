@@ -1,7 +1,7 @@
 import FrontSection from '../../Components/FrontSection/FrontSection';
 import MainSection from './Components/MainSection';
 import QualificationsSection from './Components/QualificationsSection';
-import ArticlesSection from '../../Components/Articles/Articles';
+import BlogSection from '../../Components/Blog/Blog';
 import AboutImage from '../../assets/Images/About/2.svg';
 
 
@@ -18,7 +18,7 @@ function About() {
                         
                         <QualificationsSection />
 
-                        <ArticlesSection />
+                        <BlogSection />
                 </div>
         );
 }

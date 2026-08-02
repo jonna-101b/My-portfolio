@@ -2,7 +2,6 @@
         display: grid;
         place-content: center;
         gap: 10vh;
-        margin-bottom: 17.5vh;
         position: relative;
 }
 
@@ -19,7 +18,7 @@
 .front-section .intro .social-links {
         display: grid;
         gap: 4vh;
-        color: #888888;
+        color: var(--text-muted);
         position: absolute;
         left: 10vh;
 }
@@ -29,15 +28,15 @@
         place-content: center;
         background-color: transparent;
         border: none;
-        border-radius: 1vh;
-        width: 5.5vh;
-        height: 5.5vh;
+        border-radius: 15vh;
+        width: 6vh;
+        height: 6vh;
         transition: background-color 0.15s linear;
 }
 
 .front-section .intro .social-links a:focus,
 .front-section .intro .social-links a:hover {
-        background-color: rgba(237, 237, 237, 0.1);
+        background-color: var(--button-hover-soft);
 }
 
 .front-section .intro .social-links a img {
@@ -52,37 +51,47 @@
 .front-section .intro .info .title {
         font-size: 2.625rem;
         font-weight: bold;
-        color: #c6ff00;
+        color: var(--accent);
 }
 
 .front-section .intro .info .intro-text {
-        font-size: 1.125rem;
-        color: #ededed;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text);
 }
 
 .front-section .intro .details {
-        font-size: 0.875rem;
-        color: #888888;
+        font-size: 1rem;
+        color: var(--text-muted);
 }
 
 .front-section .intro .contact button {
         display: flex;
         align-items: center;
         gap: 1vh;
-        background-color: rgba(200, 255, 0, 0.75);
+        font-size: 0.875rem;
+        font-weight: 600;
+        background-color: var(--surface-soft);
         border: none;
-        border-radius: 2vh;
+        border-radius: 10vh;
         padding: 1vh 4vh;
         transition: background-color 0.15s linear;
 }
 
+:root[data-theme='light'] .front-section .intro .contact button {
+        background-color: var(--surface);
+}
+
+:root[data-theme='light'] .front-section .intro .contact button:focus,
+:root[data-theme='light'] .front-section .intro .contact button:hover,
 .front-section .intro .contact button:focus,
 .front-section .intro .contact button:hover {
-        background-color: #c6ff00;
+        background-color: var(--button-hover-soft);
 }
 
 .front-section .intro .contact button img {
-        width: 2vh;
+        display: grid;
+        width: 1.75vh;
 }
 
 .front-section .intro .image img{
@@ -95,7 +104,7 @@
         justify-content: center;
         gap: 2vh;
         font-size: 0.875rem;
-        color: #ededed;
+        color: var(--text);
         position: absolute;
         top: 90vh;
 }

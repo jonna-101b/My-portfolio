@@ -127,7 +127,7 @@ const projects = [
     image: "https://your-host.com/screenshots/news-app.png",
     features: [
       "Cross-platform (iOS & Android) with Flutter",
-      "Offline caching for articles",
+      "Offline caching for blogs",
       "Topic filtering and user personalization",
       "Push notifications via Firebase"
     ],
