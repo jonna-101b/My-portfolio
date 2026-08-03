@@ -10,7 +10,7 @@ projectsRouter.get("/", getProjects);
 
 projectsRouter.post("/", authenticate, addProject);
 
-projectsRouter.patch("/:id", authenticate, updateProject);
+projectsRouter.put("/:id", authenticate, updateProject);
 
 projectsRouter.delete("/:id", authenticate, deleteProject);
 

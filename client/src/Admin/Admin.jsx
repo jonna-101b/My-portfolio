@@ -18,7 +18,7 @@ function Admin() {
                 <div className="admin">
                         <Sidebar />
 
-                        <div className="pages" style={{ padding: "3vh 2vh" }}>
+                        <div className="pages">
                                 <NewContextProvider>
                                         <EditContextProvider>
 

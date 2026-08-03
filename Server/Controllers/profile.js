@@ -16,7 +16,7 @@ const updateProfilePage = async (req, res) => {
         try {
                 const updatedProfilePage = await ProfileModel.findOneAndUpdate(
                         {},
-                        req.body,
+                        { ...req.body },
                         { new: true, upsert: true }
                 );
                 res.status(200).json(updatedProfilePage);

@@ -1,13 +1,25 @@
 .profile-section {
         display: grid;
-        grid-template-columns: 35% 1fr;
-        gap: 4vh;
-        background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
+        grid-template-columns: minmax(15rem, 0.75fr) minmax(0, 1.25fr);
+        gap: 1.5rem;
+        background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 36%),
+                rgba(32, 32, 32, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 1.35rem;
+        box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.25);
         width: 100%;
-        padding: 4vh;
+        padding: 1.5rem;
         position: relative;
+        overflow: hidden;
+}
+
+.profile-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top left, rgba(198, 255, 0, 0.09), transparent 28%);
+        pointer-events: none;
 }
 
 .profile-section .left-section {
@@ -15,21 +27,40 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 2vh;
-        background-color: rgba(11, 13, 14, 0.5);
-        border-radius: 2vh;
-        padding: 2vh;
+        gap: 1rem;
+        background: rgba(11, 13, 14, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 1.1rem;
+        padding: 1.25rem;
+        position: relative;
+        z-index: 1;
+}
+
+.profile-section .left-section .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(198, 255, 0, 0.1);
+        border: 1px solid rgba(198, 255, 0, 0.14);
+        color: #c6ff00;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
 }
 
 .profile-section .left-section .profile-picture {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #202020;
+        background: rgba(255, 255, 255, 0.02);
         border-radius: 50%;
         width: 100%;
         height: fit-content;
         aspect-ratio: 1/1;
+        border: 1px solid rgba(198, 255, 0, 0.16);
 }
 
 .profile-section .left-section .profile-picture img {
@@ -42,8 +73,8 @@
 .profile-section .left-section .full-name {
         display: grid;
         place-content: center;
-        font-size: 1rem;
-        font-weight: 600;
+        font-size: 1.05rem;
+        font-weight: 700;
         color: #ededed;
         width: 100%;
 }
@@ -56,16 +87,17 @@
         font-size: 0.8rem;
         color: #0b0d0e;
         text-decoration: none;
-        background-color: #ededed;
-        border-radius: 10vh;
+        background: #c6ff00;
+        border-radius: 999px;
         width: fit-content;
-        padding: 0.5vh 2.5vh;
-        transition: background-color 0.15s linear;
+        padding: 0.6rem 1.15rem;
+        transition: background-color 0.15s linear, transform 0.15s linear;
 }
 
 .profile-section .left-section .resume:focus,
 .profile-section .left-section .resume:hover {
-        background-color: #c6ff00;
+        background-color: #e0ff68;
+        transform: translateY(-1px);
 }
 
 .profile-section .left-section .resume img {
@@ -74,38 +106,48 @@
 
 .profile-section .right-section {
         display: grid;
-        gap: 2vh;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
 }
 
 .profile-section .right-section .greeting {
-        font-size: 2rem;
-        font-weight: 600;
+        font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+        font-weight: 700;
         color: #ededed;
+}
+
+.profile-section .right-section .summary {
+        font-size: 0.98rem;
+        line-height: 1.6;
+        color: #b7b7b7;
+        max-width: 48ch;
 }
 
 .profile-section .right-section .professions {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 2vh;
+        gap: 0.75rem;
         height: fit-content;
 }
 
 .profile-section .right-section .professions p {
         display: grid;
         place-content: center;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 10vh;
-        padding: 0.5vh 2vh;
+        background-color: rgba(237, 237, 237, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+        padding: 0.5rem 0.9rem;
 }
 
 .profile-section .right-section .social-links {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 2vh;
+        gap: 0.75rem;
 }
 
 .profile-section .right-section .social-links a {
@@ -113,36 +155,39 @@
         place-content: center;
         font-size: 0.8rem;
         color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 10vh;
-        width: 6vh;
-        height: 6vh;
-        transition: background-color 0.15s linear;
+        background-color: rgba(237, 237, 237, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+        width: 2.85rem;
+        height: 2.85rem;
+        transition: background-color 0.15s linear, transform 0.15s linear;
 }
 
 .profile-section .right-section .social-links a:focus,
 .profile-section .right-section .social-links a:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: rgba(198, 255, 0, 0.08);
+        transform: translateY(-1px);
 }
 
 .profile-section .right-section .social-links a img {
-        width: 3vh;
+        width: 1.25rem;
 }
 
 .profile-section .right-section .contact-info {
         display: grid;
-        background-color: rgba(11, 13, 14, 0.5);
-        border-radius: 2vh;
-        padding: 2vh 4vh;
+        background: rgba(11, 13, 14, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 1rem;
+        padding: 1rem 1.25rem;
         width: 100%;
 }
 
 .profile-section .right-section .contact-info .info {
         display: flex;
         align-items: center;
-        gap: 2vh;
+        gap: 0.85rem;
         width: 100%;
-        padding-block: 1vh;
+        padding-block: 0.8rem;
 }
 
 .profile-section .right-section .contact-info .info:not(:last-child) {
@@ -152,15 +197,15 @@
 .profile-section .right-section .contact-info .info .icon {
         display: grid;
         place-content: center;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        width: 6vh;
-        height: 6vh;
+        background-color: rgba(237, 237, 237, 0.08);
+        border-radius: 1rem;
+        width: 2.85rem;
+        height: 2.85rem;
         aspect-ratio: 1/1;
 }
 
 .profile-section .right-section .contact-info .info .icon img {
-        width: 3vh;
+        width: 1.25rem;
 }
 
 .profile-section .right-section .contact-info .info .details {
@@ -175,4 +220,10 @@
 .profile-section .right-section .contact-info .info .details .info-name {
         font-size: 0.875rem;
         color: #ededed;
+}
+
+@media (max-width: 960px) {
+        .profile-section {
+                grid-template-columns: 1fr;
+        }
 }

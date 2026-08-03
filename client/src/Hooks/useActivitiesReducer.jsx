@@ -1,23 +1,35 @@
 import { useContext } from "react";
 import { ActivitiesContext } from "../Contexts/ActivitiesContext";
+import { fetchActivities, createActivity as createActivityApi, deleteActivity as deleteActivityApi } from "../api/ActivitiesApi";
 
 const useActivitiesReducer = () => {
         const { state, dispatch} = useContext(ActivitiesContext);
 
-        const setActivities = (fetchedActivities) => {
-                dispatch({ type: "SET_ACTIVITIES", payload: fetchedActivities });
+        const setActivities = async () => {
+                try {
+                        const res = await fetchActivities();
+                        dispatch({ type: "SET_ACTIVITIES", payload: res });
+                } catch (error) {
+                        console.error("Error setting activities:", error);
+                }
         };
 
-        const createActivity = (newActivity) => {
-                dispatch({ type: "CREATE_ACTIVITY", payload: newActivity });
+        const createActivity = async (newActivity) => {
+                try {
+                        const res = await createActivityApi(newActivity);
+                        dispatch({ type: "CREATE_ACTIVITY", payload: res });
+                } catch (error) {
+                        console.error("Error creating activity:", error);
+                }
         };
 
-        const updateActivity = (editedActivity) => {
-                dispatch({ type: "UPDATE_ACTIVITY", payload: editedActivity });
-        };
-
-        const deleteActivity = (activityId) => {
-                dispatch({ type: "DELETE_ACTIVITY", payload: activityId });
+        const deleteActivity = async (activityId) => {
+                try {
+                        const res = await deleteActivityApi(activityId._id);
+                        dispatch({ type: "DELETE_ACTIVITY", payload: res });
+                } catch (error) {
+                        console.error("Error deleting activity:", error);
+                }
         };
 
         const deleteActivities = (activityIds) => {
@@ -28,7 +40,6 @@ const useActivitiesReducer = () => {
                 state,
                 setActivities,
                 createActivity,
-                updateActivity,
                 deleteActivity,
                 deleteActivities
         };

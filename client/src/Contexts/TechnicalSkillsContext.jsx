@@ -11,6 +11,7 @@ const technicalSkillsReducer = (state, action) => {
 
                 case "CREATE_SKILL":
                         return { skills: [action.payload, ...state.skills] };
+                        
 
                 case "UPDATE_SKILL":
                         return {
@@ -25,6 +26,18 @@ const technicalSkillsReducer = (state, action) => {
                         return {
                                 skills: state.skills.filter(
                                         (skill) => !action.payload.includes(skill._id))
+                        };
+
+                case "CREATE_SKILL_TECH":
+                        return {
+                                skills: state.skills.map((skill) =>
+                                        skill._id === action.payload._id ? action.payload : skill)
+                        };
+
+                case "DELETE_SKILL_TECH":
+                        return {
+                                skills: state.skills.map((skill) =>
+                                        skill._id === action.payload._id ? action.payload : skill)
                         };
 
                 default:

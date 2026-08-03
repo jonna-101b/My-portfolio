@@ -10,7 +10,7 @@ skillsRouter.get("/technical", getTechnicalSkills);
 
 skillsRouter.post("/technical", authenticate, addTechnicalSkill);
 
-skillsRouter.patch("/technical/:id", authenticate, updateTechnicalSkill);
+skillsRouter.put("/technical/:id", authenticate, updateTechnicalSkill);
 
 skillsRouter.delete("/technical/:id", authenticate, deleteTechnicalSkill);
 

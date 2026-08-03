@@ -12,12 +12,6 @@ const conceptualSkillsReducer = (state, action) => {
                 case "CREATE_SKILL":
                         return { skills: [action.payload, ...state.skills] };
 
-                case "UPDATE_SKILL":
-                        return {
-                                skills: state.skills.map((skill) =>
-                                        skill._id === action.payload._id ? action.payload : skill)
-                        };
-
                 case "DELETE_SKILL":
                         return { skills: state.skills.filter((skill) =>  skill._id !== action.payload) };
 

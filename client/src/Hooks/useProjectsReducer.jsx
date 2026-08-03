@@ -1,23 +1,44 @@
 import { useContext } from "react";
 import { ProjectsContext } from "../Contexts/ProjectsContext";
+import { fetchProjects, createProject as createProjectApi, updateProject as updateProjectApi, deleteProject as deleteProjectApi } from "../api/ProjectsApi";
 
 const useProjectsReducer = () => {
         const { state, dispatch} = useContext(ProjectsContext);
 
-        const setProjects = (fetchedProjects) => {
-                dispatch({ type: "SET_PROJECTS", payload: fetchedProjects });
+        const setProjects = async () => {
+                try {
+                        const res = await fetchProjects();
+                        dispatch({ type: "SET_PROJECTS", payload: res });
+                } catch (error) {
+                        console.error("Error setting projects:", error);
+                }
         };
 
-        const createProject = (newProject) => {
-                dispatch({ type: "CREATE_PROJECT", payload: newProject });
+        const createProject = async (newProject) => {
+                try {
+                        const res = await createProjectApi(newProject);
+                        dispatch({ type: "CREATE_PROJECT", payload: res });
+                } catch (error) {
+                        console.error("Error creating project:", error);
+                }
         };
 
-        const updateProject = (editedProject) => {
-                dispatch({ type: "UPDATE_PROJECT", payload: editedProject });
+        const updateProject = async (editedProject) => {
+                try {
+                        const res = await updateProjectApi(editedProject._id, editedProject);
+                        dispatch({ type: "UPDATE_PROJECT", payload: res });
+                } catch (error) {
+                        console.error("Error updating project:", error);
+                }
         };
 
-        const deleteProject = (projectId) => {
-                dispatch({ type: "DELETE_PROJECT", payload: projectId });
+        const deleteProject = async (projectId) => {
+                try {
+                        const res = await deleteProjectApi(projectId._id);
+                        dispatch({ type: "DELETE_PROJECT", payload: res });
+                } catch (error) {
+                        console.error("Error deleting project:", error);
+                }
         };
 
         const deleteProjects = (projectIds) => {

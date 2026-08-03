@@ -10,7 +10,7 @@ testimonialsRouter.get("/", getTestimonials);
 
 testimonialsRouter.post("/", authenticate, addTestimonial);
 
-testimonialsRouter.patch("/:id", authenticate, updateTestimonial);
+testimonialsRouter.put("/:id", authenticate, updateTestimonial);
 
 testimonialsRouter.delete("/:id", authenticate, deleteTestimonial);
 

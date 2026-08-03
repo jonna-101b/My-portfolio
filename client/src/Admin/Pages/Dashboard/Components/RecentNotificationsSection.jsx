@@ -7,17 +7,19 @@ import "../Styles/RecentNotificationsSection.css";
 
 function Notification({ notification }) {
         const notificationIcons = {"contact": ContactNotificationIcon, "testimonial": TestimonialNotificationIcon};
+        const icon = notificationIcons[notification.type] || ContactNotificationIcon;
 
         return (
                 <div className="notification">
                         <p className="icon">
-                                <img src={ContactNotificationIcon} alt="notification icon" />
+                                <img src={icon} alt="notification icon" />
                         </p>
 
                         <div className="details">
                                 <p className="main">
                                         {`${notification.type.charAt(0).toUpperCase() + notification.type.slice(1)} ${notification.page}`}
-                                s</p>
+
+                                </p>
 
                                 <p className="time">
                                         {formatDistanceToNow(new Date(notification.timestamp), { addSuffix: true })}

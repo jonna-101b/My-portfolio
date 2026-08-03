@@ -10,7 +10,7 @@ blogRouter.get("/", getBlogs);
 
 blogRouter.post("/", authenticate, addBlog);
 
-blogRouter.patch("/:id", authenticate, updateBlog);
+blogRouter.put("/:id", authenticate, updateBlog);
 
 blogRouter.delete("/:id", authenticate, deleteBlog);
 

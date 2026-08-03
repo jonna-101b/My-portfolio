@@ -12,12 +12,6 @@ const notificationsReducer = (state, action) => {
                 case "CREATE_NOTIFICATION":
                         return { notifications: [action.payload, ...state.notifications] };
 
-                case "UPDATE_NOTIFICATION":
-                        return {
-                                notifications: state.notifications.map((notification) =>
-                                        notification._id === action.payload._id ? action.payload : notification)
-                        };
-
                 case "DELETE_NOTIFICATION":
                         return { notifications: state.notifications.filter((notification) =>  notification._id !== action.payload) };
 

@@ -1,23 +1,35 @@
 import { useContext } from "react";
 import { NotificationsContext } from "../Contexts/NotificationsContext";
+import { fetchNotifications, createNotification as createNotificationApi, deleteNotification as deleteNotificationApi } from "../api/NotificationsApi";
 
 const useNotificationsReducer = () => {
         const { state, dispatch} = useContext(NotificationsContext);
 
-        const setNotifications = (fetchedNotifications) => {
-                dispatch({ type: "SET_NOTIFICATIONS", payload: fetchedNotifications });
+        const setNotifications = async () => {
+                try {
+                        const res = await fetchNotifications();
+                        dispatch({ type: "SET_NOTIFICATIONS", payload: res });
+                } catch (error) {
+                        console.error("Error setting notifications:", error);
+                }
         };
 
-        const createNotification = (newNotification) => {
-                dispatch({ type: "CREATE_NOTIFICATION", payload: newNotification });
+        const createNotification = async (newNotification) => {
+                try {
+                        const res = await createNotificationApi(newNotification);
+                        dispatch({ type: "CREATE_NOTIFICATION", payload: res });
+                } catch (error) {
+                        console.error("Error creating notification:", error);
+                }
         };
 
-        const updateNotification = (editedNotification) => {
-                dispatch({ type: "UPDATE_NOTIFICATION", payload: editedNotification });
-        };
-
-        const deleteNotification = (notificationId) => {
-                dispatch({ type: "DELETE_NOTIFICATION", payload: notificationId });
+        const deleteNotification = async (notificationId) => {
+                try {
+                        const res = await deleteNotificationApi(notificationId._id);
+                        dispatch({ type: "DELETE_NOTIFICATION", payload: res });
+                } catch (error) {
+                        console.error("Error deleting notification:", error);
+                }
         };
 
         const deleteNotifications = (notificationIds) => {
@@ -28,10 +40,9 @@ const useNotificationsReducer = () => {
                 state,
                 setNotifications,
                 createNotification,
-                updateNotification,
                 deleteNotification,
                 deleteNotifications
         };
-}
+};
 
 export default useNotificationsReducer;

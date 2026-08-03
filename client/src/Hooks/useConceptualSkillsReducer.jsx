@@ -1,24 +1,39 @@
 import { useContext } from "react";
 import { ConceptualSkillsContext } from "../Contexts/ConceptualSkillsContext";
+import { fetchConceptualSkills, createConceptualSkill, deleteConceptualSkill } from "../api/SkillsApi";
 
 const useConceptualSkillsReducer = () => {
         const { state, dispatch} = useContext(ConceptualSkillsContext);
         const { skills } = state;
 
-        const setSkills = (fetchedSkills) => {
-                dispatch({ type: "SET_SKILLS", payload: fetchedSkills });
+        const setSkills = async () => {
+                try {
+                        const res = await fetchConceptualSkills();
+                        dispatch({ type: "SET_SKILLS", payload: res });
+                }
+                catch (error) {
+                        console.error("Error fetching conceptual skills:", error);
+                }
         };
 
-        const createSkill = (newSkill) => {
-                dispatch({ type: "CREATE_SKILL", payload: newSkill });
+        const createSkill = async (newSkill) => {
+                try {
+                        const res = await createConceptualSkill(newSkill);
+                        dispatch({ type: "CREATE_SKILL", payload: res });
+                }
+                catch (error) {
+                        console.error("Error creating conceptual skill:", error);
+                }
         };
 
-        const updateSkill = (editedSkill) => {
-                dispatch({ type: "UPDATE_SKILL", payload: editedSkill });
-        };
-
-        const deleteSkill = (skillId) => {
-                dispatch({ type: "DELETE_SKILL", payload: skillId });
+        const deleteSkill = async (skillId) => {
+                try {
+                        const res = await deleteConceptualSkill(skillId._id);
+                        dispatch({ type: "DELETE_SKILL", payload: res });
+                }
+                catch (error) {
+                        console.error("Error deleting conceptual skill:", error);
+                }
         };
 
         const deleteSkills = (skillIds) => {
@@ -29,7 +44,6 @@ const useConceptualSkillsReducer = () => {
                 skills,
                 setSkills,
                 createSkill,
-                updateSkill,
                 deleteSkill,
                 deleteSkills
         };

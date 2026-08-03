@@ -10,7 +10,7 @@ qualificationsRouter.get("/", getQualifications);
 
 qualificationsRouter.post("/", authenticate, addQualification);
 
-qualificationsRouter.patch("/:id", authenticate, updateQualification);
+qualificationsRouter.put("/:id", authenticate, updateQualification);
 
 qualificationsRouter.delete("/:id", authenticate, deleteQualification);
 

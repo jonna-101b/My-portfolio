@@ -15,7 +15,11 @@ function Dashboard() {
 
                         <div className="content">
                                 <div className="dash-main">
-                                        <ProfileSection />
+                                        <div className="hero-grid">
+                                                <ProfileSection />
+
+                                                <PortfolioLinkSection />
+                                        </div>
 
                                         <QuickActionsSection />
 
@@ -23,8 +27,6 @@ function Dashboard() {
                                 </div>
 
                                 <div className="dash-side">
-                                        <PortfolioLinkSection />
-
                                         <RecentActivitySection />
 
                                         <RecentNotificationsSection />

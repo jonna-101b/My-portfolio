@@ -26,6 +26,8 @@ function ProfileSection() {
         return (
                 <div className="profile-section">
                         <div className="left-section">
+                                <p className="badge">Available for hire</p>
+
                                 <p className="profile-picture">
                                         <img src={picture} alt={`${firstName}'s picture`} />
                                 </p>
@@ -42,6 +44,8 @@ function ProfileSection() {
 
                         <div className="right-section">
                                 <p className="greeting">{`Hello ${nickName}!`}</p>
+
+                                <p className="summary">Senior Full-Stack Engineer & Interaction Designer specializing in immersive digital experiences.</p>
 
                                 <div className="professions">
                                         { professions.map((profession, index) => (

@@ -1,32 +1,33 @@
 .recent-notifications-section {
         display: flex;
         flex-direction: column;
-        gap: 2vh;
+        gap: 0.9rem;
 }
 
 .recent-notifications-section .title {
-        font-size: 0.9375rem;
-        font-weight: 600;
+        font-size: 0.98rem;
+        font-weight: 700;
         color: #ededed;
 }
 
 .recent-notifications-section .notifications {
         display: grid;
-        gap: 2vh;
-        background-color: rgba(11, 13, 14, 0.5);
-        border-radius: 2vh;
+        gap: 1rem;
+        background: rgba(32, 32, 32, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
         height: fit-content;
-        padding: 4vh;
+        padding: 1.25rem;
         overflow: hidden;
 }
 
 .recent-notifications-section .notifications .notification {
         display: flex;
         justify-content: start;
-        gap: 2vh;
-        border-bottom: 1px solid rgba(32, 32, 32, 0.75);
+        gap: 0.85rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         width: 100%;
-        padding-bottom: 2vh;
+        padding-bottom: 1rem;
         position: relative;
 }
 
@@ -37,15 +38,15 @@
 .recent-notifications-section .notifications .notification .icon {
         display: grid;
         place-content: center;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        width: 6vh;
-        height: 6vh;
+        background-color: rgba(237, 237, 237, 0.08);
+        border-radius: 1rem;
+        width: 2.85rem;
+        height: 2.85rem;
         aspect-ratio: 1;
 }
 
 .recent-notifications-section .notifications .notification .icon img {
-        width: 3vh;
+        width: 1.25rem;
 }
 
 .recent-notifications-section .notifications .notification .details {
@@ -53,8 +54,8 @@
 }
 
 .recent-notifications-section .notifications .notification .details .main {
-        font-size: 0.75rem;
-        font-weight: 600;
+        font-size: 0.82rem;
+        font-weight: 700;
         color: #ededed;
 }
 
@@ -64,7 +65,7 @@
 }
 
 .recent-notifications-section .notifications .notification .details .time {
-        font-size: 0.625rem;
+        font-size: 0.7rem;
         color: #888888;
 }
 
@@ -72,18 +73,19 @@
         display: grid;
         place-content: center;
         font-size: 0.875rem;
-        color: #888888;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        box-shadow: inset 0 0 1rem 0.1rem  rgba(237, 237, 237, 0.105);
+        color: #cfcfcf;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
         width: 100%;
-        padding: 1.5vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
+        padding: 0.95rem;
+        transition: background-color 0.15s linear, color 0.15s linear, transform 0.15s linear;
         cursor: pointer;
 }
 
 .recent-notifications-section .notifications .see-all:focus,
 .recent-notifications-section .notifications .see-all:hover {
         color: #ededed;
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: rgba(198, 255, 0, 0.08);
+        transform: translateY(-1px);
 }

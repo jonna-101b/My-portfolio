@@ -12,12 +12,6 @@ const activitiesReducer = (state, action) => {
                 case "CREATE_ACTIVITY":
                         return { activities: [action.payload, ...state.activities] };
 
-                case "UPDATE_ACTIVITY":
-                        return {
-                                activities: state.activities.map((activity) =>
-                                        activity._id === action.payload._id ? action.payload : activity)
-                        };
-
                 case "DELETE_ACTIVITY":
                         return { activities: state.activities.filter((activity) =>  activity._id !== action.payload) };
 

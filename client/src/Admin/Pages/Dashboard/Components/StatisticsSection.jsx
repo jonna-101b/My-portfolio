@@ -56,12 +56,12 @@ function StatisticsSection() {
                                                 {label: "Series 1",
                                                 data: data.map((d) => d.value),
                                                 backgroundColor: [
-                                                        "#FF6384",
-                                                        "#36A2EB",
-                                                        "#FFCE56",
-                                                        "#4BC0C0",
-                                                        "#9966FF",
-                                                        "#FF9F40"
+                                                                        "#6d7c34",
+                                                                        "#7c8e35",
+                                                                        "#8fa63c",
+                                                                        "#a6bf45",
+                                                                        "#b9d14f",
+                                                                        "#c6ff00"
                                                 ],
                                                 borderWidth: 0,
                                                 borderRadius: 8
@@ -81,9 +81,7 @@ function StatisticsSection() {
                                 display: false,
                         },
                         title: {
-                                display: true,
-                                text: "Custom Colored Bar Chart",
-                                color: "#fff"
+                                display: false
                         },
                         datalabels: {
                                 anchor: "end",
@@ -98,16 +96,16 @@ function StatisticsSection() {
                 scales: {
                         x: {
                                 ticks: {
-                                        color: "#fff",
+                                        color: "#ededed",
                                         autoSkip: false, // ensures all labels show
                                         maxRotation: 0,
                                         minRotation: 0
                                 },
-                                grid: { color: "#444" }
+                                grid: { color: "rgba(255, 255, 255, 0.04)" }
                         },
                         y: {
                                 ticks: { color: "#888888" },
-                                grid: { color: "#444" }
+                                grid: { color: "rgba(255, 255, 255, 0.04)" }
                         }
                 }
         };
@@ -116,7 +114,11 @@ function StatisticsSection() {
 
         return (
                 <div className="statistics-section">
-                        <p className="title">Statistics</p>
+                        <div className="header-row">
+                                <p className="title">Statistics</p>
+
+                                <p className="subtitle">Content snapshot</p>
+                        </div>
 
                         <div className="chart">
                                 <Bar data={chartData} options={options} />

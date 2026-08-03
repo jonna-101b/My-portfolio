@@ -22,7 +22,7 @@ const Action = ({ action, color }) => {
         };
 
         return (
-                <div className="action" onClick={handleClick} >
+                <div className="action" onClick={handleClick} style={{ "--action-accent": color }} >
                         <p className="icon"  >
                                 <img src={AddIcon} alt="Add icon" />
                         </p>
