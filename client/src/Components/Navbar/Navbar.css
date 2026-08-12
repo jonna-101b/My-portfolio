@@ -9,7 +9,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        padding: 0 10vh;
+        padding: 2vh 10vh;
         z-index: 3;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .navbar .logo img {
-        height: 15vh;
+        height: 7.5vh;
 }
 
 .navbar nav {

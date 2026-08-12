@@ -114,9 +114,6 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
                 for (let input of component) {
                         newComponent[input.name] = inputs[input.name];
                 }
-                newComponent["_id"] = generateObjectId();
-                newComponent["createdAt"] = new Date(Date.now());
-                newComponent["updatedAt"] = new Date(Date.now());
 
                 createComponent(newComponent);
                 handleDisplay();

@@ -9,6 +9,7 @@ import { BlogContextProvider } from './Contexts/BlogContext';
 import { NotificationsContextProvider } from './Contexts/NotificationsContext';
 import { ActivitiesContextProvider } from './Contexts/ActivitiesContext';
 import { ThemeContextProvider } from './Contexts/ThemeContext';
+import { AdminAuthContextProvider } from './Contexts/AdminAuthContext';
 import Navbar from './Components/Navbar/Navbar';
 import Contacts from './Components/Contacts/Contacts';
 import Footer from './Components/Footer/Footer';
@@ -77,13 +78,14 @@ function App() {
                                                                                                 <ThemeContextProvider>
                                                                                                         <div className="app">
                                                                                                                 <BrowserRouter>
+                                                                                                                                        <AdminAuthContextProvider>
+                                                                                                                                        <Routes>
+                                                                                                                                                <Route path="/*" element={<MainLayout />} />
 
-                                                                                                                        <Routes>
-                                                                                                                                <Route path="/*" element={<MainLayout />} />
-
-                                                                                                                                <Route path="/admin/*" element={<Admin />} />
-                                                                                                                        </Routes>
-                                                                                                                </BrowserRouter>
+                                                                                                                                                <Route path="/admin/*" element={<Admin />} />
+                                                                                                                                        </Routes>
+                                                                                                                                        </AdminAuthContextProvider>
+                                                                                                                                </BrowserRouter>
                                                                                                         </div>
                                                                                                 </ThemeContextProvider>
 

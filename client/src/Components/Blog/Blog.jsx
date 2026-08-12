@@ -22,14 +22,6 @@ function BlogMedia({ blog }) {
 
         return (
                 <div className="blog-media">
-                        <div className="hero-bar" aria-hidden="true">
-                                <p className="hero-label">Celestial Blog Redesign</p>
-
-                                <div className="hero-chips">
-                                        <span>AI</span>
-                                        <span>Dark Mode</span>
-                                </div>
-                        </div>
 
                         { blog?.image && (
                                 <div className="image">
@@ -232,8 +224,6 @@ function BlogSection() {
                                 <aside className="blog-sidebar">
                                         <div className="sidebar-title">
                                                 <p>Recent Stories</p>
-
-                                                <p className="sidebar-action">See all</p>
                                         </div>
 
                                         <div className={`previous-blogs ${isRotating ? 'rotating' : ''}`}>
