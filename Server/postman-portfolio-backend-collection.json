@@ -1,0 +1,797 @@
+{
+  "info": {
+    "name": "Portfolio Backend API",
+    "description": "Collection for testing the portfolio backend routes mounted under /api. Run Login first to establish the JWT cookies for protected routes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "b0d89fa1-6f4d-4ab8-b9da-958f2d96eb95"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "adminEmail", "value": "yonazyonaz8@gmail.com" },
+    { "key": "adminPassword", "value": "J9n2@5002517" },
+    { "key": "projectId", "value": "" },
+    { "key": "qualificationId", "value": "" },
+    { "key": "blogId", "value": "" },
+    { "key": "testimonialId", "value": "" },
+    { "key": "notificationId", "value": "" },
+    { "key": "activityId", "value": "" },
+    { "key": "ratingId", "value": "" },
+    { "key": "technicalSkillId", "value": "" },
+    { "key": "conceptualSkillId", "value": "" },
+    { "key": "socialLinkId", "value": "" },
+    { "key": "techId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "refresh"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Admin Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/auth/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout Admin",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "logout"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jonna\",\n  \"lastName\": \"Moses\",\n  \"nickName\": \"J\",\n  \"gender\": \"Female\",\n  \"birthDate\": \"1995-05-20T00:00:00.000Z\",\n  \"profession\": \"Full Stack Developer\",\n  \"picture\": \"https://example.com/profile.jpg\",\n  \"bio\": \"Passionate software engineer building scalable products.\",\n  \"logo\": \"https://example.com/logo.png\",\n  \"description\": {\n    \"brief\": \"I design and build modern digital products with a strong focus on user experience and performance.\",\n    \"detailed\": \"I am a full-stack software developer with experience building responsive interfaces, backend APIs, and operational systems that help businesses scale. I enjoy translating product requirements into reliable features and maintainable code.\"\n  },\n  \"phone\": \"+1234567890\",\n  \"email\": \"hello@example.com\",\n  \"address\": \"Lagos, Nigeria\",\n  \"resumeLink\": \"https://example.com/resume.pdf\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Description",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brief\": \"I build accessible and user-centered digital systems for modern businesses.\",\n  \"detailed\": \"I work across the full stack to create products from concept to production, with a focus on maintainability, speed, and business impact. My work combines interface design, backend engineering, and product thinking to ship dependable experiences.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profile/description",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "profile", "description"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Social Links",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"GitHub\",\n    \"icon\": \"https://cdn.example.com/icons/github.svg\",\n    \"url\": \"https://github.com/yourusername\"\n  },\n  {\n    \"name\": \"LinkedIn\",\n    \"icon\": \"https://cdn.example.com/icons/linkedin.svg\",\n    \"url\": \"https://linkedin.com/in/yourprofile\"\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profile/social",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "profile", "social"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Social Link",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"GitHub\",\n  \"icon\": \"https://cdn.example.com/icons/github-white.svg\",\n  \"url\": \"https://github.com/updated-user\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/profile/social/{{socialLinkId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "profile", "social", "{{socialLinkId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Social Link",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/profile/social/{{socialLinkId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "profile", "social", "{{socialLinkId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get Projects",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Portfolio Website\",\n  \"domains\": [\"Web Development\", \"UI/UX\"],\n  \"description\": {\n    \"brief\": \"A modern portfolio for showcasing projects and expertise.\",\n    \"detailed\": \"This project highlights my work across web development, product design, and technical storytelling. It includes a responsive landing page and structured portfolio sections.\"\n  },\n  \"image\": \"https://example.com/project-cover.jpg\",\n  \"features\": [\"Responsive design\", \"Project showcase\", \"Contact form\"],\n  \"techStack\": [\n    {\n      \"name\": \"React\",\n      \"icon\": \"https://cdn.example.com/icons/react.svg\"\n    },\n    {\n      \"name\": \"Node.js\",\n      \"icon\": \"https://cdn.example.com/icons/nodejs.svg\"\n    }\n  ],\n  \"projectLink\": \"https://example.com/project\",\n  \"githubLink\": \"https://github.com/yourusername/project\",\n  \"contribution\": \"Built the frontend, API integration, and deployment setup for this portfolio website.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Portfolio Website\",\n  \"description\": {\n    \"brief\": \"An updated portfolio platform for better storytelling and visibility.\",\n    \"detailed\": \"The updated version improves content structure, responsiveness, and more maintainable architecture for showcasing work, services, and contact channels.\"\n  },\n  \"contribution\": \"Refined the app, improved speed, and updated content structure for the portfolio.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects", "{{projectId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "projects", "{{projectId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Qualifications",
+      "item": [
+        {
+          "name": "Get Qualifications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/qualifications",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "qualifications"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Qualification",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"discipline\": \"Software Engineering\",\n  \"organization\": \"Tech Academy\",\n  \"description\": \"Completed a full-stack software engineering program focused on web apps, APIs, and deployment workflows.\",\n  \"duration\": {\n    \"from\": \"2023-01-01T00:00:00.000Z\",\n    \"to\": \"2024-01-01T00:00:00.000Z\"\n  },\n  \"active\": false,\n  \"type\": \"Certificate\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qualifications",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "qualifications"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Qualification",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"discipline\": \"Full Stack Development\",\n  \"organization\": \"Digital Skills Institute\",\n  \"description\": \"Strengthened skills in frontend and backend architecture, testing, and deployment best practices.\",\n  \"active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qualifications/{{qualificationId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "qualifications", "{{qualificationId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Qualification",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/qualifications/{{qualificationId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "qualifications", "{{qualificationId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Skills",
+      "item": [
+        {
+          "name": "Get Technical Skills",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/skills/technical",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "technical"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Technical Skill",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Frontend\",\n  \"techStack\": [\n    {\n      \"name\": \"React\",\n      \"icon\": \"https://cdn.example.com/icons/react.svg\"\n    },\n    {\n      \"name\": \"TypeScript\",\n      \"icon\": \"https://cdn.example.com/icons/typescript.svg\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/skills/technical",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "technical"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Technical Skill",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Frontend Engineering\",\n  \"techStack\": [\n    {\n      \"name\": \"React\",\n      \"icon\": \"https://cdn.example.com/icons/react-blue.svg\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/skills/technical/{{technicalSkillId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "technical", "{{technicalSkillId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Tech to Technical Skill",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Next.js\",\n  \"icon\": \"https://cdn.example.com/icons/nextjs.svg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/skills/technical/{{technicalSkillId}}/tech",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "technical", "{{technicalSkillId}}", "tech"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Tech from Technical Skill",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/skills/technical/{{technicalSkillId}}/tech/{{techId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "technical", "{{technicalSkillId}}", "tech", "{{techId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Technical Skill",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/skills/technical/{{technicalSkillId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "technical", "{{technicalSkillId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Conceptual Skills",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/skills/conceptual",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "conceptual"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Conceptual Skill",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Problem Solving\",\n  \"description\": \"Able to break down complex business problems into practical implementation strategies and measurable outcomes.\",\n  \"icon\": \"https://cdn.example.com/icons/problem-solving.svg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/skills/conceptual",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "conceptual"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Conceptual Skill",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/skills/conceptual/{{conceptualSkillId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "skills", "conceptual", "{{conceptualSkillId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Testimonials",
+      "item": [
+        {
+          "name": "Get Testimonials",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/testimonials",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "testimonials"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Testimonial",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"position\": \"Product Manager\",\n  \"picture\": \"https://example.com/jane.jpg\",\n  \"testimony\": \"Jonna is highly dependable, thoughtful, and excellent at turning product requirements into strong technical outcomes.\",\n  \"company\": \"Acme Labs\",\n  \"email\": \"jane@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "testimonials"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Testimonial",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane D.\",\n  \"position\": \"Lead Product Manager\",\n  \"testimony\": \"Jonna consistently delivers excellent work, communicates clearly, and helps the team move faster with strong product thinking.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/{{testimonialId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "testimonials", "{{testimonialId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Testimonial",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/{{testimonialId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "testimonials", "{{testimonialId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Blogs",
+      "item": [
+        {
+          "name": "Get Blogs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/blogs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "blogs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Blog",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": \"Jonna\",\n  \"title\": \"Building Better Product Experiences\",\n  \"intro\": \"Product teams move faster when engineering and design work together with clarity and focus.\",\n  \"description\": \"This article explores practical steps for building better digital experiences, improving product clarity, and aligning technical execution with user value. It covers architecture, communication, and shipping with momentum.\",\n  \"datePublished\": \"2026-08-12T00:00:00.000Z\",\n  \"tags\": [\"Product\", \"Engineering\", \"UX\"],\n  \"image\": \"https://example.com/blog-cover.jpg\",\n  \"links\": [\n    {\n      \"title\": \"Read more\",\n      \"url\": \"https://example.com/article\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/blogs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "blogs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Blog",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Building Better Product Experiences: Updated\",\n  \"intro\": \"Teams move faster when engineering, design, and product priorities stay synchronized.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/blogs/{{blogId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "blogs", "{{blogId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Blog",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/blogs/{{blogId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "blogs", "{{blogId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get Notifications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/notifications",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "notifications"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Notification",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"subject\": \"Hello from Postman\",\n  \"message\": \"This is a test message from the API collection.\nPlease respond when available.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notifications",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "notifications"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Notification",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/{{notificationId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "notifications", "{{notificationId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Activities",
+      "item": [
+        {
+          "name": "Get Activities",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/activities",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "activities"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Activity",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"Built\",\n  \"destination\": \"Portfolio Website\",\n  \"title\": \"Improved portfolio experience\",\n  \"date\": \"2026-08-12T00:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/activities",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "activities"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Activity",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{activityId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "activities", "{{activityId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ratings",
+      "item": [
+        {
+          "name": "Create Rating",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5,\n  \"feedback\": \"Excellent work and strong communication throughout the project.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ratings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "ratings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Rating",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 4,\n  \"feedback\": \"Very good experience overall, with room for a few improvements.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ratings/{{ratingId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "ratings", "{{ratingId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Rating",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/ratings/{{ratingId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "ratings", "{{ratingId}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

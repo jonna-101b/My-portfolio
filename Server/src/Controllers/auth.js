@@ -19,8 +19,8 @@ export const loginAdmin = async (req, res, next) => {
         const refreshToken = generateToken({ _id: admin._id, email: admin.email }, config.jwtRefreshSecret, "10d");
         await RefreshTokenModel.create({ token: refreshToken, admin: admin._id, expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000) });
 
-        res.cookie("accessToken", accessToken, { cookieOptions, maxAge: 15 * 60 * 1000 });
-        res.cookie("refreshToken", refreshToken, { cookieOptions, maxAge: 10 * 24 * 60 * 60 * 1000 });
+        res.cookie("accessToken", accessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
+        res.cookie("refreshToken", refreshToken, { ...cookieOptions, maxAge: 10 * 24 * 60 * 60 * 1000 });
         res.status(200).json(admin);
     }
     catch (error) {
@@ -37,16 +37,21 @@ export const refreshTokenHandler = async (req, res, next) => {
             return next(APIError.unauthorized('Refresh token missing'));
         }
 
-        const refreshToken = await RefreshTokenModel.findOne({ token });
+        const refreshTokenDoc = await RefreshTokenModel.findOne({ token }).populate('admin');
 
-        if ( !refreshToken || refreshToken.expiresAt < new Date() ) {
+        if (!refreshTokenDoc || refreshTokenDoc.expiresAt < new Date()) {
             return next(APIError.unauthorized('Invalid or expired refresh token'));
         }
 
-        const admin = refreshToken.admin;
+        const admin = refreshTokenDoc.admin;
+
+        if (!admin) {
+            return next(APIError.unauthorized('Admin not found for refresh token'));
+        }
+
         const newAccessToken = generateToken({ _id: admin._id, email: admin.email }, config.jwtAccessSecret, "15m");
 
-        res.cookie("accessToken", newAccessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });  // 15 minutes
+        res.cookie("accessToken", newAccessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
         return res.status(200).json({ success: true, message: 'Access token refreshed successfully' });
     }
     catch (error) {
@@ -77,11 +82,11 @@ export const getAdmin = async (req, res, next) => {
         const accessTokenCookie = req.cookies["accessToken"];
 
         const refreshToken = await RefreshTokenModel.findOne({ token: refreshTokenCookie });
-        if ( !refreshToken || refreshToken.expiresAt < new Date() ) {
+        if (!refreshToken || refreshToken.expiresAt < new Date()) {
             return next(APIError.unauthorized('Invalid or expired refresh token'));
         }
 
-        const { _id } = verifyToken(accessTokenCookie, config.accessToken);
+        const { _id } = verifyToken(accessTokenCookie, config.jwtAccessSecret);
         const admin = await AdminModel.findOne({ _id });
 
         res.status(200).json(admin);

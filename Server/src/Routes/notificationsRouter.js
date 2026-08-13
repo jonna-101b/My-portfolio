@@ -9,7 +9,7 @@ const notificationsRouter = express.Router();
 
 notificationsRouter.get('/', getNotifications);
 
-notificationsRouter.post('/', authenticate, createNotificationValidator, contactLimiter, addNotification );
+notificationsRouter.post('/', createNotificationValidator, contactLimiter, addNotification);
 
 notificationsRouter.delete('/:id', authenticate, notificationIdParamValidator, deleteNotification );
 

@@ -1,7 +1,7 @@
 import validator from "validator";
 import { hashPassword } from "../Utils/auth.js";
 import mongoose from "mongoose";
-import { config } from "../config/environments.js";
+import { config } from "../Config/environments.js";
 import AdminModel from "../Models/admin.js";
 
 
