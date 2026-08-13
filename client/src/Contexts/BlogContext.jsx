@@ -6,27 +6,45 @@ const BlogContext = createContext();
 
 const blogReducer = (state, action) => {
         switch(action.type) {
+                case "SET_LOADING":
+                        return { ...state, loading: action.payload ?? true, error: null };
+
+                case "SET_ERROR":
+                        return { ...state, loading: false, error: action.payload };
+
+                case "CLEAR_ERROR":
+                        return { ...state, error: null };
+
                 case "SET_BLOGS":
-                        return { blogs: action.payload };
+                        return { ...state, blogs: action.payload, loading: false, error: null };
 
                 case "CREATE_BLOG":
-                        return { blogs: [action.payload, ...state.blogs] };
+                        return { ...state, blogs: [action.payload, ...state.blogs], loading: false, error: null };
 
                 case "UPDATE_BLOG":
                         return {
+                                ...state,
                                 blogs: state.blogs.map((blog) =>
-                                        blog._id === action.payload._id ? action.payload : blog)
+                                        blog._id === action.payload._id ? action.payload : blog),
+                                loading: false,
+                                error: null
                         };
 
                 case "DELETE_BLOG":
                         return {
-                                blogs: state.blogs.filter((blog) => blog._id !== action.payload)
+                                ...state,
+                                blogs: state.blogs.filter((blog) => blog._id !== action.payload),
+                                loading: false,
+                                error: null
                         };
 
                 case "DELETE_BLOGS":
                         return {
+                                ...state,
                                 blogs: state.blogs.filter(
-                                        (blog) => !action.payload.includes(blog._id))
+                                        (blog) => !action.payload.includes(blog._id)),
+                                loading: false,
+                                error: null
                         };
 
                 default:
@@ -35,7 +53,11 @@ const blogReducer = (state, action) => {
 }
 
 function BlogContextProvider({ children }) {
-        const [state, dispatch] = useReducer(blogReducer, { blogs });
+        const [state, dispatch] = useReducer(blogReducer, {
+                blogs,
+                loading: false,
+                error: null
+        });
 
         return (
                 <BlogContext.Provider value={{ state, dispatch }}>
@@ -44,4 +66,4 @@ function BlogContextProvider({ children }) {
         );
 }
 
-export { BlogContext, BlogContextProvider };
+export { BlogContext, BlogContextProvider };

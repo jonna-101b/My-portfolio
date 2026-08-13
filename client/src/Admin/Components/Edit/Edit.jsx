@@ -80,7 +80,7 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
         // form is "edited" if at least one input is edited
         const formEdited = Object.values(edited).some(Boolean);
 
-        const handleSubmit = () => {
+        const handleSubmit = async () => {
                 const editedComponent = {};
                 for (let input of component) {
                         editedComponent[input.name] = inputs[input.name];
@@ -89,8 +89,24 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
                 editedComponent["createdAt"] = attr.createdAt;
                 editedComponent["updatedAt"] = new Date(Date.now());
                 
-                editComponent(editedComponent);
-                handleDisplay();
+                try {
+                        if (editComponent) {
+                                await editComponent(editedComponent);
+                        }
+                        handleDisplay();
+                        if (setAction) {
+                                setAction({ type: "edit", component: componentName, name: attr?.name || "" });
+                        }
+                } catch (error) {
+                        console.error(`Error updating ${componentName}:`, error);
+                        if (setAction) {
+                                setAction({
+                                        type: "error",
+                                        component: componentName,
+                                        message: error?.message || `Failed to update ${componentName}`
+                                });
+                        }
+                }
         };
 
         return (
@@ -154,17 +170,13 @@ function Edit({ componentName, NotifyContext, updateHook }) {
 
         const handleDisplay = () => {
                 setEdit({});
-                const timer = setTimeout(() => {
-                        setAction({ type: "edit", component: componentName, name: edit.name});
-                }, 500);
-                return () => clearTimeout(timer);
         };
 
         return (
                 <div className={`edit ${isEmptyObject(edit) ?  "" : "active" }`} onClick={handleDisplay} >
-                        { isEmptyObject(edit) ? "" : <Wrapper  componentName={componentName} component={edit.value} attr={{ _id: edit._id, createdAt: edit.createdAt, updatedAt: edit.updatedAt}} editComponent={editComponent} handleDisplay={handleDisplay} /> }      
+                        { isEmptyObject(edit) ? "" : <Wrapper componentName={componentName} component={edit.value} attr={{ _id: edit._id, name: edit.name, createdAt: edit.createdAt, updatedAt: edit.updatedAt}} editComponent={editComponent} handleDisplay={handleDisplay} setAction={setAction} /> }      
                 </div>
         );
 }
 
-export default Edit;
+export default Edit;

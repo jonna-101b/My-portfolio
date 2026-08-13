@@ -1,47 +1,73 @@
 import { useState, useContext, useEffect } from "react";
 import './Notify.css';
 
-
 function isEmptyObject(obj) {
         if (typeof obj !== "object" || obj === null) return false;
-
         return Object.keys(obj).length === 0;
 }
 
 function capitalizeFirstLetter(str) {
+        if (!str || typeof str !== 'string') return '';
         return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function Notify({ NotifyContext }) {
         const { action, setAction } = useContext(NotifyContext);
-        const [ message, setMessage ] = useState("");
-        const [ color, setColor ] = useState("");
-        const [ component, setComponent ] = useState("");
+        const [message, setMessage] = useState("");
+        const [color, setColor] = useState("");
+        const [textColor, setTextColor] = useState("#0b0d0e");
 
         const actions = {
-                "add": { message: (component) => ( `You have successfully added a ${component}!` ), color: "#c6ff00"},
-                "edit": { message: (component) => ( `You have successfully edited a ${component}!` ), color: "#3861BE"},
-                "delete": { message: (component) => ( `${capitalizeFirstLetter(component)} is moved to trash!` ), color: "#ff3d00"},
+                "add": { 
+                        message: (comp, msg) => msg || `You have successfully added a ${comp}!`, 
+                        color: "#c6ff00",
+                        textColor: "#0b0d0e"
+                },
+                "edit": { 
+                        message: (comp, msg) => msg || `You have successfully edited a ${comp}!`, 
+                        color: "#3861BE",
+                        textColor: "#ffffff"
+                },
+                "delete": { 
+                        message: (comp, msg) => msg || `${capitalizeFirstLetter(comp)} is moved to trash!`, 
+                        color: "#ff3d00",
+                        textColor: "#ffffff"
+                },
+                "error": { 
+                        message: (comp, msg) => msg || `Failed to process ${comp || 'request'}. Server issue occurred!`, 
+                        color: "#d32f2f",
+                        textColor: "#ffffff"
+                },
         };
 
         useEffect(() => {
-                if (!isEmptyObject(action)) {
-                        setMessage(actions[action.type].message(action.component));
-                        setColor(actions[action.type].color);
-                        setComponent(action.component);
+                if (!isEmptyObject(action) && action.type) {
+                        const actionConfig = actions[action.type] || actions["error"];
+                        const resolvedMessage = typeof action.message === "string" && action.message.length > 0
+                                ? action.message
+                                : (typeof actionConfig.message === "function" ? actionConfig.message(action.component, action.message) : "Notification");
+
+                        setMessage(resolvedMessage);
+                        setColor(action.color || actionConfig.color);
+                        setTextColor(action.textColor || actionConfig.textColor || "#ffffff");
 
                         const timer = setTimeout(() => {
                                 setAction({});
-                        }, 3000);
+                        }, 4000);
                         return () => clearTimeout(timer);
                 }
-        }, [action]);
+        }, [action, setAction]);
 
         return (
-                <div className={`notify ${isEmptyObject(action) ? "" : "active"}`} style={{ backgroundColor: color}} >
-                        { message }
+                <div 
+                        className={`notify ${isEmptyObject(action) ? "" : "active"}`} 
+                        style={{ backgroundColor: color, color: textColor }}
+                        role="alert"
+                        aria-live="polite"
+                >
+                        {message}
                 </div>
         );
 }
 
-export default Notify;
+export default Notify;

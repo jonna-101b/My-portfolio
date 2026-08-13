@@ -21,6 +21,7 @@ import Projects from './Pages/Projects/Projects';
 // import Blog from './Pages/Articles/Articles';
 // import PageContacts from './Pages/Contacts/Contacts';
 import DottedBackground from './assets/Images/Background/DottedBackground';
+import ServerNotification from './Components/ServerNotification/ServerNotification';
 import Admin from './Admin/Admin';
 import './App.css';
 // import './Styles/Fonts.css';
@@ -29,6 +30,7 @@ import './App.css';
 function MainLayout() {
         return (
                 <div className="main-layout">
+                        <ServerNotification />
                         <Navbar />
 
                         <div className="pages">
@@ -62,6 +64,7 @@ function MainLayout() {
 
         );
 }
+
 
 function App() {
         return (

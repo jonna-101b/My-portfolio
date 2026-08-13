@@ -31,10 +31,16 @@ function ProjectLayout({ project }) {
                 setEdit(Form(project));
         };
 
-        const handleDelete = () => {
-                deleteProject(project._id);
-                setAction({ type: "delete", component: "project", name: project.title });
+        const handleDelete = async () => {
+                try {
+                        await deleteProject(project._id);
+                        setAction({ type: "delete", component: "project", name: project.title });
+                } catch (error) {
+                        console.error("Error deleting project in admin:", error);
+                        setAction({ type: "error", component: "project", message: error?.message || "Failed to delete project" });
+                }
         };
+
 
         return (
                 <div className="project-layout">

@@ -23,10 +23,16 @@ function Skill({ skill }) {
                 setEdit(conceptualForm(skill));
         };
 
-        const handleDelete = () => {
-                deleteSkill(skill._id);
-                setAction({ type: "delete", component: "skill", name: skill.title });
+        const handleDelete = async () => {
+                try {
+                        await deleteSkill(skill._id);
+                        setAction({ type: "delete", component: "skill", name: skill.title });
+                } catch (error) {
+                        console.error("Error deleting conceptual skill in admin:", error);
+                        setAction({ type: "error", component: "skill", message: error?.message || "Failed to delete skill" });
+                }
         };
+
 
         return (
                 <div className="skill">

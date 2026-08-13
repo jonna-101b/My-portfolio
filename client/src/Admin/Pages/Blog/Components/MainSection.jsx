@@ -31,10 +31,16 @@ function BlogLayout({ blog }) {
                 setEdit(Form(blog));
         };
 
-        const handleDelete = () => {
-                deleteBlog(blog._id);
-                setAction({ type: "delete", component: "blog", name: blog.title });
+        const handleDelete = async () => {
+                try {
+                        await deleteBlog(blog._id);
+                        setAction({ type: "delete", component: "blog", name: blog.title });
+                } catch (error) {
+                        console.error("Error deleting blog in admin:", error);
+                        setAction({ type: "error", component: "blog", message: error?.message || "Failed to delete blog" });
+                }
         };
+
 
         return (
                 <div className="blog-layout">

@@ -32,10 +32,16 @@ function TestimonialsLayout({ testimonial }) {
                 setEdit(Form(testimonial));
         };
 
-        const handleDelete = () => {
-                deleteTestimonial(testimonial._id);
-                setAction({ type: "delete", component: "testimonial", name: testimonial.name });
+        const handleDelete = async () => {
+                try {
+                        await deleteTestimonial(testimonial._id);
+                        setAction({ type: "delete", component: "testimonial", name: testimonial.name });
+                } catch (error) {
+                        console.error("Error deleting testimonial in admin:", error);
+                        setAction({ type: "error", component: "testimonial", message: error?.message || "Failed to delete testimonial" });
+                }
         };
+
 
         return (
                 <div className={`testimonial-layout`}>

@@ -31,10 +31,16 @@ function QualificationsLayout({ qualification }) {
                 setEdit(Form(qualification));
         };
 
-        const handleDelete = () => {
-                deleteQualification(qualification._id);
-                setAction({ type: "delete", component: "qualification", name: qualification.discipline });
+        const handleDelete = async () => {
+                try {
+                        await deleteQualification(qualification._id);
+                        setAction({ type: "delete", component: "qualification", name: qualification.discipline });
+                } catch (error) {
+                        console.error("Error deleting qualification in admin:", error);
+                        setAction({ type: "error", component: "qualification", message: error?.message || "Failed to delete qualification" });
+                }
         };
+
 
         return (
                 <div className="qualification-layout">

@@ -1,85 +1,123 @@
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
 import { TechnicalSkillsContext } from "../Contexts/TechnicalSkillsContext";
 import { fetchTechnicalSkills, createTechnicalSkill, updateTechnicalSkill, deleteTechnicalSkill, createTechnicalSkillTech, deleteTechnicalSkillTech } from "../api/SkillsApi";
+import { APIError } from "../api/APIError";
 
 const useTechnicalSkillsReducer = () => {
-        const { state, dispatch} = useContext(TechnicalSkillsContext);
+        const { state, dispatch } = useContext(TechnicalSkillsContext);
         const { skills } = state;
 
-        const setSkills = async () => {
+        const setSkills = useCallback(async () => {
                 try {
+                        dispatch({ type: "SET_LOADING", payload: true });
                         const res = await fetchTechnicalSkills();
                         dispatch({ type: "SET_SKILLS", payload: res });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to fetch technical skills");
+                        console.error("Error fetching technical skills:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        return null;
                 }
-                catch (error) {
-                        console.error("Error fetching technical skills:", error);
-                }
-        };
+        }, [dispatch]);
 
-        const createSkill = async (newSkill) => {
+        const createSkill = useCallback(async (newSkill) => {
                 try {
+                        dispatch({ type: "SET_LOADING", payload: true });
                         const res = await createTechnicalSkill(newSkill);
                         dispatch({ type: "CREATE_SKILL", payload: res });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to create technical skill");
+                        console.error("Error creating technical skill:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
                 }
-                catch (error) {
-                        console.error("Error creating technical skill:", error);
-                }
-        };
+        }, [dispatch]);
 
-        const updateSkill = async (editedSkill) => {
+        const updateSkill = useCallback(async (editedSkill) => {
                 try {
-                        const res = await updateTechnicalSkill(editedSkill._id, editedSkill);
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const id = typeof editedSkill === "object" ? editedSkill._id : editedSkill;
+                        const res = await updateTechnicalSkill(id, editedSkill);
                         dispatch({ type: "UPDATE_SKILL", payload: res });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to update technical skill");
+                        console.error("Error updating technical skill:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
                 }
-                catch (error) {
-                        console.error("Error updating technical skill:", error);
-                }
-        };
+        }, [dispatch]);
 
-        const deleteSkill = async (skillId) => {
+        const deleteSkill = useCallback(async (skillId) => {
                 try {
-                        const res = await deleteTechnicalSkill(skillId._id);
-                        dispatch({ type: "DELETE_SKILL", payload: res });
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const id = typeof skillId === "object" ? skillId._id : skillId;
+                        const res = await deleteTechnicalSkill(id);
+                        dispatch({ type: "DELETE_SKILL", payload: id });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to delete technical skill");
+                        console.error("Error deleting technical skill:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
                 }
-                catch (error) {
-                        console.error("Error deleting technical skill:", error);
-                }
-        };
+        }, [dispatch]);
 
-        const deleteSkills = (skillIds) => {
+        const deleteSkills = useCallback((skillIds) => {
                 dispatch({ type: "DELETE_SKILLS", payload: skillIds });
-        };
+        }, [dispatch]);
 
-        const createSkillTech = async (skillId, newTech) => {
+        const createSkillTech = useCallback(async (skillId, newTech) => {
                 try {
-                        const res = await createTechnicalSkillTech(skillId._id, newTech);
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const sId = typeof skillId === "object" ? skillId._id : skillId;
+                        const res = await createTechnicalSkillTech(sId, newTech);
                         dispatch({ type: "CREATE_SKILL_TECH", payload: res });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to create technical skill technology");
+                        console.error("Error creating technical skill technology:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
                 }
-                catch (error) {
-                        console.error("Error creating technical skill technology:", error);
-                }
-        };
+        }, [dispatch]);
 
-        const deleteSkillTech = async (skillId, techId) => {
+        const deleteSkillTech = useCallback(async (skillId, techId) => {
                 try {
-                        const res = await deleteTechnicalSkillTech(skillId._id, techId._id);
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const sId = typeof skillId === "object" ? skillId._id : skillId;
+                        const tId = typeof techId === "object" ? techId._id : techId;
+                        const res = await deleteTechnicalSkillTech(sId, tId);
                         dispatch({ type: "DELETE_SKILL_TECH", payload: res });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to delete technical skill technology");
+                        console.error("Error deleting technical skill technology:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
                 }
-                catch (error) {
-                        console.error("Error deleting technical skill technology:", error);
-                }
-        };
+        }, [dispatch]);
+
+        const clearError = useCallback(() => {
+                dispatch({ type: "CLEAR_ERROR" });
+        }, [dispatch]);
 
         return {
                 skills,
+                state,
+                loading: state.loading,
+                error: state.error,
                 setSkills,
                 createSkill,
                 updateSkill,
                 deleteSkill,
                 deleteSkills,
                 createSkillTech,
-                deleteSkillTech
+                deleteSkillTech,
+                clearError
         };
-}
+};
 
-export default useTechnicalSkillsReducer;
+export default useTechnicalSkillsReducer;

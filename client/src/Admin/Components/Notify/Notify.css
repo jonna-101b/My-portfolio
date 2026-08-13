@@ -7,12 +7,17 @@
         border-radius: 2vh;
         position: fixed;
         top: -10vh;
-        align-self: center;
+        left: 50%;
+        transform: translateX(-50%);
         padding: 1.5vh 4vh;
-        transition: transform 0.2s ease-in-out;
-        z-index: 2;
+        transition: transform 0.25s ease-in-out, top 0.25s ease-in-out;
+        z-index: 9999;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        max-width: 90vw;
+        text-align: center;
 }
 
 .admin .notify.active {
-        transform: translateY(15vh);
-}
+        top: 4vh;
+        transform: translateX(-50%);
+}

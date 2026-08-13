@@ -109,14 +109,30 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
         // form is "added" if all inputs are added
         const formAdded = Object.values(added).every(Boolean);
 
-        const handleSubmit = () => {
+        const handleSubmit = async () => {
                 const newComponent = {};
                 for (let input of component) {
                         newComponent[input.name] = inputs[input.name];
                 }
 
-                createComponent(newComponent);
-                handleDisplay();
+                try {
+                        if (createComponent) {
+                                await createComponent(newComponent);
+                        }
+                        handleDisplay();
+                        if (setAction) {
+                                setAction({ type: "add", component: componentName, name: "" });
+                        }
+                } catch (error) {
+                        console.error(`Error creating ${componentName}:`, error);
+                        if (setAction) {
+                                setAction({
+                                        type: "error",
+                                        component: componentName,
+                                        message: error?.message || `Failed to create ${componentName}`
+                                });
+                        }
+                }
         };
 
         return (
@@ -150,16 +166,16 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
 
                                 <div className="changes">
                                         <button type="submit" className="save" disabled={!formAdded} >
-                                                <span className="icon">
-                                                        <img src={SaveBlackIcon} alt="Save icon" />
-                                                </span>
-                                                {`Create ${componentName}`}
+                                                 <span className="icon">
+                                                         <img src={SaveBlackIcon} alt="Save icon" />
+                                                 </span>
+                                                 {`Create ${componentName}`}
                                         </button>   
                                         <button type="reset" className="discard" onClick={handleDisplay} disabled={!formAdded} >
-                                                Discard changes
-                                                <span className="icon">
-                                                        <img src={CancelBlackIcon} alt="Save icon" />
-                                                </span>
+                                                 Discard changes
+                                                 <span className="icon">
+                                                         <img src={CancelBlackIcon} alt="Save icon" />
+                                                 </span>
                                         </button>   
                                 </div>
                         </form>
@@ -180,17 +196,13 @@ function New({ componentName, NotifyContext, createHook }) {
 
         const handleDisplay = () => {
                 setNew({});
-                const timer = setTimeout(() => {
-                        setAction({ type: "add", component: componentName, name: "" });
-                }, 500);
-                return () => clearTimeout(timer);
         };
 
         return (
                 <div className={`new ${isEmptyObject(New) ?  "" : "active" }`} onClick={handleDisplay} >
-                        { isEmptyObject(New) ? "" : <Wrapper  componentName={componentName} component={New.value} createComponent={createComponent} handleDisplay={handleDisplay} /> }      
+                        { isEmptyObject(New) ? "" : <Wrapper componentName={componentName} component={New.value} createComponent={createComponent} handleDisplay={handleDisplay} setAction={setAction} /> }      
                 </div>
         );
 }
 
-export default New;
+export default New;
