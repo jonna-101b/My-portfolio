@@ -1,0 +1,117 @@
+/* About Card Styling */
+
+.about-card {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+}
+
+.about-card:hover {
+        border-color: #333333;
+}
+
+.about-card .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.about-card .card-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #ededed;
+        margin: 0;
+}
+
+/* Segmented Capsule Control */
+.about-segmented-control {
+        display: flex;
+        align-items: center;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 3px;
+        gap: 2px;
+}
+
+.segment-btn {
+        background: transparent;
+        border: none;
+        color: #888888;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        padding: 4px 14px;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.segment-btn:hover {
+        color: #ededed;
+}
+
+.segment-btn.active {
+        background-color: #c6ff00;
+        color: #0b0d0e;
+        font-weight: 600;
+}
+
+/* Content Box */
+.about-content-box {
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: border-color 0.2s ease;
+}
+
+.about-content-box.editing {
+        border-color: rgba(198, 255, 0, 0.4);
+}
+
+.about-text {
+        font-size: 0.875rem;
+        color: #ededed;
+        line-height: 1.65;
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+}
+
+.about-textarea {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #ededed;
+        font-size: 0.875rem;
+        line-height: 1.65;
+        font-family: inherit;
+        resize: none;
+        padding: 0;
+}
+
+.about-textarea::placeholder {
+        color: #555555;
+}
+
+.about-bottom-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 6px;
+}
+
+.about-bottom-actions .actions-wrapper {
+        margin-left: auto;
+}

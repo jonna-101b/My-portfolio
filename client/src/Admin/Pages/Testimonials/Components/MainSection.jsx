@@ -6,23 +6,19 @@ import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
 import useTestimonialsReducer from '../../../../Hooks/useTestimonialsReducer';
 import useTestimonialsDisplayReducer from '../Hooks/useTestimonialsDisplayReducer';
-import EditIcon from '../../../../assets/Icons/Admin/Common/edit.png';
-import EditHoverIcon from '../../../../assets/Icons/Admin/Common/edit-hover.png';
-import DeleteIcon from '../../../../assets/Icons/Admin/Common/delete.png';
-import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/delete-hover.png';
-import ViewIcon from '../../../../assets/Icons/Admin/Common/view.png';
-import ViewHoverIcon from '../../../../assets/Icons/Admin/Common/view-hover.png';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/quote-shadow.png';
 import Form from './Form';
 import '../Styles/MainSection.css';
 
 
-
-function TestimonialsLayout({ testimonial }) {
+function TestimonialsLayout({ testimonial, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
-        const { deleteTestimonial} = useTestimonialsReducer();
+        const { deleteTestimonial } = useTestimonialsReducer();
 
         const handleView = () => {
                 setView(testimonial);
@@ -42,36 +38,91 @@ function TestimonialsLayout({ testimonial }) {
                 }
         };
 
+        const getInitials = (name) => {
+                if (!name) return "";
+                const parts = name.trim().split(/\s+/);
+                if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        };
+
+        const formatDate = (date) => {
+                if (!date) return "";
+                try {
+                        return format(new Date(date), "MMMM do, yyyy");
+                } catch {
+                        return "";
+                }
+        };
+
+        if (layout) {
+                return (
+                        <div className="testimonial-layout list-layout">
+                                <p className="name">{ testimonial.name }</p>
+                                <p className="position">{ testimonial.position }</p>
+                                <p className="company"><span>{ testimonial.company ? testimonial.company : "Unknown" }</span></p>
+                                <p className="date">{ formatDate(testimonial.createdAt) }</p>
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-button" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn edit-button" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn delete-button" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
+                        </div>
+                );
+        }
 
         return (
-                <div className={`testimonial-layout`}>
-                        <p className="shadow">
+                <div className="testimonial-layout">
+                        <div className="shadow">
                                 <img src={ShadowIcon} alt="Shadow icon" />
-                        </p>
-                        
-                        <p className="name">{ testimonial.name }</p>
+                        </div>
 
-                        <p className="position">{ testimonial.position }</p>
+                        <div className="card-header">
+                                <div className="avatar-container">
+                                        { testimonial.picture ? (
+                                                <img src={testimonial.picture} alt={testimonial.name} className="avatar-img" />
+                                        ) : (
+                                                <span className="avatar-initials">{ getInitials(testimonial.name) }</span>
+                                        ) }
+                                </div>
 
-                        <p className="company"><span>{ testimonial.company ? testimonial.company : "Unknown" }</span></p>
+                                <div className="author-info">
+                                        <h3 className="name">{ testimonial.name }</h3>
+                                        <p className="position">{ testimonial.position }</p>
+                                </div>
+                        </div>
 
-                        <p className="date">{ format(testimonial.createdAt, "MMMM do, yyyy") }</p>
+                        { testimonial.company && (
+                                <p className="company">{ testimonial.company }</p>
+                        ) }
 
-                        <div className="actions">
-                                <p className="view-button" onClick={handleView}>
-                                        <img src={ViewIcon} alt="View icon" className="main" />
-                                        <img src={ViewHoverIcon} alt="View icon" className="hover" />
-                                </p>
+                        <div className="testimony">
+                                <p>"{ testimonial.testimony }"</p>
+                        </div>
 
-                                <p className="edit-button" onClick={handleEdit} >
-                                        <img src={EditIcon} alt="Edit icon" className="main" />
-                                        <img src={EditHoverIcon} alt="Edit icon" className="hover" />
-                                </p>
+                        <div className="card-divider" />
 
-                                <p className="delete-button" onClick={handleDelete} >
-                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
-                                </p>
+                        <div className="card-footer">
+                                <p className="date">{ formatDate(testimonial.createdAt) }</p>
+
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-button" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
+
+                                        <button type="button" className="action-btn edit-button" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+
+                                        <button type="button" className="action-btn delete-button" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
                         </div>
                 </div>
         );
@@ -86,13 +137,9 @@ function MainSection() {
                         { layout ? 
                                 <div className="labels">
                                         <p>Name</p>
-
                                         <p>Position</p>
-
                                         <p>Company</p>
-
                                         <p>Date</p>
-
                                         <p>Actions</p>
                                 </div>
                                 : ""

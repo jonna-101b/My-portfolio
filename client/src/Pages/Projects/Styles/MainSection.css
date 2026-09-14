@@ -3,6 +3,7 @@
         gap: 8vh;
         width: 100%;
         padding-inline: 10vh;
+        scroll-margin-top: 10vh;
 }
 
 .projects .main-section .categories {
@@ -21,11 +22,15 @@
 .projects .main-section .categories p {
         font-size: 0.875rem;
         color: var(--text-muted);
-        background-color: var(--panel-strong);
+        background-color: var(--panel);
         border-radius: 10vh;
         padding: 0.5vh 3vh;
         cursor: pointer;
-        transition: background-color 0.15s linear, color 0.15s linear;
+        transition: background-color 0.15s linear, color 0.15s linear, transform 0.15s ease;
+}
+
+:root[data-theme="light"] .projects .main-section .categories p {
+        background-color: var(--panel-strong);
 }
 
 .projects .main-section .categories p:focus,
@@ -34,7 +39,7 @@
         background-color: var(--surface-soft);
 }
 
-:root[data-theme='light'] .projects .main-section .categories p:focus, 
+:root[data-theme='light'] .projects .main-section .categories p:focus,
 :root[data-theme='light'] .projects .main-section .categories p:hover {
         background-color: var(--button-hover-soft);
 }
@@ -45,324 +50,563 @@
 }
 
 :root[data-theme='light'] .projects .main-section .categories .focused {
-        background-color: var(--bg);
+        background-color: var(--accent);
 }
 
-.projects .main-section .categories .focused:focus, 
+:root[data-theme='light'] .projects .main-section .categories .focused:focus,
+:root[data-theme='light'] .projects .main-section .categories .focused:hover {
+        background-color: var(--accent);
+}
+
+.projects .main-section .categories .focused:focus,
 .projects .main-section .categories .focused:hover {
         color: var(--text-ink);
         background-color: var(--button-bg);
 }
 
-:root[data-theme='light'] .projects .main-section .categories p:focus, 
-:root[data-theme='light'] .projects .main-section .categories p:hover {
-        background-color: var(--bg);
-}
-
 .projects .main-section .projects {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 4vh;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 3.5vh;
+        width: 100%;
 }
 
 .projects .main-section .projects .project-card {
-        display: grid;
-        gap: 1vh;
-        background-color: var(--surface);
+        display: flex;
+        flex-direction: column;
+        background-color: var(--card-bg);
         border: 1px solid var(--border);
         border-radius: 2vh;
         box-shadow: var(--shadow);
-        padding: 4vh;
         overflow: hidden;
         position: relative;
-        transition: background-color 0.15s linear;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
-.projects .main-section .projects .project-card:focus,
 .projects .main-section .projects .project-card:hover {
         background-color: var(--theme-card-hover);
+        box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.6);
 }
 
-.projects .main-section .projects .project-card .shadow {
-        display: grid;
-        place-content: center;
-        position: absolute;
-        top: -7vh;
-        right: -7vh;
+:root[data-theme='light'] .projects .main-section .projects .project-card:hover {
+        border-color: rgba(70, 72, 212, 0.35);
+        box-shadow: 0 16px 36px rgba(11, 28, 48, 0.12);
 }
 
-.projects .main-section .projects .project-card .shadow img {
-        width: 28vh;
+.projects .main-section .projects .project-card .card-image-wrapper {
+        width: 100%;
+        height: 22vh;
+        min-height: 180px;
+        position: relative;
+        overflow: hidden;
+        background-color: var(--surface-strong);
 }
 
-.projects .main-section .projects .project-card .title {
+.projects .main-section .projects .project-card .card-image-wrapper .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.35s ease;
+}
+
+.projects .main-section .projects .project-card:hover .card-image-wrapper .card-image {
+        transform: scale(1.05);
+}
+
+.projects .main-section .projects .project-card .card-image-wrapper .card-image-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1vh;
+        background: linear-gradient(145deg, var(--surface-strong), var(--surface));
+        color: var(--text-muted);
+}
+
+.projects .main-section .projects .project-card .card-image-wrapper .card-image-placeholder .placeholder-icon {
+        font-size: 4.5vh;
+        color: var(--text-muted);
+        opacity: 0.8;
+}
+
+.projects .main-section .projects .project-card .card-image-wrapper .card-image-placeholder .placeholder-text {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-muted);
+}
+
+.projects .main-section .projects .project-card .card-content {
+        padding: 2.5vh;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-between;
+}
+
+.projects .main-section .projects .project-card .card-content .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.5vh;
+}
+
+.projects .main-section .projects .project-card .card-content .card-header .title {
         font-size: 1.25rem;
         font-weight: 700;
         color: var(--text);
-        transition: transform 0.15s linear;
-        z-index: 1;
+        margin: 0;
+        line-height: 1.3;
+        word-break: break-word;
 }
 
-.projects .main-section .projects .project-card .contribution {
-        font-size: 1rem;
-        color: var(--text-muted);
-        z-index: 1;
+.projects .main-section .projects .project-card .card-content .card-header .contribution-badge {
+        font-size: 0.6875rem;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background-color: var(--pill-soft);
+        padding: 0.4vh 1.4vh;
+        border-radius: 10vh;
+        white-space: nowrap;
+        flex-shrink: 0;
 }
 
-.projects .main-section .projects .project-card .techStack {
+.projects .main-section .projects .project-card .card-content .tech-stack {
         display: flex;
-        gap: -2vh;
-        margin-top: 4vh;
-        z-index: 1;
+        align-items: center;
+        margin-top: 2vh;
 }
 
-.projects .main-section .projects .project-card .techStack .tech {
-        display: grid;
-        place-content: center;
-        background-color: var(--bg);
-        border: 3px solid var(--surface);
+.projects .main-section .projects .project-card .card-content .tech-stack .tech-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 5vh;
+        height: 5vh;
+        min-width: 38px;
+        min-height: 38px;
+        max-width: 46px;
+        max-height: 46px;
+        background-color: var(--surface-strong);
+        border: 3px solid var(--card-bg);
         border-radius: 50%;
-        width: 6vh;
-        height: 6vh;
+        margin-left: -1.2vh;
+        overflow: hidden;
+        transition: transform 0.2s ease, border-color 0.25s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
-.projects .main-section .projects .project-card .techStack .tech img {
-        width: 3vh;
+
+:root[data-theme="light"] .projects .main-section .projects .project-card .card-content .tech-stack .tech-avatar {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.projects .main-section .projects .project-card .techStack .left {
-        display: grid;
-        place-content: center;
-        font-weight: 700;
+.projects .main-section .projects .project-card .card-content .tech-stack .tech-avatar:first-child {
+        margin-left: 0;
+}
+
+.projects .main-section .projects .project-card .card-content .tech-stack .tech-avatar:hover {
+        transform: translateY(-3px) scale(1.12);
+        z-index: 10 !important;
+}
+
+.projects .main-section .projects .project-card .card-content .tech-stack .tech-avatar img {
+        width: 55%;
+        height: 55%;
+        object-fit: contain;
+}
+
+.projects .main-section .projects .project-card .card-content .tech-stack .tech-avatar .tech-initials {
         font-size: 0.75rem;
-        color: var(--text);
-        background-color: var(--surface-soft);
-        border: 3px solid var(--surface);
-        border-radius: 50%;
-        width: 6vh;
-        height: 6vh;
-        position: relative;
-        left: -6vh;
+        font-weight: 700;
+        color: var(--text-muted);
 }
 
-.projects .main-section .projects .project-card .buttons {
+.projects .main-section .projects .project-card .card-content .tech-stack .tech-avatar.remaining-badge {
+        font-size: 0.8125rem;
+        font-weight: 700;
+        color: var(--accent);
+        background-color: var(--surface-strong);
+}
+
+.projects .main-section .projects .project-card .card-content .card-divider {
+        height: 1px;
+        background-color: var(--border);
+        margin: 2vh 0 1.75vh 0;
+        width: 100%;
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer {
         display: flex;
         justify-content: space-between;
-        z-index: 1;
-}
-
-.projects .main-section .projects .project-card .buttons .links {
-        display: flex;
-}
-
-.projects .main-section .projects .project-card .buttons .links a {
-        display: grid;
-        place-content: center;
-        background-color: transparent;
-        border: none;
-        border-radius: 50%;
-        width: 6vh;
-        height: 6vh;
-        cursor: pointer;
-        transition: background-color 0.15s linear;
-}
-
-.projects .main-section .projects .project-card .buttons .links a:focus, 
-.projects .main-section .projects .project-card .buttons .links a:hover {
-        background-color: var(--surface-soft);
-}
-
-:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .links a:focus, 
-:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .links a:hover {
-        background-color: var(--surface);
-}
-
-.projects .main-section .projects .project-card .buttons .links a img {
-        width: 3vh;
-}
-
-.projects .main-section .projects .project-card .buttons .links .github-icon img {
-        width: 3.25vh;
-}
-
-.projects .main-section .projects .project-card .buttons .view {
-        display: grid;
-        place-content: center;
-}
-
-.projects .main-section .projects .project-card .buttons .view p {
-        display: flex;
-        justify-content: center;
         align-items: center;
         gap: 1vh;
-        font-size: 0.9375rem;
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer .card-actions-left {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer .card-actions-left .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4.5vh;
+        height: 4.5vh;
+        min-width: 36px;
+        min-height: 36px;
+        border-radius: 50%;
+        background-color: transparent;
+        color: var(--icon-opt-2);
+        text-decoration: none;
+        transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer .card-actions-left .action-btn:hover,
+.projects .main-section .projects .project-card .card-content .card-footer .card-actions-left .action-btn:focus {
+        background-color: var(--button-hover-soft);
+        transform: scale(1.1);
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer .card-actions-left .action-btn .card-action-icon {
+        font-size: 3vh;
+        transition: color 0.15s ease;
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer .card-actions-left .action-btn.link-btn .card-action-icon {
+        font-size: 3.75vh;
+        transition: color 0.15s ease;
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer .view-project-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8vh;
+        font-size: 0.875rem;
         font-weight: 600;
         color: var(--text);
-        background-color: var(--surface-soft);
+        background-color: var(--surface-strong);
+        border: none;
         border-radius: 10vh;
-        padding: 0.75vh 3vh;
+        padding: 0.9vh 2.2vh;
         cursor: pointer;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
-:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .view p {
-        background-color: var(--surface-softer);
-}
-
-.projects .main-section .projects .project-card .buttons .view p:focus,
-.projects .main-section .projects .project-card .buttons .view p:hover {
+.projects .main-section .projects .project-card .card-content .card-footer .view-project-btn:hover,
+.projects .main-section .projects .project-card .card-content .card-footer .view-project-btn:focus {
         background-color: var(--button-hover-soft);
+        transform: translateY(-1.5px);
 }
 
-:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .view p:focus,
-:root[data-theme='light'] .projects .main-section .projects .project-card .buttons .view p:hover {
-        background-color: var(--surface);
+:root[data-theme='light'] .projects .main-section .projects .project-card .card-content .card-footer .view-project-btn {
+        background-color: var(--surface-strong);
 }
 
-.projects .main-section .projects .project-card .buttons .view p .icon  {
-        display: grid;
-        place-content: center;
-        position: relative;
+:root[data-theme='light'] .projects .main-section .projects .project-card .card-content .card-footer .view-project-btn:hover,
+:root[data-theme='light'] .projects .main-section .projects .project-card .card-content .card-footer .view-project-btn:focus {
+        background-color: var(--border);
+        color: var(--accent);
+        transform: translateY(-1.5px);
 }
 
-.projects .main-section .projects .project-card .buttons .view p .icon img {
-        width: 2.25vh;
+.projects .main-section .projects .project-card .card-content .card-footer .view-project-btn .btn-icon {
+        font-size: 2.2vh;
+        transition: transform 0.2s ease;
+}
+
+.projects .main-section .projects .project-card .card-content .card-footer .view-project-btn:hover .btn-icon,
+.projects .main-section .projects .project-card .card-content .card-footer .view-project-btn:focus .btn-icon {
+        transform: scale(1.15);
 }
 
 .projects .main-section .project {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10vh;
-        min-height: 60vh;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 2.5vh;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        min-height: 520px;
+        width: 100%;
+        transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.projects .main-section .project .sub-content {
+.projects .main-section .project .project-image-column {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 380px;
+        background-color: var(--surface-strong);
+        overflow: hidden;
+}
+
+.projects .main-section .project .project-image-column .project-cover-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+}
+
+.projects .main-section .project .project-image-column .project-image-placeholder {
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        background-image: linear-gradient(to right, #ff5757, #9e005d);
-        border-radius: 2vh;
-        padding-inline: 4vh;
-}
-
-.projects .main-section .project .sub-content .image {
-        display: grid;
-        place-content: center;
-        background-color: var(--bg);
-        width: 100%;
-        height: 45vh;
-}
-
-.projects .main-section .project .sub-content .image img {
-        width: 100%;
-}
-
-.projects .main-section .project .content {
-        display: grid;
-        gap: 4vh;
-}
-
-.projects .main-section .project .content .title {
-        font-size: 1.125rem;
-        font-weight: bold;
-        color: var(--text);
-}
-
-.projects .main-section .project .content .description {
-        font-size: 0.875rem;
-        color: var(--text-muted);
-}
-
-.projects .main-section .project .content .features {
-        display: grid;
-        gap: 2vh;
-}
-
-.projects .main-section .project .content .features p {
-        display: flex;
         align-items: center;
-        gap: 2vh;
-        font-size: 0.875rem;
+        justify-content: center;
+        gap: 1.5vh;
+        background: linear-gradient(145deg, var(--surface-strong), var(--surface));
+        color: var(--text-muted);
+        padding: 4vh;
+        text-align: center;
+}
+
+.projects .main-section .project .project-image-column .project-image-placeholder .placeholder-icon {
+        font-size: 6vh;
+        color: var(--text-muted);
+        opacity: 0.85;
+}
+
+.projects .main-section .project .project-image-column .project-image-placeholder .placeholder-text {
+        font-size: 0.95rem;
+        font-weight: 500;
         color: var(--text-muted);
 }
 
-.projects .main-section .project .content .features p img {
-        height: 2vh;
+.projects .main-section .project .project-info-column {
+        padding: 4.5vh 4vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2.5vh;
+        background-color: var(--card-bg);
 }
 
-.projects .main-section .project .content .techStack {
+.projects .main-section .project .project-info-column .project-title {
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+}
+
+.projects .main-section .project .project-info-column .project-domains {
         display: flex;
         flex-wrap: wrap;
-        gap: 2vh;
+        gap: 1vh;
 }
 
-.projects .main-section .project .content .techStack .tech {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.75rem;
-        color: var(--text);
-        background-color: var(--surface-soft);
+.projects .main-section .project .project-info-column .project-domains .domain-pill {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        background-color: var(--surface-strong);
+        padding: 0.5vh 1.6vh;
         border-radius: 10vh;
-        padding: 0.75vh 3vh;
+        transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.projects .main-section .project .content .techStack .tech .icon {
-        display: grid;
-        place-content: center;
+.projects .main-section .project .project-info-column .project-description {
+        font-size: 0.9375rem;
+        line-height: 1.65;
+        color: var(--text-muted);
+        margin: 0;
 }
 
-.projects .main-section .project .content .techStack .tech .name {
+.projects .main-section .project .project-info-column .project-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 1vh;
 }
 
-.projects .main-section .project .content .techStack .tech .icon img {
-        width: 2.5vh;
+.projects .main-section .project .project-info-column .project-features .feature-item {
+        position: relative;
+        padding-left: 2vh;
+        font-size: 0.875rem;
+        line-height: 1.55;
+        color: var(--text-muted);
 }
 
-.projects .main-section .project .content .links {
+.projects .main-section .project .project-info-column .project-features .feature-item::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--text-muted);
+        font-weight: bold;
+        font-size: 1rem;
+}
+
+.projects .main-section .project .project-info-column .project-tech-stack {
         display: flex;
-        gap: 2vh;
+        flex-wrap: wrap;
+        gap: 1.2vh;
 }
 
-.projects .main-section .project .content .links a {
+.projects .main-section .project .project-info-column .project-tech-stack .tech-pill {
         display: flex;
-        justify-content: center;
         align-items: center;
         gap: 1vh;
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: var(--text-ink);
-        text-decoration: none;
-        background-color: var(--button-bg);
-        border: none;
-        border-radius: 2vh;
-        padding: 0.75vh 3vh;
-        cursor: pointer;
-        transition: background-color 0.15s ease-out;
-}
-
-.projects .main-section .project .content .links .github-link {
+        font-size: 0.8125rem;
+        font-weight: 500;
         color: var(--text);
-        background-color: var(--surface-soft);
+        background-color: var(--surface-strong);
+        border-radius: 10vh;
+        padding: 0.7vh 1.8vh;
+        transition: background-color 0.2s ease;
 }
 
-.projects .main-section .project .content .links a:focus, 
-.projects .main-section .project .content .links a:hover {
-        background-color: var(--button-hover);
+.projects .main-section .project .project-info-column .project-tech-stack .tech-pill .tech-pill-icon {
+        width: 2.2vh;
+        height: 2.2vh;
+        object-fit: contain;
 }
 
-.projects .main-section .project .content .links .github-link:focus, 
-.projects .main-section .project .content .links .github-link:hover {
+.projects .main-section .project .project-info-column .project-tech-stack .tech-pill .tech-pill-name {
+        white-space: nowrap;
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5vh;
+        margin-top: 1vh;
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons .action-pill-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1vh;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        border-radius: 10vh;
+        padding: 1.1vh 2.8vh;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons .action-pill-btn .btn-icon {
+        font-size: 2.75vh;
+        transition: transform 0.2s ease;
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons .action-pill-btn.project-btn .btn-icon {
+        font-size: 3.5vh;
+        transition: transform 0.2s ease;
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons .github-btn {
+        background-color: var(--surface-strong);
+        color: var(--text);
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons .github-btn:hover,
+.projects .main-section .project .project-info-column .project-action-buttons .github-btn:focus {
         background-color: var(--button-hover-soft);
+        transform: translateY(-1.5px);
 }
 
-.projects .main-section .project .content .links a img {
-        width: 2.25vh;
+:root[data-theme='light'] .projects .main-section .project .project-info-column .project-action-buttons .github-btn {
+        background-color: var(--surface-strong);
+        color: var(--text);
 }
 
-.projects .main-section .project .content .links .github-link img {
-        width: 2.75vh;
+:root[data-theme='light'] .projects .main-section .project .project-info-column .project-action-buttons .github-btn:hover,
+:root[data-theme='light'] .projects .main-section .project .project-info-column .project-action-buttons .github-btn:focus {
+        background-color: var(--border);
+        color: var(--accent);
+        transform: translateY(-1.5px);
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons .project-btn {
+        background-color: var(--button-bg);
+        color: var(--text-ink);
+}
+
+.projects .main-section .project .project-info-column .project-action-buttons .project-btn:hover,
+.projects .main-section .project .project-info-column .project-action-buttons .project-btn:focus {
+        background-color: var(--button-hover);
+        transform: translateY(-1.5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme='light'] .projects .main-section .project .project-info-column .project-action-buttons .project-btn {
+        background-color: var(--button-bg);
+        color: var(--text-ink);
+}
+
+:root[data-theme='light'] .projects .main-section .project .project-info-column .project-action-buttons .project-btn:hover,
+:root[data-theme='light'] .projects .main-section .project .project-info-column .project-action-buttons .project-btn:focus {
+        background-color: var(--button-hover);
+        transform: translateY(-1.5px);
+}
+
+@media (max-width: 1024px) {
+        .projects .main-section {
+                padding-inline: 4vh;
+        }
+
+        .projects .main-section .categories {
+                width: 100%;
+                padding: 2.5vh;
+        }
+
+        .projects .main-section .project {
+                grid-template-columns: 1fr;
+        }
+
+        .projects .main-section .project .project-image-column {
+                height: 38vh;
+                min-height: 260px;
+        }
+
+        .projects .main-section .project .project-info-column {
+                padding: 3.5vh 3vh;
+        }
+}
+
+@media (max-width: 640px) {
+        .projects .main-section {
+                padding-inline: 2vh;
+                gap: 4vh;
+        }
+
+        .projects .main-section .projects {
+                grid-template-columns: 1fr;
+                gap: 2.5vh;
+        }
+
+        .projects .main-section .project-card .card-image-wrapper {
+                height: 24vh;
+        }
+
+        .projects .main-section .project .project-info-column .project-title {
+                font-size: 1.75rem;
+        }
+
+        .projects .main-section .project .project-info-column .project-action-buttons {
+                flex-direction: column;
+                width: 100%;
+        }
+
+        .projects .main-section .project .project-info-column .project-action-buttons .action-pill-btn {
+                width: 100%;
+                justify-content: center;
+        }
 }

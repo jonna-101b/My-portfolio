@@ -1,147 +1,94 @@
-.admin .profile .info .select-input {
-        display: grid;
-        grid-template-columns: 15% 1fr 15%;
-        padding-bottom: 1vh;
-        position: relative;
-}
+/* Profile Select Row & Dropdown Styling */
 
-.admin .profile .info .select-input .label {
-        place-self: center start;
+.profile-select-row {
+        position: relative;
         display: flex;
         align-items: center;
-        gap: 1vh;
+        justify-content: space-between;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 10px 16px;
+        gap: 12px;
+        transition: border-color 0.2s ease;
+}
+
+.profile-select-row:hover {
+        border-color: #333333;
+}
+
+.profile-select-row .row-label {
         font-size: 0.875rem;
         color: #888888;
-        width: fit-content;
+        font-weight: 400;
+        min-width: 90px;
+        flex-shrink: 0;
 }
 
-.admin .profile .info .select-input .value {
+.profile-select-row .row-input-wrapper {
+        flex: 1;
         display: flex;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
-        padding: 1.5vh;
-}
-
-.admin .profile .info .select-input .value input {
-        flex-grow: 1;
-        font-size: 0.875rem;
-        color: #ededed;
-        text-align: center;
-        background-color: #0b0d0e;
-        border: none;
-        outline: none;
-        padding-left: 2vh;
-        transition: color 0.15s linear;
-}
-
-.admin .profile .info .select-input .value input:disabled {
-        color: #888888;
-}
-
-.admin .profile .info .select-input .edit-button {
-        place-self: center end;
-        display: flex;
-        justify-content: center;
         align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
+}
+
+.select-display-value {
         color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        width: fit-content;
-        height: fit-content;
-        padding: 0.5vh 2.5vh;
-        cursor: pointer;
-        transition: background-color 0.15s linear;
+        font-size: 0.9375rem;
+        font-weight: 500;
 }
 
-.admin .profile .info .select-input .edit-button:focus,
-.admin .profile .info .select-input .edit-button:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+.profile-select-row .row-action-btn.active-toggle {
+        background-color: rgba(198, 255, 0, 0.15);
+        border-color: rgba(198, 255, 0, 0.25);
+        color: #c6ff00;
 }
 
-.admin .profile .info .select-input .edit-button.cancel {
-        color: #ff4500;
-        background-color: rgba(255, 68, 0, 0.1);
-}
-
-.admin .profile .info .select-input .edit-button.cancel:focus,
-.admin .profile .info .select-input .edit-button.cancel:hover {
-        background-color: rgba(255, 68, 0, 0.25);
-}
-
-.admin .profile .info .select-input .edit-button .icon {
-        display: grid;
-        place-content: center;
-        position: relative;
-}
-
-.admin .profile .info .select-input .edit-button .icon img {
-        width: 2vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .profile .info .select-input .edit-button .icon .hover {
+/* Dropdown Popup */
+.select-dropdown-popup {
         position: absolute;
-        place-self: center;
-        opacity: 0;
-}
-
-.admin .profile .info .select-input .focused .icon .hover,
-.admin .profile .info .select-input .focused .icon .hover {
-        opacity: 1;
-}
-
-.admin .profile .info .select-input .new-select {
-        display: grid;
-        gap: 1vh;
-        background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
-        box-shadow: 0 0 1vh #0b0d0e;
-        position: absolute;
+        top: calc(100% + 8px);
         right: 0;
-        top: 100%;
-        width: 10vw;
-        padding: 1vh;
-        z-index: 2;
+        z-index: 100;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 6px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 150px;
+        animation: scaleUp 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.admin .profile .info .select-input .new-select .option {
+.select-option {
         display: flex;
         align-items: center;
-        gap: 1.5vh;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 10px;
         font-size: 0.875rem;
         color: #888888;
-        border-radius: 2vh;
-        padding: 0.75vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
         cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.admin .profile .info .select-input .new-select .option:focus,
-.admin .profile .info .select-input .new-select .option:hover {
-        color: #ededed;
+.select-option:hover {
         background-color: rgba(237, 237, 237, 0.1);
-}
-
-.admin .profile .info .select-input .new-select .option.focused {
         color: #ededed;
-        background-color: rgba(237, 237, 237, 0.25);
 }
 
-.admin .profile .info .select-input .new-select .option.focused:focus,
-.admin .profile .info .select-input .new-select .option.focused:hover {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.25);
+.select-option.focused {
+        background-color: rgba(198, 255, 0, 0.15);
+        color: #c6ff00;
+        font-weight: 600;
 }
 
-.admin .profile .info .select-input .new-select .option.focused span {
-        display: grid;
-        place-content: center;
-        background-color: #ededed;
-        border-radius: 50%;
-        width: 1.5vh;
-        height: 1.5vh;
+.option-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        color: #c6ff00;
 }

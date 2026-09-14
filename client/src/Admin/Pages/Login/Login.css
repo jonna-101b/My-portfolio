@@ -36,8 +36,8 @@
         display: grid;
         gap: 2.5vh;
         width: 100%;
-        background-color: rgba(32, 32, 32, 0.75);
-        border: 1px solid #333333;
+        background-color: #171717;
+        border: 1px solid #262626;
         border-radius: 2vh;
         padding: 4vh;
         box-shadow: 0 0 1rem #000;
@@ -71,7 +71,7 @@
 .admin-login input[type="email"],
 .admin-login input[type="password"] {
         width: 100%;
-        border: 1px solid #333333;
+        border: 1px solid #262626;
         border-radius: 2vh;
         background-color: rgba(11, 13, 14, 0.65);
         color: #ededed;

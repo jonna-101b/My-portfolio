@@ -16,9 +16,9 @@ const projects = [
       "Customizable boards"
     ],
     techStack: [
-      { name: "React", icon: "/icons/react.svg" },
-      { name: "Node.js", icon: "/icons/nodejs.svg" },
-      { name: "MongoDB", icon: "/icons/mongodb.svg" }
+      { name: "React", label: "Frontend", icon: "react" },
+      { name: "Node.js", label: "Backend", icon: "node" },
+      { name: "MongoDB", label: "Databases", icon: "mongodb" }
     ],
     projectLink: "https://taskflow.example.com",
     githubLink: "https://github.com/user/taskflow",
@@ -43,9 +43,9 @@ const projects = [
       "Admin analytics dashboard"
     ],
     techStack: [
-      { name: "Next.js", icon: "/icons/nextjs.svg" },
-      { name: "Express", icon: "/icons/express.svg" },
-      { name: "PostgreSQL", icon: "/icons/postgresql.svg" }
+      { name: "Next.js", label: "Frontend", icon: "next" },
+      { name: "Express", label: "Backend", icon: "express" },
+      { name: "PostgreSQL", label: "Databases", icon: "postgresql" }
     ],
     projectLink: "https://shopsphere.example.com",
     githubLink: "https://github.com/user/shopsphere",
@@ -70,9 +70,9 @@ const projects = [
       "Favorites list"
     ],
     techStack: [
-      { name: "Vue.js", icon: "/icons/vue.svg" },
-      { name: "Firebase", icon: "/icons/firebase.svg" },
-      { name: "Google Maps API", icon: "/icons/googlemaps.svg" }
+      { name: "Vue.js", label: "Frontend", icon: "vue" },
+      { name: "Firebase", label: "Databases", icon: "firebase" },
+      { name: "Google Maps", label: "Cloud Platforms & Hosting", icon: "googlemaps" }
     ],
     projectLink: "https://foodiefinder.example.com",
     githubLink: "https://github.com/user/foodiefinder",
@@ -97,11 +97,9 @@ const projects = [
       "Wearable device sync"
     ],
     techStack: [
-      { name: "React Native", icon: "/icons/reactnative.svg" },
-      { name: "Redux", icon: "/icons/redux.svg" },
-      { name: "AWS Amplify", icon: "/icons/aws.svg" },
-      { name: "AWS Amplify", icon: "/icons/aws.svg" },
-      { name: "AWS Amplify", icon: "/icons/aws.svg" }
+      { name: "React Native", label: "Mobile Development", icon: "react" },
+      { name: "Redux", label: "Frontend", icon: "redux" },
+      { name: "AWS Amplify", label: "Cloud Platforms & Hosting", icon: "aws" }
     ],
     projectLink: "https://fittrack.example.com",
     githubLink: "https://github.com/user/fittrack",
@@ -126,9 +124,9 @@ const projects = [
       "Completion certificates"
     ],
     techStack: [
-      { name: "Angular", icon: "/icons/angular.svg" },
-      { name: "Node.js", icon: "/icons/nodejs.svg" },
-      { name: "MySQL", icon: "/icons/mysql.svg" }
+      { name: "Angular", label: "Frontend", icon: "angular" },
+      { name: "Node.js", label: "Backend", icon: "node" },
+      { name: "MySQL", label: "Databases", icon: "mysql" }
     ],
     projectLink: "https://edustream.example.com",
     githubLink: "https://github.com/user/edustream",
@@ -153,9 +151,9 @@ const projects = [
       "Interactive maps"
     ],
     techStack: [
-      { name: "Svelte", icon: "/icons/svelte.svg" },
-      { name: "Supabase", icon: "/icons/supabase.svg" },
-      { name: "Mapbox", icon: "/icons/mapbox.svg" }
+      { name: "Svelte", label: "Frontend", icon: "svelte" },
+      { name: "Supabase", label: "Databases", icon: "supabase" },
+      { name: "Mapbox", label: "UI/UX & Design", icon: "mapbox" }
     ],
     projectLink: "https://traveltales.example.com",
     githubLink: "https://github.com/user/traveltales",
@@ -180,9 +178,9 @@ const projects = [
       "GitHub integration"
     ],
     techStack: [
-      { name: "Electron", icon: "/icons/electron.svg" },
-      { name: "Socket.IO", icon: "/icons/socketio.svg" },
-      { name: "TypeScript", icon: "/icons/typescript.svg" }
+      { name: "Electron", label: "Frontend", icon: "electron" },
+      { name: "Socket.IO", label: "Backend", icon: "socket.io" },
+      { name: "TypeScript", label: "Programming Languages", icon: "typescript" }
     ],
     projectLink: "https://codecollab.example.com",
     githubLink: "https://github.com/user/codecollab",
@@ -207,9 +205,9 @@ const projects = [
       "Secure checkout"
     ],
     techStack: [
-      { name: "Gatsby", icon: "/icons/gatsby.svg" },
-      { name: "GraphQL", icon: "/icons/graphql.svg" },
-      { name: "Firebase", icon: "/icons/firebase.svg" }
+      { name: "Gatsby", label: "Frontend", icon: "gatsby" },
+      { name: "GraphQL", label: "Backend", icon: "graphql" },
+      { name: "Firebase", label: "Databases", icon: "firebase" }
     ],
     projectLink: "https://greencart.example.com",
     githubLink: "https://github.com/user/greencart",

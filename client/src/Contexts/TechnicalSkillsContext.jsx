@@ -38,36 +38,18 @@ const technicalSkillsReducer = (state, action) => {
                                 error: null
                         };
 
-                case "DELETE_SKILLS":
-                        return {
-                                ...state,
-                                skills: state.skills.filter(
-                                        (skill) => !action.payload.includes(skill._id)),
-                                loading: false,
-                                error: null
-                        };
+		case "DELETE_SKILLS":
+			return {
+				...state,
+				skills: state.skills.filter(
+					(skill) => !action.payload.includes(skill._id)),
+				loading: false,
+				error: null
+			};
 
-                case "CREATE_SKILL_TECH":
-                        return {
-                                ...state,
-                                skills: state.skills.map((skill) =>
-                                        skill._id === action.payload._id ? action.payload : skill),
-                                loading: false,
-                                error: null
-                        };
-
-                case "DELETE_SKILL_TECH":
-                        return {
-                                ...state,
-                                skills: state.skills.map((skill) =>
-                                        skill._id === action.payload._id ? action.payload : skill),
-                                loading: false,
-                                error: null
-                        };
-
-                default:
-                        return state;
-        }
+		default:
+			return state;
+	}
 }
 
 export function TechnicalSkillsContextProvider({ children }) {

@@ -1,7 +1,174 @@
-.picture-info {
-        place-self: center;
-        display: grid;
-        place-content: center;
-        width: 65%;
-        padding: 4vh;
+/* Profile Overview Card Styling */
+
+.profile-overview-card {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 28px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+}
+
+.profile-overview-card:hover {
+        border-color: #333333;
+}
+
+/* Avatar with floating badge button */
+.avatar-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.avatar-circle {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #262626;
+        background-color: #131313;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.avatar-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+}
+
+.avatar-fallback {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+}
+
+.avatar-fallback .fallback-text {
+        font-size: 0.7rem;
+        color: #888888;
+}
+
+.avatar-camera-btn {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #202020;
+        border: 2px solid #171717;
+        color: #ededed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.avatar-camera-btn:hover {
+        background-color: rgba(198, 255, 0, 0.15);
+        color: #c6ff00;
+        border-color: rgba(198, 255, 0, 0.25);
+        transform: scale(1.08);
+}
+
+/* Details */
+.profile-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        text-align: center;
+}
+
+.profile-details .profile-name {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #ededed;
+        margin: 0;
+        letter-spacing: -0.01em;
+}
+
+.profile-details .profile-email {
+        font-size: 0.875rem;
+        color: #888888;
+        margin: 0;
+}
+
+/* Availability Box */
+.availability-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 12px 18px;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+}
+
+.availability-row:hover {
+        border-color: #333333;
+}
+
+.availability-label {
+        font-size: 0.875rem;
+        color: #ededed;
+        font-weight: 500;
+}
+
+/* Custom iOS-style animated Toggle Switch */
+.toggle-switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        border-radius: 20px;
+        background-color: #262626;
+        border: none;
+        cursor: pointer;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: none;
+}
+
+.toggle-switch.on {
+        background-color: #c6ff00;
+}
+
+.toggle-switch.off {
+        background-color: #262626;
+}
+
+.toggle-switch:hover {
+        opacity: 0.95;
+}
+
+.toggle-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #ededed;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        transform: translateX(0);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.25s ease;
+}
+
+.toggle-switch.on .toggle-thumb {
+        transform: translateX(20px);
+        background-color: #0b0d0e;
 }

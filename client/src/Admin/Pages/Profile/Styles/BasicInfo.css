@@ -1,19 +1,31 @@
-.basic-info {
-        width: 65%;
+/* Basic Info Card Styling */
+
+.basic-info-card {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
 }
 
-.basic-info .title {
-        font-size: 1.5rem;
-        color: #ededed;
+.basic-info-card:hover {
+        border-color: #333333;
+}
+
+.basic-info-card .card-title {
+        font-size: 1.15rem;
         font-weight: 600;
-        padding-block: 2vh;
+        color: #ededed;
+        margin: 0;
 }
 
-.basic-info .info {
-        display: grid;
-        gap: 1vh;
-}
-
-.basic-info .info .input {
-        border-bottom: 1px solid #333333;
+.info-rows-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 }

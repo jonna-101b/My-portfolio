@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ActivitiesModel } from '../Models/activities.js';
+import ActivitiesModel from '../Models/activities.js';
 import { APIError } from '../Errors/APIError.js';
 
 // Controller functions for activities

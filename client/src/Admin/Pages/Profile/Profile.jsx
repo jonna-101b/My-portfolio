@@ -1,24 +1,36 @@
 import TopView from "../../Components/TopView/TopView";
 import PictureInfo from "./Components/PictureInfo";
+import LogoCard from "./Components/LogoCard";
+import ProfessionsCard from "./Components/ProfessionsCard";
+import SocialLinksCard from "./Components/SocialLinksCard";
 import BasicInfo from "./Components/BasicInfo";
 import ContactInfo from "./Components/ContactInfo";
-import MoreInfo from "./Components/MoreInfo";
+import BioCard from "./Components/BioCard";
+import AboutCard from "./Components/AboutCard";
 import './Profile.css';
 
 function Profile() {
-    return (
-        <div className="profile">
-                <TopView page={"Personal profile"} />
+        return (
+                <div className="profile-page-container">
+                        <TopView page={"Personal profile"} />
 
-                <PictureInfo />
+                        <div className="profile-content-grid">
+                                <div className="profile-left-column">
+                                        <PictureInfo />
+                                        <LogoCard />
+                                        <ProfessionsCard />
+                                        <SocialLinksCard />
+                                </div>
 
-                <BasicInfo />
-
-                <ContactInfo />
-
-                <MoreInfo />
-        </div>
-    );
+                                <div className="profile-right-column">
+                                        <BasicInfo />
+                                        <ContactInfo />
+                                        <BioCard />
+                                        <AboutCard />
+                                </div>
+                        </div>
+                </div>
+        );
 }
 
 export default Profile;

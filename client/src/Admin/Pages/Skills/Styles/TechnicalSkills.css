@@ -17,6 +17,7 @@
         align-items: center;
         gap: 1vh;
         font-size: 0.875rem;
+        font-weight: 550;
         color: #0b0d0e;
         background-color: #ededed;
         border-radius: 2vh;
@@ -48,8 +49,8 @@
         gap: 4vh;
         font-size: 0.875rem;
         color: #888888;
-        background-color: #202020;
-        border: 1px solid #333333;
+        background-color: #171717;
+        border: 1px solid #262626;
         border-radius: 2vh;
         padding: 4vh;
         transition: background-color 0.15s linear;
@@ -69,8 +70,8 @@
 
 .admin .technical-skills .grid .skill .title {
         grid-column: span 2;
-        font-size: 0.9375rem;
-        font-weight: normal;
+        font-size: 1.15rem;
+        font-weight: 600;
 }
 
 .admin .technical-skills .grid .skill .tech-stack {
@@ -100,13 +101,22 @@
         left: -6vh;
 }
 
+.admin .technical-skills .grid .skill .horizontal-line {
+        grid-column: span 2;
+        margin-top: 1vh;
+        width: 100%;
+        height: 0.1vh;
+        background-color: #262626;
+}
+
 .admin .technical-skills .grid .skill .see-all p {
         display: inline-block;
-        font-size: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 550;
         color: #0b0d0e;
         background-color: #ededed;
-        border-radius: 2vh;
-        padding: 0.5vh 2vh;
+        border-radius: 1.5vh;
+        padding: 0.75vh 2.5vh;
         transition: background-color 0.15s linear;
         cursor: pointer;
 }
@@ -164,3 +174,187 @@
 .admin .technical-skills .grid .skill .shadow img {
         width: 28vh;
 }
+
+/* Modal and tech item styles for Admin Technical Skills */
+.admin-tech-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(4px);
+        display: grid;
+        place-content: center;
+        z-index: 1000;
+        padding: 2rem;
+}
+
+.admin-tech-modal {
+        background-color: #171717;
+        border: 1px solid #2e2e2e;
+        border-radius: 1.5rem;
+        width: 90vw;
+        max-width: 580px;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        animation: adminModalFadeIn 0.2s ease-out;
+}
+
+@keyframes adminModalFadeIn {
+        from {
+                opacity: 0;
+                transform: scale(0.95);
+        }
+        to {
+                opacity: 1;
+                transform: scale(1);
+        }
+}
+
+.admin-tech-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid #262626;
+}
+
+.admin-tech-modal-header h3 {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #f3f4f6;
+}
+
+.admin-modal-close {
+        background: transparent;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        display: grid;
+        place-content: center;
+        padding: 0.25rem;
+        border-radius: 0.5rem;
+        transition: color 0.15s, background-color 0.15s;
+}
+
+.admin-modal-close:hover {
+        color: #ffffff;
+        background-color: #262626;
+}
+
+.admin-tech-modal-list {
+        padding: 1.25rem 1.5rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        max-height: 50vh;
+}
+
+.admin-tech-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #0d0e10;
+        border: 1px solid #22252a;
+        border-radius: 0.75rem;
+        padding: 0.6rem 1rem;
+        transition: border-color 0.15s, background-color 0.15s;
+}
+
+.admin-tech-item:hover {
+        border-color: #3b4252;
+        background-color: #121418;
+}
+
+.admin-tech-info {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+}
+
+.admin-tech-icon {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-content: center;
+        background: #1a1c22;
+        border-radius: 6px;
+        padding: 4px;
+}
+
+.admin-tech-icon img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+}
+
+.admin-tech-name {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #e5e7eb;
+}
+
+.admin-tech-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+}
+
+.admin-mini-action {
+        background: transparent;
+        border: 1px solid transparent;
+        color: #9ca3af;
+        cursor: pointer;
+        padding: 0.35rem;
+        border-radius: 0.4rem;
+        display: grid;
+        place-content: center;
+        transition: all 0.15s;
+}
+
+.admin-mini-action.edit:hover {
+        color: #38bdf8;
+        background-color: rgba(56, 189, 248, 0.1);
+        border-color: rgba(56, 189, 248, 0.3);
+}
+
+.admin-mini-action.delete:hover {
+        color: #f87171;
+        background-color: rgba(248, 113, 113, 0.1);
+        border-color: rgba(248, 113, 113, 0.3);
+}
+
+.admin-tech-modal-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #262626;
+        display: flex;
+        justify-content: flex-end;
+}
+
+.admin-modal-add-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #0b0d0e;
+        background-color: #c6ff00;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 0.6rem 1.25rem;
+        cursor: pointer;
+        transition: opacity 0.15s, transform 0.1s;
+}
+
+.admin-modal-add-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+}
+
+.admin-modal-add-btn .icon img {
+        width: 14px;
+        height: 14px;
+}

@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Select, { components } from "react-select";
+import useTechnicalSkillsReducer from '../../../../Hooks/useTechnicalSkillsReducer';
+import SimpleIcon, { searchSimpleIcons } from '../../../../Utils/simpleIcons';
 import AddIcon from '../../../../assets/Icons/Admin/Common/Edit/plus.png';
 import CancelIcon from '../../../../assets/Icons/Admin/Common/Edit/cancel-hover.png';
 import CheckBlackIcon from '../../../../assets/Icons/Admin/Common/Edit/checkmark-black.png';
@@ -7,46 +9,113 @@ import DeleteIcon from '../../../../assets/Icons/Admin/Common/Edit/delete.png';
 import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/Edit/delete-hover.png';
 import '../Styles/TagInput.css';
 
-
 const Option = (props) => (
         <components.Option {...props}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <img
-                                src={props.data.icon}
-                                alt={props.data.name}
-                                width="20"
-                                height="20"
-                        />
-                        <span>{props.data.name}</span>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", width: "100%" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <SimpleIcon
+                                        name={props.data.icon || props.data.slug || props.data.name}
+                                        size="18px"
+                                        color="#c6ff00"
+                                />
+                                <span style={{ color: "#ededed", fontSize: "0.875rem" }}>
+                                        {props.data.name || props.data.label}
+                                </span>
+                        </div>
+                        {props.data.isReducerSkill && (
+                                <span style={{ fontSize: "0.7rem", color: "#c6ff00", background: "rgba(198, 255, 0, 0.1)", padding: "1px 6px", borderRadius: "4px" }}>
+                                        Saved
+                                </span>
+                        )}
                 </div>
         </components.Option>
 );
 
 const SingleValue = (props) => (
         <components.SingleValue {...props}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <img
-                                src={props.data.icon}
-                                alt={props.data.name}
-                                width="20"
-                                height="20"
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <SimpleIcon
+                                name={props.data.icon || props.data.slug || props.data.name}
+                                size="18px"
+                                color="#c6ff00"
                         />
-                        <span>{props.data.name}</span>
+                        <span style={{ color: "#ededed", fontSize: "0.875rem" }}>
+                                {props.data.name || props.data.label}
+                        </span>
                 </div>
         </components.SingleValue>
 );
 
-function TagInput({ tag, values, handleValueChange, edited, handleEdit }) {
-        const [ inputs, setInputs ] = useState([]);
-        const [ valuesSet, setValuesSet ] = useState(new Set( tag.icon ? [...values] : (values.map(value => value.name)) ));
+function TagInput({ tag, values = [], handleValueChange, edited, handleEdit }) {
+        const [inputs, setInputs] = useState([]);
+        const [valuesSet, setValuesSet] = useState(() => new Set(
+                tag.icon ? [...values] : values.map(v => typeof v === 'object' ? v.name : v)
+        ));
+        const [searchQuery, setSearchQuery] = useState("");
+
+        const isTechSkill = tag.type === "select" || tag.subLabel === "tech" || tag.name === "techStack";
+        const { skills: reducerSkills = [] } = useTechnicalSkillsReducer();
+
+        // Technical skills available in reducer
+        const reducerOptions = useMemo(() => {
+                if (!isTechSkill || !Array.isArray(reducerSkills)) return [];
+                return reducerSkills.map((s) => ({
+                        name: s.name,
+                        label: s.name,
+                        value: s.name,
+                        icon: s.icon || s.name,
+                        isReducerSkill: true,
+                }));
+        }, [isTechSkill, reducerSkills]);
+
+        // Dynamic options combining reducer skills + simple-icons library search
+        const selectOptions = useMemo(() => {
+                if (!isTechSkill) {
+                        return tag.options || [];
+                }
+
+                const q = searchQuery.trim().toLowerCase();
+                const matchedReducer = reducerOptions.filter(
+                        (opt) => !q || opt.name.toLowerCase().includes(q)
+                );
+
+                const simpleIconResults = searchSimpleIcons(searchQuery, 25);
+                const matchedIcons = simpleIconResults.filter(
+                        (icon) => !matchedReducer.some((r) => r.name.toLowerCase() === icon.name.toLowerCase())
+                );
+
+                if (q) {
+                        const groups = [];
+                        if (matchedReducer.length > 0) {
+                                groups.push({ label: "My Technical Skills", options: matchedReducer });
+                        }
+                        if (matchedIcons.length > 0) {
+                                groups.push({ label: "Simple Icons Library", options: matchedIcons });
+                        }
+                        return groups.length > 0 ? groups : matchedIcons;
+                }
+
+                return [
+                        ...(matchedReducer.length > 0 ? [{ label: "My Technical Skills", options: matchedReducer }] : []),
+                        { label: "Popular Technologies", options: matchedIcons }
+                ];
+        }, [isTechSkill, tag.options, searchQuery, reducerOptions]);
 
         const handleAdd = () => {
                 setInputs([""]);
+                setSearchQuery("");
         };
 
         const handleChange = (value, index) => {
                 const updatedInputs = [...inputs];
-                updatedInputs[index] = value;
+                if (value && typeof value === 'object' && value.value) {
+                        updatedInputs[index] = {
+                                name: value.name || value.label || value.value,
+                                icon: value.icon || value.slug || value.value
+                        };
+                } else {
+                        updatedInputs[index] = value;
+                }
                 setInputs(updatedInputs);
         };
 
@@ -54,12 +123,11 @@ function TagInput({ tag, values, handleValueChange, edited, handleEdit }) {
                 const updatedInputs = [...inputs];
                 updatedInputs.splice(index, 1);
                 setInputs(updatedInputs);
-        }
+        };
 
         const handleMore = () => {
-                setInputs((prev) => [ ...prev, "" ]);
+                setInputs((prev) => [...prev, ""]);
         };
-        
 
         const handleDone = () => {
                 let newEntries = [];
@@ -67,87 +135,112 @@ function TagInput({ tag, values, handleValueChange, edited, handleEdit }) {
                 let editedState = false;
 
                 for (let input of inputs) {
-                        if ( tag.icon && input && !newValuesSet.has(input) ) {
-                                newEntries.push(input);
-                                editedState = true;
-                                newValuesSet.add(input);
-                        }
-                        else if ( !tag.icon && input.name && !newValuesSet.has(input.name)) {
-                                newEntries.push(input);
-                                editedState = true;
-                                newValuesSet.add(input.name);
+                        if (!input) continue;
+
+                        if (tag.icon) {
+                                const valStr = typeof input === 'string' ? input.trim() : input.name;
+                                if (valStr && !newValuesSet.has(valStr)) {
+                                        newEntries.push(valStr);
+                                        editedState = true;
+                                        newValuesSet.add(valStr);
+                                }
+                        } else {
+                                const itemObj = typeof input === 'object' ? input : { name: input, icon: input };
+                                if (itemObj.name && !newValuesSet.has(itemObj.name)) {
+                                        newEntries.push(itemObj);
+                                        editedState = true;
+                                        newValuesSet.add(itemObj.name);
+                                }
                         }
                 }
-                handleValueChange(tag.name, tag.inputType, {action: "entry", values: newEntries});
-                if (editedState) handleEdit(tag.name, true);
-                setValuesSet(prev => new Set([...prev, ...newValuesSet]));
+
+                if (newEntries.length > 0) {
+                        handleValueChange(tag.name, tag.inputType, { action: "entry", values: newEntries });
+                        if (handleEdit) handleEdit(tag.name, true);
+                }
+
+                setValuesSet(new Set([...valuesSet, ...newValuesSet]));
                 setInputs([]);
+                setSearchQuery("");
         };
 
-        const handleRemove = (index, value) => {
-                setValuesSet(prev => {
+        const handleRemove = (index, deletedValue) => {
+                setValuesSet((prev) => {
                         const updatedSet = new Set(prev);
-                        updatedSet.delete(value);
+                        updatedSet.delete(deletedValue);
                         return updatedSet;
                 });
-                handleValueChange(tag.name, tag.inputType, {action: "delete", index: index});
-                handleEdit(tag.name, true);
-        }; 
+                handleValueChange(tag.name, tag.inputType, { action: "delete", index: index });
+                if (handleEdit) handleEdit(tag.name, true);
+        };
+
+        useEffect(() => {
+                setValuesSet(new Set(tag.icon ? [...values] : values.map(v => typeof v === 'object' ? v.name : v)));
+        }, [values]);
 
         return (
-                <div className="tag-input" >
+                <div className="tag-input">
                         <p className="label">
-                                { tag.label }
-                                <span className={ edited ? "edited" : "" }></span>
+                                {tag.label}
+                                <span className={edited ? "edited" : ""}></span>
                         </p>
 
-                        { inputs.length ? 
-                                null :
+                        {inputs.length ? null : (
                                 <p className="add" onClick={handleAdd}>
                                         <span className="icon">
                                                 <img src={AddIcon} alt="Add icon" />
                                         </span>
                                         add
                                 </p>
-                        }
+                        )}
 
-                        { inputs.length ? 
+                        {inputs.length ? (
                                 <div className="new-tag">
                                         <p className="label">{`New ${tag.subLabel}`}</p>
 
                                         <div className="inputs">
-                                                { inputs.map((input, index) => (
-                                                        <div className="input" key={index} >
-                                                                { tag.type === "select" ?
+                                                {inputs.map((input, index) => (
+                                                        <div className="input" key={index}>
+                                                                {tag.type === "select" || isTechSkill ? (
                                                                         <Select
                                                                                 className="select"
                                                                                 classNamePrefix="select"
-                                                                                options={tag.options}
-                                                                                isSearchable={true}   // makes it searchable
-                                                                                placeholder={`Search or select a ${tag.subLabel}...`}
+                                                                                options={selectOptions}
+                                                                                isSearchable={true}
+                                                                                onInputChange={(val, { action }) => {
+                                                                                        if (action === "input-change") {
+                                                                                                setSearchQuery(val);
+                                                                                        }
+                                                                                }}
+                                                                                filterOption={() => true}
+                                                                                placeholder={`Search reducer skills or simple-icons for ${tag.subLabel}...`}
                                                                                 components={{ Option, SingleValue }}
-                                                                                onChange={(value) => {handleChange(value, index)}}
+                                                                                onChange={(value) => {
+                                                                                        handleChange(value, index);
+                                                                                }}
                                                                         />
-                                                                        :
+                                                                ) : (
                                                                         <input
                                                                                 type="text"
                                                                                 name={tag.subLabel}
                                                                                 id={tag.subLabel}
                                                                                 placeholder={`Add your ${tag.subLabel} here`}
-                                                                                onChange={(e) => {handleChange(e.target.value, index)}}
-                                                                        /> 
-                                                                }
+                                                                                onChange={(e) => {
+                                                                                        handleChange(e.target.value, index);
+                                                                                }}
+                                                                        />
+                                                                )}
 
-                                                                <p className="cancel" onClick={() => {handleCancel(index)}}>
+                                                                <p className="cancel" onClick={() => { handleCancel(index); }}>
                                                                         cancel
                                                                         <span className="icon">
                                                                                 <img src={CancelIcon} alt="Cancel icon" />
                                                                         </span>
                                                                 </p>
                                                         </div>
-                                                )) }
+                                                ))}
                                         </div>
-                                        
+
                                         <p className="more button" onClick={handleMore}>
                                                 more
                                                 <span className="icon">
@@ -155,40 +248,48 @@ function TagInput({ tag, values, handleValueChange, edited, handleEdit }) {
                                                 </span>
                                         </p>
 
-                                        <p className="done button" onClick={handleDone} >
+                                        <p className="done button" onClick={handleDone}>
                                                 done
                                                 <span className="icon">
                                                         <img src={CheckBlackIcon} alt="Checkmark icon" />
                                                 </span>
                                         </p>
                                 </div>
-                                :
-                                null
-                        }
+                        ) : null}
 
                         <div className="list">
-                                { values.length ?
-                                        values.map((value, index) => (
-                                                <div key={index} className={ `sub-label ${tag.subLabel}` } >
-                                                        <p className="value">
-                                                                <span className="icon">
-                                                                        <img src={ tag.icon ? tag.icon : value.icon } />
-                                                                </span>
+                                {values.length ? (
+                                        values.map((value, index) => {
+                                                const isCustomTag = Boolean(tag.icon);
+                                                const valName = isCustomTag ? value : (typeof value === 'object' ? value.name : value);
+                                                const valIcon = isCustomTag ? tag.icon : (typeof value === 'object' ? (value.icon || value.name) : value);
 
-                                                                <span className="name">
-                                                                        { tag.icon ? value : value.name }
-                                                                </span>
-                                                        </p>
+                                                return (
+                                                        <div key={index} className={`sub-label ${tag.subLabel}`}>
+                                                                <p className="value">
+                                                                        <span className="icon">
+                                                                                {isCustomTag ? (
+                                                                                        <img src={valIcon} alt={tag.subLabel} />
+                                                                                ) : (
+                                                                                        <SimpleIcon name={valIcon} size="20px" color="#c6ff00" />
+                                                                                )}
+                                                                        </span>
 
-                                                        <p className="delete" onClick={() => { handleRemove(index, tag.icon ? value : value.name) }}>
-                                                                <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                                                <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
-                                                        </p>
-                                                </div>
-                                        ))
-                                        :
-                                        <p className="no-values">{ `No ${tag.subLabel} yet!` }</p>
-                                }
+                                                                        <span className="name">
+                                                                                {valName}
+                                                                        </span>
+                                                                </p>
+
+                                                                <p className="delete" onClick={() => { handleRemove(index, valName); }}>
+                                                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
+                                                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
+                                                                </p>
+                                                        </div>
+                                                );
+                                        })
+                                ) : (
+                                        <p className="no-values">{`No ${tag.subLabel} yet!`}</p>
+                                )}
                         </div>
                 </div>
         );

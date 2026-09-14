@@ -1,70 +1,95 @@
 import useProfileReducer from '../../../../Hooks/useProfileReducer';
-import phoneIcon from '../../../../assets/Icons/Admin/Dashboard/phone.png';
-import emailIcon from '../../../../assets/Icons/Admin/Dashboard/envelope.png';
-import addressIcon from '../../../../assets/Icons/Admin/Dashboard/location.png';
-import DownloadIcon from '../../../../assets/Icons/Admin/Dashboard/downloads.png';
+import SimpleIcon from '../../../../Utils/simpleIcons';
 import '../Styles/ProfileSection.css';
-
-
-const Info = ({ icon, infoName, infoValue }) => (
-        <div className="info">
-                <p className="icon">
-                        <img src={icon} alt={`${infoName} icon`} />
-                </p>
-
-                <div className="details">
-                        <p className="info-name">{infoName}</p>
-                        <p className="info-value">{infoValue}</p>
-                </div>
-        </div>
-);
 
 function ProfileSection() {
         const { profile } = useProfileReducer();
-        const {  firstName, lastName, nickName, professions, picture, socialLinks, phone, email, address, resumeLink } = profile;
+        const { 
+                firstName = "John", 
+                lastName = "Doe", 
+                nickName = "Johnny", 
+                picture = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80", 
+                socialLinks = [], 
+                email = "johnny.dev@portfolio.io", 
+                address = "San Francisco, CA",
+                bio = "Senior Full-Stack Engineer & Interaction Designer specializing in immersive digital experiences."
+        } = profile || {};
+
+        const defaultSocials = [
+                { _id: '1', name: 'LinkedIn', icon: 'linkedin', url: 'https://linkedin.com' },
+                { _id: '2', name: 'GitHub', icon: 'github', url: 'https://github.com' },
+                { _id: '3', name: 'Twitter', icon: 'x', url: 'https://x.com' }
+        ];
 
         return (
-                <div className="profile-section">
-                        <div className="left-section">
-                                <p className="badge">Available for hire</p>
-
-                                <p className="profile-picture">
-                                        <img src={picture} alt={`${firstName}'s picture`} />
-                                </p>
-
-                                <p className="full-name">
-                                        {`${firstName} ${lastName}`}
-                                </p>
-
-                                <a href={resumeLink} download={`${firstName}'s resume`} className="resume">
-                                        <img src={DownloadIcon} alt="Download icon" />
-                                        Download Resume
-                                </a>
+                <div className="dash-profile-card">
+                        <div className="profile-image-container">
+                                <div className="profile-image-frame">
+                                        <img src={picture} alt={`${firstName} ${lastName}`} className="profile-photo" />
+                                </div>
                         </div>
 
-                        <div className="right-section">
-                                <p className="greeting">{`Hello ${nickName}!`}</p>
-
-                                <p className="summary">Senior Full-Stack Engineer & Interaction Designer specializing in immersive digital experiences.</p>
-
-                                <div className="professions">
-                                        { professions.map((profession, index) => (
-                                                <p key={index} >{profession}</p>
-                                        )) }
-                                </div>
-                                
-                                <div className="social-links">
-                                        { socialLinks.map((link) => (
-                                                <a key={link._id} href={link.url} target="_blank" rel="noopener noreferrer">
-                                                        <img src={link.icon} />
-                                                </a>
-                                        )) }
+                        <div className="profile-details-container">
+                                <div className="profile-badge-row">
+                                        <span className="availability-badge">
+                                                <span className="badge-dot"></span>
+                                                AVAILABLE FOR HIRE
+                                        </span>
                                 </div>
 
-                                <div className="contact-info">
-                                        <Info icon={phoneIcon} infoName="Phone" infoValue={phone} />
-                                        <Info icon={emailIcon} infoName="Email" infoValue={email} />
-                                        <Info icon={addressIcon} infoName="Address" infoValue={address} />
+                                <h2 className="profile-greeting">
+                                        Hello {nickName || firstName}!
+                                </h2>
+
+                                <p className="profile-bio">
+                                        {bio}
+                                </p>
+
+                                <div className="profile-meta-grid">
+                                        <div className="meta-item">
+                                                <span className="meta-label">EMAIL</span>
+                                                <span className="meta-value">{email}</span>
+                                        </div>
+
+                                        <div className="meta-item">
+                                                <span className="meta-label">LOCATION</span>
+                                                <span className="meta-value">{address}</span>
+                                        </div>
+                                </div>
+
+                                <div className="profile-socials-row">
+                                        <span className="socials-label">SOCIALS</span>
+                                        <div className="social-icons-list">
+                                                {socialLinks && socialLinks.length > 0 ? (
+                                                        socialLinks.map((link, index) => (
+                                                                <a 
+                                                                        key={link._id || link.name || index} 
+                                                                        href={link.url || "#"} 
+                                                                        target="_blank" 
+                                                                        rel="noopener noreferrer" 
+                                                                        className="social-btn" 
+                                                                        title={link.name}
+                                                                        aria-label={link.name}
+                                                                >
+                                                                        <SimpleIcon name={link.icon || link.name} size="1.25rem" color="#ededed" />
+                                                                </a>
+                                                        ))
+                                                ) : (
+                                                        defaultSocials.map((social) => (
+                                                                <a 
+                                                                        key={social._id} 
+                                                                        href={social.url} 
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="social-btn" 
+                                                                        title={social.name}
+                                                                        aria-label={social.name}
+                                                                >
+                                                                        <SimpleIcon name={social.icon || social.name} size="1.25rem" color="#ededed" />
+                                                                </a>
+                                                        ))
+                                                )}
+                                        </div>
                                 </div>
                         </div>
                 </div>

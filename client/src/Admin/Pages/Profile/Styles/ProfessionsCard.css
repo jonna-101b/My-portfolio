@@ -1,0 +1,284 @@
+/* Professions Card Styling */
+
+.professions-card {
+        position: relative;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+}
+
+.professions-card:hover {
+        border-color: #333333;
+}
+
+.professions-card .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.professions-card .card-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #ededed;
+        margin: 0;
+}
+
+/* Primary + Add Pill Button */
+.add-pill-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        background-color: #ededed;
+        color: #0b0d0e;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 14px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.add-pill-btn:hover,
+.add-pill-btn.active {
+        background-color: #c6ff00;
+        transform: translateY(-1px);
+}
+
+/* Popup Anchored Right Next to / Below the Button */
+.profession-popup {
+        position: absolute;
+        top: 60px;
+        right: 24px;
+        z-index: 100;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 18px;
+        padding: 16px;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: calc(100% - 48px);
+        max-width: 340px;
+        animation: scaleUp 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popup-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #262626;
+}
+
+.popup-heading {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #ededed;
+}
+
+.popup-close-btn {
+        background: transparent;
+        border: none;
+        color: #888888;
+        cursor: pointer;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: color 0.15s ease;
+}
+
+.popup-close-btn:hover {
+        color: #ededed;
+}
+
+.popup-inputs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+}
+
+.popup-input-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 12px;
+        padding: 6px 12px;
+}
+
+.popup-input {
+        flex: 1;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #ededed;
+        font-size: 0.875rem;
+        font-family: inherit;
+}
+
+.popup-input::placeholder {
+        color: #666666;
+}
+
+.input-remove-btn {
+        background: transparent;
+        border: none;
+        color: #888888;
+        cursor: pointer;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: color 0.15s ease;
+}
+
+.input-remove-btn:hover {
+        color: #ff4500;
+}
+
+.popup-actions-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 4px;
+}
+
+.btn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background-color: rgba(237, 237, 237, 0.15);
+        border: 1px solid rgba(237, 237, 237, 0.25);
+        color: #ededed;
+        border-radius: 20px;
+        padding: 4px 10px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+}
+
+.btn-more:hover {
+        background-color: rgba(237, 237, 237, 0.2);
+}
+
+.popup-primary-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+}
+
+.btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(237, 237, 237, 0.15);
+        border: 1px solid rgba(237, 237, 237, 0.25);
+        color: #ededed;
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+}
+
+.btn-cancel:hover {
+        background-color: rgba(237, 237, 237, 0.2);
+}
+
+.btn-done {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background-color: #ededed;
+        border: none;
+        color: #0b0d0e;
+        border-radius: 20px;
+        padding: 5px 14px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+}
+
+.btn-done:hover {
+        background-color: #c6ff00;
+}
+
+/* Professions List */
+.professions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+}
+
+.profession-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 10px 16px;
+        transition: border-color 0.2s ease;
+}
+
+.profession-item:hover {
+        border-color: #333333;
+}
+
+.item-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+}
+
+.item-icon {
+        color: #888888;
+}
+
+.item-text {
+        font-size: 0.875rem;
+        color: #ededed;
+        font-weight: 500;
+}
+
+.item-delete-btn {
+        background: transparent;
+        border: none;
+        color: #888888;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.item-delete-btn:hover {
+        color: #ff4500;
+        background-color: rgba(255, 68, 0, 0.1);
+}
+
+.no-items-text {
+        font-size: 0.85rem;
+        color: #888888;
+        margin: 8px 0;
+        text-align: center;
+}

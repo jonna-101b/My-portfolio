@@ -22,4 +22,4 @@ const activitiesSchema = new mongoose.Schema({
 
 
 const ActivitiesModel = mongoose.model('Activities', activitiesSchema);
-export { ActivitiesModel };
+export default ActivitiesModel;

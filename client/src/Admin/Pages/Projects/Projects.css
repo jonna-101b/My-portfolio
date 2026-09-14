@@ -21,7 +21,7 @@
 
 /* Scrollbar thumb (the draggable part) */
 .admin .projects::-webkit-scrollbar-thumb {
-        background: #202020;
+        background: #131313;
         border-radius: 6px;
 }
 

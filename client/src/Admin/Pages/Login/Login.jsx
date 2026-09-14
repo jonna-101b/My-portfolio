@@ -6,11 +6,10 @@ import './Login.css';
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, login } = useAdminAuth();
+  const { isAuthenticated, loading, error: authError, handleLogin, clearError } = useAdminAuth();
   const [formValues, setFormValues] = useState({ email: '', password: '', rememberMe: false });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const redirectTo = location.state?.from?.pathname || '/admin/dashboard';
 
@@ -45,13 +44,16 @@ function Login() {
       [name]: type === 'checkbox' ? checked : value,
     }));
     setServerError('');
+    if (clearError) {
+      clearError();
+    }
     setErrors((currentErrors) => ({ ...currentErrors, [name]: '' }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (isSubmitting) {
+    if (loading) {
       return;
     }
 
@@ -59,11 +61,13 @@ function Login() {
       return;
     }
 
-    setIsSubmitting(true);
     setServerError('');
+    if (clearError) {
+      clearError();
+    }
 
     try {
-      await login({
+      await handleLogin({
         email: formValues.email.trim().toLowerCase(),
         password: formValues.password,
         rememberMe: formValues.rememberMe,
@@ -71,18 +75,18 @@ function Login() {
 
       navigate(redirectTo, { replace: true });
     } catch (error) {
-      const message = error?.response?.data?.error;
-      if (error?.response?.status === 401) {
+      const message = error?.data?.error || error?.data?.message || error?.message;
+      if (error?.statusCode === 401 || error?.response?.status === 401) {
         setServerError(message || 'Invalid email or password.');
-      } else if (error?.response?.status === 403) {
+      } else if (error?.statusCode === 403 || error?.response?.status === 403) {
         setServerError(message || 'This account does not have admin access.');
       } else {
         setServerError(message || 'Unable to sign in right now. Please try again.');
       }
-    } finally {
-      setIsSubmitting(false);
     }
   };
+
+  const displayError = serverError || (authError && typeof authError === 'string' ? authError : authError?.message);
 
   if (isAuthenticated) {
     return <Navigate to="/admin/dashboard" replace />;
@@ -140,10 +144,10 @@ function Login() {
             <span>Maintain persistent session</span>
           </label>
 
-          {serverError ? <p className="server-error" role="alert">{serverError}</p> : null}
+          {displayError ? <p className="server-error" role="alert">{displayError}</p> : null}
 
-          <button type="submit" className="submit-button" disabled={isSubmitting}>
-            {isSubmitting ? 'Signing In...' : 'Sign In'}
+          <button type="submit" className="submit-button" disabled={loading}>
+            {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
       </div>

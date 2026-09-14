@@ -1,90 +1,136 @@
 import { Link } from 'react-router-dom';
-import { useState, useContext } from "react";
+import { useState, useContext, useMemo } from "react";
 import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTechnicalSkillsReducer from '../../../Hooks/useTechnicalSkillsReducer';
 import useConceptualSkillsReducer from '../../../Hooks/useConceptualSkillsReducer';
+import SimpleIcon, { getSimpleIcon } from '../../../Utils/simpleIcons';
 import ShadowIcon from '../../../assets/Icons/Common/star-shadow.png';
 import ShadowLightIcon from '../../../assets/Icons/Common/star-light.png';
 import '../Styles/SkillsPreview.css';
 
-const Tech = ({ tech }) => (
-        <div className="tech">
-                <p className="icon">
-                        <img src={ tech.icon } alt={null} />
-                </p>
-
-                <p className="name">{tech.name}</p>
-        </div>
-);
-
-function ConceptualSkill({ skill }) {
-        const { theme } = useContext(ThemeContext);
-        return (
-                <div className="skill">
-                        <p className="icon">
-                                <img src={skill.icon}/>
-                        </p>
-
-                        <p className="shadow">
-                                <img src={theme === 'dark' ? ShadowIcon : ShadowLightIcon} alt="Shadow icon" />
-                        </p>
-
-                        <div className="main-content">
-                                <div className="title">{ skill.title }</div>
-
-                                <div className="description">{ skill.description }</div>
-                        </div>
-                </div>
-        );
+// Backward compatibility helper
+export const getTechIconUrl = (icon) => {
+	if (!icon) return "";
+	if (icon.startsWith("http://") || icon.startsWith("https://") || icon.startsWith("/") || icon.startsWith("data:")) {
+		return icon;
+	}
+	const clean = icon.toLowerCase().trim().replace(/[^a-z0-9]/g, "");
+	return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${clean}/${clean}-original.svg`;
 };
 
+const Tech = ({ tech, color = "var(--icon-opt-1)" }) => {
+	return (
+		<div className="tech">
+			<p className="icon">
+				<SimpleIcon name={tech.icon || tech.name} color={color} size="10vh" />
+			</p>
+			<p className="name">{tech.name}</p>
+		</div>
+	);
+};
+
+function ConceptualSkill({ skill }) {
+	const { theme } = useContext(ThemeContext);
+	return (
+		<div className="skill">
+			<p className="icon">
+				<img src={skill.icon} alt={skill.title || "Conceptual skill icon"} />
+			</p>
+
+			<p className="shadow">
+				<img src={theme === 'dark' ? ShadowIcon : ShadowLightIcon} alt="Shadow icon" />
+			</p>
+
+			<div className="main-content">
+				<div className="title">{skill.title}</div>
+				<div className="description">{skill.description}</div>
+			</div>
+		</div>
+	);
+}
+
 function SkillsPreview() {
-        const { skills: hardSkills } = useTechnicalSkillsReducer();
-        const { skills: softSkills } = useConceptualSkillsReducer();
-        const [ visibleTechs, setVisibleTechs ] = useState(hardSkills[0] ? hardSkills[0].techStack : [] );
-        const [ isSelected, setIsSelected ] = useState(hardSkills[0] ? hardSkills[0].title : "");
-        
-        const handleSelection = (skill) => {
-                setIsSelected(skill.title);
-                setVisibleTechs(skill.techStack);
-        };
+	const { skills: hardSkills = [] } = useTechnicalSkillsReducer();
+	const { skills: softSkills = [] } = useConceptualSkillsReducer();
 
-        return (
-                <div className="skills-preview">
-                        <div className="main-title">
-                                <p>My Skills</p>
-                        </div>
+	// Heavy calculation memoized: group flat technical skills by their category (label)
+	const categorizedSkills = useMemo(() => {
+		if (!Array.isArray(hardSkills) || hardSkills.length === 0) return [];
 
-                        <div className="technical-skills">
-                                <div className="sub-title">
-                                        <p>Technical Skills</p>
-                                </div>
+		const groups = {};
+		for (const skill of hardSkills) {
+			const category = (skill.label || "Other").trim();
+			if (!groups[category]) {
+				groups[category] = [];
+			}
+			groups[category].push(skill);
+		}
 
-                                <div className="skills">
-                                        { hardSkills.map((skill) => (
-                                                <p key={skill._id} className={ isSelected  === skill.title ? "focused"  : ""} onClick={ () => {handleSelection(skill)} }>{ skill.title }</p>
-                                        )) }
-                                </div>
+		return Object.keys(groups).map((category) => ({
+			label: category,
+			techs: groups[category],
+		}));
+	}, [hardSkills]);
 
-                                <div className="techs">
-                                        { visibleTechs.map((tech) => (<Tech key={tech._id} tech={tech} />)) }
-                                </div>
+	const [selectedCategory, setSelectedCategory] = useState("");
 
-                        </div>
+	const activeCategory = useMemo(() => {
+		if (selectedCategory && categorizedSkills.some((cat) => cat.label === selectedCategory)) {
+			return selectedCategory;
+		}
+		return categorizedSkills[0]?.label || "";
+	}, [categorizedSkills, selectedCategory]);
 
-                        <div className="conceptual-skills">
-                                <div className="sub-title">
-                                        <p>Conceptual Skills</p>
-                                </div>
+	const visibleTechs = useMemo(() => {
+		const current = categorizedSkills.find((cat) => cat.label === activeCategory);
+		return current ? current.techs : [];
+	}, [categorizedSkills, activeCategory]);
 
-                                <div className="skills-loop">
-                                        <div className="skills-track">
-                                                { softSkills.map((skill) => (<ConceptualSkill key={skill._id} skill={skill} />)) }
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-        );
+	return (
+		<div className="skills-preview">
+			<div className="main-title">
+				<p>My Skills</p>
+			</div>
+
+			<div className="technical-skills">
+				<div className="sub-title">
+					<p>Technical Skills</p>
+				</div>
+
+				<div className="skills">
+					{categorizedSkills.map((category) => (
+						<p
+							key={category.label}
+							className={activeCategory === category.label ? "focused" : ""}
+							onClick={() => setSelectedCategory(category.label)}
+						>
+							{category.label}
+						</p>
+					))}
+				</div>
+
+				<div className="techs">
+					{visibleTechs.map((tech) => (
+						<Tech key={tech._id || tech.name} tech={tech} />
+					))}
+				</div>
+			</div>
+
+			<div className="conceptual-skills">
+				<div className="sub-title">
+					<p>Conceptual Skills</p>
+				</div>
+
+				<div className="skills-loop">
+					<div className="skills-track">
+						{softSkills.map((skill) => (
+							<ConceptualSkill key={skill._id} skill={skill} />
+						))}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default SkillsPreview;

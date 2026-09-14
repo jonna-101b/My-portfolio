@@ -1,103 +1,161 @@
-.top-view {
+.admin-topview {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        gap: 4vh;
         width: 100%;
-        height: fit-content;
-}
-
-.top-view .page {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #c6ff00;
-}
-
-.top-view .main-content {
-        display: flex;
-        justify-content: end;
-        align-items: center;
+        padding-bottom: 2vh;
         gap: 2vh;
 }
 
-.top-view .main-content .tool {
-        border-radius: 2vh;
-        padding: 1vh;
-}
-
-.top-view .main-content .tool:focus, 
-.top-view .main-content .tool:hover {
-        background-color: rgba(200, 255, 0, 0.1);
-}
-
-.top-view .main-content .tool {
-        display: grid;
-        place-content: center;
-        cursor: pointer;
-        position: relative;
-}
-
-.top-view .main-content .tool:focus .hover,
-.top-view .main-content .tool:hover .hover {
-        opacity: 1;
-}
-
-.top-view .main-content .tool img {
-        place-self: center;
-        width: 3vh;
-        transition: opacity 0.15s linear;
-}
-
-.top-view .main-content .tool .hover,
-.top-view .main-content .tool .active {
-        position: absolute;
-        opacity: 0;
-}
-
-.top-view .main-content .active {
-        background-color: rgba(200, 255, 0, 0.1);
-} 
-
-.top-view .main-content .active .active {
-        opacity: 1;
-} 
-
-.top-view .main-content .active:focus .hover,
-.top-view .main-content .active:hover .hover {
-        opacity: 0;
-}
-
-.top-view .main-content .active .main, 
-.top-view .main-content .active .hover {
-        opacity: 0;
-} 
-
-.top-view .main-content .tool.activity img {
-        width: 3.5vh;
-        transition: opacity 0.15s linear;
-}
-
-.top-view .main-content .date {
+.topview-title-area {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: start;
+        gap: 0.3rem;
+        width: 100%;
+}
+
+.topview-title-area .page-heading {
+        font-size: 1.85rem;
+        font-weight: 700;
+        color: #ededed;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+}
+
+.topview-title-area .page-subheading {
+        font-size: 0.9rem;
+        color: #888888;
+        font-weight: 400;
+        line-height: 1.4;
+}
+
+.topview-actions-area {
+        display: flex;
+        justify-content: flex-end;
         align-items: center;
-        gap: 1.5vh;
-        font-size: 0.75rem;
+        gap: 1rem;
+        width: 100%;
+        border-bottom: 1px solid rgba(38, 38, 38, 0.75);
+        padding-bottom: 1.5vh;
+        flex-shrink: 0;
+}
+
+/* Notification Button */
+.topview-notification-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 5.5vh;
+        height: 5.5vh;
+        border-radius: 50%;
+        background-color: #1c1c1c;
+        border: 1px solid #262626;
+        color: #ededed;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.topview-notification-btn:hover {
+        background-color: #242424;
+        border-color: rgba(198, 255, 0, 0.4);
+        color: #c6ff00;
+        transform: translateY(-1px);
+}
+
+.topview-notification-btn .bell-icon {
+        font-size: 1.25rem;
+}
+
+.topview-notification-btn .notification-dot {
+        position: absolute;
+        top: 0.55rem;
+        right: 0.6rem;
+        width: 0.45rem;
+        height: 0.45rem;
+        background-color: #c6ff00;
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(198, 255, 0, 0.8);
+}
+
+.topview-separator {
+        width: 1px;
+        height: 1.75rem;
+        background-color: #262626;
+}
+
+/* Profile Pill */
+.topview-profile-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding-inline: 0.8vh 3vh;
+        padding-block: 0.8vh;
+        background-color: #1c1c1c;
+        border: 1px solid #262626;
+        border-radius: 999px;
+        text-decoration: none;
+        color: #ededed;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+}
+
+.topview-profile-pill:hover {
+        background-color: #242424;
+        border-color: rgba(198, 255, 0, 0.4);
+        transform: translateY(-1px);
+}
+
+.topview-profile-pill.active {
+        border-color: #c6ff00;
+        background-color: rgba(198, 255, 0, 0.08);
+}
+
+.topview-profile-pill .profile-name {
+        font-size: 0.9375rem;
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: blueviolet;
-        border-radius: 2vh;
-        padding: 1.5vh 3vh;
+        color: #ededed;
+        letter-spacing: -0.01em;
 }
 
-.top-view .main-content .date .icon {
-        display: grid;
-        place-content: center;
+.topview-profile-pill .profile-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.75vh;
+        height: 3.75vh;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #c6ff00;
+        color: #000000;
+        font-weight: 700;
+        font-size: 0.75rem;
+        flex-shrink: 0;
 }
 
-.top-view .main-content .date .icon img {
-        width: 2.75vh;
+.topview-profile-pill .profile-avatar .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+}
+
+.topview-profile-pill .profile-avatar .avatar-initials {
+        color: #000000;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+        .admin-topview {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+        }
+
+        .topview-actions-area {
+                width: 100%;
+                justify-content: space-between;
+        }
 }

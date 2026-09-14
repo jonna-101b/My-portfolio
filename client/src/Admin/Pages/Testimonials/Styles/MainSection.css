@@ -1,17 +1,15 @@
 .admin .testimonials .main-section {
         display: grid;
-        gap: 2vh;
+        gap: 2.5vh;
         margin: 0;
         padding: 0;
-}
-
-.admin .testimonials .main-section img {
-        width: 2vh;
+        width: 100%;
 }
 
 .admin .testimonials .main-section .labels {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+        padding: 0 1rem;
 }
 
 .admin .testimonials .main-section .labels p {
@@ -19,19 +17,29 @@
         justify-content: center;
         font-size: 0.875rem;
         color: #888888;
+        font-weight: 500;
 }
 
+/* =========================================
+   LIST VIEW
+   ========================================= */
 .admin .testimonials .main-section .list {
         display: grid;
-        gap: 2vh;
+        gap: 1.5vh;
 }
 
 .admin .testimonials .main-section .list .testimonial-layout {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        border-radius: 2vh;
-        padding-block: 2vh;
-        transition: background-color 0.15s linear;
+        border-radius: 1.25rem;
+        padding: 2.5vh 0;
+        align-items: center;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.admin .testimonials .main-section .list .testimonial-layout:nth-child(odd) {
+        background-color: #171717;
+        border: 1px solid #262626;
 }
 
 .admin .testimonials .main-section .list .testimonial-layout p,
@@ -39,167 +47,233 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
         font-size: 0.875rem;
         color: #888888;
 }
 
-.admin .testimonials .main-section .list .testimonial-layout:nth-child(odd) {
-        background-color: #202020;
-        border: 1px solid #333333;
+.admin .testimonials .main-section .list .testimonial-layout .name {
+        color: #ededed;
+        font-weight: 600;
 }
 
-.admin .testimonials .main-section .list .testimonial-layout:focus, 
+.admin .testimonials .main-section .list .testimonial-layout .company span {
+        display: inline-block;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+}
+
 .admin .testimonials .main-section .list .testimonial-layout:hover {
-        background-color: rgba(32, 32, 32, 0.5);
+        background-color: rgba(32, 32, 32, 0.6);
+        border-color: #333333;
 }
 
-.admin .testimonials .main-section .list .testimonial-layout .actions {
-        display: flex;
-        justify-content: center;
-        gap: 2vh;
-}
-
-.admin .testimonials .main-section .list .testimonial-layout .actions p {
-        display: grid;
-        place-content: center;
-        border-radius: 1vh;
-        padding: 1vh;
-        transition: background-color 0.15s linear;
-        position: relative;
-        cursor: pointer;
-}
-
-.admin .testimonials .main-section .list .testimonial-layout .actions p:focus, 
-.admin .testimonials .main-section .list .testimonial-layout .actions p:hover {
-        background-color: rgb(32, 32, 32);
-}
-
-.admin .testimonials .main-section .list .testimonial-layout .actions p:focus .hover, 
-.admin .testimonials .main-section .list .testimonial-layout .actions p:hover .hover {
-        opacity: 1;
-}
-
-.admin .testimonials .main-section .list .testimonial-layout .actions p img {
-        width: 3vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .testimonials .main-section .list .testimonial-layout .actions p .hover {
-        place-self: center;
-        position: absolute;
-        opacity: 0;
-}
-
-.admin .testimonials .main-section .list .testimonial-layout .shadow {
-        display: none;
-}
-
-
+/* =========================================
+   GRID VIEW (MODERN CARD DESIGN)
+   ========================================= */
 .admin .testimonials .main-section .grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4vh;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
 }
 
 .admin .testimonials .main-section .grid .testimonial-layout {
-        display: grid;
-        grid-template-columns: auto auto;
-        gap: 2vh;
-        background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
-        padding: 4vh;
-        transition: background-color 0.15s linear;
-        overflow: hidden;
-        position: relative;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout p,
-.admin .testimonials .main-section .grid .testimonial-layout div {
-        display: grid;
-        place-content: center start;
-        font-size: 0.875rem;
-        color: #888888;
-        z-index: 1;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .name {
-        grid-column: span 2;
-        font-size: 1rem;
-        color: #ededed;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .position {
-        grid-column: span 2;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .company {
-        grid-column: span 2;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .company span {
-        display: inline-block;
-        font-size: 0.75rem;
-        background-color: #0b0d0e;
-        border-radius: 10vh;
-        padding: 0.5vh 2vh;
-
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .date {
-        font-size: 0.75rem;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout:focus, 
-.admin .testimonials .main-section .grid .testimonial-layout:hover {
-        background-color: rgba(32, 32, 32, 0.5);
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .actions {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 1.25rem;
+        padding: 1.75rem;
         display: flex;
-        justify-content: end;
-        align-items: center;
-        gap: 0.25vh;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .actions p {
-        display: grid;
-        place-content: center;
-        border-radius: 1vh;
-        padding: 1vh;
-        transition: background-color 0.15s linear;
+        flex-direction: column;
         position: relative;
-        cursor: pointer;
+        overflow: hidden;
+        min-height: 270px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.admin .testimonials .main-section .grid .testimonial-layout .actions p:focus, 
-.admin .testimonials .main-section .grid .testimonial-layout .actions p:hover {
-        background-color: rgb(32, 32, 32);
+.admin .testimonials .main-section .grid .testimonial-layout:hover {
+        border-color: #333333;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.admin .testimonials .main-section .grid .testimonial-layout .actions p:focus .hover, 
-.admin .testimonials .main-section .grid .testimonial-layout .actions p:hover .hover {
-        opacity: 1;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .actions p img {
-        width: 3vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .testimonials .main-section .grid .testimonial-layout .actions p .hover {
-        place-self: center;
-        position: absolute;
-        opacity: 0;
-}
-
+/* Muted Background Watermark */
 .admin .testimonials .main-section .grid .testimonial-layout .shadow {
         position: absolute;
-        right: -7vh;
-        top: -7vh;
+        right: -3.5rem;
+        top: -3.5rem;
         z-index: 0;
+        pointer-events: none;
+        user-select: none;
+        opacity: 0.07;
 }
 
 .admin .testimonials .main-section .grid .testimonial-layout .shadow img {
-        width: 28vh;
+        width: 16rem;
+        height: 16rem;
+        object-fit: contain;
+        filter: grayscale(100%);
+}
+
+/* Card Header: Avatar & Author */
+.admin .testimonials .main-section .grid .testimonial-layout .card-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 1;
+        position: relative;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .avatar-container {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #222222;
+        border: 1px solid #434938;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-shrink: 0;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .avatar-initials {
+        color: #c6ff00;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        user-select: none;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .author-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        min-width: 0;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .author-info .name {
+        color: #ededed;
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.3;
+        word-break: break-word;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .author-info .position {
+        color: #888888;
+        font-size: 0.9rem;
+        font-weight: 400;
+        margin: 0;
+        line-height: 1.3;
+        word-break: break-word;
+}
+
+/* Company / Subheader */
+.admin .testimonials .main-section .grid .testimonial-layout .company {
+        color: #ededed;
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin: 1.4rem 0 0.5rem 0;
+        z-index: 1;
+        position: relative;
+        word-break: break-word;
+}
+
+/* Testimony Quote */
+.admin .testimonials .main-section .grid .testimonial-layout .testimony {
+        z-index: 1;
+        position: relative;
+        flex-grow: 1;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .testimony p {
+        color: #888888;
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        margin: 0;
+        word-break: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+
+/* Card Divider */
+.admin .testimonials .main-section .grid .testimonial-layout .card-divider {
+        height: 1px;
+        background-color: #262626;
+        width: 100%;
+        margin: 1.75rem 0 1rem 0;
+        z-index: 1;
+        position: relative;
+}
+
+/* Card Footer */
+.admin .testimonials .main-section .grid .testimonial-layout .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+        position: relative;
+}
+
+.admin .testimonials .main-section .grid .testimonial-layout .card-footer .date {
+        color: #888888;
+        font-size: 0.875rem;
+        font-weight: 400;
+        margin: 0;
+}
+
+/* =========================================
+   ACTION BUTTONS (FOR BOTH GRID AND LIST)
+   ========================================= */
+.admin .testimonials .main-section .actions {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+}
+
+.admin .testimonials .main-section .actions .action-btn {
+        background: transparent;
+        border: none;
+        padding: 0.35rem;
+        border-radius: 0.5rem;
+        color: #888888;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.admin .testimonials .main-section .actions .action-btn svg {
+        font-size: 1.25rem;
+}
+
+.admin .testimonials .main-section .actions .action-btn:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #ededed;
+}
+
+.admin .testimonials .main-section .actions .action-btn.view-button:hover {
+        color: #c6ff00;
+}
+
+.admin .testimonials .main-section .actions .action-btn.edit-button:hover {
+        color: #c6ff00;
+}
+
+.admin .testimonials .main-section .actions .action-btn.delete-button:hover {
+        color: #ff5555;
 }

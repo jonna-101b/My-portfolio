@@ -31,12 +31,25 @@
         border-radius: 15vh;
         width: 6vh;
         height: 6vh;
-        transition: background-color 0.15s linear;
+        color: var(--icon-opt-2);
+        transition: background-color 0.15s linear, color 0.15s linear, transform 0.15s ease;
 }
 
 .front-section .intro .social-links a:focus,
 .front-section .intro .social-links a:hover {
         background-color: var(--button-hover-soft);
+        color: var(--icon-opt-1);
+        transform: translateY(-2px);
+}
+
+.front-section .intro .social-links a .simple-icon,
+.front-section .intro .social-links a svg {
+        transition: transform 0.15s ease;
+}
+
+.front-section .intro .social-links a:hover .simple-icon,
+.front-section .intro .social-links a:hover svg {
+        transform: scale(1.1);
 }
 
 .front-section .intro .social-links a img {
@@ -75,7 +88,8 @@
         border: none;
         border-radius: 10vh;
         padding: 1vh 4vh;
-        transition: background-color 0.15s linear;
+        cursor: pointer;
+        transition: background-color 0.15s linear, transform 0.15s ease;
 }
 
 :root[data-theme='light'] .front-section .intro .contact button {
@@ -87,11 +101,28 @@
 .front-section .intro .contact button:focus,
 .front-section .intro .contact button:hover {
         background-color: var(--button-hover-soft);
+        transform: translateY(-1.5px);
 }
 
 .front-section .intro .contact button img {
         display: grid;
         width: 1.75vh;
+}
+
+.front-section .intro .contact button .send-icon {
+        font-size: 2vh;
+        color: var(--icon-opt-2);
+        transition: color 0.15s linear;
+}
+
+:root[data-theme='dark'] .front-section .intro .contact button:hover .send-icon,
+:root[data-theme='dark'] .front-section .intro .contact button:focus .send-icon {
+        color: #c6ff00;
+}
+
+:root[data-theme='light'] .front-section .intro .contact button:hover .send-icon,
+:root[data-theme='light'] .front-section .intro .contact button:focus .send-icon {
+        color: #4648D4;
 }
 
 .front-section .intro .image img{
@@ -101,6 +132,7 @@
 .front-section .scroll-down {
         justify-self: center;
         display: flex;
+        align-items: center;
         justify-content: center;
         gap: 2vh;
         font-size: 0.875rem;
@@ -109,6 +141,17 @@
         top: 90vh;
 }
 
+.front-section .scroll-down .image {
+        display: grid;
+        place-content: center;
+}
+
 .front-section .scroll-down .image img {
         height: 2.75vh;
+}
+
+.front-section .scroll-down .image .scroll-mouse-icon,
+.front-section .scroll-down .image .scroll-arrow-icon {
+        font-size: 2.75vh;
+        color: var(--icon-opt-1);
 }

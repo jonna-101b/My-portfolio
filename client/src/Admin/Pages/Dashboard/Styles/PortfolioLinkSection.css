@@ -1,120 +1,81 @@
-.portfolio-link-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2vh;
-        font-size: 0.875rem;
-        color: #888888;
-        background-color: rgba(11, 13, 14, 0.5);
-        border-radius: 2vh;
-        padding: 2vh;
-        overflow: hidden;
-        position: relative;
-}
-
-.portfolio-link-section::before {
-        content: "";
-        display: grid;
-        place-content: center;
-        background-color: rgba(11, 13, 14, 0.75);
-        border-radius: 50%;
-        position: absolute;
-        top: -10vh;
-        right: -20vh;
-        width: 40vh;
-        height: 20vh;
-        z-index: 0;
-}
-
-.portfolio-link-section::after {
-        content: "";
-        display: grid;
-        place-content: center;
-        background-color: rgba(11, 13, 14, 0.75);
-        border-radius: 50%;
-        position: absolute;
-        left: -30vh;
-        bottom: -15vh;
-        width: 60vh;
-        height: 30vh;
-        z-index: 0;
-}
-
-.portfolio-link-section .contents {
+.portfolio-live-card {
+        background-color: #c6ff00;
+        border-radius: 1.25rem;
+        padding: 1.75rem;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 2vh;
-        z-index: 1;
+        gap: 1.25rem;
+        color: #000000;
+        box-shadow: 0 10px 30px rgba(198, 255, 0, 0.18);
+        position: relative;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
-.portfolio-link-section .contents .logo {
+.portfolio-live-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 36px rgba(198, 255, 0, 0.24);
+}
+
+.live-badge-icon {
+        background-color: #000000;
+        color: #c6ff00;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.75rem;
         display: flex;
-        justify-content: start;
         align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-}
-
-.portfolio-link-section .contents .logo img {
-        display: grid;
-        place-content: center;
-        border: 2px solid #333333;
-        width: 5vh;
-        height: 5vh;
-        border-radius: 50%;
-}
-
-.portfolio-link-section .contents .text {
-        display: grid;
-        gap: 1vh;
-        font-size: 0.75rem;
-        color: #888888;
-        width: 100%;
-}
-
-.portfolio-link-section .contents .text .title {
-        display: grid;
-        font-size: 0.9375rem;
-        font-weight: 600;
-        color: #ededed;
-}
-
-.portfolio-link-section .contents .portfolio-link {
-        display: flex;
         justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.live-badge-icon .rocket-icon {
+        font-size: 1.4rem;
+}
+
+.live-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+}
+
+.live-title {
+        font-size: 1.65rem;
+        font-weight: 800;
+        color: #000000;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin: 0;
+}
+
+.live-description {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.8);
+        line-height: 1.45;
+        margin: 0;
+}
+
+.visit-portfolio-btn {
+        display: inline-flex;
         align-items: center;
-        gap: 0.5vh;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #0b0d0e;
+        gap: 0.5rem;
+        color: #000000;
+        font-weight: 700;
+        font-size: 0.95rem;
         text-decoration: none;
-        background-color: rgba(200, 255, 0, 0.75);
-        border-radius: 10vh;
+        margin-top: 0.5rem;
         width: fit-content;
-        height: fit-content;
-        padding: 0.5vh 2vh;
-        transition: background-color 0.15s  linear;
-        cursor: pointer;
+        transition: gap 0.2s ease;
 }
 
-.portfolio-link-section .contents .portfolio-link:focus,
-.portfolio-link-section .contents .portfolio-link:hover {
-        background-color: #c6ff00;
+.visit-portfolio-btn .arrow-icon {
+        transition: transform 0.2s ease;
 }
 
-.portfolio-link-section .contents .portfolio-link img {
-        width: 1.5vh;
+.visit-portfolio-btn:hover {
+        gap: 0.75rem;
 }
 
-.portfolio-link-section .image {
-        display: grid;
-        place-content: center;
-        width: 100%;
-        z-index: 1;
-}
-
-.portfolio-link-section .image img {
-        place-self: center;
-        width: 100%;
+.visit-portfolio-btn:hover .arrow-icon {
+        transform: translateX(4px);
 }

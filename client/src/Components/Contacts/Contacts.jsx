@@ -1,7 +1,7 @@
 import useProfileReducer from '../../Hooks/useProfileReducer';
-import PhoneIcon from '../../assets/Icons/Common/phone.png';
-import MailIcon from '../../assets/Icons/Common/envelope.png';
-import LocationIcon from '../../assets/Icons/Common/location.png';
+import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import './Contacts.css';
 
 function Contacts() {
@@ -26,7 +26,7 @@ function Contacts() {
 
                                 <div className="call contact">
                                         <div className="icon">
-                                                <img src={ PhoneIcon } alt="Phone icon" />
+                                                <PhoneRoundedIcon className="contact-icon" />
                                         </div>
 
                                         <div className="details">
@@ -38,7 +38,7 @@ function Contacts() {
 
                                 <div className="email contact">
                                         <div className="icon">
-                                                <img src={ MailIcon } alt="Mail icon" />
+                                                <EmailRoundedIcon className="contact-icon" />
                                         </div>
 
                                         <div className="details">
@@ -50,7 +50,7 @@ function Contacts() {
 
                                 <div className="address contact">
                                         <div className="icon">
-                                                <img src={ LocationIcon } alt="Location icon" />
+                                                <LocationOnRoundedIcon className="contact-icon" />
                                         </div>
 
                                         <div className="details">

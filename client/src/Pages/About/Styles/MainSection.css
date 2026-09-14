@@ -1,78 +1,395 @@
-.about .main-section {
-        place-self: center;
+/* ==========================================================================
+   About Page - Main Section Redesign
+   Modern 2-Column Responsive Layout with Dynamic Theme Tokens
+   ========================================================================== */
+
+.about-main-wrapper {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10vh;
-        width: 75%;
-        margin-block: 17.5vh;
-        border-radius: 2vh;
-}
-
-.about .main-section .picture {
-        display: grid;
-        place-content: center;
-        gap: 4vh;
-        background-color: var(--button-bg);
-        box-shadow: var(--shadow);
-        padding: 4vh;
-        width: fit-content;
-        transform: rotate(-2.5deg);
+        justify-content: center;
+        width: 100%;
+        margin: 10vh 0 14vh 0;
+        padding: 0 2rem;
         position: relative;
+        z-index: 1;
 }
 
-.about .main-section .picture .tape {
+.about-main-section {
         display: grid;
-        place-content: center;
-        position: absolute;
-        place-self: start center;
-        width: fit-content;
-        transform: translateY(-60%);
+        grid-template-columns: 360px 1fr;
+        gap: 5rem;
+        max-width: 1200px;
+        width: 100%;
+        align-items: start;
 }
 
-.about .main-section .picture .tape img {
-        width: 15vh;
-        height: 15vh;
-}
+/* --------------------------------------------------------------------------
+   Left Column: Profile Image & Details Card
+   -------------------------------------------------------------------------- */
 
-.about .main-section .picture .profile-picture {
-        display: grid;
-        place-content: center;
+.about-profile-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
         width: 100%;
 }
 
-.about .main-section .picture .profile-picture img {
-        width: 20vw;
+/* Profile Photo Card */
+.profile-image-card {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1.06;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
 }
 
-.about .main-section .picture .name {
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--text-ink);
+.profile-photo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+        filter: grayscale(80%) contrast(108%);
+        transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.about .main-section .description {
-        display: grid;
-        gap: 2vh;
+.profile-image-card:hover .profile-photo-img {
+        filter: grayscale(15%) contrast(102%);
+        transform: scale(1.03);
 }
 
-.about .main-section .description .intro {
+/* Availability Badge */
+.availability-badge {
+        position: absolute;
+        bottom: 1.25rem;
+        left: 1.25rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        background: rgba(14, 14, 14, 0.82);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 0.45rem 0.95rem;
+        border-radius: 9999px;
+        z-index: 2;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+}
+
+:root[data-theme='light'] .availability-badge {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: var(--border);
+        box-shadow: 0 4px 16px rgba(11, 28, 48, 0.1);
+}
+
+.availability-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--accent);
         display: inline-block;
-        font-size: 2.25rem;
+        box-shadow: 0 0 8px var(--accent);
+        animation: badge-dot-pulse 2s infinite ease-in-out;
+}
+
+.availability-text {
+        font-size: 0.725rem;
         font-weight: 700;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        background-image: linear-gradient(to right, var(--accent), var(--text));
-        padding: 0.25vh;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        text-transform: uppercase;
+        white-space: nowrap;
 }
 
-:root[data-theme='light'] .about .main-section .description .intro {
-        background-image: linear-gradient(to right, var(--accent), var(--text-contrast));
+@keyframes badge-dot-pulse {
+
+        0%,
+        100% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 8px var(--accent);
+        }
+
+        50% {
+                opacity: 0.45;
+                transform: scale(0.85);
+                box-shadow: 0 0 2px var(--accent);
+        }
 }
 
-.about .main-section .description .details {
-        font-size: 0.9375rem;
+/* Profile Info Card */
+.profile-info-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 1.5rem;
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        box-shadow: var(--shadow);
+        transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        padding-bottom: 1.15rem;
+        border-bottom: 1px solid var(--border);
+}
+
+.info-item:last-child,
+.info-item.info-connect-item {
+        padding-bottom: 0;
+        border-bottom: none;
+}
+
+.info-label {
+        font-size: 0.725rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
         color: var(--text-muted);
-        text-align: justify;
+        text-transform: uppercase;
+}
+
+.info-val {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.35;
+        margin: 0;
+}
+
+.info-link {
+        text-decoration: none;
+        word-break: break-all;
+        transition: color 0.2s ease;
+}
+
+.info-link:hover {
+        color: var(--accent);
+}
+
+/* Connect Action Buttons */
+.connect-actions-list {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 0.35rem;
+        flex-wrap: wrap;
+}
+
+.connect-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--surface-strong);
+        border: 1px solid var(--border);
+        color: var(--icon-opt-2);
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 1.25rem;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.connect-btn svg {
+        font-size: 1.5rem;
+        transition: transform 0.2s ease;
+}
+
+.connect-btn:hover {
+        background-color: var(--surface-soft);
+        border-color: var(--accent);
+        color: var(--icon-opt-1);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.connect-btn:hover svg {
+        transform: scale(1.1);
+}
+
+:root[data-theme='light'] .connect-btn:hover {
+        box-shadow: 0 6px 16px rgba(70, 72, 212, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Right Column: Greeting, Bio Narrative & Core Skills
+   -------------------------------------------------------------------------- */
+
+.about-content-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+        justify-content: center;
+        padding-top: 0.5rem;
+}
+
+/* Greeting Header */
+.about-greeting-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+}
+
+.greeting-line-1,
+.greeting-line-2 {
+        font-size: clamp(2.5rem, 4.5vw, 3.85rem);
+        font-weight: 800;
+        color: var(--text);
+        line-height: 1.12;
+        margin: 0;
+        letter-spacing: -0.03em;
+}
+
+.greeting-accent-name {
+        color: var(--accent);
+}
+
+.greeting-here-text {
+        color: var(--text);
+}
+
+/* Bio Story Text */
+.about-bio-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        margin-top: 0.5rem;
+}
+
+.bio-paragraph {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--text-muted);
+        font-weight: 400;
+        text-align: left;
+        margin: 0;
+}
+
+/* Core Skills */
+.core-skills-block {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        margin-top: 1.25rem;
+}
+
+.core-skills-heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0;
+        letter-spacing: -0.01em;
+}
+
+.core-skills-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+}
+
+.skill-pill-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.55rem 1.15rem;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 9999px;
+        color: var(--text);
+        font-size: 0.925rem;
+        font-weight: 500;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: default;
+        user-select: none;
+}
+
+.skill-pill-icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.05rem;
+        color: var(--icon-opt-1);
+        transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.skill-pill-icon-wrapper svg {
+        font-size: 1.1rem;
+}
+
+.skill-pill-title {
+        white-space: nowrap;
+        font-size: 0.925rem;
+        font-weight: 500;
+}
+
+.skill-pill-item:hover {
+        background-color: var(--surface-strong);
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.skill-pill-item:hover .skill-pill-icon-wrapper {
+        color: var(--accent);
+        transform: scale(1.1);
+}
+
+:root[data-theme='light'] .skill-pill-item:hover {
+        box-shadow: 0 4px 16px rgba(70, 72, 212, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+        .about-main-section {
+                grid-template-columns: 1fr;
+                gap: 3.5rem;
+        }
+
+        .about-profile-col {
+                max-width: 420px;
+                margin: 0 auto;
+                width: 100%;
+        }
+
+        .about-content-col {
+                text-align: left;
+        }
+}
+
+@media (max-width: 640px) {
+        .about-main-wrapper {
+                padding: 0 1.25rem;
+                margin: 6vh 0 10vh 0;
+        }
+
+        .profile-info-card {
+                padding: 1.25rem;
+        }
+
+        .greeting-line-1,
+        .greeting-line-2 {
+                font-size: 2.25rem;
+        }
+
+        .bio-paragraph {
+                font-size: 0.975rem;
+                line-height: 1.7;
+        }
+
+        .skill-pill-item {
+                padding: 0.45rem 0.95rem;
+                font-size: 0.875rem;
+        }
 }

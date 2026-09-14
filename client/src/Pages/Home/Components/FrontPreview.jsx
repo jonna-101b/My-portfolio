@@ -2,21 +2,26 @@ import { useContext } from "react";
 import { ThemeContext } from "../../../Contexts/ThemeContext";
 import useProfileReducer from "../../../Hooks/useProfileReducer";
 import CoolGuyCoding from "../../../assets/Images/Home/Cool guy coding.svg";
-import CodeIcon from "../../../assets/Icons/Home/is-less-than.png";
-import SlashIcon from "../../../assets/Icons/Home/slash.png";
-import BriefcaseIcon from '../../../assets/Icons/Home/briefcase.png';
-import BriefcaseLightIcon from '../../../assets/Icons/Home/briefcase-light.png';
-import DownloadIcon from '../../../assets/Icons/Home/downloads.png';
+import CoolGuyCodingLight from "../../../assets/Images/Home/Cool guy coding-light.svg";
+import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded';
+import WorkRoundedIcon from '@mui/icons-material/WorkRounded';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+import { createSvgIcon } from '@mui/material/utils';
 import '../Styles/FrontPreview.css';
 
+const SlashIcon = createSvgIcon(
+        <path d="M7 21L14.9 3h2.1L9.1 21H7z" />,
+        'Slash'
+);
 
-function Profession( profession ) {
+
+function Profession(profession) {
         const parts = profession.profession.split(" ");
-        const result = 
+        const result =
                 <p>
-                        { `${parts.slice(0, parts.length - 1).join(" ") } `}
-                        <span>{ parts[parts.length - 1] }</span>
-                        { profession.more ? "|" : null }
+                        {`${parts.slice(0, parts.length - 1).join(" ")} `}
+                        <span>{parts[parts.length - 1]}</span>
+                        {profession.more ? "|" : null}
                 </p>
 
         return result;
@@ -30,32 +35,32 @@ function FrontPage() {
         return (
                 <div className="front-preview">
                         <div className="name">
-                                <img src={CodeIcon} alt="" className="code-open" />
+                                <NavigateBeforeRoundedIcon className="code-open" />
 
                                 <p>
-                                        Hi, my name is <span>{ `${firstName} ${lastName}` }</span>
+                                        Hi, my name is <span>{`${firstName} ${lastName}`}</span>
                                 </p>
 
-                                <img src={SlashIcon} alt="" className="slash" />
-                                
-                                <img src={CodeIcon} alt="" className="code-close" />
+                                <SlashIcon className="slash" />
+
+                                <NavigateBeforeRoundedIcon className="code-close" />
                         </div>
 
                         <div className="professions">
-                                { professions.map((profession, index) => (
-                                        <Profession key={index} profession={profession} more={index !== professions.length-1  } />
-                                )) }
+                                {professions.map((profession, index) => (
+                                        <Profession key={index} profession={profession} more={index !== professions.length - 1} />
+                                ))}
                         </div>
 
                         <div className="hero-text">
-                                <p>{ bio }</p>
+                                <p>{bio}</p>
                         </div>
 
                         <div className="links">
-                                { availability ?
+                                {availability ?
                                         <a className="hire-me" href={hireMe} target="_blank" >
                                                 Hire me
-                                                <img src={ theme === 'dark' ? BriefcaseIcon : BriefcaseLightIcon } alt="Briefcase" />
+                                                <WorkRoundedIcon className="briefcase-icon" />
                                         </a>
                                         :
                                         null
@@ -63,12 +68,12 @@ function FrontPage() {
 
                                 <a className="resume" href={resumeLink} download={`${firstName}'s resume`} >
                                         Download resume
-                                        <img src={ DownloadIcon } alt="DownloadIcon" />
+                                        <DownloadRoundedIcon className="download-icon" />
                                 </a>
                         </div>
 
                         <div className="front-image">
-                                <img src={CoolGuyCoding} alt="A cool guy coding" />
+                                <img src={theme === "dark" ? CoolGuyCoding : CoolGuyCodingLight } alt="A cool guy coding" />
                         </div>
                 </div>
         );

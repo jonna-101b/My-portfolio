@@ -1,46 +1,59 @@
-import { NavLink } from 'react-router-dom';
-import ClockIcon from '../../../assets/Icons/Admin/Common/clock.png';
-import SettingsIcon from '../../../assets/Icons/Admin/Common/settings.png';
-import SettingsHoverIcon from '../../../assets/Icons/Admin/Common/settings-hover.png';
-import SettingsActiveIcon from '../../../assets/Icons/Admin/Common/settings-active.png';
+import { NavLink, useNavigate } from 'react-router-dom';
+import useProfileReducer from '../../../Hooks/useProfileReducer';
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import './TopView.css';
 
+function TopView({ page, subtitle }) {
+        const { profile } = useProfileReducer();
+        const { firstName, lastName, nickName, picture } = profile || {};
+        const navigate = useNavigate();
 
+        const displayName = firstName && lastName ? `${firstName} ${lastName}` : (nickName || "Admin User");
+        const initials = firstName && lastName 
+                ? `${firstName[0]}${lastName[0]}`.toUpperCase() 
+                : (displayName ? displayName.slice(0, 2).toUpperCase() : "AU");
 
-function TopView({ page }) {
-        const date = new Date();
-  
-        const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-        };
-
-        const friendlyDate = date.toLocaleDateString('en-US', options);
+        const defaultSubtitle = page === "Dashboard" 
+                ? "Welcome back to your workspace." 
+                : `Manage and customize your ${page?.toLowerCase() || "content"}.`;
 
         return (
-                <div className="top-view">
-                        <div className="page">
-                                <p>{ page }</p>
-                        </div>
+                <header className="admin-topview">
+                        <div className="topview-actions-area">
+                                <button 
+                                        type="button" 
+                                        className="topview-notification-btn"
+                                        onClick={() => navigate('/admin/settings/account-settings')}
+                                        aria-label="View notifications"
+                                        title="Notifications"
+                                >
+                                        <NotificationsOutlinedIcon className="bell-icon" />
+                                        <span className="notification-dot" />
+                                </button>
 
-                        <div className="main-content">
-                                <NavLink className="tool"  to={'/admin/settings'} >
-                                        <img src={SettingsIcon} alt="Settings icon" className="main"/>
-                                        <img src={SettingsHoverIcon} alt="Settings icon" className="hover"/>
-                                        <img src={SettingsActiveIcon} alt="Settings icon" className="active"/>
+                                <div className="topview-separator" />
+
+                                <NavLink 
+                                        to="/admin/profile" 
+                                        className={({ isActive }) => isActive ? "topview-profile-pill active" : "topview-profile-pill"}
+                                        title="View Profile"
+                                >
+                                        <span className="profile-avatar">
+                                                {picture ? (
+                                                        <img src={picture} alt={displayName} className="avatar-img" />
+                                                ) : (
+                                                        <span className="avatar-initials">{initials}</span>
+                                                )}
+                                        </span>
+                                        <span className="profile-name">{displayName}</span>
                                 </NavLink>
-
-                                <div className="date">
-                                        <p className="icon">
-                                                <img src={ ClockIcon } alt="Clock icon" />
-                                        </p>
-
-                                        <p className="text">{ friendlyDate }</p>
-                                </div>
                         </div>
-                </div>
+
+                        <div className="topview-title-area">
+                                <h1 className="page-heading">{page}</h1>
+                                <p className="page-subheading">{subtitle || defaultSubtitle}</p>
+                        </div>
+                </header>
         );
 }
 

@@ -1,0 +1,79 @@
+.viewer-reactions-card {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 1.25rem;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        transition: all 0.22s ease;
+}
+
+.viewer-reactions-card:hover {
+        border-color: rgba(198, 255, 0, 0.3);
+        transform: translateY(-2px);
+}
+
+.reactions-header {
+        display: flex;
+        align-items: center;
+}
+
+.reactions-title {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #888888;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+}
+
+.reactions-score-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+
+.score-display {
+        display: flex;
+        align-items: baseline;
+        gap: 0.2rem;
+}
+
+.main-score {
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: #c6ff00;
+        line-height: 1;
+        letter-spacing: -0.02em;
+}
+
+.max-score {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #888888;
+}
+
+.stars-group {
+        display: flex;
+        align-items: center;
+        gap: 0.15rem;
+        color: #c6ff00;
+}
+
+.stars-group .star-icon {
+        font-size: 1.35rem;
+}
+
+.reactions-count-row {
+        display: flex;
+        align-items: center;
+}
+
+.reviews-count {
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: #888888;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+}

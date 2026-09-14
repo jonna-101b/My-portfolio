@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { NotificationsModel } from '../Models/notifications.js';
+import NotificationsModel from '../Models/notifications.js';
 import { APIError } from '../Errors/APIError.js';
 import { resend } from '../index.js';
 import { config } from '../Config/environments.js';

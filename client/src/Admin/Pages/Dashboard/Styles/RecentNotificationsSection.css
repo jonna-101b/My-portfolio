@@ -13,7 +13,7 @@
 .recent-notifications-section .notifications {
         display: grid;
         gap: 2vh;
-        background-color: rgba(11, 13, 14, 0.5);
+        background-color: #171717;
         border-radius: 2vh;
         height: fit-content;
         padding: 4vh;

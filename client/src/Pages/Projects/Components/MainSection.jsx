@@ -1,69 +1,100 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../../../Contexts/ThemeContext";
+import { useEffect, useState, useRef } from "react";
 import useProjectsReducer from '../../../Hooks/useProjectsReducer';
-import ShadowIcon from '../../../assets/Icons/Common/cube-shadow.png';
-import ShadowLightIcon from '../../../assets/Icons/Common/cube-light.png';
-import ArrowIcon from '../../../assets/Icons/Projects/arrow-right.png';
-import ViewIcon from '../../../assets/Icons/Projects/view.png';
-import ViewLightIcon from '../../../assets/Icons/Projects/view-light.png';
-import GithubIcon from '../../../assets/Icons/Projects/github.png';
-import GithubLightIcon from '../../../assets/Icons/Projects/github-light.png';
-import LinkIcon from '../../../assets/Icons/Projects/link.png';
-import LinkLightIcon from '../../../assets/Icons/Projects/link-light.png';
-import ExternalLinkIcon from '../../../assets/Icons/Projects/external.png';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import ImageNotSupportedRoundedIcon from '@mui/icons-material/ImageNotSupportedRounded';
+import SimpleIcon from '../../../Utils/simpleIcons';
 import '../Styles/MainSection.css';
 
-
-const Tech = ({ tech }) => (
-        <div className="tech">
-                <p className="icon">
-                        <img src={ tech.icon } alt={null} />
-                </p>
-
-                <p className="name">{tech.name}</p>
-        </div>
-);
 
 const Domain = ({ domain, isSelected, handleDomainSelection }) => (
         <p className={ isSelected  === domain ? "focused"  : ""} onClick={ () => {handleDomainSelection(domain)} }>{ domain }</p>
 );
 
 function Project({ project }) {
-        const { theme } = useContext(ThemeContext);
-        
+        const descriptionText = typeof project.description === 'object' 
+                ? (project.description?.detailed || project.description?.brief || "") 
+                : (project.description || "");
+
         return (
                 <div className="project">
-                        <div className="sub-content">
-                                <p className="image">
-                                        <img src={ project.image } alt={ project.title } />
-                                </p>
+                        <div className="project-image-column">
+                                {project.image ? (
+                                        <img src={project.image} alt={project.title} className="project-cover-image" />
+                                ) : (
+                                        <div className="project-image-placeholder">
+                                                <ImageNotSupportedRoundedIcon className="placeholder-icon" />
+                                                <p className="placeholder-text">No preview image available</p>
+                                        </div>
+                                )}
                         </div>
 
+                        <div className="project-info-column">
+                                <h2 className="project-title">{project.title}</h2>
 
-                        <div className="content">
-                                <p className="title">{ project.title }</p>
+                                {Array.isArray(project.domains) && project.domains.length > 0 && (
+                                        <div className="project-domains">
+                                                {project.domains.map((domain, index) => (
+                                                        <span key={index} className="domain-pill">{domain}</span>
+                                                ))}
+                                        </div>
+                                )}
 
-                                <p className="description">{ project.description.detailed }</p>
+                                {descriptionText && (
+                                        <p className="project-description">{descriptionText}</p>
+                                )}
 
-                                <div className="features">
-                                        { project.features.map((feature, index) => (<p key={index} > <img src={ ArrowIcon } alt="Arrow icon" /> { feature }</p>)) }
-                                </div>
+                                {Array.isArray(project.features) && project.features.length > 0 && (
+                                        <ul className="project-features">
+                                                {project.features.map((feature, index) => (
+                                                        <li key={index} className="feature-item">{feature}</li>
+                                                ))}
+                                        </ul>
+                                )}
 
-                                <div className="techStack">
-                                        { project.techStack.map((tech) => (<Tech tech={tech} />)) }
-                                </div>
+                                {Array.isArray(project.techStack) && project.techStack.length > 0 && (
+                                        <div className="project-tech-stack">
+                                                {project.techStack.map((tech, index) => {
+                                                        const icon = typeof tech === 'object' ? tech?.icon : null;
+                                                        const name = typeof tech === 'object' ? tech?.name : tech;
+                                                        return (
+                                                                <div key={index} className="tech-pill">
+                                                                        <SimpleIcon name={icon || name} size="16px" color="var(--icon-opt-1)" className="tech-pill-icon" />
+                                                                        <span className="tech-pill-name">{name}</span>
+                                                                </div>
+                                                        );
+                                                })}
+                                        </div>
+                                )}
 
-                                <div className="links">
-                                        <a className="github-link" href={project.githubLink} target="_blank" >
-                                                Github repo
-                                                <img src={ theme === 'dark' ? GithubIcon : GithubLightIcon } alt="Github logo" />
-                                        </a>
-        
-                                        <a className="project-link" href={project.projectLink} target="_blank" >
-                                                View project
-                                                <img src={ theme === 'dark' ? LinkIcon : LinkLightIcon } alt="External link Icon" />
-                                        </a>
+                                <div className="project-action-buttons">
+                                        {project.githubLink && (
+                                                <a 
+                                                        className="action-pill-btn github-btn" 
+                                                        href={project.githubLink} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        aria-label="GitHub repository"
+                                                >
+                                                        <span>Github link</span>
+                                                        <GitHubIcon className="btn-icon" />
+                                                </a>
+                                        )}
+
+                                        {project.projectLink && (
+                                                <a 
+                                                        className="action-pill-btn project-btn" 
+                                                        href={project.projectLink} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        aria-label="View live project"
+                                                >
+                                                        <span>Project link</span>
+                                                        <LinkRoundedIcon className="btn-icon" />
+                                                </a>
+                                        )}
                                 </div>
                         </div>
                 </div>
@@ -71,46 +102,95 @@ function Project({ project }) {
 }
 
 function ProjectCard({ project, handleProjectSelection }) {
-        const techStack = project.techStack.slice(0, 4);
-        const leftTechLength = project.techStack.length - techStack.length;
-        const { theme } = useContext(ThemeContext);
+        const visibleTechCount = 3;
+        const techStack = Array.isArray(project.techStack) ? project.techStack.slice(0, visibleTechCount) : [];
+        const remainingTechCount = Array.isArray(project.techStack) && project.techStack.length > visibleTechCount 
+                ? project.techStack.length - visibleTechCount 
+                : 0;
 
         return (
                 <div className="project-card">
-                        <p className="shadow">
-                                <img src={theme === 'dark' ? ShadowIcon : ShadowLightIcon} alt="Shadow icon" />
-                        </p>
-
-                        <p className="title">{ project.title }</p>
-
-                        <p className="contribution">{ project.contribution }</p>
-
-                        <div className="techStack">
-                                { techStack.map((tech, index) => (<p className="tech" style={{ position: "relative", left: `-${index * 2}vh`, zIndex: 3-index }} ><img src={ tech.icon } alt={ null } /></p>)) }
-                                { leftTechLength ? <p className="left">+{leftTechLength}</p> : "" }
+                        <div className="card-image-wrapper">
+                                {project.image ? (
+                                        <img src={project.image} alt={project.title} className="card-image" />
+                                ) : (
+                                        <div className="card-image-placeholder">
+                                                <ImageNotSupportedRoundedIcon className="placeholder-icon" />
+                                                <span className="placeholder-text">No preview image</span>
+                                        </div>
+                                )}
                         </div>
 
-                        <div className="buttons">
-                                <div className="links">
-                                        <a className="github-icon" href={project.githubLink} target="_blank" >
-                                                <img src={ theme === 'dark' ? GithubIcon : GithubLightIcon } alt="Github icon" />
-                                        </a>
-                                        
-                                        <a className="link-icon" href={project.projectLink} target="_blank" >
-                                                <img src={theme === 'dark' ? LinkIcon : LinkLightIcon } alt="Project icon" />
-                                        </a>
+                        <div className="card-content">
+                                <div className="card-header">
+                                        <h3 className="title">{project.title}</h3>
+                                        {project.contribution && (
+                                                <span className="contribution-badge">{project.contribution}</span>
+                                        )}
                                 </div>
 
-                               <div className="view">
-                                        <p onClick={ () => {handleProjectSelection(project)}} >
-                                                view
-                                                <span className="icon">
-                                                        <img src={theme === 'dark' ? ViewIcon : ViewLightIcon} alt="View icon" />
-                                                </span>
-                                        </p>
-                               </div>
-                        </div>
+                                <div className="tech-stack">
+                                        {techStack.map((tech, index) => {
+                                                const icon = typeof tech === 'object' ? tech?.icon : null;
+                                                const name = typeof tech === 'object' ? tech?.name : tech;
+                                                return (
+                                                        <div 
+                                                                key={index} 
+                                                                className="tech-avatar" 
+                                                                style={{ zIndex: visibleTechCount - index }}
+                                                                title={name || "Technology"}
+                                                        >
+                                                                <SimpleIcon name={icon || name} size="20px" color="var(--icon-opt-1)" />
+                                                        </div>
+                                                );
+                                        })}
+                                        {remainingTechCount > 0 && (
+                                                <div className="tech-avatar remaining-badge" style={{ zIndex: 0 }}>
+                                                        +{remainingTechCount}
+                                                </div>
+                                        )}
+                                </div>
 
+                                <div className="card-divider" />
+
+                                <div className="card-footer">
+                                        <div className="card-actions-left">
+                                                {project.githubLink && (
+                                                        <a 
+                                                                className="action-btn github-btn" 
+                                                                href={project.githubLink} 
+                                                                target="_blank" 
+                                                                rel="noopener noreferrer"
+                                                                aria-label="GitHub repository"
+                                                                title="GitHub Repository"
+                                                        >
+                                                                <GitHubIcon className="card-action-icon" />
+                                                        </a>
+                                                )}
+                                                {project.projectLink && (
+                                                        <a 
+                                                                className="action-btn link-btn" 
+                                                                href={project.projectLink} 
+                                                                target="_blank" 
+                                                                rel="noopener noreferrer"
+                                                                aria-label="View live project"
+                                                                title="View Live Project"
+                                                        >
+                                                                <LinkRoundedIcon className="card-action-icon" />
+                                                        </a>
+                                                )}
+                                        </div>
+
+                                        <button 
+                                                type="button" 
+                                                className="view-project-btn" 
+                                                onClick={() => handleProjectSelection(project)}
+                                        >
+                                                <span>view project</span>
+                                                <VisibilityRoundedIcon className="btn-icon" />
+                                        </button>
+                                </div>
+                        </div>
                 </div>
         );
 }
@@ -134,11 +214,16 @@ function MainSection() {
         const [ previewedProject, setPreviewedProject ] = useState(null);
         const [ isSelected, setIsSelected ] = useState("All");
         const domains = [ ...findDomains(projects) ];
+        const mainSectionRef = useRef(null);
         let navigate = useNavigate();
 
         const handleDomainSelection = (domain) => {
                 setIsSelected(domain);
-                setPreviewedProject(null);
+                if (projectId) {
+                        navigate('/projects');
+                } else {
+                        setPreviewedProject(null);
+                }
         };
 
         const handleProjectSelection = (project) => {
@@ -155,6 +240,12 @@ function MainSection() {
                         if (project) {
                                 setPreviewedProject(project);
                                 setIsSelected(null);
+                                const timer = setTimeout(() => {
+                                        if (mainSectionRef.current) {
+                                                mainSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                        }
+                                }, 80);
+                                return () => clearTimeout(timer);
                         }
                 } else {
                         setPreviewedProject(null);
@@ -162,7 +253,7 @@ function MainSection() {
         }, [projectId, projects]);
 
         return (
-                <div className="main-section">
+                <div className="main-section" ref={mainSectionRef}>
 
                         <div className="categories">
                                 { <Domain domain={"All"} isSelected={isSelected} handleDomainSelection={handleDomainSelection} /> }

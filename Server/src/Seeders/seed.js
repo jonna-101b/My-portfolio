@@ -83,14 +83,11 @@ function buildProjectDocument(sourceProject) {
   };
 }
 
-function buildTechnicalSkillDocument(sourceCategory) {
+function buildTechnicalSkillDocument(sourceSkill) {
   return {
-    title: sourceCategory.title,
-    techStack: sourceCategory.techStack.map((tech) => ({
-      _id: tech._id,
-      name: tech.name,
-      icon: tech.icon,
-    })),
+    name: sourceSkill.name,
+    label: sourceSkill.label,
+    icon: sourceSkill.icon,
   };
 }
 

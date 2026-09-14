@@ -17,6 +17,7 @@
         align-items: center;
         gap: 1vh;
         font-size: 0.875rem;
+        font-weight: 550;
         color: #0b0d0e;
         background-color: #ededed;
         border-radius: 2vh;
@@ -45,11 +46,11 @@
 .admin .conceptual-skills .grid .skill {
         display: grid;
         grid-template-columns: auto auto;
-        gap: 4vh;
+        gap: 2vh;
         font-size: 0.875rem;
         color: #888888;
-        background-color: #202020;
-        border: 1px solid #333333;
+        background-color: #171717;
+        border: 1px solid #262626;
         border-radius: 2vh;
         padding: 4vh;
         transition: background-color 0.15s linear;
@@ -68,6 +69,7 @@
 }
 
 .admin .conceptual-skills .grid .skill .content {
+        grid-column: span 2;
         display: flex;
         align-items: center;
         gap: 2vh;
@@ -89,11 +91,21 @@
 }
 
 .admin .conceptual-skills .grid .skill .title {
-        font-size: 0.9375rem;
-        font-weight: normal;
+        flex-grow: 1;
+        font-size: 1.15rem;
+        font-weight: 600;
+}
+
+.admin .conceptual-skills .grid .skill .horizontal-line {
+        grid-column: span 2;
+        margin-top: 1vh;
+        width: 100%;
+        height: 0.1vh;
+        background-color: #262626;
 }
 
 .admin .conceptual-skills .grid .skill .actions {
+        grid-column: span 2;
         display: flex;
         justify-content: end;
         align-items: center;

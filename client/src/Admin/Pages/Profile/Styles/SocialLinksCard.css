@@ -1,0 +1,121 @@
+/* Social Links Card Styling */
+
+.social-links-card {
+        position: relative;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+}
+
+.social-links-card:hover {
+        border-color: #333333;
+}
+
+.social-links-card .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.social-links-card .card-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #ededed;
+        margin: 0;
+}
+
+/* Anchored Popup */
+.social-popup {
+        position: absolute;
+        top: 60px;
+        right: 24px;
+        z-index: 100;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 18px;
+        padding: 16px;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: calc(100% - 48px);
+        max-width: 360px;
+        animation: scaleUp 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popup-select-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+}
+
+.select-container-wrapper {
+        flex: 1;
+}
+
+/* Social List */
+.social-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+}
+
+.social-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 10px 16px;
+        transition: border-color 0.2s ease;
+}
+
+.social-item:hover {
+        border-color: #333333;
+}
+
+.social-item .item-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+}
+
+.platform-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+}
+
+.social-item .item-text {
+        font-size: 0.875rem;
+        color: #ededed;
+        font-weight: 500;
+}
+
+.social-item .item-delete-btn {
+        background: transparent;
+        border: none;
+        color: #888888;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.social-item .item-delete-btn:hover {
+        color: #ff4500;
+        background-color: rgba(255, 68, 0, 0.1);
+}

@@ -1,39 +1,111 @@
-import { Link, NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
 import useProfileReducer from '../../Hooks/useProfileReducer';
 import { ThemeContext } from '../../Contexts/ThemeContext';
-import SunIcon from '../../assets/Icons/Nav/sun.png';
-import SunHoverIcon from '../../assets/Icons/Nav/sun-hover.png';
-import MoonIcon from '../../assets/Icons/Nav/moon.png';
-import MoonHoverIcon from '../../assets/Icons/Nav/moon-hover.png';
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import './Navbar.css';
 
 
 function Navbar() {
         const { profile } = useProfileReducer();
-        const { logo } = profile;
+        const { logo, nickName } = profile;
         const { theme, toggleTheme } = useContext(ThemeContext);
+        const [isVisible, setIsVisible] = useState(true);
+        const location = useLocation();
+
+        const handleNavClick = (targetPath) => {
+                if (location.pathname === targetPath) {
+                        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                }
+        };
+
+        // Always show the navbar when changing routes
+        useEffect(() => {
+                setIsVisible(true);
+        }, [location.pathname]);
+
+        // Handle smooth slide in/out on scroll
+        useEffect(() => {
+                let lastScrollY = window.scrollY;
+
+                const handleScroll = () => {
+                        const currentScrollY = window.scrollY;
+
+                        // Always display navbar at or near the top of the page
+                        if (currentScrollY <= 10) {
+                                setIsVisible(true);
+                                lastScrollY = currentScrollY;
+                                return;
+                        }
+
+                        // Ignore negative scroll values (e.g. bounce effect on macOS/iOS)
+                        if (currentScrollY < 0) {
+                                return;
+                        }
+
+                        const delta = currentScrollY - lastScrollY;
+
+                        // Threshold to avoid micro-jitter
+                        if (Math.abs(delta) < 8) {
+                                return;
+                        }
+
+                        if (delta > 0 && currentScrollY > 70) {
+                                // Scrolling down -> slide out upwards
+                                setIsVisible(false);
+                        } else if (delta < 0) {
+                                // Scrolling up -> slide in downwards
+                                setIsVisible(true);
+                        }
+
+                        lastScrollY = currentScrollY;
+                };
+
+                window.addEventListener('scroll', handleScroll, { passive: true });
+
+                return () => {
+                        window.removeEventListener('scroll', handleScroll);
+                };
+        }, []);
 
         return (
-                <div className="navbar">
+                <div className={`navbar ${isVisible ? '' : 'navbar-hidden'}`}>
                         <Link className="logo" to={'/admin/dashboard'} >
-                                <img src={logo} alt="Logo" />
+                                {logo ?
+                                        <img src={logo} alt="Logo" />
+                                        :
+                                        <span className='logo-name'>
+                                                {nickName}.
+                                        </span>
+                                }
                         </Link>
 
                         <nav>
-                                <NavLink className={({ isActive }) => isActive ? "active nav-link" : "nav-link"} to="/">Home</NavLink>
+                                <NavLink
+                                        to="/"
+                                        end
+                                        onClick={() => handleNavClick('/')}
+                                        className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+                                >
+                                        Home
+                                </NavLink>
 
-                                <NavLink className={({ isActive }) => isActive ? "active nav-link" : "nav-link"} to="/about">About</NavLink>
+                                <NavLink
+                                        to="/about"
+                                        onClick={() => handleNavClick('/about')}
+                                        className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+                                >
+                                        About
+                                </NavLink>
 
-                                {/* <NavLink className={({ isActive }) => isActive ? "active nav-link" : "nav-link"} to="/skills">Skills</NavLink> */}
-
-                                <NavLink className={({ isActive }) => isActive ? "active nav-link" : "nav-link"} to="/projects">Projects</NavLink>
-
-                                {/* <NavLink className={({ isActive }) => isActive ? "active nav-link" : "nav-link"} to="/testimonials">Testimonials</NavLink> */}
-
-                                {/* <NavLink className={({ isActive }) => isActive ? "active nav-link" : "nav-link"} to="/blog">Blog</NavLink> */}
-
-                                {/* <NavLink className={({ isActive }) => isActive ? "active nav-link" : "nav-link"} to="/contacts">Contacts</NavLink> */}
+                                <NavLink
+                                        to="/projects"
+                                        onClick={() => handleNavClick('/projects')}
+                                        className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+                                >
+                                        Projects
+                                </NavLink>
 
                                 <button
                                         className="appearance"
@@ -41,8 +113,11 @@ function Navbar() {
                                         aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
                                         onClick={toggleTheme}
                                 >
-                                        <img src={theme === 'dark' ? SunIcon : MoonIcon} alt="Appearance icon" />
-                                        <img src={theme === 'dark' ? SunHoverIcon : MoonHoverIcon} alt="Appearance icon" className="hover" />
+                                        {theme === 'dark' ? (
+                                                <LightModeRoundedIcon className="theme-toggle-icon" />
+                                        ) : (
+                                                <DarkModeRoundedIcon className="theme-toggle-icon" />
+                                        )}
                                 </button>
                         </nav>
                 </div>

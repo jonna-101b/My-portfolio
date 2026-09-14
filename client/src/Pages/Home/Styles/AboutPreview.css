@@ -56,7 +56,7 @@
         font-size: 1.5rem;
         font-weight: 600;
         color: var(--text);
-        background-color: var(--overlay);
+        background-color: var(--bg-dark);
         border-radius: 2vh 2vh 0 0;
         padding: 4vh 8vh;
         z-index: 1;
@@ -100,8 +100,8 @@
 }
 
 :root[data-theme='light'] .about-preview .main-content .top .right .availability {
-        color: var(--text-ink);
-        background-color: var(--surface);
+        color: var(--accent);
+        background-color: var(--pill-soft);
 }
 
 .about-preview .main-content .top .shadow {
@@ -123,6 +123,15 @@
         line-height: 1.75;
         padding: 8vh;
         padding-top: 6vh;
+}
+
+@keyframes arrow-swing {
+        0%, 100% {
+                transform: translateX(0);
+        }
+        50% {
+                transform: translateX(4px);
+        }
 }
 
 .about-preview .more {
@@ -151,6 +160,17 @@
         background-color: var(--button-hover);
 }
 
+.about-preview .more .button:focus .goto-icon,
+.about-preview .more .button:hover .goto-icon {
+        animation: arrow-swing 0.8s ease-in-out infinite;
+}
+
 .about-preview .more .button img {
         height: 2vh;
+}
+
+.about-preview .more .button .goto-icon {
+        font-size: 2.5vh;
+        color: var(--icon-opt-3);
+        transition: transform 0.2s ease;
 }

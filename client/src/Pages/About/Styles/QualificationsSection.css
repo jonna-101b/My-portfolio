@@ -83,7 +83,7 @@
 }
 
 .qualifications-section .qualifications .qualification .info .details .discipline {
-        font-size: 1.15rem;
+        font-size: 1.25rem;
         font-weight: 600;
         color: var(--text);
         transition: color 0.15s linear;
@@ -128,8 +128,8 @@
         position: relative;
 }
 
-.qualifications-section .qualifications .qualification  .icon::after,
-.qualifications-section .qualifications .qualification  .icon::after {
+.qualifications-section .qualifications .qualification .icon::after,
+.qualifications-section .qualifications .qualification .icon::after {
         content: "";
         display: grid;
         place-content: center;
@@ -143,13 +143,9 @@
         transition: background-color 0.15s linear;
 }
 
-.qualifications-section .qualifications .qualification:focus  .icon::after,
-.qualifications-section .qualifications .qualification:hover  .icon::after {
+.qualifications-section .qualifications .qualification:focus .icon::after,
+.qualifications-section .qualifications .qualification:hover .icon::after {
         background-color: var(--pill-soft);
-}
-
-.qualifications-section .qualifications .qualification:hover .icon .hover {
-        opacity: 1;
 }
 
 .qualifications-section .qualifications .qualification:nth-child(odd) .icon {
@@ -164,13 +160,19 @@
         left: -3.5vh;
 }
 
-.qualifications-section .qualifications .qualification .icon img {
-        width: 3.5vh;
+.qualifications-section .qualifications .qualification .icon .qualification-icon {
+        font-size: 3.5vh;
+        color: var(--icon-opt-2);
+        transition: color 0.15s linear;
+        z-index: 1;
 }
 
-.qualifications-section .qualifications .qualification .icon  .hover {
-        place-self: center;
-        position: absolute;
-        opacity: 0;
-        transition: opacity 0.15s linear;
+:root[data-theme='dark'] .qualifications-section .qualifications .qualification:hover .icon .qualification-icon,
+:root[data-theme='dark'] .qualifications-section .qualifications .qualification:focus .icon .qualification-icon {
+        color: #c6ff00;
+}
+
+:root[data-theme='light'] .qualifications-section .qualifications .qualification:hover .icon .qualification-icon,
+:root[data-theme='light'] .qualifications-section .qualifications .qualification:focus .icon .qualification-icon {
+        color: #4648D4;
 }

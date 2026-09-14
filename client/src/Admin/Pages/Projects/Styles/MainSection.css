@@ -1,16 +1,15 @@
 .admin .projects .main-section {
         display: grid;
-        gap: 2vh;
+        gap: 2.5vh;
+        margin: 0;
         padding: 0;
-}
-
-.admin .projects .main-section img {
-        width: 2vh;
+        width: 100%;
 }
 
 .admin .projects .main-section .labels {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+        padding: 0 1rem;
 }
 
 .admin .projects .main-section .labels p {
@@ -18,22 +17,29 @@
         justify-content: center;
         font-size: 0.875rem;
         color: #888888;
+        font-weight: 500;
 }
 
+/* =========================================
+   LIST VIEW
+   ========================================= */
 .admin .projects .main-section .list {
         display: grid;
-        gap: 2vh;
-}
-
-.admin .projects .main-section .project-layout {
-        transition: background-color 0.15s linear;
+        gap: 1.5vh;
 }
 
 .admin .projects .main-section .list .project-layout {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        border-radius: 2vh;
-        padding-block: 2vh;
+        border-radius: 1.25rem;
+        padding: 2.5vh 0;
+        align-items: center;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.admin .projects .main-section .list .project-layout:nth-child(odd) {
+        background-color: #171717;
+        border: 1px solid #262626;
 }
 
 .admin .projects .main-section .list .project-layout p,
@@ -41,166 +47,276 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
         font-size: 0.875rem;
         color: #888888;
 }
 
-.admin .projects .main-section .list .project-layout:nth-child(odd) {
-        background-color: #202020;
-        border: 1px solid #333333;
+.admin .projects .main-section .list .project-layout .title {
+        color: #ededed;
+        font-weight: 600;
 }
 
-.admin .projects .main-section .list .project-layout:focus, 
+.admin .projects .main-section .list .project-layout .contribution span {
+        display: inline-block;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+}
+
 .admin .projects .main-section .list .project-layout:hover {
-        background-color: rgba(32, 32, 32, 0.5);
+        background-color: rgba(32, 32, 32, 0.6);
+        border-color: #333333;
 }
 
-.admin .projects .main-section .list .project-layout .actions {
-        display: flex;
-        justify-content: center;
-        gap: 2vh;
-}
-
-.admin .projects .main-section .list .project-layout .actions p {
-        display: grid;
-        place-content: center;
-        border-radius: 1vh;
-        padding: 1vh;
-        transition: background-color 0.15s linear;
-        position: relative;
-        cursor: pointer;
-}
-
-.admin .projects .main-section .project-layout .actions p:focus, 
-.admin .projects .main-section .project-layout .actions p:hover {
-        background-color: rgb(32, 32, 32);
-}
-
-.admin .projects .main-section .list .project-layout .actions p:focus .hover, 
-.admin .projects .main-section .list .project-layout .actions p:hover .hover {
-        opacity: 1;
-}
-
-.admin .projects .main-section .list .project-layout .actions p img {
-        width: 3vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .projects .main-section .list .project-layout .actions p .hover {
-        place-self: center;
-        position: absolute;
-        opacity: 0;
-}
-
-.admin .projects .main-section .list .project-layout .shadow {
-        display: none;
-}
-
+/* =========================================
+   GRID VIEW (MODERN CARD DESIGN)
+   ========================================= */
 .admin .projects .main-section .grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4vh;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
 }
 
 .admin .projects .main-section .grid .project-layout {
-        display: grid;
-        grid-template-columns: auto auto;
-        gap: 2vh;
-        font-size: 0.875rem;
-        color: #888888;
-        background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
-        padding: 4vh;
-        overflow: hidden;
-        position: relative;
-}
-
-.admin .projects .main-section .grid .project-layout p,
-.admin .projects .main-section .grid .project-layout div {
-        z-index: 1;
-}
-
-.admin .projects .main-section .grid .project-layout .title {
-        grid-column: span 2;
-        font-size: 1rem;
-        color: #ededed;
-}
-
-.admin .projects .main-section .grid .project-layout .contribution {
-        grid-column: span 2;
-}
-
-.admin .projects .main-section .grid .project-layout .contribution span {
-        display: inline-block;
-        font-size: 0.75rem;
-        background-color: #0b0d0e;
-        border-radius: 10vh;
-        padding: 0.5vh 2vh;
-}
-
-.admin .projects .main-section .grid .project-layout .published-on {
-        grid-column: span 2;
-}
-
-.admin .projects .main-section .grid .project-layout .last-updated {
-        font-size: 0.75rem;
-}
-
-.admin .projects .main-section .grid .project-layout .date {
-        font-size: 0.75rem;
-}
-
-.admin .projects .main-section .grid .project-layout:focus, 
-.admin .projects .main-section .grid .project-layout:hover {
-        background-color: rgba(32, 32, 32, 0.5);
-}
-
-.admin .projects .main-section .grid .project-layout .actions {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 1.25rem;
+        padding: 2.5vh;
         display: flex;
-        justify-content: end;
-        align-items: center;
-        gap: 0.25vh;
-}
-
-.admin .projects .main-section .grid .project-layout .actions p {
-        display: grid;
-        place-content: center;
-        border-radius: 1vh;
-        padding: 1vh;
-        transition: background-color 0.15s linear;
+        flex-direction: column;
         position: relative;
-        cursor: pointer;
+        overflow: hidden;
+        min-height: 320px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.admin .projects .main-section .grid .project-layout .actions p:focus, 
-.admin .projects .main-section .grid .project-layout .actions p:hover {
-        background-color: rgb(32, 32, 32);
+.admin .projects .main-section .grid .project-layout:hover {
+        border-color: #333333;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.admin .projects .main-section .grid .project-layout .actions p:focus .hover, 
-.admin .projects .main-section .grid .project-layout .actions p:hover .hover {
-        opacity: 1;
-}
-
-.admin .projects .main-section .grid .project-layout .actions p img {
-        width: 3vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .projects .main-section .grid .project-layout .actions p .hover {
-        place-self: center;
-        position: absolute;
-        opacity: 0;
-}
-
+/* Muted Background Watermark */
 .admin .projects .main-section .grid .project-layout .shadow {
         position: absolute;
-        right: -7vh;
-        top: -7vh;
+        right: -3.5rem;
+        top: -3.5rem;
         z-index: 0;
+        pointer-events: none;
+        user-select: none;
+        opacity: 0.07;
 }
 
 .admin .projects .main-section .grid .project-layout .shadow img {
-        width: 28vh;
+        width: 16rem;
+        height: 16rem;
+        object-fit: contain;
+        filter: grayscale(100%);
+}
+
+/* Banner / Media Container */
+.admin .projects .main-section .grid .project-layout .banner-container {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        background-color: #121212;
+        border: 1px solid #262626;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.admin .projects .main-section .grid .project-layout .banner-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s ease;
+}
+
+.admin .projects .main-section .grid .project-layout:hover .banner-image {
+        transform: scale(1.03);
+}
+
+/* Placeholder for projects without images */
+.admin .projects .main-section .grid .project-layout .placeholder-banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        width: 100%;
+        height: 100%;
+}
+
+.admin .projects .main-section .grid .project-layout .placeholder-icon-box {
+        width: 44px;
+        height: 44px;
+        background-color: #222222;
+        border: 1px solid #434938;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.admin .projects .main-section .grid .project-layout .placeholder-icon {
+        color: #c6ff00;
+        font-size: 1.5rem;
+}
+
+.admin .projects .main-section .grid .project-layout .placeholder-text {
+        font-size: 0.8rem;
+        color: #888888;
+        font-weight: 500;
+}
+
+/* Contribution badge on banner */
+.admin .projects .main-section .grid .project-layout .contribution-badge {
+        position: absolute;
+        bottom: 0.75rem;
+        left: 0.75rem;
+        background-color: rgba(200, 255, 0, 0.1);
+        backdrop-filter: blur(6px);
+        border: 1px solid #434938;
+        color: #c6ff00;
+        font-size: 0.72rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.85rem;
+        border-radius: 9999px;
+        z-index: 2;
+}
+
+/* Card Middle: Title & Tech Stack Avatars */
+.admin .projects .main-section .grid .project-layout .card-middle {
+        margin-top: 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        z-index: 1;
+        position: relative;
+        flex-grow: 1;
+}
+
+.admin .projects .main-section .grid .project-layout .card-middle .title {
+        color: #ededed;
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0;
+        word-break: break-word;
+}
+
+/* Tech Stack Avatars */
+.admin .projects .main-section .grid .project-layout .tech-stack-avatars {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+}
+
+.admin .projects .main-section .grid .project-layout .tech-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #222222;
+        border: 2px solid #171717;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: -8px;
+        overflow: hidden;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #888888;
+}
+
+.admin .projects .main-section .grid .project-layout .tech-avatar:first-child {
+        margin-left: 0;
+}
+
+.admin .projects .main-section .grid .project-layout .tech-avatar img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+}
+
+.admin .projects .main-section .grid .project-layout .tech-avatar.remaining-count {
+        background-color: #262626;
+        color: #c6ff00;
+        font-size: 0.75rem;
+        font-weight: 700;
+}
+
+/* Card Divider */
+.admin .projects .main-section .grid .project-layout .card-divider {
+        height: 1px;
+        background-color: #262626;
+        width: 100%;
+        margin: 1.5rem 0 1rem 0;
+        z-index: 1;
+        position: relative;
+}
+
+/* Card Footer */
+.admin .projects .main-section .grid .project-layout .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+        position: relative;
+}
+
+.admin .projects .main-section .grid .project-layout .card-footer .date {
+        color: #888888;
+        font-size: 0.875rem;
+        font-weight: 400;
+        margin: 0;
+}
+
+/* =========================================
+   ACTION BUTTONS (FOR BOTH GRID AND LIST)
+   ========================================= */
+.admin .projects .main-section .actions {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+}
+
+.admin .projects .main-section .actions .action-btn {
+        background: transparent;
+        border: none;
+        padding: 0.35rem;
+        border-radius: 0.5rem;
+        color: #888888;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.admin .projects .main-section .actions .action-btn svg {
+        font-size: 1.25rem;
+}
+
+.admin .projects .main-section .actions .action-btn:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #ededed;
+}
+
+.admin .projects .main-section .actions .action-btn.view-icon:hover {
+        color: #c6ff00;
+}
+
+.admin .projects .main-section .actions .action-btn.edit-icon:hover {
+        color: #c6ff00;
+}
+
+.admin .projects .main-section .actions .action-btn.delete-icon:hover {
+        color: #ff5555;
 }

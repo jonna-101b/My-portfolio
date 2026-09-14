@@ -1,209 +1,144 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useProfileReducer from "../../../../../Hooks/useProfileReducer";
 import DatePicker from "react-datepicker";
-import { isSameDay, format, getYear } from "date-fns";
-import CancelIcon from '../../../../../assets/Icons/Admin/Common/Edit/cancel-hover.png';
-import CancelBlackIcon from '../../../../../assets/Icons/Admin/Common/Edit/cancel-black.png';
-import CheckBlackIcon from '../../../../../assets/Icons/Admin/Common/Edit/checkmark-black.png';
-import CalendarIcon from '../../../../../assets/Icons/Admin/Common/Edit/calendar.png';
+import { format } from "date-fns";
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import "react-datepicker/dist/react-datepicker.css";
 import '../Styles/DateInput.css';
 
-
-function SingleDatePicker({ value, handleDisplay, handleChange, handleEdit }) {
-        const [selectedDate, setSelectedDate] = useState(value);
+function SingleDatePicker({ value, handleDisplay, handleChange }) {
+        const initialDate = value ? new Date(value) : new Date();
+        const [selectedDate, setSelectedDate] = useState(initialDate);
 
         const handleDateChange = (date) => {
                 setSelectedDate(date);
-                if (isSameDay(date, value)) {
-                        handleEdit(false);
-                } else {
-                        handleEdit(true);
-                }
         };
-        
+
         const handleCancel = () => {
-                setSelectedDate(null);
                 handleDisplay();
-                handleEdit(false);
         };
-        
+
         const handleDone = () => {
                 handleChange(selectedDate);
-                setSelectedDate(null);
                 handleDisplay();
-                handleEdit(false);
         };
 
         return (
-                <div className="new-date date-picker">
-                        <p className="label">Pick a Date</p>
-                        
-                        <DatePicker
-                                selected={selectedDate}
-                                onChange={handleDateChange}
-                                dateFormat="yyyy-MM-dd"
-                                placeholderText="Select a date"
-                                className="calendar-input"             // styles the input box
-                                calendarClassName="calendar"  
-                                inline
-                        />
+                <div className="date-picker-popup">
+                        <div className="popup-header">
+                                <span className="popup-title">Pick a Date</span>
+                                <button type="button" className="popup-close-btn" onClick={handleCancel}>
+                                        <CloseRoundedIcon style={{ fontSize: '1.1rem' }} />
+                                </button>
+                        </div>
 
-                        <p className="cancel button" onClick={handleCancel}>
-                                cancel
-                                <span className="icon">
-                                        <img src={CancelBlackIcon} alt="Cancel icon" />
-                                </span>
-                        </p>
+                        <div className="calendar-container">
+                                <DatePicker
+                                        selected={selectedDate}
+                                        onChange={handleDateChange}
+                                        dateFormat="yyyy-MM-dd"
+                                        placeholderText="Select a date"
+                                        className="calendar-input"
+                                        calendarClassName="custom-dark-calendar"
+                                        inline
+                                />
+                        </div>
 
-                        <p className="done button" onClick={handleDone} >
-                                done
-                                <span className="icon">
-                                        <img src={CheckBlackIcon} alt="Checkmark icon" />
-                                </span>
-                        </p>
+                        <div className="popup-actions">
+                                <button type="button" className="popup-btn-cancel" onClick={handleCancel}>
+                                        <CloseRoundedIcon style={{ fontSize: '1rem' }} />
+                                        <span>Cancel</span>
+                                </button>
+
+                                <button type="button" className="popup-btn-done" onClick={handleDone}>
+                                        <CheckRoundedIcon style={{ fontSize: '1rem' }} />
+                                        <span>Done</span>
+                                </button>
+                        </div>
                 </div>
         );
 }
 
-function YearDurationPicker({ from, to, handleDisplay, handleChange, handleEdit }) {
-        const [startDate, setStartDate] = useState(from);
-        const [endDate, setEndDate] = useState(to);
-
-        const handleDurationChange = (dates) => {
-                const [start, end] = dates;
-                setStartDate(start);
-                setEndDate(end);
-
-                if ( start !== from || end !== to ) {
-                        handleEdit(true);
-                }
-                else {
-                        handleEdit(false);
-                }
-        };
-        
-        const handleCancel = () => {
-                setStartDate(null);
-                setEndDate(null);
-                handleDisplay();
-                handleEdit(false);
-        };
-        
-        const handleDone = () => {
-                handleChange({ from: startDate, to: endDate});
-                setStartDate(null);
-                setEndDate(null);
-                handleDisplay();
-                handleEdit(false);
-        };
-
-        return (
-                <div className="new-date duration-picker">
-                        <p className="label">Pick Duration in Years</p>
-
-                        <DatePicker
-                                selectsRange
-                                startDate={startDate}
-                                endDate={endDate}
-                                onChange={handleDurationChange}
-                                placeholderText="Select start and end dates"
-                                inline
-                        />
-
-                        <p className="cancel button" onClick={handleCancel}>
-                                cancel
-                                <span className="icon">
-                                        <img src={CancelBlackIcon} alt="Cancel icon" />
-                                </span>
-                        </p>
-
-                        <p className="done button" onClick={handleDone} >
-                                done
-                                <span className="icon">
-                                        <img src={CheckBlackIcon} alt="Checkmark icon" />
-                                </span>
-                        </p>
-                </div>
-  );
-}
-
 function DateInput({ date }) {
         const { updateProfile } = useProfileReducer();
-        const [ dateValue, setDateValue ] = useState(date.type === "duration" ? { from: date.value.from, to: date.value.to } : date.value);
-        const [ display, setDisplay ] = useState(false);
-        const [ edited, setEdited ] = useState(false);
+        const parsedDate = date.value ? new Date(date.value) : new Date();
+        const [dateValue, setDateValue] = useState(parsedDate);
+        const [display, setDisplay] = useState(false);
+        const popupRef = useRef(null);
 
         const handleDisplay = () => {
                 setDisplay(prev => !prev);
         };
 
-        const handleEdit = (bool) => {
-                setEdited(bool);
-        };
-
-        const handleChange = (value) => {
-                updateProfile({ [date.name]: value });
-                handleEdit(false);
+        const handleChange = (newDate) => {
+                setDateValue(newDate);
+                updateProfile({ [date.name]: newDate });
         };
 
         useEffect(() => {
-                setDateValue(date.type === "duration" ? { from: date.value.from, to: date.value.to } : date.value);
+                if (date.value) {
+                        setDateValue(new Date(date.value));
+                }
         }, [date.value]);
 
-        return (
-                <div className="date-input input">
-                        <p className="label">
-                                {date.label}
-                                <span className={edited ? "edited" : ""}></span>
-                        </p>
+        // Handle click outside to close popup
+        useEffect(() => {
+                const handleClickOutside = (e) => {
+                        if (popupRef.current && !popupRef.current.contains(e.target)) {
+                                setDisplay(false);
+                        }
+                };
+                if (display) {
+                        document.addEventListener("mousedown", handleClickOutside);
+                }
+                return () => {
+                        document.removeEventListener("mousedown", handleClickOutside);
+                };
+        }, [display]);
 
-                        <div className="value">
-                                { date.type === "duration" ? 
-                                        <p className="input duration-value">
-                                                <input type="text" name={`${date.name}-from`} id={`${date.name}-from`} value={getYear(dateValue.from)} disabled={true} />
-                                                —
-                                                <input type="text" name={`${date.name}-to`} id={`${date.name}-from`} value={getYear(dateValue.to)} disabled={true} />
-                                        </p>
-                                        :
-                                        <p className="input date-value">
-                                                <input type="text" name={date.name} id={date.name} value={format(dateValue, "MMMM do, yyyy")} disabled={true} />
-                                        </p>
-                                }
+        const formattedDate = dateValue && !isNaN(dateValue.getTime()) 
+                ? format(dateValue, "MMMM do, yyyy") 
+                : "Not set";
+
+        return (
+                <div className="profile-date-row" ref={popupRef}>
+                        <span className="row-label">
+                                {date.label}
+                        </span>
+
+                        <div className="row-input-wrapper">
+                                <span className="date-display-value">
+                                        {formattedDate}
+                                </span>
                         </div>
 
-                        <p className={`edit-button ${display ? "cancel" : ""}`} onClick={handleDisplay}>
-                                {display ? 
-                                        ( 
-                                                <>
-                                                        cancel
-                                                        <span className="icon">
-                                                                <img src={CancelIcon} alt="Cancel icon" />
-                                                        </span>
-                                                </>
-                                        )
-                                        :
-                                        (
-                                                <>
-                                                        change
-                                                        <span className="icon">
-                                                                        <img src={CalendarIcon} alt="Edit icon" />
-                                                        </span>
-                                                </>
-                                        ) 
-                                }
-                        </p>
+                        <div className="row-actions">
+                                <button
+                                        type="button"
+                                        className={`row-action-btn ${display ? "active-toggle" : ""}`}
+                                        onClick={handleDisplay}
+                                        aria-label={`Change ${date.label}`}
+                                >
+                                        <span>{display ? "cancel" : "change"}</span>
+                                        {display ? (
+                                                <CloseRoundedIcon style={{ fontSize: '0.95rem' }} />
+                                        ) : (
+                                                <CalendarMonthOutlinedIcon style={{ fontSize: '0.95rem' }} />
+                                        )}
+                                </button>
+                        </div>
 
-                        { display ? 
-                                ( date.type === "duration" ? 
-                                        <YearDurationPicker  from={date.value.from} to={date.value.to} handleChange={handleChange} handleDisplay={handleDisplay} handleEdit={handleEdit} /> 
-                                        : 
-                                        <SingleDatePicker value={date.value} handleChange={handleChange} handleDisplay={handleDisplay} handleEdit={handleEdit} /> 
-                                ) 
-                                : null 
-                        }
-        </div>
-    );
+                        {display && (
+                                <SingleDatePicker
+                                        value={dateValue}
+                                        handleChange={handleChange}
+                                        handleDisplay={handleDisplay}
+                                />
+                        )}
+                </div>
+        );
 }
 
 export default DateInput;

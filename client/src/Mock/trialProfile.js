@@ -9,7 +9,7 @@ const profile = {
   picture: "https://randomuser.me/api/portraits/men/32.jpg",
   bio: "Passionate software developer with 10+ years of experience in full-stack development.",
   // logo: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png",
-  logo: "/Full-white.png",
+  // logo: "/Full-white.png",
   description: {
     brief:
       "A dedicated full-stack engineer with deep expertise in building scalable, secure, and user-friendly web applications, always eager to innovate and contribute to impactful projects globally. A dedicated full-stack engineer with deep expertise in building scalable, secure, and user-friendly web applications, always eager to innovate and contribute to impactful projects globally. A dedicated full-stack engineer with deep expertise in building scalable, secure, and user-friendly web applications, always eager to innovate and contribute to impactful projects globally.",
@@ -23,19 +23,19 @@ const profile = {
     {
       _id: "64b7f6a2e7d4f23a8c9d1241",
       name: "LinkedIn",
-      icon: "https://cdn-icons-png.flaticon.com/512/174/174857.png",
+      icon: "linkedin",
       url: "https://linkedin.com/in/johndoe",
     },
     {
       _id: "64b7f6a2e7d4f23a8c9d1238",
       name: "GitHub",
-      icon: "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      icon: "github",
       url: "https://github.com/johndoe",
     },
     {
       _id: "64b7f6a2e7d4f23a8c9d1236",
       name: "Twitter",
-      icon: "https://cdn-icons-png.flaticon.com/512/733/733579.png",
+      icon: "x",
       url: "https://twitter.com/johndoe",
     },
   ],

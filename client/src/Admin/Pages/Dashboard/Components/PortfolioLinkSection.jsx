@@ -1,37 +1,26 @@
-import useProfileReducer from '../../../../Hooks/useProfileReducer';
 import { Link } from 'react-router-dom';
-import WritingImage from '../../../../assets/Images/Admin/writing.svg';
-import GoToIcon from '../../../../assets/Icons/Admin/Dashboard/go-to.png';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import '../Styles/PortfolioLinkSection.css';
 
-
-function PortfolioLinkSection () {
-        const { profile } = useProfileReducer();
-        const { picture, nickName } = profile;
-
+function PortfolioLinkSection() {
         return (
-                <div className="portfolio-link-section">
-                        <div className="contents">
-                                <p className="logo">
-                                        <img src={picture} alt="Logo" />
-                                        { nickName }
-                                </p>
-
-                                <p className="text">
-                                        <span className="title">Visit now!</span>
-
-                                        <span>Take a look at your portfolio, click the button below</span>
-                                </p>
-
-                                <Link className="portfolio-link" to={'/'} >
-                                        Visit portfolio
-                                        <img src={GoToIcon} alt="Go to icon" />
-                                </Link>
+                <div className="portfolio-live-card">
+                        <div className="live-badge-icon">
+                                <RocketLaunchIcon className="rocket-icon" />
                         </div>
 
-                        <p className="image">
-                                <img src={WritingImage} alt="Writing image" />
-                        </p>
+                        <div className="live-content">
+                                <h3 className="live-title">Portfolio is Live</h3>
+                                <p className="live-description">
+                                        Check out how your public profile looks to visitors and recruiters.
+                                </p>
+                        </div>
+
+                        <Link to="/" target="_blank" rel="noopener noreferrer" className="visit-portfolio-btn">
+                                <span>Visit portfolio</span>
+                                <ArrowForwardIcon className="arrow-icon" fontSize="small" />
+                        </Link>
                 </div>
         );
 }

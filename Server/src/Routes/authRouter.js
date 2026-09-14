@@ -8,6 +8,6 @@ const authRouter = express.Router();
 authRouter.post("/login", loginValidator, loginAdmin);
 authRouter.post("/refresh", refreshTokenHandler);
 authRouter.post("/logout", logoutAdmin);
-authRouter.get("/profile", getAdmin);
+authRouter.get("/admin", getAdmin);
 
 export default authRouter;

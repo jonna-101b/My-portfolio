@@ -119,12 +119,13 @@
         padding: 0.5vh 3vh;
         outline: none;
         cursor: pointer;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
 }
 
 .blogs-preview .blogs .blog .main-content .links .link:focus,
 .blogs-preview .blogs .blog .main-content .links .link:hover {
         background-color: var(--button-hover);
+        transform: translateY(-1.5px);
 }
 
 .blogs-preview .blogs .blog .sub-content .image {
@@ -163,12 +164,13 @@
         border-radius: 10vh;
         padding: 0.75vh 3.5vh;
         cursor: pointer;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
 }
 
 .blogs-preview .more .button:focus,
 .blogs-preview .more .button:hover {
         background-color: var(--button-hover);
+        transform: translateY(-1.5px);
 }
 
 .blogs-preview .more .button img {

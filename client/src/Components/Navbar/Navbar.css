@@ -10,18 +10,29 @@
         left: 0;
         width: 100%;
         padding: 2vh 10vh;
-        z-index: 3;
+        z-index: 100;
+        transform: translateY(0);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+}
+
+.navbar.navbar-hidden {
+        transform: translateY(-100%);
 }
 
 :root[data-theme='light'] .navbar {
-        background-image: linear-gradient(to bottom, #000000, transparent);
-        background-image: none;
+        background-image: linear-gradient(to bottom, var(--bg), transparent);
 }
 
 .navbar .logo {
         display: grid;
         place-content: center;
         width: fit-content;
+        font-size: 2rem;
+        font-weight: 900;
+        color: var(--text);
+        letter-spacing: -1px;
+        text-decoration: none;
 }
 
 .navbar .logo img {
@@ -44,29 +55,44 @@
         border-radius: 10vh;
         padding: 0.5vh 2vh;
         cursor: pointer;
-        transition: color 0.15s linear, background-color 0.15s linear;
+        outline: none;
+        transition: color 0.15s ease, background-color 0.15s ease;
 }
 
-.navbar nav .nav-link:focus, 
-.navbar nav .nav-link:hover {
+/* Inactive link hover & keyboard focus */
+.navbar nav .nav-link:not(.active):hover,
+.navbar nav .nav-link:not(.active):focus-visible {
         background-color: var(--surface-soft);
+        color: var(--text);
 }
 
-:root[data-theme='light'] .navbar nav .nav-link:focus, 
-:root[data-theme='light'] .navbar nav .nav-link:hover {
-        background-color: var(--surface);
+:root[data-theme='light'] .navbar nav .nav-link:not(.active):hover,
+:root[data-theme='light'] .navbar nav .nav-link:not(.active):focus-visible {
+        background-color: var(--surface-strong);
+        color: var(--text);
 }
 
-.navbar nav .active {
-        background-color: var(--accent);
-        color: var(--text-ink);
+/* Active link style in both dark and light modes */
+.navbar nav .nav-link.active,
+.navbar nav .nav-link.active:hover,
+.navbar nav .nav-link.active:focus,
+.navbar nav .nav-link.active:focus-visible {
+        background-color: var(--accent) !important;
+        color: var(--text-ink) !important;
         border-radius: 10vh;
 }
 
-.navbar nav .active:focus, 
-.navbar nav .active:hover {
-        color: var(--text-ink);
-        background-color: var(--accent);
+:root[data-theme='light'] .navbar nav .nav-link.active,
+:root[data-theme='light'] .navbar nav .nav-link.active:hover,
+:root[data-theme='light'] .navbar nav .nav-link.active:focus,
+:root[data-theme='light'] .navbar nav .nav-link.active:focus-visible {
+        background-color: var(--accent) !important;
+        color: var(--text-ink) !important;
+}
+
+.navbar nav .nav-link:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
 }
 
 .navbar nav .appearance {
@@ -78,27 +104,34 @@
         width: 4.5vh;
         height: 4.5vh;
         cursor: pointer;
-        transition: background-color 0.15s linear;
-        position: relative;
+        outline: none;
+        transition: background-color 0.15s ease;
 }
 
-.navbar nav .appearance:focus,
-.navbar nav .appearance:hover {
+.navbar nav .appearance:hover,
+.navbar nav .appearance:focus-visible {
         background-color: var(--pill-soft);
 }
 
-.navbar nav .appearance img {
-        position: absolute;
-        place-self: center;
-        width: 3vh;
-        transition: opacity 0.15s linear;
+.navbar nav .appearance .theme-toggle-icon {
+        font-size: 2.75vh;
+        transition: color 0.15s linear;
 }
 
-.navbar nav .appearance .hover {
-        opacity: 0;
+:root[data-theme='dark'] .navbar nav .appearance .theme-toggle-icon {
+        color: #ededed;
 }
 
-.navbar nav .appearance:focus .hover,
-.navbar nav .appearance:hover .hover {
-        opacity: 1;
+:root[data-theme='dark'] .navbar nav .appearance:hover .theme-toggle-icon,
+:root[data-theme='dark'] .navbar nav .appearance:focus-visible .theme-toggle-icon {
+        color: #c6ff00;
+}
+
+:root[data-theme='light'] .navbar nav .appearance .theme-toggle-icon {
+        color: #0B1C30;
+}
+
+:root[data-theme='light'] .navbar nav .appearance:hover .theme-toggle-icon,
+:root[data-theme='light'] .navbar nav .appearance:focus-visible .theme-toggle-icon {
+        color: #4648D4;
 }

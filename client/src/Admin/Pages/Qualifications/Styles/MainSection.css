@@ -1,17 +1,15 @@
 .admin .qualifications .main-section {
         display: grid;
-        gap: 2vh;
+        gap: 2.5vh;
         margin: 0;
         padding: 0;
-}
-
-.admin .qualifications .main-section img {
-        width: 2vh;
+        width: 100%;
 }
 
 .admin .qualifications .main-section .labels {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+        padding: 0 1rem;
 }
 
 .admin .qualifications .main-section .labels p {
@@ -19,19 +17,29 @@
         justify-content: center;
         font-size: 0.875rem;
         color: #888888;
+        font-weight: 500;
 }
 
+/* =========================================
+   LIST VIEW
+   ========================================= */
 .admin .qualifications .main-section .list {
         display: grid;
-        gap: 2vh;
+        gap: 1.5vh;
 }
 
 .admin .qualifications .main-section .list .qualification-layout {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        border-radius: 2vh;
-        padding-block: 2vh;
-        transition: background-color 0.15s linear;
+        border-radius: 1.25rem;
+        padding: 2.5vh 0;
+        align-items: center;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.admin .qualifications .main-section .list .qualification-layout:nth-child(odd) {
+        background-color: #171717;
+        border: 1px solid #262626;
 }
 
 .admin .qualifications .main-section .list .qualification-layout p,
@@ -42,164 +50,217 @@
         text-align: center;
         font-size: 0.875rem;
         color: #888888;
+        width: 100%;
 }
 
-.admin .qualifications .main-section .list .qualification-layout:nth-child(odd) {
-        background-color: #202020;
-        border: 1px solid #333333;
+.admin .qualifications .main-section .list .qualification-layout .discipline {
+        color: #ededed;
+        font-weight: 600;
 }
 
-.admin .qualifications .main-section .list .qualification-layout:focus, 
+.admin .qualifications .main-section .list .qualification-layout .type-tag {
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+}
+
+.admin .qualifications .main-section .list .qualification-layout .organization span {
+        display: inline-block;
+        max-width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+}
+
 .admin .qualifications .main-section .list .qualification-layout:hover {
-        background-color: rgba(32, 32, 32, 0.5);
+        background-color: rgba(32, 32, 32, 0.6);
+        border-color: #333333;
 }
 
-.admin .qualifications .main-section .list .qualification-layout .actions {
-        display: flex;
-        justify-content: center;
-        gap: 2vh;
-}
-
-.admin .qualifications .main-section .list .qualification-layout .actions p {
-        display: grid;
-        place-content: center;
-        border-radius: 1vh;
-        padding: 1vh;
-        transition: background-color 0.15s linear;
-        position: relative;
-        cursor: pointer;
-}
-
-.admin .qualifications .main-section .list .qualification-layout .actions p:focus, 
-.admin .qualifications .main-section .list .qualification-layout .actions p:hover {
-        background-color: rgb(32, 32, 32);
-}
-
-.admin .qualifications .main-section .list .qualification-layout .actions p:focus .hover, 
-.admin .qualifications .main-section .list .qualification-layout .actions p:hover .hover {
-        opacity: 1;
-}
-
-.admin .qualifications .main-section .list .qualification-layout .actions p img {
-        width: 3vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .qualifications .main-section .list .qualification-layout .actions p .hover {
-        place-self: center;
-        position: absolute;
-        opacity: 0;
-}
-
-.admin .qualifications .main-section .list .qualification-layout .shadow {
-        display: none;
-}
-
+/* =========================================
+   GRID VIEW (MODERN CARD DESIGN)
+   ========================================= */
 .admin .qualifications .main-section .grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4vh;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
 }
 
 .admin .qualifications .main-section .grid .qualification-layout {
-        display: grid;
-        grid-template-columns: auto auto;
-        gap: 2vh;
-        background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
-        padding: 4vh;
-        transition: background-color 0.15s linear;
-        overflow: hidden;
-        position: relative;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout p,
-.admin .qualifications .main-section .grid .qualification-layout div {
-        display: grid;
-        place-content: center start;
-        font-size: 0.875rem;
-        color: #888888;
-        z-index: 1;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .discipline {
-        grid-column: span 2;
-        font-size: 1rem;
-        color: #ededed;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .type {
-        grid-column: span 2;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .organization {
-        grid-column: span 2;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .organization span {
-        display: inline-block;
-        font-size: 0.75rem;
-        background-color: #0b0d0e;
-        border-radius: 10vh;
-        padding: 0.5vh 2vh;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .duration {
-        font-size: 0.75rem;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout:focus, 
-.admin .qualifications .main-section .grid .qualification-layout:hover {
-        background-color: rgba(32, 32, 32, 0.5);
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .actions {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 1.25rem;
+        padding: 1.75rem;
         display: flex;
-        justify-content: end;
-        align-items: center;
-        gap: 0.25vh;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .actions p {
-        display: grid;
-        place-content: center;
-        border-radius: 1vh;
-        padding: 1vh;
-        transition: background-color 0.15s linear;
+        flex-direction: column;
         position: relative;
-        cursor: pointer;
+        overflow: hidden;
+        min-height: 250px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.admin .qualifications .main-section .grid .qualification-layout .actions p:focus, 
-.admin .qualifications .main-section .grid .qualification-layout .actions p:hover {
-        background-color: rgb(32, 32, 32);
+.admin .qualifications .main-section .grid .qualification-layout:hover {
+        border-color: #333333;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.admin .qualifications .main-section .grid .qualification-layout .actions p:focus .hover, 
-.admin .qualifications .main-section .grid .qualification-layout .actions p:hover .hover {
-        opacity: 1;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .actions p img {
-        width: 3vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .qualifications .main-section .grid .qualification-layout .actions p .hover {
-        place-self: center;
-        position: absolute;
-        opacity: 0;
-}
-
-
+/* Muted Background Watermark */
 .admin .qualifications .main-section .grid .qualification-layout .shadow {
         position: absolute;
-        right: -8vh;
-        top: -8vh;
+        right: -4rem;
+        top: -4rem;
         z-index: 0;
+        pointer-events: none;
+        user-select: none;
+        opacity: 0.07;
 }
 
 .admin .qualifications .main-section .grid .qualification-layout .shadow img {
-        width: 32vh;
+        width: 17rem;
+        height: 17rem;
+        object-fit: contain;
+        filter: grayscale(100%);
+}
+
+/* Card Top (Header) */
+.admin .qualifications .main-section .grid .qualification-layout .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        z-index: 1;
+        position: relative;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .icon-wrapper {
+        width: 48px;
+        height: 48px;
+        background-color: #222222;
+        border: 1px solid #434938;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .icon-wrapper .mortarboard-icon {
+        color: #c6ff00;
+        font-size: 1.75rem;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .type-badge {
+        background-color: #232a15;
+        color: #c6ff00;
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+}
+
+/* Card Body */
+.admin .qualifications .main-section .grid .qualification-layout .card-body {
+        margin-top: 1.5rem;
+        z-index: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        flex-grow: 1;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .organization {
+        color: #888888;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.4;
+        margin: 0;
+        word-break: break-word;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .discipline {
+        color: #ededed;
+        font-size: 1.15rem;
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0;
+        word-break: break-word;
+}
+
+/* Card Divider */
+.admin .qualifications .main-section .grid .qualification-layout .card-divider {
+        height: 1px;
+        background-color: #262626;
+        width: 100%;
+        margin: 1.75rem 0 1rem 0;
+        z-index: 1;
+        position: relative;
+}
+
+/* Card Footer */
+.admin .qualifications .main-section .grid .qualification-layout .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+        position: relative;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .duration {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #888888;
+        font-size: 0.875rem;
+        font-weight: 400;
+}
+
+.admin .qualifications .main-section .grid .qualification-layout .duration .clock-icon {
+        color: #888888;
+        font-size: 1.15rem;
+}
+
+/* =========================================
+   ACTION BUTTONS (FOR BOTH GRID AND LIST)
+   ========================================= */
+.admin .qualifications .main-section .actions {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+}
+
+.admin .qualifications .main-section .actions .action-btn {
+        background: transparent;
+        border: none;
+        padding: 0.35rem;
+        border-radius: 0.5rem;
+        color: #888888;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.admin .qualifications .main-section .actions .action-btn svg {
+        font-size: 1.25rem;
+}
+
+.admin .qualifications .main-section .actions .action-btn:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #ededed;
+}
+
+.admin .qualifications .main-section .actions .action-btn.view-icon:hover {
+        color: #c6ff00;
+}
+
+.admin .qualifications .main-section .actions .action-btn.edit-icon:hover {
+        color: #c6ff00;
+}
+
+.admin .qualifications .main-section .actions .action-btn.delete-icon:hover {
+        color: #ff5555;
 }

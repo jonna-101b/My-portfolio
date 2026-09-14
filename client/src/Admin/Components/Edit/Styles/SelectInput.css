@@ -1,39 +1,62 @@
+.admin .edit.active .wrapper form .select-input,
 .admin .projects .edit.active .wrapper form .select-input {
-        display: grid;
-        gap: 2vh;
+	display: grid;
+	gap: 1.2vh;
 }
 
+.admin .edit.active .wrapper form .select-input .label,
 .admin .projects .edit.active .wrapper form .select-input .label {
-        display: flex;
-        align-items: center;
-        gap: 1vh;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #ededed;
-        width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 1vh;
+	font-size: 0.9rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	color: #ededed;
+	width: fit-content;
 }
 
+.admin .edit.active .wrapper form .select-input .label .edited,
 .admin .projects .edit.active .wrapper form .select-input .label .edited {
-        display: grid;
-        place-content: center;
-        background-color: #c6ff00;
-        border-radius: 2vh;
-        width: 1.25vh;
-        height: 1.25vh;
+	display: inline-block;
+	background-color: #c6ff00;
+	border-radius: 50%;
+	width: 7px;
+	height: 7px;
+	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
 }
 
+.admin .edit.active .wrapper form .select-input select,
 .admin .projects .edit.active .wrapper form .select-input select {
-        font-size: 0.875rem;
-        color: #888888;
-        background-color: #0b0d0e;
-        border: none;
-        border-radius: 2vh;
-        outline: none;
-        padding: 2vh 3vh;
-        appearance: none;
+	font-size: 0.875rem;
+	color: #ededed;
+	background-color: #131313;
+	border: 1px solid #262626;
+	border-radius: 12px;
+	outline: none;
+	padding: 1.4vh 3.5vh 1.4vh 1.8vh;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 1.5vh center;
+	background-size: 1.6vh;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	width: 100%;
 }
 
-.admin .projects .edit.active .wrapper form .select-input select option:focus, 
-.admin .projects .edit.active .wrapper form .select-input select option:hover {
-        background: #202020;
+.admin .edit.active .wrapper form .select-input select:focus,
+.admin .projects .edit.active .wrapper form .select-input select:focus {
+	border-color: rgba(198, 255, 0, 0.5);
+	background-color: #161616;
+	box-shadow: 0 0 0 2px rgba(198, 255, 0, 0.1);
+}
+
+.admin .edit.active .wrapper form .select-input select option,
+.admin .projects .edit.active .wrapper form .select-input select option {
+	background-color: #171717;
+	color: #ededed;
+	padding: 1vh;
 }

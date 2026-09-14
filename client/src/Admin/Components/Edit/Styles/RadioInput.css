@@ -1,90 +1,109 @@
 .admin .edit.active .wrapper form .radio-input {
-        display: grid;
-        gap: 2vh;
+	display: grid;
+	gap: 1.2vh;
 }
 
 .admin .edit.active .wrapper form .radio-input .label {
-        display: flex;
-        align-items: center;
-        gap: 1vh;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #ededed;
-        width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 1vh;
+	font-size: 0.9rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	color: #ededed;
+	width: fit-content;
 }
 
 .admin .edit.active .wrapper form .radio-input .label .edited {
-        display: grid;
-        place-content: center;
-        background-color: #c6ff00;
-        border-radius: 2vh;
-        width: 1.25vh;
-        height: 1.25vh;
+	display: inline-block;
+	background-color: #c6ff00;
+	border-radius: 50%;
+	width: 7px;
+	height: 7px;
+	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
 }
 
 .admin .edit.active .wrapper form .radio-input .options {
-        display: flex;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
-        padding: 1.5vh;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.2vh;
+	background-color: #131313;
+	border: 1px solid #262626;
+	border-radius: 12px;
+	padding: 1.2vh;
 }
 
 .admin .edit.active .wrapper form .radio-input .options .option {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        padding: 0.75vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
-        cursor: pointer;
-        position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1vh;
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: #888888;
+	background-color: rgba(237, 237, 237, 0.04);
+	border: 1px solid #262626;
+	border-radius: 8px;
+	padding: 0.8vh 1.8vh;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	position: relative;
+	user-select: none;
 }
-
 
 .admin .edit.active .wrapper form .radio-input .options .option:focus,
 .admin .edit.active .wrapper form .radio-input .options .option:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+	background-color: rgba(237, 237, 237, 0.08);
+	color: #ededed;
+	border-color: #383838;
 }
 
 .admin .edit.active .wrapper form .radio-input .options .option input {
-        position: absolute;
-        top: 1vh;
-        left: 2vh;
-        width: 2.75vh;
-        height: 2.75vh;
-        opacity: 0;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
 }
 
 .admin .edit.active .wrapper form .radio-input .options .option .icon {
-        display: grid;
-        place-content: center;
-        background-color: #0b0d0e;
-        border-radius: 100vh;
-        width: 2.75vh;
-        height: 2.75vh;
+	display: grid;
+	place-content: center;
+	background-color: #1c1c1c;
+	border: 1px solid #333333;
+	border-radius: 50%;
+	width: 2vh;
+	height: 2vh;
+	transition: all 0.2s ease;
 }
 
 .admin .edit.active .wrapper form .radio-input .options .option .icon img {
-        width: 1.35vh;
-        opacity: 0;
-        transition: opacity 0.15s linear;
+	width: 1.1vh;
+	height: 1.1vh;
+	object-fit: contain;
+	opacity: 0;
+	transition: opacity 0.15s ease;
 }
 
 .admin .edit.active .wrapper form .radio-input .options .checked {
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
+	color: #c6ff00;
+	background-color: rgba(198, 255, 0, 0.08);
+	border-color: rgba(198, 255, 0, 0.4);
+	font-weight: 600;
 }
 
 .admin .edit.active .wrapper form .radio-input .options .checked:focus,
 .admin .edit.active .wrapper form .radio-input .options .checked:hover {
-        background-color: rgba(200, 255, 0, 0.1);
+	background-color: rgba(198, 255, 0, 0.12);
+	border-color: #c6ff00;
+}
+
+.admin .edit.active .wrapper form .radio-input .options .checked .icon {
+	background-color: #c6ff00;
+	border-color: #c6ff00;
 }
 
 .admin .edit.active .wrapper form .radio-input .options .checked .icon img {
-        opacity: 1;
+	opacity: 1;
 }

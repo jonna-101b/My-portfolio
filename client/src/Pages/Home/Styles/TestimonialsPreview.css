@@ -160,7 +160,7 @@
 }
 
 :root[data-theme='light']  .testimonials-preview .pagination p {
-        background-color: var(--button-bg);
+        background-color: var(--surface-soft);
 }
 
 :root[data-theme='light']  .testimonials-preview .pagination .focused, 
@@ -295,13 +295,14 @@
         border-radius: 2vh;
         text-align: center;
         padding: 2vh 0;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
         cursor: pointer;
 }
 
 .testimonials-preview .new-testimonial .main-content form button:focus, 
 .testimonials-preview .new-testimonial .main-content form button:hover {
         background-color: var(--button-hover);
+        transform: translateY(-1.5px);
 }
 
 .testimonials-preview .new-testimonial .main-content form .reminder {

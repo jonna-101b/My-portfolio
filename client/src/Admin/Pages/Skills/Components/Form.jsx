@@ -3,15 +3,17 @@ import IconIcon from '../../../../assets/Icons/Admin/Common/figures.png';
 
 
 export function technicalForm(skill) {
-        const title = skill ? skill.title : null;
-        const techStack = skill ? skill.techStack : [];
-        const otherAttr = skill ? { _id: skill._id, createdAt: skill.createdAt, updatedAt: skill.updatedAt } : {};
+	const name = skill ? skill.name : "";
+	const label = skill ? skill.label : "";
+	const icon = skill ? skill.icon : "";
+	const otherAttr = skill ? { _id: skill._id, createdAt: skill.createdAt, updatedAt: skill.updatedAt } : {};
 
-        const form = [
-                { name: "title", label: "Title", value: title, required: true, inputType: "text-input" },
-                { name: "techStack", label: "Tech stack", subLabel: "tech", values: techStack, icon: null, type: "select", options: techs, required: true, inputType: "tag-input" },
-        ];
-        return {label: "technicalSkills", value: form, ...otherAttr };
+	const form = [
+		{ name: "name", label: "Technology Name", value: name, required: true, inputType: "text-input" },
+		{ name: "label", label: "Category / Label", value: label, required: true, inputType: "text-input" },
+		{ name: "icon", label: "Icon (Name or URL)", value: icon, required: true, inputType: "text-input" },
+	];
+	return { label: "technicalSkills", value: form, name: name, ...otherAttr };
 }
 
 export function conceptualForm(skill) {

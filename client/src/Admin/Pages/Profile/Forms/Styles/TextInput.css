@@ -1,99 +1,127 @@
-.admin .profile .info .text-input {
-        display: grid;
-        grid-template-columns: 15% 1fr 15%;
-        padding-bottom: 1vh;
-}
+/* Profile Text Input Row Styling */
 
-.admin .profile .info .text-input .label {
-        place-self: center start;
+.profile-text-row {
         display: flex;
         align-items: center;
-        gap: 1vh;
+        justify-content: space-between;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 10px 16px;
+        gap: 12px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-text-row:hover {
+        border-color: #333333;
+}
+
+.profile-text-row:focus-within {
+        border-color: rgba(198, 255, 0, 0.5);
+}
+
+.row-label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         font-size: 0.875rem;
         color: #888888;
-        width: fit-content;
+        font-weight: 400;
+        min-width: 90px;
+        flex-shrink: 0;
 }
 
-.admin .profile .info .text-input .label .edited {
-        display: grid;
-        place-content: center;
+.edited-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
         background-color: #c6ff00;
-        border-radius: 2vh;
-        width: 1.25vh;
-        height: 1.25vh;
+        display: inline-block;
 }
 
-.admin .profile .info .text-input .value {
+.row-input-wrapper {
+        flex: 1;
         display: flex;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
-        padding: 1.5vh;
+        align-items: center;
 }
 
-.admin .profile .info .text-input .value input {
-        flex-grow: 1;
-        font-size: 0.875rem;
-        color: #ededed;
-        text-align: center;
-        background-color: #0b0d0e;
+.row-input {
+        width: 100%;
+        background-color: transparent;
         border: none;
         outline: none;
-        padding-left: 2vh;
-        transition: color 0.15s linear;
-}
-
-.admin .profile .info .text-input .value input:disabled {
-        color: #888888;
-}
-
-.admin .profile .info .text-input .edit-button {
-        place-self: center end;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
         color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        width: fit-content;
-        height: fit-content;
-        padding: 0.5vh 2.5vh;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        font-family: inherit;
+        padding: 2px 4px;
+        transition: color 0.15s ease;
+}
+
+.row-input:disabled {
+        color: #ededed;
+        cursor: default;
+}
+
+.row-input::placeholder {
+        color: #555555;
+        font-weight: 400;
+}
+
+.row-actions {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+}
+
+.editing-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+}
+
+/* Button variants adhering to strict color rules */
+.row-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        background-color: rgba(237, 237, 237, 0.15);
+        border: 1px solid rgba(237, 237, 237, 0.25);
+        color: #ededed;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 0.8125rem;
+        font-weight: 500;
         cursor: pointer;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 
-.admin .profile .info .text-input .edit-button:focus,
-.admin .profile .info .text-input .edit-button:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+.row-action-btn:hover {
+        background-color: rgba(237, 237, 237, 0.2);
 }
 
-.admin .profile .info .text-input .save {
+.row-action-btn:active {
+        transform: scale(0.97);
+}
+
+.row-action-btn.save {
+        background-color: rgba(198, 255, 0, 0.15);
+        border-color: rgba(198, 255, 0, 0.25);
         color: #c6ff00;
-        background-color: rgba(198, 255, 0, 0.1);
 }
 
-.admin .profile .info .text-input .save:focus,
-.admin .profile .info .text-input .save:hover {
-        background-color: rgba(198, 255, 0, 0.25);
+.row-action-btn.save:hover {
+        background-color: rgba(198, 255, 0, 0.2);
 }
 
-.admin .profile .info .text-input .cancel {
+.row-action-btn.cancel {
+        background-color: rgba(255, 68, 0, 0.15);
+        border-color: rgba(255, 68, 0, 0.25);
         color: #ff4500;
-        background-color: rgba(255, 68, 0, 0.1);
+        padding: 4px 8px;
 }
 
-.admin .profile .info .text-input .cancel:focus,
-.admin .profile .info .text-input .cancel:hover {
-        background-color: rgba(255, 68, 0, 0.25);
-}
-
-.admin .profile .info .text-input .edit-button .icon {
-        display: grid;
-        place-content: center;
-}
-
-.admin .profile .info .text-input .edit-button .icon img {
-        width: 2vh;
+.row-action-btn.cancel:hover {
+        background-color: rgba(255, 68, 0, 0.2);
 }

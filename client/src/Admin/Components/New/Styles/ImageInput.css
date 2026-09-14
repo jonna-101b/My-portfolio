@@ -1,481 +1,523 @@
 .admin .new.active .wrapper form .image-input {
-        display: grid;
-        gap: 2vh;
+	display: grid;
+	gap: 1.2vh;
 }
 
 .admin .new.active .wrapper form .image-input .label {
-        display: flex;
-        align-items: center;
-        gap: 1vh;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #ededed;
-        width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 1vh;
+	font-size: 0.9rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	color: #ededed;
+	width: fit-content;
 }
 
 .admin .new.active .wrapper form .image-input .label .add-state {
-        display: grid;
-        place-content: center;
-        background-color: #ff4500;
-        border-radius: 2vh;
-        width: 1.25vh;
-        height: 1.25vh;
-        transition: background-color 0.15s linear;
+	display: inline-block;
+	background-color: #ff5e2e;
+	border-radius: 50%;
+	width: 7px;
+	height: 7px;
+	box-shadow: 0 0 6px rgba(255, 94, 46, 0.4);
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .admin .new.active .wrapper form .image-input .label .added {
-        background-color: #c6ff00;
+	background-color: #c6ff00;
+	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
 }
 
 .admin .new.active .wrapper form .image-input .value {
-        display: grid;
-        place-content: center;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
-        width: 100%;
-        aspect-ratio: 16/9;
-        height: fit-content;
-        overflow: hidden;
-        position: relative;
+	display: grid;
+	place-content: center;
+	background-color: #131313;
+	border: 1px solid #262626;
+	border-radius: 14px;
+	width: 100%;
+	aspect-ratio: 16/9;
+	height: fit-content;
+	overflow: hidden;
+	position: relative;
+	transition: border-color 0.2s ease;
+}
+
+.admin .new.active .wrapper form .image-input .value:hover {
+	border-color: #383838;
 }
 
 .admin .new.active .wrapper form .image-input .value img {
-        width: 100%;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .admin .new.active .wrapper form .image-input .value .backup {
-        place-self: center;
-        width: fit-content;
-        height: 40%;
+	place-self: center;
+	width: auto;
+	max-height: 45%;
+	object-fit: contain;
 }
 
 .admin .new.active .wrapper form .image-input .value .upload-button {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        background-color: #202020;
-        border-radius: 2vh;
-        position: absolute;
-        left: 2vh;
-        bottom: 2vh;
-        overflow: hidden;
-        cursor: pointer;
+	display: flex;
+	background-color: rgba(23, 23, 23, 0.85);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	border: 1px solid #262626;
+	border-radius: 10px;
+	position: absolute;
+	left: 1.5vh;
+	bottom: 1.5vh;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+	transition: all 0.2s ease;
+}
+
+.admin .new.active .wrapper form .image-input .value .upload-button:hover {
+	border-color: #c6ff00;
+	background-color: #171717;
 }
 
 .admin .new.active .wrapper form .image-input .value .upload-button p {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        padding: 0.75vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
+	display: flex;
+	align-items: center;
+	gap: 0.8vh;
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: #ededed;
+	padding: 0.8vh 1.6vh;
+	transition: all 0.15s ease;
 }
 
 .admin .new.active .wrapper form .image-input .value .upload-button p:focus,
 .admin .new.active .wrapper form .image-input .value .upload-button p:hover {
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
+	color: #c6ff00;
+}
+
+.admin .new.active .wrapper form .image-input .value .upload-button p .icon {
+	display: grid;
+	place-content: center;
+	position: relative;
+}
+
+.admin .new.active .wrapper form .image-input .value .upload-button p .icon img {
+	width: 1.8vh;
+	height: 1.8vh;
+	object-fit: contain;
+	transition: opacity 0.15s linear;
+}
+
+.admin .new.active .wrapper form .image-input .value .upload-button p .icon .hover {
+	position: absolute;
+	place-self: center;
+	opacity: 0;
 }
 
 .admin .new.active .wrapper form .image-input .value .upload-button p:focus .icon .main,
 .admin .new.active .wrapper form .image-input .value .upload-button p:hover .icon .main {
-        opacity: 0;
+	opacity: 0;
 }
 
 .admin .new.active .wrapper form .image-input .value .upload-button p:focus .icon .hover,
 .admin .new.active .wrapper form .image-input .value .upload-button p:hover .icon .hover {
-        opacity: 1;
+	opacity: 1;
 }
 
-.admin .new.active .wrapper form .image-input .value .upload-button p .icon {
-        display: grid;
-        place-content: center;
-        position: relative;
-}
-
-.admin .new.active .wrapper form .image-input .value .upload-button p .icon img {
-        width: 2.5vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .new.active .wrapper form .image-input .value .upload-button p .icon .hover {
-        position: absolute;
-        place-self: center;
-        opacity: 0;
-}
-
-
+/* Upload Dropzone */
 .admin .new.active .wrapper form .image-input .upload {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        border: 4px dashed #000;
-        border-radius: 2vh;
-        width: 100%;
-        aspect-ratio: 16/9;
-        height: fit-content;
-        transition: background-color 0.15s linear, border-color 0.15s linear;
-        position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1.2vh;
+	border: 2px dashed #262626;
+	background-color: #131313;
+	border-radius: 14px;
+	width: 100%;
+	aspect-ratio: 16/9;
+	height: fit-content;
+	padding: 2.5vh;
+	transition: all 0.2s ease;
+	position: relative;
 }
 
 .admin .new.active .wrapper form .image-input .upload .icon {
-        display: grid;
-        place-content: center;
-        position: relative;
+	display: grid;
+	place-content: center;
+	position: relative;
 }
 
 .admin .new.active .wrapper form .image-input .upload .icon img {
-        width: 10vh;
-        transition: opacity 0.15s linear;
+	width: 6vh;
+	height: 6vh;
+	object-fit: contain;
+	transition: opacity 0.15s linear;
 }
 
 .admin .new.active .wrapper form .image-input .upload .icon .drop {
-        position: absolute;
-        place-self: center;
-        opacity: 0;
+	position: absolute;
+	place-self: center;
+	opacity: 0;
 }
 
 .admin .new.active .wrapper form .image-input .upload .drop-active .drop {
-        opacity: 1;
+	opacity: 1;
 }
 
 .admin .new.active .wrapper form .image-input .upload p {
-        display: grid;
-        place-content: center;
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: #000;
+	font-size: 0.85rem;
+	color: #ededed;
 }
 
 .admin .new.active .wrapper form .image-input .upload .drag {
-        font-size: 1.125rem;
+	font-size: 0.95rem;
+	font-weight: 500;
+	color: #ededed;
+}
+
+.admin .new.active .wrapper form .image-input .upload .or {
+	font-size: 0.75rem;
+	color: #666666;
 }
 
 .admin .new.active .wrapper form .image-input .upload .browse {
-        align-self: center;
-        display: flex;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        font-weight: normal;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border: none;
-        border-radius: 2vh;
-        width: fit-content;
-        padding: 0.75vh 3vh;
-        transition: background-color 0.15s linear;
-        cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.8vh;
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: #111111;
+	background-color: #ededed;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	padding: 0.6vh 2vh;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	user-select: none;
 }
 
 .admin .new.active .wrapper form .image-input .upload .browse:focus, 
 .admin .new.active .wrapper form .image-input .upload .browse:hover {
-        background-color: #c6ff00;
+	background-color: #c6ff00;
+	color: #111111;
+	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.3);
 }
 
 .admin .new.active .wrapper form .image-input .upload .browse .icon {
-        display: grid;
-        place-content: center;
+	display: grid;
+	place-content: center;
 }
 
 .admin .new.active .wrapper form .image-input .upload .browse .icon img {
-        width: 2.25vh;
+	width: 1.8vh;
+	height: 1.8vh;
+	object-fit: contain;
 }
 
 .admin .new.active .wrapper form .image-input .upload .detail {
-        font-size: 0.75rem;
+	font-size: 0.75rem;
+	color: #666666;
 }
 
 .admin .new.active .wrapper form .image-input .upload .cancel {
-        place-self: center;
-        display: flex;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        font-weight: normal;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border: none;
-        border-radius: 2vh;
-        width: fit-content;
-        padding: 0.75vh 3vh;
-        transition: background-color 0.15s linear;
-        cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.6vh;
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: #ff5e2e;
+	background-color: rgba(255, 69, 0, 0.1);
+	border: 1px solid rgba(255, 69, 0, 0.25);
+	border-radius: 8px;
+	padding: 0.5vh 1.6vh;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	user-select: none;
 }
 
 .admin .new.active .wrapper form .image-input .upload .cancel:focus, 
 .admin .new.active .wrapper form .image-input .upload .cancel:hover {
-        background-color: #ff4500;
+	background-color: rgba(255, 69, 0, 0.2);
+	border-color: #ff5e2e;
 }
 
 .admin .new.active .wrapper form .image-input .upload .cancel .icon {
-        display: grid;
-        place-content: center;
+	display: grid;
+	place-content: center;
 }
 
 .admin .new.active .wrapper form .image-input .upload .cancel .icon img {
-        width: 1.75vh;
+	width: 1.4vh;
+	height: 1.4vh;
+	object-fit: contain;
 }
 
-/* Profile picture */
-
+/* Profile Picture Mode */
 .admin .new.active .wrapper form .image-input .label.profile {
-        display: flex;
-        flex-direction: row;
-        justify-self: center;
-        height: fit-content;
-        padding: 0;
+	display: flex;
+	flex-direction: row;
+	justify-self: center;
+	height: fit-content;
+	padding: 0;
 }
 
 .admin .new.active .wrapper form .image-input .value.profile {
-        justify-self: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border: 4px solid #0b0d0e;
-        border-radius: 50%;
-        width: 32vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        padding: 0;
-        overflow: visible;
-        position: relative;
+	justify-self: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #131313;
+	border: 3px solid #262626;
+	border-radius: 50%;
+	width: 24vh;
+	aspect-ratio: 1;
+	height: fit-content;
+	padding: 0;
+	overflow: visible;
+	position: relative;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .admin .new.active .wrapper form .image-input .value.profile .preview-image {
-        width: 100%;
-        /* height: 32vh; */
-        border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 .admin .new.active .wrapper form .image-input .value.profile .backup {
-        place-self: center;
-        width: fit-content;
-        height: 65%;
-        border-radius: 0;
+	place-self: center;
+	width: 50%;
+	height: 50%;
+	border-radius: 0;
+	object-fit: contain;
 }
 
-
 .admin .new.active .wrapper form .image-input .value.profile .upload-button {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        background-color: #202020;
-        border: 3px solid #0b0d0e;
-        border-radius: 50%;
-        position: absolute;
-        left: calc(75% - 3px);
-        top: calc(75% - 3px);
-        width: calc(6vh + 3px);
-        height: calc(6vh + 3px);
-        overflow: hidden;
-        cursor: pointer;
+	display: grid;
+	place-content: center;
+	background-color: #171717;
+	border: 2px solid #262626;
+	border-radius: 50%;
+	position: absolute;
+	left: calc(75% - 4px);
+	top: calc(75% - 4px);
+	width: 5.5vh;
+	height: 5.5vh;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+	transition: all 0.2s ease;
+}
+
+.admin .new.active .wrapper form .image-input .value.profile .upload-button:hover {
+	border-color: #c6ff00;
+	transform: scale(1.05);
 }
 
 .admin .new.active .wrapper form .image-input .value.profile .upload-button p {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        width: calc(6vh + 3px);
-        height: calc(6vh + 3px);
-        padding: 0;
-        transition: background-color 0.15s linear, color 0.15s linear;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 0;
 }
 
 .admin .new.active .wrapper form .image-input .value.profile .upload-button p .icon {
-        width: calc(6vh + 3px);
-        height: calc(6vh + 3px);
+	width: 100%;
+	height: 100%;
 }
 
 .admin .new.active .wrapper form .image-input .upload.profile {
-        justify-self: center;
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        border-radius: 50%;
-        width: 32vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        overflow: visible;
-        position: relative;
+	justify-self: center;
+	display: grid;
+	place-content: center;
+	gap: 1vh;
+	border: 2px dashed #262626;
+	background-color: #131313;
+	border-radius: 50%;
+	width: 24vh;
+	aspect-ratio: 1;
+	height: fit-content;
+	overflow: visible;
+	position: relative;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .admin .new.active .wrapper form .image-input .upload.profile .upload-icon img {
-        width: 8vh;
+	width: 5vh;
+	height: 5vh;
 }
 
 .admin .new.active .wrapper form .image-input .upload.profile .drag {
-        font-size: 1rem;
-        text-align: center;
+	font-size: 0.85rem;
+	text-align: center;
 }
 
 .admin .new.active .wrapper form .image-input .upload.profile .browse {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        right: 75%;
-        top: 75%;
-        width: 6vh;
-        height: 6vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
+	display: grid;
+	place-content: center;
+	border-radius: 50%;
+	position: absolute;
+	right: 75%;
+	top: 75%;
+	width: 5vh;
+	height: 5vh;
+	padding: 0;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .admin .new.active .wrapper form .image-input .upload.profile .cancel {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        left: 75%;
-        top: 75%;
-        width: 6vh;
-        height: 6vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
+	display: grid;
+	place-content: center;
+	border-radius: 50%;
+	position: absolute;
+	left: 75%;
+	top: 75%;
+	width: 5vh;
+	height: 5vh;
+	padding: 0;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
-/* Icon image */
 
+/* Icon Mode */
 .admin .new.active .wrapper form .image-input .label.icon {
-        display: flex;
-        flex-direction: row;
-        justify-self: center;
-        height: fit-content;
-        padding: 0;
+	display: flex;
+	flex-direction: row;
+	justify-self: center;
+	height: fit-content;
+	padding: 0;
 }
 
 .admin .new.active .wrapper form .image-input .value.icon {
-        justify-self: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border: 4px solid #0b0d0e;
-        border-radius: 50%;
-        width: 32vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        padding: 0;
-        overflow: visible;
-        position: relative;
+	justify-self: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #131313;
+	border: 3px solid #262626;
+	border-radius: 50%;
+	width: 24vh;
+	aspect-ratio: 1;
+	height: fit-content;
+	padding: 0;
+	overflow: visible;
+	position: relative;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .admin .new.active .wrapper form .image-input .value.icon .preview-image {
-        width: 75%;
+	width: 65%;
+	height: 65%;
+	object-fit: contain;
 }
 
 .admin .new.active .wrapper form .image-input .value.icon .backup {
-        place-self: center;
-        width: fit-content;
-        height: 65%;
-        border-radius: 0;
+	place-self: center;
+	width: 50%;
+	height: 50%;
+	border-radius: 0;
+	object-fit: contain;
 }
 
-
 .admin .new.active .wrapper form .image-input .value.icon .upload-button {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        background-color: #202020;
-        border: 3px solid #0b0d0e;
-        border-radius: 50%;
-        position: absolute;
-        left: calc(75% - 3px);
-        top: calc(75% - 3px);
-        width: calc(6vh + 3px);
-        height: calc(6vh + 3px);
-        overflow: hidden;
-        cursor: pointer;
+	display: grid;
+	place-content: center;
+	background-color: #171717;
+	border: 2px solid #262626;
+	border-radius: 50%;
+	position: absolute;
+	left: calc(75% - 4px);
+	top: calc(75% - 4px);
+	width: 5.5vh;
+	height: 5.5vh;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+	transition: all 0.2s ease;
+}
+
+.admin .new.active .wrapper form .image-input .value.icon .upload-button:hover {
+	border-color: #c6ff00;
+	transform: scale(1.05);
 }
 
 .admin .new.active .wrapper form .image-input .value.icon .upload-button p {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        width: calc(6vh + 3px);
-        height: calc(6vh + 3px);
-        padding: 0;
-        transition: background-color 0.15s linear, color 0.15s linear;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 0;
 }
 
 .admin .new.active .wrapper form .image-input .value.icon .upload-button p .icon {
-        width: calc(6vh + 3px);
-        height: calc(6vh + 3px);
+	width: 100%;
+	height: 100%;
 }
 
 .admin .new.active .wrapper form .image-input .upload.icon {
-        justify-self: center;
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        border-radius: 50%;
-        width: 32vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        overflow: visible;
-        position: relative;
+	justify-self: center;
+	display: grid;
+	place-content: center;
+	gap: 1vh;
+	border: 2px dashed #262626;
+	background-color: #131313;
+	border-radius: 50%;
+	width: 24vh;
+	aspect-ratio: 1;
+	height: fit-content;
+	overflow: visible;
+	position: relative;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .admin .new.active .wrapper form .image-input .upload.icon .upload-icon img {
-        width: 8vh;
+	width: 5vh;
+	height: 5vh;
 }
 
 .admin .new.active .wrapper form .image-input .upload.icon .drag {
-        place-self: center;
-        font-size: 1rem;
-        text-align: center;
-        width: 60%;
+	place-self: center;
+	font-size: 0.85rem;
+	text-align: center;
+	width: 70%;
 }
 
 .admin .new.active .wrapper form .image-input .upload.icon .browse {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        right: 75%;
-        top: 75%;
-        width: 6vh;
-        height: 6vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
+	display: grid;
+	place-content: center;
+	border-radius: 50%;
+	position: absolute;
+	right: 75%;
+	top: 75%;
+	width: 5vh;
+	height: 5vh;
+	padding: 0;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .admin .new.active .wrapper form .image-input .upload.icon .cancel {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        left: 75%;
-        top: 75%;
-        width: 6vh;
-        height: 6vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
+	display: grid;
+	place-content: center;
+	border-radius: 50%;
+	position: absolute;
+	left: 75%;
+	top: 75%;
+	width: 5vh;
+	height: 5vh;
+	padding: 0;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }

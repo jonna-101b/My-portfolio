@@ -1,107 +1,153 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginAdmin } from '../api/AdminAuthApi';
-
-const ADMIN_AUTH_STORAGE_KEY = 'admin-auth-session';
-const ADMIN_AUTH_SESSION_KEY = 'admin-auth-session-memory';
+import { createContext, useReducer, useEffect } from 'react';
+import { getUser as getUserApi, refreshToken as refreshTokenApi } from '../api/AdminAuthApi';
 
 export const AdminAuthContext = createContext(null);
 
-function readStoredSession() {
-  if (typeof window === 'undefined') {
-    return null;
+export const initialAuthState = {
+  user: null,
+  isSessionChecked: false,
+  isAuthenticated: false,
+  loading: false,
+  error: null,
+};
+
+export const authReducer = (state, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+    case 'login':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case 'AUTH_SUCCESS':
+    case 'authSuccess':
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+        isSessionChecked: true,
+        loading: false,
+        error: null,
+      };
+
+    case 'AUTH_FAILURE':
+    case 'authFailure':
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        isSessionChecked: true,
+        loading: false,
+        error: action.payload,
+      };
+
+    case 'CHECK_SESSION':
+    case 'checkSession':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case 'SESSION_CHECK_FAILED':
+    case 'sessionCheckFailed':
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        isSessionChecked: true,
+        loading: false,
+        error: action.payload || null,
+      };
+
+    case 'LOGOUT':
+    case 'logout':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case 'LOGOUT_SUCCESS':
+    case 'logoutSuccess':
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        isSessionChecked: true,
+        loading: false,
+        error: null,
+      };
+
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: action.payload ?? true,
+        error: null,
+      };
+
+    case 'SET_ERROR':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case 'CLEAR_ERROR':
+    case 'clearError':
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
   }
-
-  try {
-    const rawSession = window.localStorage.getItem(ADMIN_AUTH_STORAGE_KEY) || window.sessionStorage.getItem(ADMIN_AUTH_SESSION_KEY);
-    if (!rawSession) {
-      return null;
-    }
-
-    const parsedSession = JSON.parse(rawSession);
-    if (!parsedSession?.token || !parsedSession?.email) {
-      return null;
-    }
-
-    const tokenPayload = parsedSession.token.split('.')[1];
-    if (tokenPayload) {
-      const payload = JSON.parse(window.atob(tokenPayload.replace(/-/g, '+').replace(/_/g, '/')));
-      if (payload?.exp && payload.exp * 1000 <= Date.now()) {
-        window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
-        window.sessionStorage.removeItem(ADMIN_AUTH_SESSION_KEY);
-        return null;
-      }
-    }
-
-    return parsedSession;
-  } catch {
-    return null;
-  }
-}
+};
 
 export function AdminAuthContextProvider({ children }) {
-  const [session, setSession] = useState(() => readStoredSession());
-  const [isReady, setIsReady] = useState(false);
-  const navigate = useNavigate();
+  const [state, dispatch] = useReducer(authReducer, initialAuthState);
 
   useEffect(() => {
-    setIsReady(true);
-  }, []);
+    let isMounted = true;
 
-  useEffect(() => {
-    if (!isReady) {
-      return;
-    }
-
-    try {
-      if (session) {
-        const serializedSession = JSON.stringify(session);
-        window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
-        window.sessionStorage.removeItem(ADMIN_AUTH_SESSION_KEY);
-
-        if (session.rememberMe) {
-          window.localStorage.setItem(ADMIN_AUTH_STORAGE_KEY, serializedSession);
-        } else {
-          window.sessionStorage.setItem(ADMIN_AUTH_SESSION_KEY, serializedSession);
+    const checkInitialSession = async () => {
+      dispatch({ type: 'CHECK_SESSION' });
+      try {
+        const userData = await getUserApi();
+        if (isMounted) {
+          dispatch({ type: 'AUTH_SUCCESS', payload: userData?.user || userData });
         }
-      } else {
-        window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
-        window.sessionStorage.removeItem(ADMIN_AUTH_SESSION_KEY);
+      } catch (error) {
+        // Attempt token refresh on session failure
+        try {
+          const refreshData = await refreshTokenApi();
+          if (isMounted) {
+            dispatch({ type: 'AUTH_SUCCESS', payload: refreshData?.user || refreshData });
+          }
+        } catch {
+          if (isMounted) {
+            dispatch({ type: 'SESSION_CHECK_FAILED', payload: null });
+          }
+        }
       }
-    } catch {
-      // Ignore storage failures and keep the in-memory session active.
-    }
-  }, [isReady, session]);
-
-  const login = async (credentials) => {
-    const authData = await loginAdmin(credentials);
-    const nextSession = {
-      token: authData.token,
-      email: authData.email,
-      role: authData.role,
-      rememberMe: Boolean(credentials.rememberMe),
     };
 
-    setSession(nextSession);
-    return nextSession;
-  };
+    checkInitialSession();
 
-  const logout = () => {
-    setSession(null);
-    navigate('/admin/login', { replace: true });
-  };
-
-  const value = useMemo(() => ({
-    session,
-    isAuthenticated: Boolean(session?.token),
-    isReady,
-    login,
-    logout,
-  }), [isReady, session]);
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
-    <AdminAuthContext.Provider value={value}>
+    <AdminAuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AdminAuthContext.Provider>
   );
 }
+
+export const AuthContext = AdminAuthContext;
+export const AuthContextProvider = AdminAuthContextProvider;

@@ -64,7 +64,7 @@
         box-shadow: var(--shadow);
         width: 27.5vw;
         transition: background-color 0.15s linear;
-        overflow:hidden;
+        overflow: hidden;
         position: relative;
 }
 
@@ -81,7 +81,7 @@
 .projects-preview .projects .project .image {
         display: grid;
         place-content: center;
-        background-color: var(--bg);
+        background-color: var(--bg-dark);
         width: 100%;
         height: fit-content;
         aspect-ratio: 16 / 9;
@@ -117,16 +117,22 @@
         width: 5vh;
         height: 5vh;
         cursor: pointer;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
 }
 
 .projects-preview .projects .project .image .detail:focus,
 .projects-preview .projects .project .image .detail:hover {
         background-color: var(--button-hover-soft);
+        transform: translateY(-1.5px);
 }
 
 .projects-preview .projects .project .image .detail img {
         width: 2.25vh;
+}
+
+.projects-preview .projects .project .image .detail .info-icon {
+        font-size: 3.25vh;
+        color: var(--icon-opt-2);
 }
 
 .projects-preview .projects .project .image img {
@@ -185,11 +191,17 @@
         justify-content: center;
         align-items: center;
         gap: 2vh;
-        background-color: var(--bg);
+        background-color: var(--surface-strong);
         border: 3px solid var(--surface);
         border-radius: 10vh;
         width: 6vh;
         height: 6vh;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+
+:root[data-theme="light"] .projects-preview .projects .project .techs .tech {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .projects-preview .projects .project .techs .tech img {
@@ -234,22 +246,33 @@
         border-radius: 2vh;
         width: 100%;
         padding: 1vh 0;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
 }
 
 .projects-preview .projects .project .links a img {
-        height: 2.5vh;
+        height: 3vh;
+}
+
+.projects-preview .projects .project .links .github-link .github-icon {
+        font-size: 3vh;
+        color: var(--icon-opt-2);
+}
+
+.projects-preview .projects .project .links .project-link .external-link-icon {
+        font-size: 2.5vh;
+        color: var(--icon-opt-3);
 }
 
 .projects-preview .projects .project .links a:focus,
 .projects-preview .projects .project .links a:hover {
         background-color: var(--button-hover);
+        transform: translateY(-1.5px);
 }
 
 .projects-preview .projects .project .links .github-link {
         color: var(--text);
         background-color: var(--surface-soft);
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
 }
 
 :root[data-theme='light'] .projects-preview .projects .project .links .github-link {
@@ -281,7 +304,7 @@
         border: none;
         border-radius: 2vh;
         padding: 0.75vh 3vh;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
         cursor: pointer;
 }
 
@@ -293,11 +316,13 @@
 .projects-preview .pagination .slide:focus,
 .projects-preview .pagination .slide:hover {
         background-color: var(--button-hover);
+        transform: translateY(-1.5px);
 }
 
 .projects-preview .pagination .slide:disabled:focus,
 .projects-preview .pagination .slide:disabled:hover {
         background-color: var(--button-bg);
+        transform: none;
 }
 
 .projects-preview .pagination .indices {
@@ -324,12 +349,12 @@
         border-radius: 1vh;
         width: 5vh;
         height: 5vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
+        transition: background-color 0.15s linear, color 0.15s linear, transform 0.15s ease;
         cursor: pointer;
 }
 
 :root[data-theme='light'] .projects-preview .pagination .indices .wrapper p {
-        background-color: var(--button-bg);
+        background-color: var(--surface);
 }
 
 :root[data-theme='light'] .projects-preview .pagination .indices .wrapper .focused,
@@ -348,6 +373,18 @@
 .projects-preview .pagination .indices .wrapper .focused:focus,
 .projects-preview .pagination .indices .wrapper .focused:hover {
         background-color: var(--pill-soft);
+}
+
+@keyframes arrow-swing {
+
+        0%,
+        100% {
+                transform: translateX(0);
+        }
+
+        50% {
+                transform: translateX(4px);
+        }
 }
 
 .projects-preview .more {
@@ -376,6 +413,17 @@
         background-color: var(--button-hover);
 }
 
+.projects-preview .more .button:focus .goto-icon,
+.projects-preview .more .button:hover .goto-icon {
+        animation: arrow-swing 0.8s ease-in-out infinite;
+}
+
 .projects-preview .more .button img {
         height: 2vh;
+}
+
+.projects-preview .more .button .goto-icon {
+        font-size: 2.2vh;
+        color: var(--icon-opt-3);
+        transition: transform 0.2s ease;
 }

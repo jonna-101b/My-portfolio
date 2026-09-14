@@ -5,7 +5,7 @@ import useProfileReducer from '../../../Hooks/useProfileReducer';
 import MaleIllustration from '../../../assets/Icons/Home/man.png';
 import MaleLightIllustration from '../../../assets/Icons/Home/man-light.png';
 import FemaleIllustration from '../../../assets/Icons/Home/pharmacist.png';
-import GoToIcon from '../../../assets/Icons/Home/right-arrow with a line.png';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import '../Styles/AboutPreview.css';
 
 function AboutPreview() {
@@ -53,7 +53,7 @@ function AboutPreview() {
                         <div className="more">
                                 <Link className="button" to="/about">
                                         Learn more
-                                        <img src={ GoToIcon } alt="Go to icon" />
+                                        <ArrowForwardRoundedIcon className="goto-icon" />
                                 </Link>
                         </div>
                 </div>

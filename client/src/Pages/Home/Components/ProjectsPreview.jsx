@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import useProjectsReducer from '../../../Hooks/useProjectsReducer';
-import GithubIcon from '../../../assets/Icons/Home/github.png';
-import ExternalLinkIcon from '../../../assets/Icons/Home/external.png';
-import InfoIcon from '../../../assets/Icons/Home/info.png';
-import GoToIcon from '../../../assets/Icons/Home/right-arrow with a line.png';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import SimpleIcon from '../../../Utils/simpleIcons';
 import '../Styles/ProjectsPreview.css';
 
 
@@ -20,7 +21,7 @@ const Project = ({ project }) => {
                                 <p className="contribution">{ project.contribution }</p>
 
                                 <Link className="detail" to={`/projects/${project._id}`}>
-                                        <img src={InfoIcon} alt="Info icon" />
+                                        <InfoOutlinedIcon className="info-icon" />
                                 </Link>
                         </div>
 
@@ -37,7 +38,7 @@ const Project = ({ project }) => {
                         <div className="techs">
                                 { shownTechs.map((tech, index) => (
                                         <p className="tech" key={index} style={{ transform: `translateX(${-3 * index}vh)`, zIndex: 4-index }} >
-                                                <img src={tech.icon} />
+                                                <SimpleIcon name={tech.icon || tech.name} size="2.5vh" color="var(--icon-opt-1)" />
                                         </p>
                                 )) }
 
@@ -47,12 +48,12 @@ const Project = ({ project }) => {
                         <div className="links">
                                 <a className="github-link" href={project.githubLink} target="_blank" >
                                         Github repo
-                                        <img src={ GithubIcon } alt="Github logo" className="main" />
+                                        <GitHubIcon className="github-icon" />
                                 </a>
 
                                 <a className="project-link"  href={project.projectLink} target="_blank" >
                                         View project
-                                        <img src={ ExternalLinkIcon } alt="External link Icon" />
+                                        <LaunchRoundedIcon className="external-link-icon" />
                                 </a>
                         </div>
                 </div>
@@ -173,7 +174,7 @@ function ProjectsPreview() {
                         <div className="more">
                                 <Link className="button" to="/projects">
                                         View all projects
-                                        <img src={ GoToIcon } alt="Go to icon" />
+                                        <ArrowForwardRoundedIcon className="goto-icon" />
                                 </Link>
                         </div>
                 </div>

@@ -15,12 +15,9 @@ import Contacts from './Components/Contacts/Contacts';
 import Footer from './Components/Footer/Footer';
 import Home from './Pages/Home/Home';
 import About from './Pages/About/About';
-import Skills from './Pages/Skills/Skills';
 import Projects from './Pages/Projects/Projects';
-// import Testimonials from './Pages/Testimonials/Testimonials';
-// import Blog from './Pages/Articles/Articles';
-// import PageContacts from './Pages/Contacts/Contacts';
 import DottedBackground from './assets/Images/Background/DottedBackground';
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import ServerNotification from './Components/ServerNotification/ServerNotification';
 import Admin from './Admin/Admin';
 import './App.css';
@@ -81,14 +78,15 @@ function App() {
                                                                                                 <ThemeContextProvider>
                                                                                                         <div className="app">
                                                                                                                 <BrowserRouter>
-                                                                                                                                        <AdminAuthContextProvider>
-                                                                                                                                        <Routes>
-                                                                                                                                                <Route path="/*" element={<MainLayout />} />
+                                                                                                                        <ScrollToTop />
+                                                                                                                        <AdminAuthContextProvider>
+                                                                                                                        <Routes>
+                                                                                                                                <Route path="/*" element={<MainLayout />} />
 
-                                                                                                                                                <Route path="/admin/*" element={<Admin />} />
-                                                                                                                                        </Routes>
-                                                                                                                                        </AdminAuthContextProvider>
-                                                                                                                                </BrowserRouter>
+                                                                                                                                <Route path="/admin/*" element={<Admin />} />
+                                                                                                                        </Routes>
+                                                                                                                        </AdminAuthContextProvider>
+                                                                                                                </BrowserRouter>
                                                                                                         </div>
                                                                                                 </ThemeContextProvider>
 

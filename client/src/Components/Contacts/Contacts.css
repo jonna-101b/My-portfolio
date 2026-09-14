@@ -50,6 +50,11 @@
         width: 4vh;
 }
 
+.contacts .get-in-touch .contact .icon .contact-icon {
+        font-size: 4vh;
+        color: var(--icon-opt-1);
+}
+
 .contacts .get-in-touch .contact .details {
         display: grid;
         gap: 1vh;
@@ -118,11 +123,12 @@
         border-radius: 2vh;
         text-align: center;
         padding: 2vh 0;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease;
         cursor: pointer;
 }
 
 .contacts .form form button:focus,
 .contacts .form form button:hover {
         background-color: var(--button-hover);
+        transform: translateY(-1.5px);
 }

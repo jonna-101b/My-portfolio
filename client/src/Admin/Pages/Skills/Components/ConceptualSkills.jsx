@@ -9,6 +9,8 @@ import EditHoverIcon from '../../../../assets/Icons/Admin/Common/edit-hover.png'
 import DeleteIcon from '../../../../assets/Icons/Admin/Common/delete.png';
 import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/delete-hover.png';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/star-shadow.png';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { conceptualForm } from './Form';
 import '../Styles/ConceptualSkills.css';
 
@@ -48,7 +50,7 @@ function Skill({ skill }) {
                                 <p className="title">{ skill.title }</p>
                         </div>
 
-                        <div className="actions">
+                        {/* <div className="actions">
                                 <p className="edit-button" onClick={handleEdit} >
                                         <img src={EditIcon} alt="Edit icon" className="main" />
                                         <img src={EditHoverIcon} alt="Edit icon" className="hover" />
@@ -58,9 +60,21 @@ function Skill({ skill }) {
                                         <img src={DeleteIcon} alt="Delete icon" className="main" />
                                         <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
                                 </p>
-                        </div>
+                        </div> */}
 
                         <p className="description">{ skill.description }</p>
+
+                        <p className="horizontal-line"></p>
+
+                        <div className="actions">
+                                <p className="edit-button" onClick={handleEdit} >
+                                        <EditOutlinedIcon />
+                                </p>
+
+                                <p className="delete-button" onClick={handleDelete} >
+                                        <DeleteOutlineOutlinedIcon />
+                                </p>
+                        </div>
                 </div>
         );
 }
@@ -81,7 +95,7 @@ function ConceptualSkills() {
                                 <span className="icon">
                                         <img src={AddIcon} alt="Add icon" />
                                 </span>
-                                New technical skill
+                                New Conceptual Skill
                         </p>
 
                         <div className="grid">

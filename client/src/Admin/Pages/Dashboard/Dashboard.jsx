@@ -3,32 +3,27 @@ import ProfileSection from './Components/ProfileSection';
 import QuickActionsSection from './Components/QuickActionsSection';
 import StatisticsSection from './Components/StatisticsSection';
 import PortfolioLinkSection from './Components/PortfolioLinkSection';
+import ViewerReactionsSection from './Components/ViewerReactionsSection';
 import RecentActivitySection from './Components/RecentActivitySection';
-import RecentNotificationsSection from './Components/RecentNotificationsSection';
 import './Dashboard.css';
-
 
 function Dashboard() {
         return (
                 <div className="dashboard">
-                        <TopView  page={"Dashboard"}/>
+                        <TopView page="Dashboard" subtitle="Welcome back to your workspace." />
 
-                        <div className="content">
-                                <div className="dash-main">
+                        <div className="dashboard-content-grid">
+                                <main className="dash-main-col">
                                         <ProfileSection />
-
                                         <QuickActionsSection />
-
                                         <StatisticsSection />
-                                </div>
+                                </main>
 
-                                <div className="dash-side">
+                                <aside className="dash-side-col">
                                         <PortfolioLinkSection />
-
+                                        <ViewerReactionsSection />
                                         <RecentActivitySection />
-
-                                        <RecentNotificationsSection />
-                                </div>
+                                </aside>
                         </div>
                 </div>
         );

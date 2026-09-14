@@ -63,14 +63,18 @@
 .skills-preview .technical-skills .skills p {
         font-size: 0.875rem;
         color: var(--text-muted);
-        background-color: var(--panel-strong);
+        background-color: var(--panel);
         border-radius: 10vh;
-        padding: 0.5vh 3vh ;
+        padding: 0.5vh 3vh;
         cursor: pointer;
-        transition: color 0.15s linear, background-color 0.15s linear;
+        transition: color 0.15s linear, background-color 0.15s linear, transform 0.15s ease;
 }
 
-.skills-preview .technical-skills .skills p:focus, 
+root[data-theme='light'] .skills-preview .technical-skills .skills p {
+        background-color: var(--panel-strong);
+}
+
+.skills-preview .technical-skills .skills p:focus,
 .skills-preview .technical-skills .skills p:hover {
         color: var(--text);
         background-color: var(--surface-soft);
@@ -89,10 +93,10 @@
 }
 
 :root[data-theme='light'] .skills-preview .technical-skills .skills .focused {
-        background-color: var(--bg);
+        background-color: var(--button-bg);
 }
 
-.skills-preview .technical-skills .skills .focused:focus, 
+.skills-preview .technical-skills .skills .focused:focus,
 .skills-preview .technical-skills .skills .focused:hover {
         color: var(--text-ink);
         background-color: var(--button-bg);
@@ -100,7 +104,7 @@
 
 :root[data-theme='light'] .skills-preview .technical-skills .skills .focused:focus,
 :root[data-theme='light'] .skills-preview .technical-skills .skills .focused:hover {
-        background-color: var(--bg);
+        background-color: var(--button-bg);
 }
 
 .skills-preview .technical-skills .techs {
@@ -135,9 +139,15 @@
         place-content: center;
 }
 
-.skills-preview .technical-skills .techs .tech .icon img {
-        width: 12vh;
-        height: 12vh;
+.skills-preview .technical-skills .techs .tech .icon img,
+.skills-preview .technical-skills .techs .tech .icon svg {
+        width: 10vh;
+        height: 10vh;
+        transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+.skills-preview .technical-skills .techs .tech:hover .icon svg {
+        transform: scale(1.08);
 }
 
 .skills-preview .technical-skills .techs .tech .name {
@@ -198,6 +208,7 @@
         from {
                 transform: translateX(0);
         }
+
         to {
                 transform: translateX(-50%);
         }

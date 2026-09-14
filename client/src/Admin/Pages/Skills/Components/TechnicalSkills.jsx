@@ -1,106 +1,221 @@
-import { useContext } from 'react';
+import { useState, useContext, useMemo } from 'react';
 import { NewContext } from '../../../Components/New/Context/NewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
 import useTechnicalSkillsReducer from '../../../../Hooks/useTechnicalSkillsReducer';
 import AddIcon from '../../../../assets/Icons/Admin/Common/plus.png';
-import EditIcon from '../../../../assets/Icons/Admin/Common/edit.png';
-import EditHoverIcon from '../../../../assets/Icons/Admin/Common/edit-hover.png';
-import DeleteIcon from '../../../../assets/Icons/Admin/Common/delete.png';
-import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/delete-hover.png';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/star-shadow.png';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import SimpleIcon from '../../../../Utils/simpleIcons';
 import { technicalForm } from './Form';
 import '../Styles/TechnicalSkills.css';
 
+function TechBadge({ tech, onEdit, onDelete }) {
+	return (
+		<div className="admin-tech-item">
+			<div className="admin-tech-info">
+				<span className="admin-tech-icon">
+					<SimpleIcon name={tech.icon || tech.name} size="20px" color="#c6ff00" />
+				</span>
+				<span className="admin-tech-name">{tech.name}</span>
+			</div>
+			<div className="admin-tech-actions">
+				<button
+					type="button"
+					className="admin-mini-action edit"
+					onClick={(e) => {
+						e.stopPropagation();
+						onEdit(tech);
+					}}
+					title={`Edit ${tech.name}`}
+				>
+					<EditOutlinedIcon fontSize="small" />
+				</button>
+				<button
+					type="button"
+					className="admin-mini-action delete"
+					onClick={(e) => {
+						e.stopPropagation();
+						onDelete(tech);
+					}}
+					title={`Delete ${tech.name}`}
+				>
+					<DeleteOutlineOutlinedIcon fontSize="small" />
+				</button>
+			</div>
+		</div>
+	);
+}
 
+function CategoryCard({ category, onNewTech }) {
+	const { setEdit } = useContext(EditContext);
+	const { setAction } = useContext(NotifyContext);
+	const { deleteSkill } = useTechnicalSkillsReducer();
+	const [showAllModal, setShowAllModal] = useState(false);
 
-function Skill({ skill }) {
-        // const { setView } = useContext(ViewContext);
-        const { setEdit } = useContext(EditContext);
-        const { setAction } = useContext(NotifyContext);
-        const { deleteSkill } = useTechnicalSkillsReducer();
+	const techStack = category.techStack || [];
+	const previewTechs = techStack.slice(0, 4);
+	const remainingCount = techStack.length > 4 ? techStack.length - 4 : 0;
 
-        const techStack = skill.techStack.slice(0, 4);
-        const skillLength = skill.techStack.length - 4 > 0 ? skill.techStack.length-4 : 0;
+	const handleEdit = (tech) => {
+		setEdit(technicalForm(tech));
+	};
 
-        const handleEdit = () => {
-                setEdit(technicalForm(skill));
-        };
+	const handleDelete = async (tech) => {
+		try {
+			await deleteSkill(tech._id);
+			if (setAction) {
+				setAction({ type: "delete", component: "skill", name: tech.name });
+			}
+		} catch (error) {
+			console.error("Error deleting technical skill in admin:", error);
+			if (setAction) {
+				setAction({
+					type: "error",
+					component: "skill",
+					message: error?.message || `Failed to delete ${tech.name}`,
+				});
+			}
+		}
+	};
 
-        const handleDelete = async () => {
-                try {
-                        await deleteSkill(skill._id);
-                        setAction({ type: "delete", component: "skill", name: skill.title });
-                } catch (error) {
-                        console.error("Error deleting technical skill in admin:", error);
-                        setAction({ type: "error", component: "skill", message: error?.message || "Failed to delete skill" });
-                }
-        };
+	return (
+		<>
+			<div className="skill">
+				<p className="shadow">
+					<img src={ShadowIcon} alt="Shadow icon" />
+				</p>
 
+				<p className="title">{category.label}</p>
 
-        return (
-                <div className="skill">
-                        <p className="shadow">
-                                <img src={ShadowIcon} alt="Shadow icon" />
-                        </p>
+				<div className="tech-stack">
+					{previewTechs.map((tech, index) => (
+						<p style={{ left: `-${index * 2}vh`, zIndex: 4 - index }} key={tech._id || index}>
+							<SimpleIcon name={tech.icon || tech.name} size="2.5vh" color="#c6ff00" />
+						</p>
+					))}
 
-                        <p className="title">{ skill.title }</p>
+					{remainingCount > 0 ? <p className="more">+{remainingCount}</p> : null}
+				</div>
 
-                        <div className="tech-stack">
-                                { techStack.map((tech, index) => (
-                                        <p style={{ left: `-${index * 2}vh`, zIndex: 4-index }} key={index}>
-                                                <img src={tech.icon} />
-                                        </p>
-                                )) }
+				<p className="horizontal-line"></p>
 
-                                { skillLength ? <p className="more" >+{ skillLength }</p> : "" }
-                        </div>
+				<div className="see-all">
+					<p onClick={() => setShowAllModal(true)}>
+						See all techs ({techStack.length})
+					</p>
+				</div>
 
-                        <div className="see-all">
-                                <p className="see-all">See all techs</p>
-                        </div>
+				<div className="actions">
+					<p
+						className="add-button"
+						onClick={() => onNewTech(category.label)}
+						title={`Add tech to ${category.label}`}
+					>
+						<AddCircleOutlineOutlinedIcon />
+					</p>
+				</div>
+			</div>
 
-                        <div className="actions">
-                                <p className="edit-button" onClick={handleEdit} >
-                                        <img src={EditIcon} alt="Edit icon" className="main" />
-                                        <img src={EditHoverIcon} alt="Edit icon" className="hover" />
-                                </p>
+			{showAllModal && (
+				<div className="admin-tech-modal-overlay" onClick={() => setShowAllModal(false)}>
+					<div className="admin-tech-modal" onClick={(e) => e.stopPropagation()}>
+						<div className="admin-tech-modal-header">
+							<h3>{category.label} Technologies ({techStack.length})</h3>
+							<button
+								type="button"
+								className="admin-modal-close"
+								onClick={() => setShowAllModal(false)}
+							>
+								<CloseOutlinedIcon />
+							</button>
+						</div>
 
-                                <p className="delete-button" onClick={handleDelete} >
-                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
-                                </p>
-                        </div>
-                </div>
-        );
+						<div className="admin-tech-modal-list">
+							{techStack.map((tech) => (
+								<TechBadge
+									key={tech._id || tech.name}
+									tech={tech}
+									onEdit={handleEdit}
+									onDelete={handleDelete}
+								/>
+							))}
+						</div>
+
+						<div className="admin-tech-modal-footer">
+							<button
+								type="button"
+								className="admin-modal-add-btn"
+								onClick={() => {
+									setShowAllModal(false);
+									onNewTech(category.label);
+								}}
+							>
+								<span className="icon">
+									<img src={AddIcon} alt="Add" />
+								</span>
+								Add Tech to {category.label}
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
+	);
 }
 
 function TechnicalSkills() {
-        const { skills } = useTechnicalSkillsReducer();
-        const { setNew } = useContext(NewContext);
+	const { skills = [] } = useTechnicalSkillsReducer();
+	const { setNew } = useContext(NewContext);
 
-        const handleNew = () => {
-                setNew(technicalForm());
-        };
+	// Memoized grouping of technical skills by their label (category)
+	const categorizedSkills = useMemo(() => {
+		if (!Array.isArray(skills) || skills.length === 0) return [];
 
-        return (
-                <div className="technical-skills">
-                        <p className="title">Technical Skills</p>
+		const groups = {};
+		for (const skill of skills) {
+			const category = (skill.label || "Other").trim();
+			if (!groups[category]) {
+				groups[category] = [];
+			}
+			groups[category].push(skill);
+		}
 
-                        <p className="new-skill" onClick={handleNew} >
-                                <span className="icon">
-                                        <img src={AddIcon} alt="Add icon" />
-                                </span>
-                                New technical skill
-                        </p>
+		return Object.keys(groups).map((category) => ({
+			label: category,
+			techStack: groups[category],
+		}));
+	}, [skills]);
 
-                        <div className="grid">
-                                { skills.map((skill, index) => (
-                                        <Skill key={index} skill={skill} />
-                                )) }
-                        </div>
-                </div>
-        );
+	const handleNew = (defaultCategory = "") => {
+		setNew(technicalForm(defaultCategory ? { label: defaultCategory } : null));
+	};
+
+	return (
+		<div className="technical-skills">
+			<p className="title">Technical Skills</p>
+
+			<p className="new-skill" onClick={() => handleNew()}>
+				<span className="icon">
+					<img src={AddIcon} alt="Add icon" />
+				</span>
+				New Technical Skill
+			</p>
+
+			<div className="grid">
+				{categorizedSkills.map((category) => (
+					<CategoryCard
+						key={category.label}
+						category={category}
+						onNewTech={handleNew}
+					/>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default TechnicalSkills;

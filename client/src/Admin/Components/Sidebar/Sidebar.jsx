@@ -1,105 +1,115 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import useProfileReducer from '../../../Hooks/useProfileReducer';
-// Icons
-import DashboardIcon from '../../../assets/Icons/Admin/Sidebar/dashboard.png';
-import QualificationsIcon from '../../../assets/Icons/Admin/Sidebar/medal.png';
-import SkillsIcon from '../../../assets/Icons/Admin/Sidebar/star.png';
-import ProjectsIcon from '../../../assets/Icons/Admin/Sidebar/cube.png';
-import TestimonialsIcon from '../../../assets/Icons/Admin/Sidebar/quote.png';
-import BlogIcon from '../../../assets/Icons/Admin/Sidebar/article.png';
-import SidebarIcon from '../../../assets/Icons/Admin/Sidebar/sidebar.png';
-// Icons for hover
-import DashboardHoverIcon from '../../../assets/Icons/Admin/Sidebar/dashboard-hover.png';
-import QualificationsHoverIcon from '../../../assets/Icons/Admin/Sidebar/medal-hover.png';
-import SkillsHoverIcon from '../../../assets/Icons/Admin/Sidebar/star-hover.png';
-import ProjectsHoverIcon from '../../../assets/Icons/Admin/Sidebar/cube-hover.png';
-import TestimonialsHoverIcon from '../../../assets/Icons/Admin/Sidebar/quote-hover.png';
-import BlogHoverIcon from '../../../assets/Icons/Admin/Sidebar/article-hover.png';
-import SidebarHoverIcon from '../../../assets/Icons/Admin/Sidebar/sidebar-hover.png';
-// Icons for active state
-import DashboardActiveIcon from '../../../assets/Icons/Admin/Sidebar/dashboard-active.png';
-import QualificationsActiveIcon from '../../../assets/Icons/Admin/Sidebar/medal-active.png';
-import SkillsActiveIcon from '../../../assets/Icons/Admin/Sidebar/star-active.png';
-import ProjectsActiveIcon from '../../../assets/Icons/Admin/Sidebar/cube-active.png';
-import TestimonialsActiveIcon from '../../../assets/Icons/Admin/Sidebar/quote-active.png';
-import BlogActiveIcon from '../../../assets/Icons/Admin/Sidebar/article-active.png';
-import SidebarActiveIcon from '../../../assets/Icons/Admin/Sidebar/sidebar-active.png';
-// Icons for active hover
-import SidebarActiveHoverIcon from '../../../assets/Icons/Admin/Sidebar/sidebar-active-hover.png';
+import useAdminAuth from '../../../Hooks/useAdminAuth';
+
+// MUI Icons
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
+import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
+import SchoolIcon from '@mui/icons-material/School';
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 // Styles
 import './Sidebar.css';
 
-
 function NavOption({ option }) {
+        const IconComponent = option.icon;
         return (
-                <NavLink className={({ isActive }) => isActive ? "focused nav-link" : "nav-link"} to={ `/admin/${option.name.toLowerCase()}` }>
+                <NavLink 
+                        className={({ isActive }) => isActive ? "nav-link focused" : "nav-link"} 
+                        to={`/admin/${option.route || option.name.toLowerCase()}`}
+                        title={option.name}
+                >
                         <span className="icon">
-                                <img src={option.icon} alt={`${option.name} icon`} className="main" />
-                                <img src={option.hoverIcon} alt={`${option.name} icon`} className="hover" />
-                                <img src={option.activeIcon} alt={`${option.name} icon`} className="active" />
+                                <IconComponent className="mui-icon" />
                         </span>
 
-                        <p className="name">
-                                { option.name }
-                        </p>
-                </NavLink >
-        )
+                        <span className="name">
+                                {option.name}
+                        </span>
+                </NavLink>
+        );
 }
 
 function Sidebar() {
-        const { profile } = useProfileReducer();
-        const {  firstName, lastName, picture, logo } = profile;
+        const { logout } = useAdminAuth();
+        const [collapsed, setCollapsed] = useState(false);
 
         const navOptions = [
-                { name: "Dashboard", icon: DashboardIcon, hoverIcon: DashboardHoverIcon, activeIcon: DashboardActiveIcon },
-                { name: "Skills", icon: SkillsIcon, hoverIcon: SkillsHoverIcon, activeIcon: SkillsActiveIcon },
-                { name: "Qualifications", icon: QualificationsIcon, hoverIcon: QualificationsHoverIcon, activeIcon: QualificationsActiveIcon },
-                { name: "Projects", icon: ProjectsIcon, hoverIcon: ProjectsHoverIcon, activeIcon: ProjectsActiveIcon },
-                { name: "Testimonials", icon: TestimonialsIcon, hoverIcon: TestimonialsHoverIcon, activeIcon: TestimonialsActiveIcon },
-                { name: "Blog", icon: BlogIcon, hoverIcon: BlogHoverIcon, activeIcon: BlogActiveIcon },
+                { name: "Dashboard", route: "dashboard", icon: SpaceDashboardIcon },
+                { name: "Skills", route: "skills", icon: MilitaryTechIcon },
+                { name: "Qualifications", route: "qualifications", icon: SchoolIcon },
+                { name: "Projects", route: "projects", icon: FolderOutlinedIcon },
+                { name: "Testimonials", route: "testimonials", icon: FormatQuoteIcon },
+                { name: "Blog", route: "blog", icon: ArticleOutlinedIcon },
         ];
-
-        const [ collapsed, setCollapsed ] = useState(false);
 
         const handleCollapse = () => {
                 setCollapsed((prev) => !prev);
-        }
+        };
+
+        const handleLogoutClick = (e) => {
+                e.preventDefault();
+                logout();
+        };
 
         return (
-                <div className={`side-bar ${ collapsed ? "collapsed" : "expanded"}`}>
-                        <div className="top">
-                                <p className="nothing-here"></p>
+                <aside className={`admin-sidebar ${collapsed ? "collapsed" : "expanded"}`}>
+                        <div className="sidebar-header">
+                                <div className="brand-logo" onClick={() => setCollapsed(false)}>
+                                        <span className="brand-accent">Admin</span>
+                                        <span className="brand-white">Workspace</span>
+                                </div>
 
-                                <p className="logo">
-                                        <img src={logo} alt="Logo" />
-                                </p>
-
-                                <p className="layout" onClick={handleCollapse} >
-                                        <img src={SidebarIcon} alt="Sidebar icon" className="main" />
-                                        <img src={SidebarHoverIcon} alt="Sidebar icon" className="hover" />
-                                        <img src={SidebarActiveIcon} alt="Sidebar icon" className="active" />
-                                        <img src={SidebarActiveHoverIcon} alt="Sidebar icon" className="active-hover" />
-                                </p>
+                                <button 
+                                        type="button" 
+                                        className="collapse-btn" 
+                                        onClick={handleCollapse}
+                                        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                                        title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                                >
+                                        {collapsed ? <ChevronRightIcon fontSize="small" /> : <ChevronLeftIcon fontSize="small" />}
+                                </button>
                         </div>
 
-                        <nav>
-                                { navOptions.map((option, index) => (
+                        <nav className="sidebar-nav">
+                                {navOptions.map((option, index) => (
                                         <NavOption option={option} key={index} />
-                                )) }
+                                ))}
                         </nav>
-                        
-                        <NavLink className={({ isActive }) => isActive ? "active profile-bar" : "profile-bar"} to={"/admin/profile"}>
-                                <span className="picture">
-                                        <img src={ picture } alt="Profile picture" />
-                                </span>
 
-                                <span className="info">
-                                        <span className="user-name">{ `${firstName} ${lastName}` }</span>
-                                        <span className="title">Admin</span>
-                                </span>
-                        </NavLink>
-                </div>
+                        <div className="sidebar-footer">
+                                <div className="footer-divider"></div>
+
+                                <NavLink 
+                                        to="/admin/settings" 
+                                        className={({ isActive }) => isActive ? "footer-link focused" : "footer-link"}
+                                        title="Settings"
+                                >
+                                        <span className="icon">
+                                                <SettingsOutlinedIcon className="mui-icon" />
+                                        </span>
+                                        <span className="name">Settings</span>
+                                </NavLink>
+
+                                <button 
+                                        type="button" 
+                                        className="footer-link logout-btn" 
+                                        onClick={handleLogoutClick}
+                                        title="Logout"
+                                >
+                                        <span className="icon">
+                                                <LogoutOutlinedIcon className="mui-icon" />
+                                        </span>
+                                        <span className="name">Logout</span>
+                                </button>
+                        </div>
+                </aside>
         );
 }
 

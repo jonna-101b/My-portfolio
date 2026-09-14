@@ -1,23 +1,22 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { LayoutContext } from '../Contexts/LayoutContext';
 import { ViewContext } from '../Contexts/ViewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
 import { format, formatDistanceToNow } from "date-fns";
 import useProjectsReducer from '../../../../Hooks/useProjectsReducer';
-import EditIcon from '../../../../assets/Icons/Admin/Common/edit.png';
-import EditHoverIcon from '../../../../assets/Icons/Admin/Common/edit-hover.png';
-import DeleteIcon from '../../../../assets/Icons/Admin/Common/delete.png';
-import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/delete-hover.png';
-import ViewIcon from '../../../../assets/Icons/Admin/Common/view.png';
-import ViewHoverIcon from '../../../../assets/Icons/Admin/Common/view-hover.png';
-import ShadowIcon from '../../../../assets/Icons/Admin/Common/cube-shadow.png';
 import useProjectsDisplayReducer from '../Hooks/useProjectsDisplayReducer';
-import '../Styles/MainSection.css';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
+import ShadowIcon from '../../../../assets/Icons/Admin/Common/cube-shadow.png';
+import SimpleIcon from '../../../../Utils/simpleIcons';
 import Form from './Form';
+import '../Styles/MainSection.css';
 
 
-function ProjectLayout({ project }) {
+function ProjectLayout({ project, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
@@ -34,43 +33,117 @@ function ProjectLayout({ project }) {
         const handleDelete = async () => {
                 try {
                         await deleteProject(project._id);
-                        setAction({ type: "delete", component: "project", name: project.title });
+                        if (setAction) {
+                                setAction({ type: "delete", component: "project", name: project.title });
+                        }
                 } catch (error) {
-                        console.error("Error deleting project in admin:", error);
-                        setAction({ type: "error", component: "project", message: error?.message || "Failed to delete project" });
+                        console.error("Error deleting project:", error);
+                        if (setAction) {
+                                setAction({ type: "error", component: "project", message: error?.message || "Failed to delete project" });
+                        }
                 }
         };
 
+        const formatDate = (date) => {
+                try {
+                        return format(new Date(date), "MMMM do, yyyy");
+                } catch {
+                        return "";
+                }
+        };
+
+        const renderTechStack = (techStack) => {
+                if (!techStack || !Array.isArray(techStack) || techStack.length === 0) return null;
+                const visibleTechs = techStack.slice(0, 3);
+                const remainingCount = techStack.length - 3;
+
+                return (
+                        <div className="tech-stack-avatars">
+                                {visibleTechs.map((tech, idx) => {
+                                        const iconSrc = typeof tech === 'object' ? tech?.icon : null;
+                                        const name = typeof tech === 'object' ? tech?.name : tech;
+                                        return (
+                                                <div key={idx} className="tech-avatar" title={name}>
+                                                        <SimpleIcon name={iconSrc || name} size="20px" color="#c6ff00" />
+                                                </div>
+                                        );
+                                })}
+                                {remainingCount > 0 && (
+                                        <div className="tech-avatar remaining-count">
+                                                +{remainingCount}
+                                        </div>
+                                )}
+                        </div>
+                );
+        };
+
+        if (layout) {
+                return (
+                        <div className="project-layout list-layout">
+                                <p className="title">{ project.title }</p>
+                                <p className="contribution"><span>{ project.contribution }</span></p>
+                                <p className="published-on">{ formatDate(project.createdAt) }</p>
+                                <p className="last-updated">{ project.updatedAt ? formatDistanceToNow(new Date(project.updatedAt), {addSuffix: true}) : "" }</p>
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-icon" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn edit-icon" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn delete-icon" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
+                        </div>
+                );
+        }
 
         return (
                 <div className="project-layout">
-                        <p className="shadow">
+                        <div className="shadow">
                                 <img src={ShadowIcon} alt="Shadow icon" />
-                        </p>
-                        
-                        <p className="title">{ project.title }</p>
+                        </div>
 
-                        <p className="contribution"><span>{ project.contribution }</span></p>
+                        <div className="banner-container">
+                                { project.image ? (
+                                        <img src={project.image} alt={project.title} className="banner-image" />
+                                ) : (
+                                        <div className="placeholder-banner">
+                                                <div className="placeholder-icon-box">
+                                                        <CodeOutlinedIcon className="placeholder-icon" />
+                                                </div>
+                                                <span className="placeholder-text">Project Preview</span>
+                                        </div>
+                                )}
+                                { project.contribution && (
+                                        <span className="contribution-badge">{ project.contribution }</span>
+                                )}
+                        </div>
 
-                        <p className="published-on">{ format(project.createdAt, "MMMM do, yyyy") }</p>
+                        <div className="card-middle">
+                                <h3 className="title">{ project.title }</h3>
+                                { renderTechStack(project.techStack) }
+                        </div>
 
-                        <p className="last-updated">{ formatDistanceToNow(project.updatedAt, {addSuffix: true}) }</p>
+                        <div className="card-divider" />
 
-                        <div className="actions">
-                                <p className="view-icon" onClick={handleView}>
-                                        <img src={ViewIcon} alt="View icon" className="main" />
-                                        <img src={ViewHoverIcon} alt="View icon" className="hover" />
-                                </p>
+                        <div className="card-footer">
+                                <p className="date">{ formatDate(project.createdAt) }</p>
 
-                                <p className="edit-icon" onClick={handleEdit}>
-                                        <img src={EditIcon} alt="Edit icon" className="main" />
-                                        <img src={EditHoverIcon} alt="Edit icon" className="hover" />
-                                </p>
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-icon" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
 
-                                <p className="delete-icon" onClick={handleDelete} >
-                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
-                                </p>
+                                        <button type="button" className="action-btn edit-icon" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+
+                                        <button type="button" className="action-btn delete-icon" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
                         </div>
                 </div>
         );
@@ -85,20 +158,16 @@ function MainSection() {
                         { layout ? 
                                 <div className="labels">
                                         <p>Title</p>
-
                                         <p>Contribution</p>
-
                                         <p>Published on</p>
-
                                         <p>Last updated</p>
-
                                         <p>Actions</p>
                                 </div>
                         : "" }
 
                         <div className={ layout ? "list" : "grid" }>
                                 { projects.map((project, index) => (
-                                        <ProjectLayout key={index} project={project} />
+                                        <ProjectLayout key={index} project={project} layout={layout} />
                                 )) }
                         </div>
                 </div>

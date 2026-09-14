@@ -1,0 +1,78 @@
+/* Bio Card Styling */
+
+.bio-card {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+}
+
+.bio-card:hover {
+        border-color: #333333;
+}
+
+.bio-card .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.bio-card .card-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #ededed;
+        margin: 0;
+}
+
+.bio-content-box {
+        position: relative;
+        background-color: #131313;
+        border: 1px solid #262626;
+        border-radius: 14px;
+        padding: 16px 20px;
+        transition: border-color 0.2s ease;
+}
+
+.bio-content-box.editing {
+        border-color: rgba(198, 255, 0, 0.4);
+}
+
+.bio-text {
+        font-size: 0.875rem;
+        color: #ededed;
+        line-height: 1.6;
+        margin: 0;
+        word-break: break-word;
+}
+
+.bio-textarea {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #ededed;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        font-family: inherit;
+        resize: none;
+        padding: 0;
+        margin-bottom: 16px;
+}
+
+.bio-textarea::placeholder {
+        color: #555555;
+}
+
+.char-count {
+        position: absolute;
+        bottom: 8px;
+        right: 14px;
+        font-size: 0.7rem;
+        color: #888888;
+}

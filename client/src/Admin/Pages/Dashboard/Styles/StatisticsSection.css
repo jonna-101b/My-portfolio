@@ -1,23 +1,185 @@
-.statistics-section {
+.statistics-card {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 1.25rem;
+        padding: 1.75rem;
+        padding-inline: 8vh;
         display: flex;
         flex-direction: column;
-        gap: 2vh;
-        height: 50vh;
+        gap: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
 }
 
-.statistics-section .title {
-        font-size: 0.9375rem;
-        font-weight: 600;
+.statistics-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+}
+
+.header-info .card-title {
+        font-size: 1.15rem;
+        font-weight: 700;
         color: #ededed;
+        letter-spacing: -0.01em;
+        margin: 0;
 }
 
-.statistics-section .chart {
-        flex-grow: 1;
+.header-info .card-subtitle {
+        font-size: 0.825rem;
+        color: #888888;
+        margin: 0.2rem 0 0 0;
+}
+
+.sync-badge {
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: #c6ff00;
+        background-color: rgba(198, 255, 0, 0.08);
+        border: 1px solid rgba(198, 255, 0, 0.28);
+        padding: 0.25rem 0.65rem;
+        border-radius: 999px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+}
+
+.chart-main-layout {
         display: grid;
-        place-content: center;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.75rem;
+        align-items: center;
+}
+
+.donut-chart-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 220px;
+        height: 220px;
+}
+
+.donut-center-info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        user-select: none;
+}
+
+.center-count {
+        font-size: 1.85rem;
+        font-weight: 800;
+        color: #ededed;
+        line-height: 1;
+}
+
+.center-label {
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: #888888;
+        letter-spacing: 0.08em;
+        margin-top: 0.25rem;
+}
+
+.chart-legend-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+}
+
+.legend-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 0.75rem;
+        padding: 0.65rem 0.85rem;
+        transition: all 0.2s ease;
+}
+
+.legend-item:hover {
+        border-color: rgba(198, 255, 0, 0.3);
         background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
-        padding: 3vh 5vh;
-        height: 15vh;
+        transform: translateX(2px);
+}
+
+.legend-left {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+}
+
+.legend-color-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+}
+
+.legend-name {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #ededed;
+        white-space: nowrap;
+}
+
+.legend-count {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #ededed;
+        background-color: #242424;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.4rem;
+}
+
+.statistics-footer-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1.25rem;
+        border-top: 1px solid #262626;
+}
+
+.stat-block {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+}
+
+.stat-block.right {
+        align-items: flex-end;
+}
+
+.stat-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #888888;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+}
+
+.stat-value {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #ededed;
+        letter-spacing: -0.02em;
+}
+
+@media (max-width: 900px) {
+        .chart-main-layout {
+                grid-template-columns: 1fr;
+                justify-items: center;
+        }
+
+        .chart-legend-grid {
+                width: 100%;
+        }
 }

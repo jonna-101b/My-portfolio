@@ -7,17 +7,16 @@ import { getYear } from 'date-fns';
 import useQualificationsDisplayReducer from '../Hooks/useQualificationsDisplayReducer';
 import useQualificationsReducer from '../../../../Hooks/useQualificationsReducer';
 import Form from './Form';
-import EditIcon from '../../../../assets/Icons/Admin/Common/edit.png';
-import EditHoverIcon from '../../../../assets/Icons/Admin/Common/edit-hover.png';
-import DeleteIcon from '../../../../assets/Icons/Admin/Common/delete.png';
-import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/delete-hover.png';
-import ViewIcon from '../../../../assets/Icons/Admin/Common/view.png';
-import ViewHoverIcon from '../../../../assets/Icons/Admin/Common/view-hover.png';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/medal-shadow.png';
 import '../Styles/MainSection.css';
 
 
-function QualificationsLayout({ qualification }) {
+function QualificationsLayout({ qualification, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
@@ -41,36 +40,82 @@ function QualificationsLayout({ qualification }) {
                 }
         };
 
+        const formatDuration = (duration) => {
+                if (!duration) return "";
+                try {
+                        const from = duration.from ? getYear(new Date(duration.from)) : "";
+                        const to = duration.to ? getYear(new Date(duration.to)) : "";
+                        if (from && to) return `${from} — ${to}`;
+                        if (from) return `${from}`;
+                        return "";
+                } catch {
+                        return "";
+                }
+        };
+
+        if (layout) {
+                return (
+                        <div className="qualification-layout list-layout">
+                                <p className="discipline">{ qualification.discipline }</p>
+                                <p className="type"><span className="type-tag">{ qualification.type }</span></p>
+                                <p className="organization"><span>{ qualification.organization }</span></p>
+                                <p className="duration">{ formatDuration(qualification.duration) }</p>
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-icon" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn edit-icon" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn delete-icon" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
+                        </div>
+                );
+        }
 
         return (
                 <div className="qualification-layout">
-                        <p className="shadow">
+                        <div className="shadow">
                                 <img src={ShadowIcon} alt="Shadow icon" />
-                        </p>
-                        
-                        <p className="discipline">{ qualification.discipline }</p>
+                        </div>
 
-                        <p className="type">{ qualification.type }</p>
+                        <div className="card-top">
+                                <div className="icon-wrapper">
+                                        <SchoolOutlinedIcon className="mortarboard-icon" />
+                                </div>
+                                { qualification.type && (
+                                        <span className="type-badge">{ qualification.type }</span>
+                                ) }
+                        </div>
 
-                        <p className="organization"><span>{ qualification.organization }</span></p>
+                        <div className="card-body">
+                                <p className="organization">{ qualification.organization }</p>
+                                <h3 className="discipline">{ qualification.discipline }</h3>
+                        </div>
 
-                        <p className="duration">{ `${getYear(qualification.duration.from)} - ${getYear(qualification.duration.to)}` }</p>
+                        <div className="card-divider" />
 
-                        <div className="actions">
-                                <p className="view-icon" onClick={handleView}>
-                                        <img src={ViewIcon} alt="View icon" className="main" />
-                                        <img src={ViewHoverIcon} alt="View icon" className="hover" />
-                                </p>
+                        <div className="card-footer">
+                                <div className="duration">
+                                        <AccessTimeOutlinedIcon className="clock-icon" />
+                                        <span>{ formatDuration(qualification.duration) }</span>
+                                </div>
 
-                                <p className="edit-icon" onClick={handleEdit}>
-                                        <img src={EditIcon} alt="Edit icon" className="main" />
-                                        <img src={EditHoverIcon} alt="Edit icon" className="hover" />
-                                </p>
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-icon" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
 
-                                <p className="delete-icon" onClick={handleDelete} >
-                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
-                                </p>
+                                        <button type="button" className="action-btn edit-icon" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+
+                                        <button type="button" className="action-btn delete-icon" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
                         </div>
                 </div>
         );
@@ -85,13 +130,9 @@ function MainSection() {
                         { layout ? 
                                 <div className="labels">
                                         <p>Discipline</p>
-
                                         <p>Type</p>
-
                                         <p>Organization</p>
-
                                         <p>Duration</p>
-
                                         <p>Actions</p>
                                 </div>
                                 : ""

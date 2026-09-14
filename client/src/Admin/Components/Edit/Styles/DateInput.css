@@ -1,246 +1,283 @@
 .admin .edit.active .wrapper form .date-input {
-        display: grid;
-        gap: 2vh;
+	display: grid;
+	gap: 1.2vh;
 }
 
 .admin .edit.active .wrapper form .date-input .label {
-        display: flex;
-        align-items: center;
-        gap: 1vh;
-        place-self: center start;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #ededed;
+	display: flex;
+	align-items: center;
+	gap: 1vh;
+	font-size: 0.9rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	color: #ededed;
 }
 
 .admin .edit.active .wrapper form .date-input .label .edited {
-        display: grid;
-        place-content: center;
-        background-color: #c6ff00;
-        border-radius: 2vh;
-        width: 1.25vh;
-        height: 1.25vh;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2vh;
-        background-color: rgba(11, 13, 14, 0.5);
-        border-radius: 2vh;
-        padding: 4vh;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .label {
-        grid-column: span 2;
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: #ededed;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker {
-        grid-column: span 2;
-        justify-self: center;
-        display: grid;
-        gap: 2vh;
-        font-size: 0.8rem;
-        background-color: #0b0d0e;
-        border: none;
-        border-radius: 2vh;
-        width: fit-content;
-        aspect-ratio: 1/1;
-        padding: 2vh;
-        overflow: hidden;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__navigation {
-        top: 2vh;
-        transform: translateY(25%);
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__navigation--previous {
-        left: 2vh;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__navigation--next {
-        right: 2vh;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__header {
-        background-color: #0b0d0e;
-        border: none;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__header .react-datepicker__current-month {
-        color: #ededed;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day {
-        color: #888888;
-        border-radius: 8px;
-        transition: background-color 0.15s linear, color 0.15s linear;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day:hover {
-        color: #0b0d0e;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--keyboard-selected {
-        color: #0b0d0e;
-        background-color: #ededed;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--selected {
-        color: #0b0d0e;
-        background-color: #ededed;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--in-range {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.25);
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--in-selecting-range {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.25);
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__day-names {
-        display: flex;
-        justify-content: center;
-        color: #888888;
-        margin-bottom: 1vh;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__day-names .react-datepicker__day-name {
-        color: #ededed;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
-        background-color: #ededed;
-        border: none;
-        border-radius: 2vh;
-        width: fit-content;
-        height: fit-content;
-        padding: 0.5vh 2.5vh;
-        transition: background-color 0.15s linear;
-        cursor: pointer;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .done {
-        place-self: center end;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .cancel:focus,
-.admin .edit.active .wrapper form .date-input .new-date .cancel:hover {
-        background-color: #ff4500;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .done:focus,
-.admin .edit.active .wrapper form .date-input .new-date .done:hover {
-        background-color: #c6ff00;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .button .icon {
-        display: grid;
-        place-content: center;
-}
-
-.admin .edit.active .wrapper form .date-input .new-date .button .icon img {
-        width: 2vh;
+	display: inline-block;
+	background-color: #c6ff00;
+	border-radius: 50%;
+	width: 7px;
+	height: 7px;
+	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
 }
 
 .admin .edit.active .wrapper form .date-input .value {
-        display: flex;
-        justify-content: space-between;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
-        padding: 1.5vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1.5vh;
+	background-color: #131313;
+	border: 1px solid #262626;
+	border-radius: 12px;
+	padding: 1vh 1.4vh 1vh 1.8vh;
+	transition: all 0.2s ease;
+}
+
+.admin .edit.active .wrapper form .date-input .value:hover {
+	border-color: #383838;
 }
 
 .admin .edit.active .wrapper form .date-input .value .input {
-        display: flex;
-        justify-content: start;
-        gap: 1vh;
-        color: #888888;
-        width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 1vh;
+	color: #888888;
 }
 
 .admin .edit.active .wrapper form .date-input .value .input span {
-        font-size: 0.875rem;
-        color: #ededed;
-        background-color: #0b0d0e;
-        border: none;
-        outline: none;
-        padding-left: 2vh;
-        transition: color 0.15s linear;
+	font-size: 0.875rem;
+	color: #ededed;
+}
+
+.admin .edit.active .wrapper form .date-input .value .duration-value {
+	display: flex;
+	align-items: center;
+	gap: 0.8vh;
 }
 
 .admin .edit.active .wrapper form .date-input .value .duration-value span {
-        display: grid;
-        place-content: center;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 1.5vh;
-        width: fit-content;
-        max-width: 10vh; 
-        padding: 0.25vh 2vh;
+	display: inline-flex;
+	align-items: center;
+	color: #ededed;
+	background-color: rgba(237, 237, 237, 0.06);
+	border: 1px solid #262626;
+	border-radius: 6px;
+	padding: 0.3vh 1.2vh;
+	font-size: 0.8rem;
+	font-weight: 500;
 }
 
 .admin .edit.active .wrapper form .date-input .value .edit-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        padding: 1vh 1vh;
-        transition: background-color 0.15s linear;
-        cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 3.8vh;
+	height: 3.8vh;
+	background-color: rgba(237, 237, 237, 0.06);
+	border: 1px solid #262626;
+	border-radius: 8px;
+	padding: 0;
+	cursor: pointer;
+	position: relative;
+	transition: all 0.2s ease;
 }
 
 .admin .edit.active .wrapper form .date-input .value .edit-button:focus,
 .admin .edit.active .wrapper form .date-input .value .edit-button:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+	background-color: rgba(237, 237, 237, 0.12);
+	border-color: #383838;
 }
 
 .admin .edit.active .wrapper form .date-input .value .focused {
-        background-color: rgba(200, 255, 0, 0.1);
+	background-color: #c6ff00;
+	border-color: #c6ff00;
+	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.25);
 }
 
 .admin .edit.active .wrapper form .date-input .value .focused:focus,
 .admin .edit.active .wrapper form .date-input .value .focused:hover {
-        background-color: rgba(200, 255, 0, 0.25);
-}
-
-.admin .edit.active .wrapper form .date-input .value .edit-button {
-        display: grid;
-        place-content: center;
-        position: relative;
+	background-color: #d4ff26;
+	border-color: #d4ff26;
 }
 
 .admin .edit.active .wrapper form .date-input .value .edit-button img {
-        width: 3vh;
-        transition: opacity 0.15s linear;
+	width: 1.8vh;
+	height: 1.8vh;
+	object-fit: contain;
+	transition: opacity 0.15s linear;
 }
 
 .admin .edit.active .wrapper form .date-input .value .edit-button .active {
-        position: absolute;
-        place-self: center;
-        opacity: 0;
+	position: absolute;
+	opacity: 0;
 }
 
 .admin .edit.active .wrapper form .date-input .value .focused .active {
-        opacity: 1;
+	opacity: 1;
 }
 
 .admin .edit.active .wrapper form .date-input .value .focused .main {
-        opacity: 0;
+	opacity: 0;
+}
+
+/* Date Picker Panel */
+.admin .edit.active .wrapper form .date-input .new-date {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.8vh;
+	background-color: #131313;
+	border: 1px solid #262626;
+	border-radius: 14px;
+	padding: 2.2vh;
+	animation: modalFadeIn 0.2s ease forwards;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .label {
+	grid-column: span 2;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #ededed;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker {
+	grid-column: span 2;
+	justify-self: center;
+	display: grid;
+	gap: 1.5vh;
+	font-size: 0.85rem;
+	background-color: #171717;
+	border: 1px solid #262626;
+	border-radius: 12px;
+	width: fit-content;
+	padding: 1.8vh;
+	overflow: hidden;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+	font-family: inherit;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__navigation {
+	top: 1.8vh;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__navigation--previous {
+	left: 1.8vh;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__navigation--next {
+	right: 1.8vh;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__header {
+	background-color: #171717;
+	border-bottom: 1px solid #262626;
+	padding-bottom: 1vh;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__header .react-datepicker__current-month {
+	color: #ededed;
+	font-weight: 600;
+	font-size: 0.9rem;
+	margin-bottom: 0.5vh;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__day-names {
+	display: flex;
+	justify-content: space-around;
+	color: #888888;
+	margin-top: 1vh;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__day-names .react-datepicker__day-name {
+	color: #888888;
+	font-weight: 500;
+	font-size: 0.75rem;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day {
+	color: #ededed;
+	border-radius: 6px;
+	transition: all 0.15s ease;
+	font-size: 0.8rem;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day:hover {
+	color: #111111;
+	background-color: #ededed;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--keyboard-selected {
+	color: #111111;
+	background-color: #ededed;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--selected {
+	color: #111111 !important;
+	background-color: #c6ff00 !important;
+	font-weight: 700;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--in-range {
+	color: #c6ff00 !important;
+	background-color: rgba(198, 255, 0, 0.15) !important;
+	border-radius: 0;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--in-selecting-range {
+	color: #c6ff00 !important;
+	background-color: rgba(198, 255, 0, 0.15) !important;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.8vh;
+	font-size: 0.8rem;
+	font-weight: 500;
+	border-radius: 8px;
+	width: fit-content;
+	height: fit-content;
+	padding: 0.6vh 1.8vh;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	user-select: none;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .button .icon {
+	display: grid;
+	place-content: center;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .button .icon img {
+	width: 1.6vh;
+	height: 1.6vh;
+	object-fit: contain;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .cancel {
+	background-color: rgba(255, 69, 0, 0.1);
+	border: 1px solid rgba(255, 69, 0, 0.25);
+	color: #ff5e2e;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .cancel:focus,
+.admin .edit.active .wrapper form .date-input .new-date .cancel:hover {
+	background-color: rgba(255, 69, 0, 0.2);
+	border-color: #ff5e2e;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .done {
+	place-self: center end;
+	background-color: #ededed;
+	border: 1px solid transparent;
+	color: #111111;
+	font-weight: 600;
+}
+
+.admin .edit.active .wrapper form .date-input .new-date .done:focus,
+.admin .edit.active .wrapper form .date-input .new-date .done:hover {
+	background-color: #c6ff00;
+	color: #111111;
+	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.3);
 }

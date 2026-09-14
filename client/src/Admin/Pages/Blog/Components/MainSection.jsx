@@ -6,18 +6,16 @@ import { NotifyContext } from '../Contexts/NotifyContext';
 import { format, formatDistanceToNow } from "date-fns";
 import useBlogDisplayReducer from '../Hooks/useBlogDisplayReducer';
 import useBlogReducer from '../../../../Hooks/useBlogReducer';
-import EditIcon from '../../../../assets/Icons/Admin/Common/edit.png';
-import EditHoverIcon from '../../../../assets/Icons/Admin/Common/edit-hover.png';
-import DeleteIcon from '../../../../assets/Icons/Admin/Common/delete.png';
-import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/delete-hover.png';
-import ViewIcon from '../../../../assets/Icons/Admin/Common/view.png';
-import ViewHoverIcon from '../../../../assets/Icons/Admin/Common/view-hover.png';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/blog-shadow.png';
 import Form from './Form';
 import '../Styles/MainSection.css';
 
 
-function BlogLayout({ blog }) {
+function BlogLayout({ blog, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
@@ -41,36 +39,92 @@ function BlogLayout({ blog }) {
                 }
         };
 
+        const getInitials = (name) => {
+                if (!name) return "";
+                const parts = name.trim().split(/\s+/);
+                if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        };
+
+        const formatDate = (date) => {
+                if (!date) return "";
+                try {
+                        return format(new Date(date), "MMMM do, yyyy");
+                } catch {
+                        return "";
+                }
+        };
+
+        if (layout) {
+                return (
+                        <div className="blog-layout list-layout">
+                                <p className="title">{ blog.title }</p>
+                                <p className="author"><span>{ blog.author }</span></p>
+                                <p className="published-on">{ formatDate(blog.createdAt) }</p>
+                                <p className="last-updated">{ blog.updatedAt ? formatDistanceToNow(new Date(blog.updatedAt), {addSuffix: true}) : "" }</p>
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-icon" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn edit-icon" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+                                        <button type="button" className="action-btn delete-icon" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
+                        </div>
+                );
+        }
 
         return (
                 <div className="blog-layout">
-                        <p className="shadow">
+                        <div className="shadow">
                                 <img src={ShadowIcon} alt="Shadow icon" />
-                        </p>
-                        
-                        <p className="title">{ blog.title }</p>
+                        </div>
 
-                        <p className="author"><span>{ blog.author }</span></p>
+                        <div className="banner-container">
+                                { blog.image ? (
+                                        <img src={blog.image} alt={blog.title} className="banner-image" />
+                                ) : (
+                                        <div className="placeholder-banner">
+                                                <div className="placeholder-icon-box">
+                                                        <ArticleOutlinedIcon className="placeholder-icon" />
+                                                </div>
+                                                <span className="placeholder-text">Blog Post Preview</span>
+                                        </div>
+                                )}
+                        </div>
 
-                        <p className="published-on">{ format(blog.createdAt, "MMMM do, yyyy") }</p>
+                        <h3 className="title">{ blog.title }</h3>
 
-                        <p className="last-updated">{ formatDistanceToNow(blog.updatedAt, {addSuffix: true}) }</p>
+                        <div className="author-meta">
+                                <div className="author-avatar">
+                                        <span className="initials">{ getInitials(blog.author) }</span>
+                                </div>
+                                <span className="author-name">{ blog.author }</span>
+                                <span className="separator">•</span>
+                                <span className="published-date">{ formatDate(blog.createdAt) }</span>
+                        </div>
 
-                        <div className="actions">
-                                <p className="view-icon" onClick={handleView}>
-                                        <img src={ViewIcon} alt="View icon" className="main" />
-                                        <img src={ViewHoverIcon} alt="View icon" className="hover" />
-                                </p>
+                        <div className="card-divider" />
 
-                                <p className="edit-icon" onClick={handleEdit}>
-                                        <img src={EditIcon} alt="Edit icon" className="main" />
-                                        <img src={EditHoverIcon} alt="Edit icon" className="hover" />
-                                </p>
+                        <div className="card-footer">
+                                <p className="date">{ formatDate(blog.createdAt) }</p>
 
-                                <p className="delete-icon" onClick={handleDelete} >
-                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
-                                </p>
+                                <div className="actions">
+                                        <button type="button" className="action-btn view-icon" onClick={handleView} title="View" aria-label="View">
+                                                <VisibilityOutlinedIcon />
+                                        </button>
+
+                                        <button type="button" className="action-btn edit-icon" onClick={handleEdit} title="Edit" aria-label="Edit">
+                                                <EditOutlinedIcon />
+                                        </button>
+
+                                        <button type="button" className="action-btn delete-icon" onClick={handleDelete} title="Delete" aria-label="Delete">
+                                                <DeleteOutlineOutlinedIcon />
+                                        </button>
+                                </div>
                         </div>
                 </div>
         );
@@ -85,20 +139,16 @@ function MainSection() {
                         { layout ? 
                                 <div className="labels">
                                         <p>Title</p>
-
                                         <p>Author</p>
-
                                         <p>Published on</p>
-
                                         <p>Last updated</p>
-
                                         <p>Actions</p>
                                 </div>
                         : "" }
 
                         <div className={ layout ? "list" : "grid" }>
                                 { blogs.map((blog, index) => (
-                                        <BlogLayout key={index} blog={blog} />
+                                        <BlogLayout key={index} blog={blog} layout={layout} />
                                 )) }
                         </div>
                 </div>

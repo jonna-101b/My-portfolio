@@ -1,23 +1,19 @@
 import { getYear } from 'date-fns';
 import useQualificationsReducer from '../../../Hooks/useQualificationsReducer';
-import BookIcon from '../../../assets/Icons/About/open-book.png';
-import BookHoverIcon from '../../../assets/Icons/About/open-book-hover.png';
-import MortarboardIcon from '../../../assets/Icons/About/mortarboard.png';
-import MortarboardHoverIcon from '../../../assets/Icons/About/mortarboard-hover.png';
-import BriefcaseIcon from '../../../assets/Icons/About/briefcase.png';
-import BriefcaseHoverIcon from '../../../assets/Icons/About/briefcase-hover.png';
-import ExpertiseIcon from '../../../assets/Icons/About/certificate.png';
-import ExpertiseHoverIcon from '../../../assets/Icons/About/certificate-hover.png';
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
+import WorkRoundedIcon from '@mui/icons-material/WorkRounded';
+import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRounded';
 import '../Styles/QualificationsSection.css';
 
 function Qualification({ qualification }) {
-        let icon, hoverIcon;
+        let IconComponent;
 
         if (qualification.type === "education") {
-                [ icon, hoverIcon ] = qualification.active ? [ BookIcon, BookHoverIcon ] : [ MortarboardIcon, MortarboardHoverIcon];
+                IconComponent = qualification.active ? MenuBookRoundedIcon : SchoolRoundedIcon;
         }
         else {
-                [ icon, hoverIcon ] = qualification.active ? [ BriefcaseIcon, BriefcaseHoverIcon ] : [ ExpertiseIcon, ExpertiseHoverIcon ];
+                IconComponent = qualification.active ? WorkRoundedIcon : WorkspacePremiumRoundedIcon;
         }
 
         return (
@@ -39,8 +35,7 @@ function Qualification({ qualification }) {
                         </div>
 
                         <p className="icon">
-                                <img src={ icon } alt="Qualifications icon" />
-                                <img src={ hoverIcon } alt="Qualifications icon" className="hover" />
+                                <IconComponent className="qualification-icon" />
                         </p>
                 </div>
         );

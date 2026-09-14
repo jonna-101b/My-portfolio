@@ -1,502 +1,245 @@
-.admin .profile .info .image-input {
-        display: grid;
-        gap: 2vh;
-}
+/* Image Upload Modal and Dropzone Styling */
 
-.admin .profile .info .image-input .label {
+.image-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(4px);
         display: flex;
+        justify-content: center;
         align-items: center;
-        gap: 1vh;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #ededed;
-        width: fit-content;
+        z-index: 9999;
+        animation: fadeIn 0.2s ease-out;
 }
 
-.admin .profile .info .image-input .label .edited {
-        display: grid;
-        place-content: center;
-        background-color: #c6ff00;
-        border-radius: 2vh;
-        width: 1.25vh;
-        height: 1.25vh;
-}
-
-.admin .profile .info .image-input .value {
-        display: grid;
-        place-content: center;
-        gap: 2vh;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
-        width: 100%;
-        aspect-ratio: 16/9;
-        height: fit-content;
-        overflow: hidden;
-        position: relative;
-}
-
-.admin .profile .info .image-input .value img {
-        width: 100%;
-}
-
-.admin .profile .info .image-input .value .backup {
-        place-self: center;
-        width: fit-content;
-        height: 40%;
-}
-
-.admin .profile .info .image-input .value .upload-button {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        background-color: #202020;
-        border-radius: 2vh;
-        position: absolute;
-        left: 2vh;
-        bottom: 2vh;
-        overflow: hidden;
-        cursor: pointer;
-}
-
-.admin .profile .info .image-input .value .upload-button p {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        padding: 0.75vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
-}
-
-.admin .profile .info .image-input .value .upload-button p:focus,
-.admin .profile .info .image-input .value .upload-button p:hover {
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
-}
-
-.admin .profile .info .image-input .value .upload-button p:focus .icon .main,
-.admin .profile .info .image-input .value .upload-button p:hover .icon .main {
-        opacity: 0;
-}
-
-.admin .profile .info .image-input .value .upload-button p:focus .icon .hover,
-.admin .profile .info .image-input .value .upload-button p:hover .icon .hover {
-        opacity: 1;
-}
-
-.admin .profile .info .image-input .value .upload-button p .icon {
-        display: grid;
-        place-content: center;
-        position: relative;
-}
-
-.admin .profile .info .image-input .value .upload-button p .icon img {
-        width: 2.5vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .profile .info .image-input .value .upload-button p .icon .hover {
-        position: absolute;
-        place-self: center;
-        opacity: 0;
-}
-
-
-.admin .profile .info .image-input .upload {
+.image-modal-content {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 20px;
+        padding: 24px;
+        width: 90%;
+        max-width: 440px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-        border: 4px dashed #000;
-        border-radius: 2vh;
-        width: 100%;
-        aspect-ratio: 16/9;
-        height: fit-content;
-        transition: background-color 0.15s linear, border-color 0.15s linear;
+        gap: 20px;
+        animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+
+.image-modal-header .modal-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #ededed;
+        margin: 0;
+}
+
+.image-modal-header .close-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        color: #888888;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 50%;
+        transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.image-modal-header .close-btn:hover {
+        color: #ededed;
+        background-color: rgba(237, 237, 237, 0.15);
+}
+
+/* Dropzone Area */
+.dropzone-area {
+        background-color: #131313;
+        border: 2px dashed #262626;
+        border-radius: 16px;
+        padding: 28px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+        text-align: center;
+}
+
+.dropzone-area.active {
+        border-color: #c6ff00;
+        background-color: rgba(198, 255, 0, 0.05);
+}
+
+.dropzone-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+}
+
+.dropzone-placeholder .upload-icon {
+        color: #888888;
+        transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.dropzone-area:hover .upload-icon,
+.dropzone-area.active .upload-icon {
+        color: #c6ff00;
+        transform: translateY(-2px);
+}
+
+.dropzone-placeholder .drag-text {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #ededed;
+        margin: 0;
+}
+
+.dropzone-placeholder .or-text {
+        font-size: 0.8rem;
+        color: #888888;
+        margin: 0;
+}
+
+.preview-container {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
 }
 
-.admin .profile .info .image-input .upload .icon {
-        display: grid;
-        place-content: center;
-        position: relative;
+.preview-img {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #262626;
+        background-color: #131313;
 }
 
-.admin .profile .info .image-input .upload .icon img {
-        width: 10vh;
-        transition: opacity 0.15s linear;
+.preview-img.logo {
+        border-radius: 50%;
+        object-fit: contain;
+        padding: 12px;
 }
 
-.admin .profile .info .image-input .upload .icon .drop {
+.remove-preview-btn {
         position: absolute;
-        place-self: center;
-        opacity: 0;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 68, 0, 0.9);
+        color: #ededed;
+        border: none;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
-.admin .profile .info .image-input .upload .drop-active .drop {
-        opacity: 1;
+.remove-preview-btn:hover {
+        background-color: #ff4500;
+        transform: scale(1.1);
 }
 
-.admin .profile .info .image-input .upload p {
-        display: grid;
-        place-content: center;
+.browse-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: #ededed;
+        color: #0b0d0e;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 20px;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #000;
-}
-
-.admin .profile .info .image-input .upload .drag {
-        font-size: 1.125rem;
-}
-
-.admin .profile .info .image-input .upload .browse {
-        align-self: center;
-        display: flex;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        font-weight: normal;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border: none;
-        border-radius: 2vh;
-        width: fit-content;
-        padding: 0.75vh 3vh;
-        transition: background-color 0.15s linear;
         cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.admin .profile .info .image-input .upload .browse:focus, 
-.admin .profile .info .image-input .upload .browse:hover {
+.browse-btn:hover {
         background-color: #c6ff00;
+        transform: translateY(-1px);
 }
 
-.admin .profile .info .image-input .upload .browse .icon {
-        display: grid;
-        place-content: center;
-}
-
-.admin .profile .info .image-input .upload .browse .icon img {
-        width: 2.25vh;
-}
-
-.admin .profile .info .image-input .upload .detail {
+.upload-tip {
         font-size: 0.75rem;
+        color: #888888;
+        margin: 0;
 }
 
-.admin .profile .info .image-input .upload .cancel {
-        place-self: center;
+/* Modal Actions */
+.image-modal-actions {
         display: flex;
+        justify-content: flex-end;
         align-items: center;
-        gap: 1vh;
+        gap: 12px;
+        padding-top: 4px;
+}
+
+.image-modal-actions .cancel-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background-color: rgba(237, 237, 237, 0.15);
+        border: 1px solid rgba(237, 237, 237, 0.25);
+        color: #ededed;
+        border-radius: 20px;
+        padding: 7px 18px;
         font-size: 0.875rem;
-        font-weight: normal;
-        color: #0b0d0e;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+}
+
+.image-modal-actions .cancel-btn:hover {
+        background-color: rgba(237, 237, 237, 0.2);
+}
+
+.image-modal-actions .save-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
         background-color: #ededed;
+        color: #0b0d0e;
         border: none;
-        border-radius: 2vh;
-        width: fit-content;
-        padding: 0.75vh 3vh;
-        transition: background-color 0.15s linear;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-size: 0.875rem;
+        font-weight: 600;
         cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.admin .profile .info .image-input .upload .cancel:focus, 
-.admin .profile .info .image-input .upload .cancel:hover {
-        background-color: #ff4500;
+.image-modal-actions .save-btn:hover {
+        background-color: #c6ff00;
+        transform: translateY(-1px);
 }
 
-.admin .profile .info .image-input .upload .cancel .icon {
-        display: grid;
-        place-content: center;
+@keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
 }
 
-.admin .profile .info .image-input .upload .cancel .icon img {
-        width: 1.75vh;
-}
-
-/* Profile picture */
-
-.admin .profile .info .image-input .label.profile {
-        display: flex;
-        flex-direction: row;
-        justify-self: center;
-        height: fit-content;
-        padding: 0;
-}
-
-.admin .profile .info .image-input .value.profile {
-        justify-self: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2vh;
-        background-color: rgba(32, 32, 32, 0.25);
-        border-radius: 50%;
-        box-shadow: 0 0 5vh #000;
-        width: 40vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        padding: 0;
-        overflow: visible;
-        position: relative;
-}
-
-.admin .profile .info .image-input .value.profile .preview-image {
-        width: 100%;
-        border-radius: 50%;
-}
-
-.admin .profile .info .image-input .value.profile .backup {
-        place-self: center;
-        width: fit-content;
-        height: 65%;
-        border-radius: 0;
-}
-
-
-.admin .profile .info .image-input .value.profile .upload-button {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        background-color: #202020;
-        border: 3px solid #0b0d0e;
-        border-radius: 50%;
-        position: absolute;
-        left: calc(75% - 3px);
-        top: calc(75% - 3px);
-        width: calc(7.5vh + 3px);
-        height: calc(7.5vh + 3px);
-        overflow: hidden;
-        cursor: pointer;
-}
-
-.admin .profile .info .image-input .value.profile .upload-button p {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        width: calc(7.5vh + 3px);
-        height: calc(7.5vh + 3px);
-        padding: 0;
-        transition: background-color 0.15s linear, color 0.15s linear;
-}
-
-.admin .profile .info .image-input .value.profile .upload-button p .icon {
-        width: calc(7.5vh + 3px);
-        height: calc(7.5vh + 3px);
-}
-
-.admin .profile .info .image-input .value.profile .upload-button p .icon img {
-        width: 3vh;
-}
-
-.admin .profile .info .image-input .upload.profile {
-        justify-self: center;
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        background-color: rgba(32, 32, 32, 0.25);
-        border-radius: 50%;
-        width: 40vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        overflow: visible;
-        position: relative;
-}
-
-.admin .profile .info .image-input .upload.profile .upload-icon img {
-        width: 8vh;
-}
-
-.admin .profile .info .image-input .upload.profile .drag {
-        font-size: 1rem;
-        color: #ededed;
-        text-align: center;
-}
-
-.admin .profile .info .image-input .upload.profile .browse {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        right: 75%;
-        top: 75%;
-        width: 7.5vh;
-        height: 7.5vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
-}
-
-.admin .profile .info .image-input .upload.profile .cancel {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        left: 75%;
-        top: 75%;
-        width: 7.5vh;
-        height: 7.5vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
-}
-
-.admin .profile .info .image-input .upload.profile .browse .icon img {
-        width: 3vh;
-}
-
-.admin .profile .info .image-input .upload.profile .cancel .icon img {
-        width: 2.25vh;
-}
-
-/* Icon image */
-
-.admin .profile .info .image-input .label.icon {
-        display: flex;
-        flex-direction: row;
-        justify-self: center;
-        height: fit-content;
-        padding: 0;
-}
-
-.admin .profile .info .image-input .value.icon {
-        justify-self: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2vh;
-        background-color: rgba(32, 32, 32, 0.25);
-        border-radius: 50%;
-        box-shadow: 0 0 5vh #000;
-        width: 40vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        padding: 0;
-        overflow: visible;
-        position: relative;
-}
-
-.admin .profile .info .image-input .value.icon .preview-image {
-        width: 75%;
-}
-
-.admin .profile .info .image-input .value.icon .backup {
-        place-self: center;
-        width: fit-content;
-        height: 65%;
-        border-radius: 0;
-}
-
-
-.admin .profile .info .image-input .value.icon .upload-button {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        background-color: #202020;
-        border: 3px solid #0b0d0e;
-        border-radius: 50%;
-        position: absolute;
-        left: calc(75% - 3px);
-        top: calc(75% - 3px);
-        width: calc(7.5vh + 3px);
-        height: calc(7.5vh + 3px);
-        overflow: hidden;
-        cursor: pointer;
-}
-
-.admin .profile .info .image-input .value.icon .upload-button p {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        width: calc(7.5vh + 3px);
-        height: calc(7.5vh + 3px);
-        padding: 0;
-        transition: background-color 0.15s linear, color 0.15s linear;
-}
-
-.admin .profile .info .image-input .value.icon .upload-button p .icon {
-        width: calc(7.5vh + 3px);
-        height: calc(7.5vh + 3px);
-}
-
-.admin .profile .info .image-input .value.icon .upload-button p .icon img {
-        width: 3vh;
-}
-
-.admin .profile .info .image-input .upload.icon {
-        justify-self: center;
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        border-radius: 50%;
-        width: 40vh;
-        aspect-ratio: 1;
-        height: fit-content;
-        overflow: visible;
-        position: relative;
-}
-
-.admin .profile .info .image-input .upload.icon .upload-icon img {
-        width: 8vh;
-}
-
-.admin .profile .info .image-input .upload.icon .drag {
-        place-self: center;
-        font-size: 1rem;
-        text-align: center;
-        width: 60%;
-}
-
-.admin .profile .info .image-input .upload.icon .browse {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        right: 75%;
-        top: 75%;
-        width: 7.5vh;
-        height: 7.5vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
-}
-
-.admin .profile .info .image-input .upload.icon .cancel {
-        display: grid;
-        place-content: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        border-radius: 50%;
-        position: absolute;
-        left: 75%;
-        top: 75%;
-        width: 7.5vh;
-        height: 7.5vh;
-        padding: 0;
-        overflow: hidden;
-        cursor: pointer;
-}
-
-.admin .profile .info .image-input .upload.icon .browse .icon img {
-        width: 3vh;
-}
-
-.admin .profile .info .image-input .upload.icon .cancel .icon img {
-        width: 2.25vh;
+@keyframes scaleUp {
+        from { transform: scale(0.95); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
 }

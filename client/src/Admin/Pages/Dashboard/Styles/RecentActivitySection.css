@@ -1,88 +1,119 @@
-.recent-activity-section {
+.recent-actions-card {
+        background-color: #171717;
+        border: 1px solid #262626;
+        border-radius: 1.25rem;
+        padding: 1.75rem;
         display: flex;
         flex-direction: column;
-        gap: 2vh;
+        gap: 1.25rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.recent-activity-section .title {
-        font-size: 0.9375rem;
-        font-weight: 600;
-        color: #ededed;
-}
-
-.recent-activity-section .actions {
-        display: grid;
-        gap: 2vh;
-        background-color: rgba(11, 13, 14, 0.5);
-        border-radius: 2vh;
-        padding: 4vh;
-}
-
-.recent-activity-section .actions .action {
+.recent-actions-header {
         display: flex;
-        justify-content: start;
-        gap: 2vh;
-        border-bottom: 1px solid rgba(32, 32, 32, 0.75);
-        width: 100%;
-        padding-bottom: 2vh;
-        position: relative;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(38, 38, 38, 0.5);
 }
 
-.recent-activity-section .actions .action:nth-child(3) {
-        border: none;
+.recent-actions-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #ededed;
+        letter-spacing: -0.01em;
+        margin: 0;
 }
 
-.recent-activity-section .actions .action .icon {
-        display: grid;
-        place-content: center;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        width: 6vh;
-        height: 6vh;
-        aspect-ratio: 1;
+.actions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
 }
 
-.recent-activity-section .actions .action .icon img {
-        width: 3vh;
+.action-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.95rem;
+        transition: transform 0.15s ease;
 }
 
-.recent-activity-section .actions .action .details {
-        display: grid;
+.action-row:hover {
+        transform: translateX(3px);
 }
 
-.recent-activity-section .actions .action .details .main {
-        font-size: 0.75rem;
+.action-icon-circle {
+        width: 2.35rem;
+        height: 2.35rem;
+        border-radius: 50%;
+        background-color: #171717;
+        border: 1px solid #262626;
+        color: #888888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+}
+
+.action-row:hover .action-icon-circle {
+        border-color: rgba(198, 255, 0, 0.35);
+        color: #c6ff00;
+        background-color: #202020;
+}
+
+.action-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+}
+
+.action-text {
+        font-size: 0.85rem;
+        color: #ededed;
+        line-height: 1.4;
+        margin: 0;
+}
+
+.action-highlight {
+        color: #c6ff00;
         font-weight: 600;
-        color: #ededed;
 }
 
-.recent-activity-section .actions .action .details .sub {
-        font-size: 0.75rem;
+.action-timestamp {
+        font-size: 0.68rem;
+        font-weight: 600;
         color: #888888;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
 }
 
-.recent-activity-section .actions .action .details .time {
-        font-size: 0.625rem;
-        color: #888888;
-}
-
-.recent-activity-section .actions .see-all {
-        display: grid;
-        place-content: center;
-        font-size: 0.875rem;
-        color: #888888;
-        text-decoration: none;
-        background-color: rgba(237, 237, 237, 0.1);
-        border-radius: 2vh;
-        box-shadow: inset 0 0 1rem 0.1rem  rgba(237, 237, 237, 0.105);
+.view-all-activity-btn {
         width: 100%;
-        padding: 1.5vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
-        cursor: pointer;
+        padding: 0.85rem;
+        background-color: #242424;
+        border: 1px solid #262626;
+        border-radius: 0.75rem;
+        color: #ededed;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        margin-top: 0.5rem;
+        display: block;
+        user-select: none;
 }
 
-.recent-activity-section .actions .see-all:focus,
-.recent-activity-section .actions .see-all:hover {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.25);
+.view-all-activity-btn:hover {
+        background-color: #2a2a2a;
+        border-color: rgba(198, 255, 0, 0.4);
+        color: #c6ff00;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.view-all-activity-btn:active {
+        transform: translateY(0);
 }

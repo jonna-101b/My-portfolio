@@ -3,13 +3,14 @@ import { ViewContext } from '../Contexts/ViewContext';
 import ArrowIcon from '../../../../assets/Icons/Admin/Projects/arrow-right.png';
 import GithubIcon from '../../../../assets/Icons/Admin/Projects/github.png';
 import ExternalLinkIcon from '../../../../assets/Icons/Admin/Projects/external.png';
+import SimpleIcon from '../../../../Utils/simpleIcons';
 import '../Styles/View.css';
 
 
 const Tech = ({ tech }) => (
         <div className="tech">
                 <p className="icon">
-                        <img src={ tech.icon } alt={null} />
+                        <SimpleIcon name={tech.icon || tech.name} size="20px" color="#c6ff00" />
                 </p>
 
                 <p className="name">{tech.name}</p>

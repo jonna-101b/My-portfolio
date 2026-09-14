@@ -11,7 +11,7 @@ const DottedBackground = ({ width = 800, height = 600, dotCount = 250 }) => {
                 const radius = Math.random() * 2 + 0.75; // small radius between 1 and 3
                 const offsetX = (Math.random() - 0.5) * 10; // random offset between -5 and +5
                 const offsetY = (Math.random() - 0.5) * 10;
-                const duration = 2+ Math.random() * 6; // 4s to 10s
+                const duration = 2 + Math.random() * 6; // 4s to 10s
 
                 return (
                         <circle
@@ -19,7 +19,7 @@ const DottedBackground = ({ width = 800, height = 600, dotCount = 250 }) => {
                                 cx={x}
                                 cy={y}
                                 r={radius}
-                                fill={theme === 'dark' ? '#888888' : '#f9f5f3'}
+                                fill={theme === 'dark' ? '#888888' : 'transparent'}
                                 filter="url(#blurFilter)"
                                 opacity={0.2 + Math.random() * 0.3}
                         >
@@ -47,10 +47,10 @@ const DottedBackground = ({ width = 800, height = 600, dotCount = 250 }) => {
                         viewBox={`0 0 ${width} ${height}`}
                         preserveAspectRatio="xMidYMid slice"
                         xmlns="http://www.w3.org/2000/svg"
-                        >
+                >
                         <defs>
                                 <filter id="blurFilter">
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="0.7" />
+                                        <feGaussianBlur in="SourceGraphic" stdDeviation="0.7" />
                                 </filter>
                         </defs>
                         {dots}

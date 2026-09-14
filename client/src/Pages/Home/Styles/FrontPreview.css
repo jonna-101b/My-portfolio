@@ -17,18 +17,27 @@
 }
 
 .front-preview .name .code-open {
-        height: 5vh;
+        font-size: 8vh;
+        width: 8vh;
+        height: 8vh;
+        color: var(--icon-opt-1);
 }
 
 .front-preview .name .code-close {
         position: relative;
         left: -2.25vh;
-        height: 5vh;
+        font-size: 8vh;
+        width: 8vh;
+        height: 8vh;
         transform: rotate(180deg);
+        color: var(--icon-opt-1);
 }
 
 .front-preview .name .slash {
-        height: 5vh;
+        font-size: 6vh;
+        width: 6vh;
+        height: 6vh;
+        color: var(--icon-opt-1);
 }
 
 .front-preview .name p {
@@ -80,12 +89,13 @@
 }
 
 :root[data-theme='light'] .front-preview .links .hire-me {
-        background-color: var(--button-bg);
+        background-color: var(--surface-soft);
 }
 
 .front-preview .links .resume {
         color: var(--text-ink);
-        background-color: var(--pill-strong);
+        background-color: var(--accent);
+        opacity: 0.8;
 }
 
 .front-preview .links a {
@@ -100,24 +110,39 @@
         border-radius: 10vh;
         outline: none;
         padding: 0.75vh 4vh;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.15s ease, opacity 0.15s linear;
         cursor: pointer;
+}
+
+.front-preview .links a:focus,
+.front-preview .links a:hover {
+        transform: translateY(-1.5px);
 }
 
 :root[data-theme='light'] .front-preview .links .hire-me:focus,
 :root[data-theme='light'] .front-preview .links .hire-me:hover,
-.front-preview .links .hire-me:focus, 
+.front-preview .links .hire-me:focus,
 .front-preview .links .hire-me:hover {
         background-color: var(--button-hover-soft);
 }
 
-.front-preview .links .resume:focus, 
+.front-preview .links .resume:focus,
 .front-preview .links .resume:hover {
-        background-color: var(--accent);
+        opacity: 1;
 }
 
 .front-preview .links a img {
         height: 2vh;
+}
+
+.front-preview .links .hire-me .briefcase-icon {
+        font-size: 2.5vh;
+        color: var(--icon-opt-2);
+}
+
+.front-preview .links .resume .download-icon {
+        font-size: 2.5vh;
+        color: var(--icon-opt-3);
 }
 
 .front-preview .front-image {
@@ -130,4 +155,3 @@
 .front-preview .front-image img {
         height: 100%;
 }
-

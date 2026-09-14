@@ -22,17 +22,6 @@ export const deleteTechnicalSkill = async (id) => {
   return response.data;
 };
 
-export const createTechnicalSkillTech = async (id, technicalSkillTechData) => {
-  const response = await protectedApi.post(`/skills/technical/${id}/tech`, technicalSkillTechData);
-  return response.data;
-};
-
-export const deleteTechnicalSkillTech = async (id, techId) => {
-  const response = await protectedApi.delete(`/skills/technical/${id}/tech/${techId}`);
-  return response.data;
-};
-
-
 // --- Public Endpoints ---
 export const fetchConceptualSkills = async () => {
   const response = await publicApi.get('/skills/conceptual');
@@ -48,4 +37,4 @@ export const createConceptualSkill = async (conceptualSkillData) => {
 export const deleteConceptualSkill = async (id) => {
   const response = await protectedApi.delete(`/skills/conceptual/${id}`);
   return response.data;
-};
+};
