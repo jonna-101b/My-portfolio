@@ -11,6 +11,8 @@ import TechSelectInput from './Components/TechSelectInput';
 import CreatableSelectInput from './Components/CreatableSelectInput';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CircularProgress from '@mui/material/CircularProgress';
+import { uploadImage } from '../../../api/UploadApi';
 import './Edit.css';
 
 
@@ -26,9 +28,10 @@ function findInputs(arr) {
         return inputsObj;
 }
 
-function Wrapper({ componentName, component, editComponent, attr, handleDisplay }) {
+function Wrapper({ componentName, component, editComponent, attr, handleDisplay, setAction }) {
         const [ inputs, setInputs ] = useState( findInputs(component) );
         const [ edited, setEdited ] = useState( Object.fromEntries(component.map(input => [input.name, false])) );
+        const [ isSubmitting, setIsSubmitting ] = useState(false);
 
         const handleInputsChange = (name, inputType, change) => {
                 if (inputType === "tag-input" ) {
@@ -90,15 +93,27 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
         const formEdited = Object.values(edited).some(Boolean);
 
         const handleSubmit = async () => {
+                setIsSubmitting(true);
                 const editedComponent = {};
-                for (let input of component) {
-                        editedComponent[input.name] = inputs[input.name];
-                }
-                editedComponent["_id"] = attr._id;
-                editedComponent["createdAt"] = attr.createdAt;
-                editedComponent["updatedAt"] = new Date(Date.now());
-                
                 try {
+                        for (let input of component) {
+                                let val = inputs[input.name];
+                                // Handle file uploads
+                                if (val && typeof val === 'object' && val.file instanceof File) {
+                                        const uploadRes = await uploadImage(val.file);
+                                        val = uploadRes.url;
+                                } else if (val instanceof File) {
+                                        const uploadRes = await uploadImage(val);
+                                        val = uploadRes.url;
+                                } else if (val && typeof val === 'object' && val.preview && !val.file) {
+                                        val = val.preview;
+                                }
+                                editedComponent[input.name] = val;
+                        }
+                        editedComponent["_id"] = attr._id;
+                        editedComponent["createdAt"] = attr.createdAt;
+                        editedComponent["updatedAt"] = new Date(Date.now());
+                        
                         if (editComponent) {
                                 await editComponent(editedComponent);
                         }
@@ -115,6 +130,8 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
                                         message: error?.message || `Failed to update ${componentName}`
                                 });
                         }
+                } finally {
+                        setIsSubmitting(false);
                 }
         };
 
@@ -154,13 +171,13 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
                                 }) }
 
                                 <div className="changes">
-                                        <button type="submit" className="save" disabled={!formEdited} >
+                                        <button type="submit" className="save" disabled={!formEdited || isSubmitting} >
                                                  <span className="icon">
-                                                         <CheckRoundedIcon fontSize="small" />
+                                                         {isSubmitting ? <CircularProgress size={14} color="inherit" /> : <CheckRoundedIcon fontSize="small" />}
                                                  </span>
-                                                 Save changes
+                                                 {isSubmitting ? 'Saving changes...' : 'Save changes'}
                                         </button>   
-                                        <button type="reset" className="discard" onClick={handleDisplay} disabled={!formEdited} >
+                                        <button type="reset" className="discard" onClick={handleDisplay} disabled={!formEdited || isSubmitting} >
                                                  Discard changes
                                                  <span className="icon">
                                                          <CloseRoundedIcon fontSize="small" />

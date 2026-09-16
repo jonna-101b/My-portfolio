@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import useProfileReducer from '../../../Hooks/useProfileReducer';
 import Activities from '../Activities/Activities';
 import Notifications from '../Notifications/Notifications';
+import { getAssetUrl } from '../../../Utils/assetUtils';
 import './TopView.css';
 
 function TopView({ page, subtitle }) {
@@ -36,7 +37,7 @@ function TopView({ page, subtitle }) {
 				>
 					<span className="profile-avatar">
 						{picture ? (
-							<img src={picture} alt={displayName} className="avatar-img" />
+							<img src={getAssetUrl(picture)} alt={displayName} className="avatar-img" />
 						) : (
 							<span className="avatar-initials">{initials}</span>
 						)}

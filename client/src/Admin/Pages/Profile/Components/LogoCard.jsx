@@ -3,6 +3,7 @@ import useProfileReducer from '../../../../Hooks/useProfileReducer';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ImageUploadModal from '../Forms/Components/ImageUploadModal';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import '../Styles/LogoCard.css';
 
 function LogoCard() {
@@ -21,7 +22,7 @@ function LogoCard() {
                         <div className="logo-preview-wrapper">
                                 <div className="logo-circle">
                                         {logo ? (
-                                                <img src={logo} alt="Brand Logo" className="logo-image" />
+                                                <img src={getAssetUrl(logo)} alt="Brand Logo" className="logo-image" />
                                         ) : (
                                                 <div className="logo-fallback">
                                                         <ImageOutlinedIcon style={{ fontSize: '2.25rem', color: 'var(--admin-text-muted)' }} />

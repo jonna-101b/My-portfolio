@@ -7,6 +7,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import SimpleIcon from '../../../Utils/simpleIcons';
+import { getAssetUrl } from '../../../Utils/assetUtils';
 import '../Styles/ProjectsPreview.css';
 
 
@@ -17,7 +18,7 @@ const Project = ({ project }) => {
         return (
                 <div className="project">
                         <div className="image">
-                                <img src={ project.image } alt={ project.title } className="main" />
+                                <img src={ getAssetUrl(project.image) } alt={ project.title } className="main" />
 
                                 <p className="contribution">{ project.contribution }</p>
 

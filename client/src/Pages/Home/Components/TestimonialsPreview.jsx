@@ -3,6 +3,7 @@ import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTestimonialsReducer from '../../../Hooks/useTestimonialsReducer';
 import TestimonialsPreviewSkeleton from '../../../Components/Skeletons/TestimonialsPreviewSkeleton';
 import { getInitials } from '../../../Utils/avatarUtils';
+import { getAssetUrl } from '../../../Utils/assetUtils';
 import QuoteShadowIcon from '../../../assets/Icons/Common/quote-shadow.png';
 import QuoteLightShadowIcon from '../../../assets/Icons/Common/quote-light.png';
 import "../Styles/TestimonialsPreview.css";
@@ -23,7 +24,7 @@ function Testimonial({ testimonial }) {
 				<div className="image">
 					{hasValidImage ? (
 						<img 
-							src={ testimonial.picture } 
+							src={ getAssetUrl(testimonial.picture) } 
 							alt={ testimonial.name || "Testimonial author" }
 							onError={() => setImgError(true)}
 						/>

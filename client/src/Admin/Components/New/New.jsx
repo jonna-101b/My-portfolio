@@ -11,6 +11,8 @@ import TechSelectInput from './Components/TechSelectInput';
 import CreatableSelectInput from './Components/CreatableSelectInput';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CircularProgress from '@mui/material/CircularProgress';
+import { uploadImage } from '../../../api/UploadApi';
 import './New.css';
 
 
@@ -60,9 +62,10 @@ function generateObjectId() {
         return timestamp + random;
 }
 
-function Wrapper({ componentName, component, createComponent, handleDisplay }) {
+function Wrapper({ componentName, component, createComponent, handleDisplay, setAction }) {
         const [ inputs, setInputs ] = useState( findInputs(component) );
         const [ added, setAdded ] = useState( findRequirements(component) );
+        const [ isSubmitting, setIsSubmitting ] = useState(false);
 
         const handleInputsChange = (name, inputType, change) => {
                 if (inputType === "tag-input" ) {
@@ -124,12 +127,24 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
         const formAdded = Object.values(added).every(Boolean);
 
         const handleSubmit = async () => {
+                setIsSubmitting(true);
                 const newComponent = {};
-                for (let input of component) {
-                        newComponent[input.name] = inputs[input.name];
-                }
-
                 try {
+                        for (let input of component) {
+                                let val = inputs[input.name];
+                                // Handle file uploads
+                                if (val && typeof val === 'object' && val.file instanceof File) {
+                                        const uploadRes = await uploadImage(val.file);
+                                        val = uploadRes.url;
+                                } else if (val instanceof File) {
+                                        const uploadRes = await uploadImage(val);
+                                        val = uploadRes.url;
+                                } else if (val && typeof val === 'object' && val.preview && !val.file) {
+                                        val = val.preview;
+                                }
+                                newComponent[input.name] = val;
+                        }
+
                         if (createComponent) {
                                 await createComponent(newComponent);
                         }
@@ -146,6 +161,8 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
                                         message: error?.message || `Failed to create ${componentName}`
                                 });
                         }
+                } finally {
+                        setIsSubmitting(false);
                 }
         };
 
@@ -185,13 +202,13 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
                                 }) }
 
                                 <div className="changes">
-                                        <button type="submit" className="save" disabled={!formAdded} >
+                                        <button type="submit" className="save" disabled={!formAdded || isSubmitting} >
                                                  <span className="icon">
-                                                         <CheckRoundedIcon fontSize="small" />
+                                                         {isSubmitting ? <CircularProgress size={14} color="inherit" /> : <CheckRoundedIcon fontSize="small" />}
                                                  </span>
-                                                 {`Create ${componentName}`}
+                                                 {isSubmitting ? `Creating ${componentName}...` : `Create ${componentName}`}
                                         </button>   
-                                        <button type="reset" className="discard" onClick={handleDisplay} disabled={!formAdded} >
+                                        <button type="reset" className="discard" onClick={handleDisplay} disabled={!formAdded || isSubmitting} >
                                                  Discard changes
                                                  <span className="icon">
                                                          <CloseRoundedIcon fontSize="small" />

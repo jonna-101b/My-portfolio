@@ -12,6 +12,7 @@ import blogRouter from '../Routes/blogsRouter.js';
 import notificationsRouter from '../Routes/notificationsRouter.js';
 import activitiesRouter from '../Routes/activitiesRouter.js';
 import ratingsRouter from '../Routes/ratingsRouter.js';
+import uploadRouter from '../Routes/uploadRouter.js';
 
 
 const router = express.Router();
@@ -30,5 +31,6 @@ router.use("/blogs", blogRouter);
 router.use("/notifications", notificationsRouter);
 router.use("/activities", activitiesRouter);
 router.use("/ratings", ratingsRouter);
+router.use("/upload", uploadRouter);
 
 export default router;

@@ -8,6 +8,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
 import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import '../Styles/View.css';
 
 
@@ -57,7 +58,7 @@ function Wrapper({ blog, handleDisplay }) {
                                 <div className="hero-banner-section">
                                         <div className="banner-image-wrapper">
                                                 {blog.image ? (
-                                                        <img src={blog.image} alt={blog.title || "Blog banner"} />
+                                                        <img src={getAssetUrl(blog.image)} alt={blog.title || "Blog banner"} />
                                                 ) : (
                                                         <div className="placeholder-banner">
                                                                 <ArticleOutlinedIcon className="placeholder-icon" />

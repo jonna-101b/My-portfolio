@@ -1,0 +1,154 @@
+/* Resume Card Styling */
+
+.resume-card {
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+}
+
+.resume-card:hover {
+        border-color: var(--admin-border-medium);
+}
+
+.resume-card .card-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--admin-text-primary);
+        margin: 0;
+}
+
+.resume-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 14px;
+        padding: 16px;
+}
+
+.resume-file-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+}
+
+.resume-file-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+}
+
+.resume-file-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        overflow: hidden;
+        flex-grow: 1;
+}
+
+.resume-filename {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--admin-text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+}
+
+.resume-status-badge {
+        font-size: 0.75rem;
+        color: var(--admin-text-muted);
+        margin: 0;
+}
+
+.resume-actions-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+}
+
+.resume-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        border: 1px solid var(--admin-border-base);
+        background-color: var(--admin-surface-panel);
+        color: var(--admin-text-primary);
+}
+
+.resume-action-btn:hover {
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
+        border-color: var(--admin-accent-border);
+}
+
+.resume-action-btn.danger:hover {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+        border-color: rgba(239, 68, 68, 0.3);
+}
+
+.resume-upload-dropzone {
+        border: 2px dashed var(--admin-border-base);
+        border-radius: 12px;
+        padding: 20px 14px;
+        text-align: center;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: var(--admin-bg-page);
+        transition: all 0.2s ease;
+}
+
+.resume-upload-dropzone.active {
+        border-color: var(--admin-accent);
+        background-color: var(--admin-accent-subtle);
+}
+
+.resume-upload-dropzone:hover {
+        border-color: var(--admin-accent);
+}
+
+.resume-upload-dropzone .dropzone-icon {
+        color: var(--admin-accent);
+}
+
+.resume-upload-dropzone .dropzone-title {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--admin-text-primary);
+        margin: 0;
+}
+
+.resume-upload-dropzone .dropzone-hint {
+        font-size: 0.75rem;
+        color: var(--admin-text-muted);
+        margin: 0;
+}

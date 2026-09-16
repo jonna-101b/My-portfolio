@@ -12,6 +12,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import SimpleIcon from '../../../../Utils/simpleIcons';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import '../Styles/View.css';
 
 
@@ -71,7 +72,7 @@ function Wrapper({ project, handleDisplay }) {
                                 <div className="hero-banner-section">
                                         <div className="banner-image-wrapper">
                                                 {project.image ? (
-                                                        <img src={project.image} alt={project.title || "Project preview"} />
+                                                        <img src={getAssetUrl(project.image)} alt={project.title || "Project preview"} />
                                                 ) : (
                                                         <div className="placeholder-banner">
                                                                 <CodeOutlinedIcon className="placeholder-icon" />

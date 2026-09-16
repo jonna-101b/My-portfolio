@@ -1,6 +1,7 @@
 import useProfileReducer from '../../../../Hooks/useProfileReducer';
 import SimpleIcon from '../../../../Utils/simpleIcons';
 import { AdminProfileSectionSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import '../Styles/ProfileSection.css';
 
 function ProfileSection() {
@@ -32,7 +33,7 @@ function ProfileSection() {
 			<div className="profile-image-container">
 				<div className="profile-image-frame">
 					{picture ? (
-						<img src={picture} alt={displayName} className="profile-photo" />
+						<img src={getAssetUrl(picture)} alt={displayName} className="profile-photo" />
 					) : (
 						<span className="avatar-initials" style={{ fontSize: '2rem', fontWeight: 600, color: 'var(--admin-accent)' }}>
 							{initials}

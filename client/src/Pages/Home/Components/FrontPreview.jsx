@@ -8,6 +8,7 @@ import NavigateBeforeRoundedIcon from '@mui/icons-material/NavigateBeforeRounded
 import WorkRoundedIcon from '@mui/icons-material/WorkRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import { createSvgIcon } from '@mui/material/utils';
+import { getAssetUrl } from "../../../Utils/assetUtils";
 import '../Styles/FrontPreview.css';
 
 const SlashIcon = createSvgIcon(
@@ -76,7 +77,7 @@ function FrontPage() {
 				) : null}
 
 				{resumeLink ? (
-					<a className="resume" href={resumeLink} download={`${firstName || 'my'}_resume`}>
+					<a className="resume" href={getAssetUrl(resumeLink)} download={`${firstName || 'my'}_resume`} target="_blank" rel="noopener noreferrer">
 						Download resume
 						<DownloadRoundedIcon className="download-icon" />
 					</a>

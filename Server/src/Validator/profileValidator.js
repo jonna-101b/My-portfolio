@@ -21,7 +21,7 @@ export const updateProfileValidator = [
   body('socialLinks.*.name').optional().trim().isLength({ min: 2, max: 50 }).withMessage('Social link name must be between 2 and 50 characters'),
   body('socialLinks.*.icon').optional().trim().isLength({ min: 1, max: 500 }).withMessage('Social link icon must be between 1 and 500 characters'),
   body('socialLinks.*.url').optional().trim().isURL().withMessage('Social link URL must be valid'),
-  body('resumeLink').optional().trim().isURL().withMessage('Resume link must be valid'),
+  body('resumeLink').optional().trim().isLength({ min: 1, max: 1000 }).withMessage('Resume link must be between 1 and 1000 characters'),
   parseValidationErrors,
 ];
 

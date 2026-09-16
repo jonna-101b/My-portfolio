@@ -1,6 +1,7 @@
 import TopView from "../../Components/TopView/TopView";
 import PictureInfo from "./Components/PictureInfo";
 import LogoCard from "./Components/LogoCard";
+import ResumeCard from "./Components/ResumeCard";
 import ProfessionsCard from "./Components/ProfessionsCard";
 import SocialLinksCard from "./Components/SocialLinksCard";
 import BasicInfo from "./Components/BasicInfo";
@@ -18,6 +19,7 @@ function Profile() {
                                 <div className="profile-left-column">
                                         <PictureInfo />
                                         <LogoCard />
+                                        <ResumeCard />
                                         <ProfessionsCard />
                                         <SocialLinksCard />
                                 </div>

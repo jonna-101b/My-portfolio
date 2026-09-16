@@ -14,6 +14,7 @@ import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/cube-shadow.png';
 import SimpleIcon from '../../../../Utils/simpleIcons';
 import Form from './Form';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
@@ -119,7 +120,7 @@ function ProjectLayout({ project, layout }) {
 
                         <div className="banner-container">
                                 { project.image ? (
-                                        <img src={project.image} alt={project.title} className="banner-image" />
+                                        <img src={getAssetUrl(project.image)} alt={project.title} className="banner-image" />
                                 ) : (
                                         <div className="placeholder-banner">
                                                 <div className="placeholder-icon-box">

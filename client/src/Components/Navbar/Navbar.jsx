@@ -7,8 +7,8 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { getAssetUrl } from '../../Utils/assetUtils';
 import './Navbar.css';
-
 
 function Navbar() {
         const { profile } = useProfileReducer();
@@ -81,13 +81,13 @@ function Navbar() {
                 <header className={`navbar ${isVisible ? '' : 'navbar-hidden'} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
                         <div className="navbar-container">
                                 <Link className="logo" to={'/admin/dashboard'} onClick={() => setIsMobileMenuOpen(false)}>
-                                        {logo ?
-                                                <img src={logo} alt="Logo" />
-                                                :
+                                        {logo ? (
+                                                <img src={getAssetUrl(logo)} alt="Logo" />
+                                        ) : (
                                                 <span className='logo-name'>
                                                         {nickName}.
                                                 </span>
-                                        }
+                                        )}
                                 </Link>
 
                                 <div className="nav-actions-group">

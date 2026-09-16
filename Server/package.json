@@ -23,6 +23,7 @@
     "joi": "^18.2.3",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.16.3",
+    "multer": "^2.4.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "resend": "^6.19.0",

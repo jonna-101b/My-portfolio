@@ -7,6 +7,7 @@ import MaleIllustration from '../../../assets/Icons/Home/man.png';
 import MaleLightIllustration from '../../../assets/Icons/Home/man-light.png';
 import FemaleIllustration from '../../../assets/Icons/Home/pharmacist.png';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import { getAssetUrl } from '../../../Utils/assetUtils';
 import '../Styles/AboutPreview.css';
 
 function AboutPreview() {
@@ -37,7 +38,7 @@ function AboutPreview() {
 				<div className="top">
 					{picture ? (
 						<p className="profile-picture">
-							<img src={ picture } alt="Profile picture" />
+							<img src={ getAssetUrl(picture) } alt="Profile picture" />
 						</p>
 					) : null}
 

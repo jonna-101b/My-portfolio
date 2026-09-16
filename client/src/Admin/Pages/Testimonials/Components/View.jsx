@@ -7,6 +7,7 @@ import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import '../Styles/View.css';
 
 
@@ -45,7 +46,7 @@ function Wrapper({ testimonial, handleDisplay }) {
                                         <div className="avatar-wrapper">
                                                 {testimonial.picture && !imgError ? (
                                                         <img 
-                                                                src={testimonial.picture} 
+                                                                src={getAssetUrl(testimonial.picture)} 
                                                                 alt={testimonial.name || "Author avatar"} 
                                                                 onError={() => setImgError(true)}
                                                         />

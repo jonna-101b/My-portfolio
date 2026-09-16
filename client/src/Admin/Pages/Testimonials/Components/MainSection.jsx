@@ -13,6 +13,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/quote-shadow.png';
 import Form from './Form';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
@@ -93,7 +94,7 @@ function TestimonialsLayout({ testimonial, layout }) {
                                 <div className="avatar-container">
                                         { testimonial.picture && !imgError ? (
                                                 <img 
-                                                        src={testimonial.picture} 
+                                                        src={getAssetUrl(testimonial.picture)} 
                                                         alt={testimonial.name} 
                                                         className="avatar-img" 
                                                         onError={() => setImgError(true)}

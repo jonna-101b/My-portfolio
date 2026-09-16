@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import useBlogReducer from '../../../Hooks/useBlogReducer';
 import GoToIcon from '../../../assets/Icons/Home/right-arrow with a line.png';
+import { getAssetUrl } from '../../../Utils/assetUtils';
 import '../Styles/ArticlesPreview.css';
 
 function Blog({ blog }) {
@@ -65,7 +66,7 @@ function Blog({ blog }) {
                         <div className="sub-content">
                                 { blog?.image && (
                                         <p className="image">
-                                                <img src={ blog.image } alt={ blog.title || "Blog cover" } />
+                                                <img src={ getAssetUrl(blog.image) } alt={ blog.title || "Blog cover" } />
                                         </p>
                                 ) }
 

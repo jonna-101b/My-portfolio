@@ -13,6 +13,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/blog-shadow.png';
 import Form from './Form';
+import { getAssetUrl } from '../../../../Utils/assetUtils';
 import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
@@ -97,7 +98,7 @@ function BlogLayout({ blog, layout }) {
 
                         <div className="banner-container">
                                 { blog.image ? (
-                                        <img src={blog.image} alt={blog.title} className="banner-image" />
+                                        <img src={getAssetUrl(blog.image)} alt={blog.title} className="banner-image" />
                                 ) : (
                                         <div className="placeholder-banner">
                                                 <div className="placeholder-icon-box">

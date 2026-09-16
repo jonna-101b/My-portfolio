@@ -7,7 +7,16 @@ import router from './Config/routes.js';
 import { Resend } from 'resend';
 import { globalErrorHandler } from './Middleware/globalErrorHandler.js';
 import cookieParser from 'cookie-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { ensureUploadDirectory } from './Utils/upload.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Ensure base upload directories exist
+ensureUploadDirectory('images');
+ensureUploadDirectory('documents');
 
 const app = express();
 export const resend = new Resend(config.resendApiKey);
@@ -22,7 +31,10 @@ app.use(
 );
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use("/api", router);
 
