@@ -2,8 +2,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-color: #000000;
-        border-right: 1px solid #262626;
+        background-color: var(--admin-bg-sidebar);
+        border-right: 1px solid var(--admin-border-base);
         min-height: 100vh;
         height: 100vh;
         padding: 1.75rem 1.25rem;
@@ -58,19 +58,19 @@
 }
 
 .admin-sidebar .brand-logo .brand-accent {
-        color: #c6ff00;
+        color: var(--admin-accent);
         font-weight: 800;
 }
 
 .admin-sidebar .brand-logo .brand-white {
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-weight: 700;
 }
 
 .admin-sidebar .collapse-btn {
         background: transparent;
-        border: 1px solid #262626;
-        color: #888888;
+        border: 1px solid var(--admin-border-base);
+        color: var(--admin-text-muted);
         border-radius: 0.5rem;
         width: 2rem;
         height: 2rem;
@@ -82,9 +82,9 @@
 }
 
 .admin-sidebar .collapse-btn:hover {
-        background-color: rgba(198, 255, 0, 0.08);
-        border-color: rgba(198, 255, 0, 0.3);
-        color: #c6ff00;
+        background-color: var(--admin-accent-soft);
+        border-color: var(--admin-accent-border);
+        color: var(--admin-accent);
 }
 
 /* Nav */
@@ -101,7 +101,7 @@
         gap: 1vh;
         padding: 1.5vh 2vh;
         border-radius: 0 0.5rem 0.5rem 0;
-        color: #ededed;
+        color: var(--admin-text-primary);
         text-decoration: none;
         font-size: 0.925rem;
         font-weight: 500;
@@ -119,7 +119,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #888888;
+        color: var(--admin-text-muted);
         transition: color 0.2s ease, transform 0.2s ease;
 }
 
@@ -128,7 +128,7 @@
 }
 
 .admin-sidebar .nav-link .name {
-        color: #ededed;
+        color: var(--admin-text-primary);
         transition: color 0.2s ease;
 }
 
@@ -138,32 +138,32 @@
 
 /* Hover State */
 .admin-sidebar .nav-link:hover {
-        background-color: rgba(255, 255, 255, 0.04);
-        color: #c6ff00;
+        background-color: var(--admin-surface-glass);
+        color: var(--admin-accent);
 }
 
 .admin-sidebar .nav-link:hover span {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin-sidebar .nav-link:hover .icon {
-        color: #c6ff00;
+        color: var(--admin-accent);
         transform: scale(1.05);
 }
 
 /* Active / Focused State */
 .admin-sidebar .nav-link.focused {
-        background-color: rgba(198, 255, 0, 0.12);
-        color: #c6ff00;
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
         font-weight: 600;
 }
 
 .admin-sidebar .nav-link.focused .icon {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin-sidebar .nav-link.focused .name {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin-sidebar .nav-link.focused::before {
@@ -173,7 +173,7 @@
         top: 0%;
         bottom: 0%;
         width: 5px;
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
 }
 
 .admin-sidebar.collapsed .nav-link.focused::before {
@@ -190,7 +190,7 @@
 
 .admin-sidebar .footer-divider {
         height: 1px;
-        background-color: #262626;
+        background-color: var(--admin-border-base);
         margin: 0.75vh 0;
         width: 100%;
 }
@@ -201,7 +201,7 @@
         gap: 0.9rem;
         padding: 1vh 2vh;
         border-radius: 1vh;
-        color: #888888;
+        color: var(--admin-text-muted);
         background: transparent;
         border: none;
         text-decoration: none;
@@ -227,7 +227,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #888888;
+        color: var(--admin-text-muted);
         transition: color 0.2s ease;
 }
 
@@ -236,28 +236,28 @@
 }
 
 .admin-sidebar .footer-link:hover {
-        background-color: rgba(255, 255, 255, 0.04);
-        color: #ededed;
+        background-color: var(--admin-surface-glass);
+        color: var(--admin-text-primary);
 }
 
 .admin-sidebar .footer-link:hover .icon {
-        color: #ededed;
+        color: var(--admin-text-primary);
 }
 
 .admin-sidebar .footer-link.focused {
-        background-color: rgba(198, 255, 0, 0.12);
-        color: #c6ff00;
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
 }
 
 .admin-sidebar .footer-link.focused .icon {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin-sidebar .footer-link.logout-btn:hover {
-        background-color: rgba(255, 77, 79, 0.15);
-        color: #ff4d4f;
+        background-color: var(--admin-danger-soft);
+        color: var(--admin-danger-bright);
 }
 
 .admin-sidebar .footer-link.logout-btn:hover .icon {
-        color: #ff4d4f;
+        color: var(--admin-danger-bright);
 }

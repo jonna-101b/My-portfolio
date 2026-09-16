@@ -6,6 +6,6 @@
 
 .more-info .title {
         font-size: 1.5rem;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-weight: 600;
 }

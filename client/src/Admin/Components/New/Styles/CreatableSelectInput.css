@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Admin - Creatable Select Input Styling
+   ========================================================================== */
+
+.admin .new.active .wrapper form .creatable-select-input,
+.admin .edit.active .wrapper form .creatable-select-input {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        width: 100%;
+}
+
+.creatable-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.creatable-header .label {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        color: var(--admin-text-primary);
+        margin: 0;
+}
+
+.creatable-header .category-label-icon {
+        color: var(--admin-accent);
+        font-size: 1.15rem;
+}
+
+.creatable-wrapper {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-card);
+        border-radius: 12px;
+        padding: 0.3vh 0.6vh;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.creatable-wrapper:focus-within {
+        border-color: var(--admin-accent-border-strong);
+        box-shadow: 0 0 10px var(--admin-accent-soft);
+}
+
+.creatable-wrapper .creatable__control {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        min-height: 44px;
+        cursor: pointer;
+}
+
+.creatable-wrapper .creatable__placeholder {
+        color: var(--admin-text-dim);
+        font-size: 0.875rem;
+}
+
+.creatable-wrapper .creatable__single-value {
+        color: var(--admin-text-primary);
+        font-weight: 500;
+        font-size: 0.9rem;
+}
+
+.creatable-wrapper .creatable__input-container {
+        color: var(--admin-text-primary);
+}
+
+.creatable-wrapper .creatable__menu {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-panel);
+        border-radius: 14px;
+        box-shadow: 0 16px 40px var(--admin-overlay-heavy);
+        padding: 0.5rem;
+        z-index: 1000;
+        overflow: hidden;
+}
+
+.creatable-wrapper .creatable__option {
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.875rem;
+        color: var(--admin-text-primary);
+        transition: background-color 0.15s ease;
+}
+
+.creatable-wrapper .creatable__option--is-focused {
+        background-color: var(--admin-control-bg);
+        color: var(--admin-text-white);
+}
+
+.creatable-wrapper .creatable__option--is-selected {
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
+        font-weight: 600;
+}

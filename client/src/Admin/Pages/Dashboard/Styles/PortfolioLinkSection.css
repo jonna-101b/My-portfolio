@@ -1,31 +1,31 @@
 .portfolio-live-card {
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
         border-radius: 1.25rem;
         padding: 1.75rem;
         display: flex;
         flex-direction: column;
         gap: 1.25rem;
-        color: #000000;
-        box-shadow: 0 10px 30px rgba(198, 255, 0, 0.18);
+        color: var(--admin-text-ink);
+        box-shadow: 0 10px 30px var(--admin-accent-glow);
         position: relative;
         transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .portfolio-live-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 14px 36px rgba(198, 255, 0, 0.24);
+        box-shadow: 0 14px 36px var(--admin-accent-glow);
 }
 
 .live-badge-icon {
-        background-color: #000000;
-        color: #c6ff00;
+        background-color: var(--admin-bg-sidebar);
+        color: var(--admin-accent);
         width: 2.75rem;
         height: 2.75rem;
         border-radius: 0.75rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 12px var(--admin-overlay);
 }
 
 .live-badge-icon .rocket-icon {
@@ -41,7 +41,7 @@
 .live-title {
         font-size: 1.65rem;
         font-weight: 800;
-        color: #000000;
+        color: var(--admin-text-ink);
         letter-spacing: -0.02em;
         line-height: 1.15;
         margin: 0;
@@ -50,7 +50,7 @@
 .live-description {
         font-size: 0.85rem;
         font-weight: 500;
-        color: rgba(0, 0, 0, 0.8);
+        color: var(--admin-text-ink);
         line-height: 1.45;
         margin: 0;
 }
@@ -59,7 +59,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        color: #000000;
+        color: var(--admin-text-ink);
         font-weight: 700;
         font-size: 0.95rem;
         text-decoration: none;

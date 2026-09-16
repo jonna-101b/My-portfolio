@@ -6,13 +6,18 @@ export const fetchNotifications = async () => {
   return response.data;
 };
 
-// --- Protected Admin Endpoints ---
+// --- Public / Contact Endpoints ---
 export const createNotification = async (notificationData) => {
-  const response = await protectedApi.post('/notifications', notificationData);
+  const response = await publicApi.post('/notifications', notificationData);
   return response.data;
 };
 
 export const deleteNotification = async (id) => {
   const response = await protectedApi.delete(`/notifications/${id}`);
+  return response.data;
+};
+
+export const sendForgotPasswordNotification = async (email) => {
+  const response = await publicApi.post('/notifications/forgot-password', { email });
   return response.data;
 };

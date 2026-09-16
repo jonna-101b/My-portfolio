@@ -74,6 +74,7 @@ const useBlogReducer = () => {
 
         return {
                 state,
+                blogs: state.blogs,
                 loading: state.loading,
                 error: state.error,
                 setBlogs,

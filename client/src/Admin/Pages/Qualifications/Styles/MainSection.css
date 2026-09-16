@@ -16,7 +16,7 @@
         display: flex;
         justify-content: center;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         font-weight: 500;
 }
 
@@ -38,8 +38,8 @@
 }
 
 .admin .qualifications .main-section .list .qualification-layout:nth-child(odd) {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
 }
 
 .admin .qualifications .main-section .list .qualification-layout p,
@@ -49,12 +49,12 @@
         align-items: center;
         text-align: center;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         width: 100%;
 }
 
 .admin .qualifications .main-section .list .qualification-layout .discipline {
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-weight: 600;
 }
 
@@ -73,8 +73,8 @@
 }
 
 .admin .qualifications .main-section .list .qualification-layout:hover {
-        background-color: rgba(32, 32, 32, 0.6);
-        border-color: #333333;
+        background-color: var(--admin-surface-hover);
+        border-color: var(--admin-border-medium);
 }
 
 /* =========================================
@@ -87,8 +87,8 @@
 }
 
 .admin .qualifications .main-section .grid .qualification-layout {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 1.25rem;
         padding: 1.75rem;
         display: flex;
@@ -100,7 +100,7 @@
 }
 
 .admin .qualifications .main-section .grid .qualification-layout:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -134,8 +134,8 @@
 .admin .qualifications .main-section .grid .qualification-layout .icon-wrapper {
         width: 48px;
         height: 48px;
-        background-color: #222222;
-        border: 1px solid #434938;
+        background-color: var(--admin-surface-active);
+        border: 1px solid var(--admin-border-medium);
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -144,13 +144,13 @@
 }
 
 .admin .qualifications .main-section .grid .qualification-layout .icon-wrapper .mortarboard-icon {
-        color: #c6ff00;
+        color: var(--admin-accent);
         font-size: 1.75rem;
 }
 
 .admin .qualifications .main-section .grid .qualification-layout .type-badge {
-        background-color: #232a15;
-        color: #c6ff00;
+        background-color: var(--admin-accent-soft);
+        color: var(--admin-accent);
         font-size: 0.72rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -172,7 +172,7 @@
 }
 
 .admin .qualifications .main-section .grid .qualification-layout .organization {
-        color: #888888;
+        color: var(--admin-text-muted);
         font-size: 0.875rem;
         font-weight: 400;
         line-height: 1.4;
@@ -181,7 +181,7 @@
 }
 
 .admin .qualifications .main-section .grid .qualification-layout .discipline {
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-size: 1.15rem;
         font-weight: 600;
         line-height: 1.3;
@@ -192,7 +192,7 @@
 /* Card Divider */
 .admin .qualifications .main-section .grid .qualification-layout .card-divider {
         height: 1px;
-        background-color: #262626;
+        background-color: var(--admin-border-base);
         width: 100%;
         margin: 1.75rem 0 1rem 0;
         z-index: 1;
@@ -212,13 +212,13 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         font-size: 0.875rem;
         font-weight: 400;
 }
 
 .admin .qualifications .main-section .grid .qualification-layout .duration .clock-icon {
-        color: #888888;
+        color: var(--admin-text-muted);
         font-size: 1.15rem;
 }
 
@@ -236,7 +236,7 @@
         border: none;
         padding: 0.35rem;
         border-radius: 0.5rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -249,18 +249,18 @@
 }
 
 .admin .qualifications .main-section .actions .action-btn:hover {
-        background-color: rgba(255, 255, 255, 0.06);
-        color: #ededed;
+        background-color: var(--admin-surface-glass-hover);
+        color: var(--admin-text-primary);
 }
 
 .admin .qualifications .main-section .actions .action-btn.view-icon:hover {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin .qualifications .main-section .actions .action-btn.edit-icon:hover {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin .qualifications .main-section .actions .action-btn.delete-icon:hover {
-        color: #ff5555;
+        color: var(--admin-danger-bright);
 }

@@ -1,369 +1,576 @@
+/* ==========================================================================
+   Admin ToolBar Component Redesign
+   Modern Dark Design System with Glassmorphism and Refined Controls
+   ========================================================================== */
+
 .admin .tool-bar {
-        display: grid;
-        gap: 3vh;
-}
-
-.admin .tool-bar .search-bar {
         display: flex;
-        gap: 3vh;
+        flex-direction: column;
+        gap: 1.25rem;
+        width: 100%;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 10;
 }
 
-.admin .tool-bar .search-bar .search {
+/* ==========================================================================
+   Row 1: Search & Filter Controls
+   ========================================================================== */
+
+.admin .tool-bar .search-bar-row {
         display: flex;
         align-items: center;
-        gap: 2vh;
-        font-size: 0.875rem;
-        background-color: #202020;
-        border: 1px solid #888888;
-        border-radius: 10vh;
-        padding: 0.5vh 3vh;
+        gap: 1rem;
+        width: 100%;
+        flex-wrap: wrap;
 }
 
-.admin .tool-bar .search-bar .search input {
-        color: #888888;
+/* Search Input Box */
+.admin .tool-bar .search-input-box {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 9999px;
+        padding: 0.55rem 1.25rem;
+        flex: 1;
+        min-width: 260px;
+        max-width: 480px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+}
+
+.admin .tool-bar .search-input-box:focus-within {
+        border-color: var(--admin-border-focus);
+        box-shadow: 0 0 0 3px var(--admin-accent-soft), 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.admin .tool-bar .search-input-box .search-icon {
+        color: var(--admin-text-dim);
+        font-size: 1.25rem;
+        flex-shrink: 0;
+        transition: color 0.2s ease;
+}
+
+.admin .tool-bar .search-input-box:focus-within .search-icon {
+        color: var(--admin-accent);
+}
+
+.admin .tool-bar .search-input-box input {
+        color: var(--admin-text-primary);
         background-color: transparent;
         border: none;
-        width: 20vw;
-        height: 4vh;
         outline: none;
-}
-
-.admin .tool-bar .search-bar .search img {
-        width: 2vh;
-}
-
-.admin .tool-bar .search-bar .filter {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
+        width: 100%;
         font-size: 0.875rem;
-        color: #0b0d0e;
-        background-color: rgba(237, 237, 238, 0.75);
-        border-radius: 10vh;
-        padding: 0.5vh 3vh;
-        transition: background-color 0.15s linear;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+}
+
+.admin .tool-bar .search-input-box input::placeholder {
+        color: var(--admin-text-dim);
+        font-weight: 400;
+}
+
+.admin .tool-bar .search-input-box .search-clear-btn {
+        background: transparent;
+        border: none;
+        color: var(--admin-text-dim);
         cursor: pointer;
+        padding: 0.15rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.admin .tool-bar .search-input-box .search-clear-btn:hover {
+        color: var(--admin-text-primary);
+        background-color: var(--admin-surface-glass-hover);
+}
+
+.admin .tool-bar .search-input-box .search-clear-btn svg {
+        font-size: 1.05rem;
+}
+
+/* Filter Dropdown Container */
+.admin .tool-bar .filter-dropdown-container {
         position: relative;
 }
 
-.admin .tool-bar .search-bar .filter:focus,
-.admin .tool-bar .search-bar .filter:hover {
-        background-color: #ededed;
+.admin .tool-bar .filter-trigger-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-card);
+        color: var(--admin-text-secondary);
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 9999px;
+        padding: 0.55rem 1.25rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.admin .tool-bar .search-bar .filter.active {
-        background-color: #ededed;
+.admin .tool-bar .filter-trigger-btn:hover,
+.admin .tool-bar .filter-dropdown-container.active .filter-trigger-btn {
+        background-color: var(--admin-surface-active);
+        border-color: var(--admin-border-focus);
+        color: var(--admin-text-white);
 }
 
-.admin .tool-bar .search-bar .filter .icon {
-        display: grid;
-        place-content: center;
-        position: relative;
+.admin .tool-bar .filter-dropdown-container.active .filter-trigger-btn {
+        border-color: var(--admin-accent);
+        color: var(--admin-accent);
 }
 
-.admin .tool-bar .search-bar .filter .icon img {
-        width: 2.75vh;
-        transition: opacity 0.15s linear;
+.admin .tool-bar .filter-trigger-btn .filter-icon {
+        font-size: 1.15rem;
+        color: var(--admin-text-muted);
+        transition: color 0.2s ease;
 }
 
-.admin .tool-bar .search-bar .filter .icon .active {
+.admin .tool-bar .filter-trigger-btn:hover .filter-icon,
+.admin .tool-bar .filter-dropdown-container.active .filter-trigger-btn .filter-icon {
+        color: var(--admin-accent);
+}
+
+.admin .tool-bar .filter-trigger-btn .arrow-icon {
+        font-size: 1.15rem;
+        color: var(--admin-text-dim);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin .tool-bar .filter-trigger-btn .arrow-icon.rotate {
+        transform: rotate(180deg);
+}
+
+/* Filter Popover Menu */
+.admin .tool-bar .filter-menu-popup {
         position: absolute;
-        opacity: 0;
-}
-
-.admin .tool-bar .search-bar .filter .filters {
-        display: none;
-}
-
-.admin .tool-bar .search-bar .filter.active .filters {
-        display: grid;
-        background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
-        position: absolute;
+        top: calc(100% + 0.5rem);
         left: 0;
-        top: calc(100% + 2vh);
-        width: max-content;
-        padding: 2vh;
-        z-index: 3;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 16px;
+        padding: 0.75rem;
+        min-width: 220px;
+        max-width: 320px;
+        box-shadow: 0 16px 36px -8px var(--admin-overlay), 0 0 0 1px var(--admin-surface-glass);
+        z-index: 50;
+        animation: menuDropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.admin .tool-bar .search-bar .filter.active .filters .wrapper {
-        display: grid;
-        gap: 1vh;
-        width: fit-content;
-        height: 40vh;
+@keyframes menuDropdownFadeIn {
+        from {
+                opacity: 0;
+                transform: translateY(-6px) scale(0.97);
+        }
+        to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+        }
+}
+
+.admin .tool-bar .filter-menu-header {
+        font-size: 0.725rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--admin-text-dim);
+        padding: 0.35rem 0.65rem 0.5rem 0.65rem;
+        border-bottom: 1px solid var(--admin-border-base);
+        margin-bottom: 0.4rem;
+}
+
+.admin .tool-bar .filter-options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        max-height: 240px;
         overflow-y: auto;
-        padding-right: 2vh;
+        padding-right: 0.25rem;
 }
 
-.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar {
-        width: 9px;
+.admin .tool-bar .filter-options-list::-webkit-scrollbar {
+        width: 5px;
 }
 
-.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar-track {
+.admin .tool-bar .filter-options-list::-webkit-scrollbar-track {
         background: transparent;
 }
 
-.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar-thumb {
-        background: rgba(11, 13, 14, 0.75);
-        border-radius: 9px;
+.admin .tool-bar .filter-options-list::-webkit-scrollbar-thumb {
+        background: var(--admin-border-card);
+        border-radius: 6px;
 }
 
-.admin .tool-bar .search-bar .filter.active .filters .wrapper::-webkit-scrollbar-thumb:hover {
-        background: #0b0d0e;
-}
-
-.admin .tool-bar .search-bar .filter.active .filters .wrapper p {
+.admin .tool-bar .filter-option-item {
         display: flex;
-        justify-content: start;
-        gap: 2vh;
         align-items: center;
-        color: #888888;
-        border-radius: 1.5vh;
-        width: 20vw;
-        min-width: max-content;
-        padding: 0.75vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
+        justify-content: space-between;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        padding: 0.55rem 0.75rem;
+        color: var(--admin-text-secondary);
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.15s ease;
 }
 
-.admin .tool-bar .search-bar .filter.active .filters .wrapper p:focus,
-.admin .tool-bar .search-bar .filter.active .filters .wrapper p:hover {
-        background-color: rgba(11, 13, 14, 0.5);
-        color: #ededed;
+.admin .tool-bar .filter-option-item:hover {
+        background-color: var(--admin-surface-active);
+        color: var(--admin-text-white);
 }
 
-.admin .tool-bar .filtered-items {
+.admin .tool-bar .filter-option-item.selected {
+        background-color: var(--admin-accent-soft);
+        border-color: var(--admin-accent-border);
+        color: var(--admin-accent);
+}
+
+.admin .tool-bar .filter-option-item .check-icon {
+        font-size: 1rem;
+        color: var(--admin-accent);
+}
+
+/* ==========================================================================
+   Row 2: Active Filter Tags
+   ========================================================================== */
+
+.admin .tool-bar .active-filters-row {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 2vh;
+        gap: 0.5rem;
 }
 
-.admin .tool-bar .filtered-items p {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5vh;
+.admin .tool-bar .active-filters-row .active-label {
         font-size: 0.75rem;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border-radius: 10vh;
-        padding: 0.25vh 2vh;
-        padding-left: 3vh;
+        font-weight: 600;
+        color: var(--admin-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: 0.25rem;
 }
 
-.admin .tool-bar .filtered-items p .icon {
-        display: grid;
-        place-content: center;
-        border-radius: 1.25vh;
-        width: 3.5vh;
-        height: 3.5vh;
+.admin .tool-bar .active-filters-row .filter-tag-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        background-color: var(--admin-accent-soft);
+        border: 1px solid var(--admin-accent-border);
+        color: var(--admin-accent);
+        font-size: 0.775rem;
+        font-weight: 600;
+        border-radius: 9999px;
+        padding: 0.3rem 0.75rem;
+        transition: all 0.15s ease;
+}
+
+.admin .tool-bar .active-filters-row .filter-tag-chip:hover {
+        background-color: var(--admin-accent-subtle);
+        border-color: var(--admin-accent-border-strong);
+}
+
+.admin .tool-bar .active-filters-row .filter-tag-chip .tag-remove-btn {
+        background: transparent;
+        border: none;
+        color: var(--admin-accent);
         cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.75;
+        transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.admin .tool-bar .filtered-items p .icon:focus,
-.admin .tool-bar .filtered-items p .icon:hover {
-        background-color: rgba(32, 32, 32, 0.2);
+.admin .tool-bar .active-filters-row .filter-tag-chip .tag-remove-btn:hover {
+        opacity: 1;
+        transform: scale(1.15);
 }
 
-.admin .tool-bar .filtered-items p .icon img {
-        width: 1.75vh;
+.admin .tool-bar .active-filters-row .filter-tag-chip .tag-remove-btn svg {
+        font-size: 0.95rem;
 }
 
-.admin .tool-bar .action-bar {
+/* ==========================================================================
+   Row 3: Primary Actions (New Button & Controls)
+   ========================================================================== */
+
+.admin .tool-bar .action-bar-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 1vh;
+        gap: 1rem;
+        flex-wrap: wrap;
 }
 
-.admin .tool-bar .action-bar .new-button p {
+/* New Button - Preserving Exact Color Scheme */
+.admin .tool-bar .new-button {
+        display: inline-flex;
+}
+
+.admin .tool-bar .new-btn-inner {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--admin-btn-secondary-text);
+        background-color: var(--admin-btn-secondary-bg);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 0.65rem 1.4rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin .tool-bar .new-btn-inner .btn-add-icon {
+        font-size: 1.25rem;
+        transition: transform 0.2s ease;
+}
+
+.admin .tool-bar .new-btn-inner:hover,
+.admin .tool-bar .new-btn-inner:focus {
+        background-color: var(--admin-btn-secondary-hover);
+        color: var(--admin-btn-secondary-text);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px var(--admin-accent-border);
+}
+
+.admin .tool-bar .new-btn-inner:hover .btn-add-icon {
+        transform: rotate(90deg);
+}
+
+/* Other Actions Group (Layout & Sort) */
+.admin .tool-bar .other-actions-group {
         display: flex;
         align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border-radius: 2vh;
-        padding: 1.5vh 3vh;
-        transition: background-color 0.15s linear;
-        cursor: pointer;
+        gap: 0.75rem;
 }
 
-.admin .tool-bar .action-bar .new-button p:focus,
-.admin .tool-bar .action-bar .new-button p:hover {
-        background-color: #c6ff00;
-}
-
-.admin .tool-bar .action-bar .new-button img {
-        width: 2vh;
-}
-
-.admin .tool-bar .action-bar .other-actions {
-        display: flex;
-        gap: 2vh;
-}
-
-.admin .tool-bar .action-bar .layout {
-        display: flex;
+/* Layout Toggle Button */
+.admin .tool-bar .layout-toggle-btn {
+        display: inline-flex;
         align-items: center;
-        gap: 1.25vh;
-        font-size: 0.875rem;
-        color: #888888;
-        border-radius: 10vh;
-        padding: 0.5vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
+        gap: 0.5rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-card);
+        color: var(--admin-text-muted);
+        font-size: 0.85rem;
+        font-weight: 500;
+        border-radius: 12px;
+        padding: 0.6rem 1.15rem;
         cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.admin .tool-bar .action-bar .other-actions .layout:focus,
-.admin .tool-bar .action-bar .other-actions .layout:hover {
-        background-color: rgba(200, 255, 0, 0.1);
-        color: #c6ff00;
+.admin .tool-bar .layout-toggle-btn .layout-icon {
+        font-size: 1.15rem;
+        color: var(--admin-text-muted);
+        transition: color 0.2s ease;
 }
 
-.admin .tool-bar .action-bar .other-actions .layout:focus .icon .hover,
-.admin .tool-bar .action-bar .other-actions .layout:hover .icon .hover{
-        opacity: 1;
+.admin .tool-bar .layout-toggle-btn:hover {
+        background-color: var(--admin-surface-active);
+        border-color: var(--admin-border-focus);
+        color: var(--admin-text-primary);
 }
 
-.admin .tool-bar .action-bar .other-actions .layout .icon {
-        display: grid;
-        place-content: center;
+.admin .tool-bar .layout-toggle-btn:hover .layout-icon {
+        color: var(--admin-accent);
+}
+
+/* Sort Dropdown Container */
+.admin .tool-bar .sort-dropdown-container {
         position: relative;
 }
 
-.admin .tool-bar .action-bar .other-actions .layout .icon img {
-        width: 2vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .tool-bar .action-bar .other-actions .layout .icon .hover {
-        position: absolute;
-        opacity: 0;
-}
-
-.admin .tool-bar .action-bar .other-actions .sort {
-        display: flex;
-        gap: 2vh;
-}
-
-.admin .tool-bar .action-bar .other-actions .sort {
-        display: flex;
+.admin .tool-bar .sort-trigger-btn {
+        display: inline-flex;
         align-items: center;
-        gap: 1.25vh;
-        font-size: 0.875rem;
-        color: #888888;
-        border-radius: 10vh;
-        padding: 0.5vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
+        gap: 0.5rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-card);
+        color: var(--admin-text-muted);
+        font-size: 0.85rem;
+        font-weight: 500;
+        border-radius: 12px;
+        padding: 0.6rem 1.15rem;
         cursor: pointer;
-        position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active {
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
+.admin .tool-bar .sort-trigger-btn .sort-icon {
+        font-size: 1.15rem;
+        color: var(--admin-text-muted);
+        transition: color 0.2s ease;
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .icon .hover.sort-icon {
-        opacity: 1;
+.admin .tool-bar .sort-trigger-btn .arrow-icon {
+        font-size: 1.1rem;
+        color: var(--admin-text-dim);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort:focus,
-.admin .tool-bar .action-bar .other-actions .sort:hover {
-        background-color: rgba(200, 255, 0, 0.1);
-        color: #c6ff00;
+.admin .tool-bar .sort-trigger-btn .arrow-icon.rotate {
+        transform: rotate(180deg);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort:focus .icon .hover,
-.admin .tool-bar .action-bar .other-actions .sort:hover .icon .hover{
-        opacity: 1;
+.admin .tool-bar .sort-trigger-btn:hover,
+.admin .tool-bar .sort-dropdown-container.active .sort-trigger-btn {
+        background-color: var(--admin-surface-active);
+        border-color: var(--admin-border-focus);
+        color: var(--admin-text-primary);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort .icon {
-        display: grid;
-        place-content: center;
-        position: relative;
+.admin .tool-bar .sort-trigger-btn:hover .sort-icon,
+.admin .tool-bar .sort-dropdown-container.active .sort-trigger-btn .sort-icon {
+        color: var(--admin-accent);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort .icon img {
-        width: 2vh;
-        transition: opacity 0.15s linear;
-}
-
-.admin .tool-bar .action-bar .other-actions .sort .icon .hover {
+/* Sort Popover Menu */
+.admin .tool-bar .sort-menu-popup {
         position: absolute;
-        opacity: 0;
-}
-
-.admin .tool-bar .action-bar .other-actions .sort .method {
-        display: none;
-}
-
-.admin .tool-bar .action-bar .other-actions .sort.active .method {
-        display: grid;
-        gap: 1vh;
-        background-color: #202020;
-        border: 1px solid #333333;
-        border-radius: 2vh;
-        position: absolute;
+        top: calc(100% + 0.5rem);
         right: 0;
-        top: calc(100% + 2vh);
-        width: fit-content;
-        padding: 2vh;
-        z-index: 3;
-}
-
-.admin .tool-bar .action-bar .other-actions .sort.active .method p {
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 16px;
+        padding: 0.65rem;
+        min-width: 230px;
+        box-shadow: 0 16px 36px -8px var(--admin-overlay), 0 0 0 1px var(--admin-surface-glass);
+        z-index: 50;
+        animation: menuDropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 0.25rem;
+}
+
+.admin .tool-bar .sort-menu-header {
+        font-size: 0.725rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--admin-text-dim);
+        padding: 0.35rem 0.65rem 0.5rem 0.65rem;
+        border-bottom: 1px solid var(--admin-border-base);
+        margin-bottom: 0.25rem;
+}
+
+.admin .tool-bar .sort-option-item {
+        display: flex;
         align-items: center;
-        color: #888888;
-        border-radius: 1.5vh;
-        min-width: fit-content;
-        width: 17.5vw;
-        padding: 0.75vh 2vh;
-        transition: background-color 0.15s linear, color 0.15s linear;
+        justify-content: space-between;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        padding: 0.6rem 0.75rem;
+        color: var(--admin-text-secondary);
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.15s ease;
+        width: 100%;
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .method .active {
-        background-color: rgba(11, 13, 14, 0.75);
-        color: #ededed;
+.admin .tool-bar .sort-option-item:hover {
+        background-color: var(--admin-surface-active);
+        color: var(--admin-text-white);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .method .active:focus, 
-.admin .tool-bar .action-bar .other-actions .sort.active .method .active:hover {
-        background-color: rgba(11, 13, 14, 0.75);
+.admin .tool-bar .sort-option-item.selected {
+        background-color: var(--admin-accent-soft);
+        border-color: var(--admin-accent-border);
+        color: var(--admin-accent);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .method:focus .active .icon .hover, 
-.admin .tool-bar .action-bar .other-actions .sort.active .method:hover .active .icon .hover {
-        opacity: 1;
+.admin .tool-bar .sort-option-item .item-label-group {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .method p:focus,
-.admin .tool-bar .action-bar .other-actions .sort.active .method p:hover {
-        background-color: rgba(11, 13, 14, 0.5);
-        color: #ededed;
+.admin .tool-bar .sort-option-item .item-icon {
+        font-size: 1.1rem;
+        color: var(--admin-text-dim);
+        transition: color 0.15s ease;
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active:focus .method p .icon .hover,
-.admin .tool-bar .action-bar .other-actions .sort.active:hover .method p .icon .hover {
-        opacity: 0;
+.admin .tool-bar .sort-option-item:hover .item-icon {
+        color: var(--admin-text-primary);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .method p:focus .icon .hover,
-.admin .tool-bar .action-bar .other-actions .sort.active .method p:hover .icon .hover {
-        opacity: 1;
+.admin .tool-bar .sort-option-item.selected .item-icon {
+        color: var(--admin-accent);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .method p .icon img {
-        width: 2.25vh;
+.admin .tool-bar .sort-option-item .check-icon {
+        font-size: 1.05rem;
+        color: var(--admin-accent);
 }
 
-.admin .tool-bar .action-bar .other-actions .sort.active .method .active .icon .hover {
-        opacity: 1;
+/* ==========================================
+   Responsive Adaptations
+   ========================================== */
+
+@media (max-width: 768px) {
+        .admin .tool-bar .search-input-box {
+                max-width: 100%;
+                min-width: 100%;
+        }
+
+        .admin .tool-bar .search-bar-row {
+                flex-direction: column;
+                align-items: stretch;
+        }
+
+        .admin .tool-bar .filter-dropdown-container {
+                width: 100%;
+        }
+
+        .admin .tool-bar .filter-trigger-btn {
+                width: 100%;
+                justify-content: center;
+        }
+
+        .admin .tool-bar .action-bar-row {
+                flex-direction: column;
+                align-items: stretch;
+        }
+
+        .admin .tool-bar .new-btn-inner {
+                width: 100%;
+                justify-content: center;
+        }
+
+        .admin .tool-bar .other-actions-group {
+                justify-content: space-between;
+                width: 100%;
+        }
+
+        .admin .tool-bar .layout-toggle-btn,
+        .admin .tool-bar .sort-dropdown-container {
+                flex: 1;
+        }
+
+        .admin .tool-bar .sort-trigger-btn {
+                width: 100%;
+                justify-content: center;
+        }
 }

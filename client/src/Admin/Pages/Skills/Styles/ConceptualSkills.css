@@ -7,7 +7,7 @@
 .admin .conceptual-skills .title {
         font-size: 1rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         width: fit-content;
 }
 
@@ -18,8 +18,8 @@
         gap: 1vh;
         font-size: 0.875rem;
         font-weight: 550;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--admin-btn-secondary-text);
+        background-color: var(--admin-btn-secondary-bg);
         border-radius: 2vh;
         width: fit-content;
         padding: 1.5vh 3vh;
@@ -29,7 +29,8 @@
 
 .admin .conceptual-skills .new-skill:focus,
 .admin .conceptual-skills .new-skill:hover {
-        background-color: #c6ff00;
+        background-color: var(--admin-btn-secondary-hover);
+        color: var(--admin-btn-secondary-text);
 }
 
 .admin .conceptual-skills .new-skill .icon img {
@@ -48,9 +49,9 @@
         grid-template-columns: auto auto;
         gap: 2vh;
         font-size: 0.875rem;
-        color: #888888;
-        background-color: #171717;
-        border: 1px solid #262626;
+        color: var(--admin-text-muted);
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 2vh;
         padding: 4vh;
         transition: background-color 0.15s linear;
@@ -60,7 +61,8 @@
 
 .admin .conceptual-skills .grid .skill:focus,
 .admin .conceptual-skills .grid .skill:hover {
-        background-color: rgba(32, 32, 32, 0.5);
+        background-color: var(--admin-surface-hover);
+        border-color: var(--admin-border-medium);
 }
 
 .admin .conceptual-skills .grid .skill p, 
@@ -78,16 +80,17 @@
 .admin .conceptual-skills .grid .skill .content .icon {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
-        border: 1px solid #333333;
+        background-color: var(--admin-surface-darkest);
+        border: 1px solid var(--admin-border-medium);
         border-radius: 2vh;
         width: 8vh;
         height: 8vh;
         aspect-ratio: 1;
 }
 
-.admin .conceptual-skills .grid .skill .content .icon img {
-        width: 4.75vh;
+.admin .conceptual-skills .grid .skill .content .icon svg {
+        font-size: 3.75vh;
+        color: var(--admin-accent);
 }
 
 .admin .conceptual-skills .grid .skill .title {
@@ -101,7 +104,7 @@
         margin-top: 1vh;
         width: 100%;
         height: 0.1vh;
-        background-color: #262626;
+        background-color: var(--admin-border-base);
 }
 
 .admin .conceptual-skills .grid .skill .actions {
@@ -124,7 +127,7 @@
 
 .admin .conceptual-skills .grid .skill .actions p:focus, 
 .admin .conceptual-skills .grid .skill .actions p:hover {
-        background-color: rgb(32, 32, 32);
+        background-color: var(--admin-surface-active);
 }
 
 .admin .conceptual-skills .grid .skill .actions p:focus .hover, 

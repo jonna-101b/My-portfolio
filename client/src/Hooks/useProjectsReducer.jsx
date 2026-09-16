@@ -74,6 +74,7 @@ const useProjectsReducer = () => {
 
         return {
                 state,
+                projects: state.projects,
                 loading: state.loading,
                 error: state.error,
                 setProjects,

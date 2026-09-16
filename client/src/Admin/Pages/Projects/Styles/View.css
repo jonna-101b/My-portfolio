@@ -1,204 +1,436 @@
+/* ==========================================================================
+   Admin Projects - Details View Modal Redesign
+   ========================================================================== */
+
 .admin .projects .view {
         display: none;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
         opacity: 0;
-        transition: opacity 1s linear;
-        z-index: 3;
+        transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 999;
 }
 
 .admin .projects .view.active {
-        display: grid;
-        place-content: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         opacity: 1;
-        background: rgba(11, 13, 14, 0.5); /* translucent background */
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px); /* for Safari */
+        background: var(--admin-overlay);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
 }
 
 .admin .projects .view.active .wrapper {
-        place-self: center;
-        display: grid;
-        background-color: #171717;
-        border: 1px solid #262626;
-        border-radius: 2vh;
-        box-shadow: 0 0 5rem #000;
-        width: 65%;
-        height: 80vh;
-        padding: 4vh 6vh;
-        padding-right: 1vh;
+        width: 92%;
+        max-width: 720px;
+        height: auto;
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 20px;
+        padding: 3vh 3.5vh;
+        box-shadow: 0 24px 48px -12px var(--admin-overlay), 0 0 0 1px var(--admin-surface-glass), inset 0 1px 0 var(--admin-surface-glass);
+        animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        overflow: hidden;
 }
 
+@keyframes modalFadeIn {
+        from {
+                opacity: 0;
+                transform: scale(0.96) translateY(8px);
+        }
+        to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+        }
+}
+
+/* Modal Header Bar */
+.admin .projects .view.active .wrapper .view-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        padding-bottom: 2vh;
+        border-bottom: 1px solid var(--admin-border-base);
+        margin-bottom: 2.5vh;
+}
+
+.admin .projects .view.active .wrapper .view-modal-header .component-name {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--admin-text-primary);
+        background-color: var(--admin-surface-item);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 9999px;
+        padding: 0.5rem 1.25rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.admin .projects .view.active .wrapper .view-modal-header .component-name .header-icon {
+        color: var(--admin-accent);
+        font-size: 1.15rem;
+}
+
+.admin .projects .view.active .wrapper .view-modal-header .view-close-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--admin-text-muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+}
+
+.admin .projects .view.active .wrapper .view-modal-header .view-close-btn:hover {
+        background-color: var(--admin-surface-glass-hover);
+        border-color: var(--admin-border-medium);
+        color: var(--admin-text-white);
+        transform: rotate(90deg);
+}
+
+/* Scrollable Container */
 .admin .projects .view.active .wrapper .container {
-        display: grid;
-        gap: 4vh;
-        overflow: auto;
-        padding-right: 5vh;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5vh;
+        overflow-y: auto;
+        padding-right: 1vh;
+        padding-bottom: 1vh;
 }
 
-/* Scrollbar track */
+/* Scrollbar styling */
 .admin .projects .view.active .wrapper .container::-webkit-scrollbar {
-        width: 9px; /* Vertical scrollbar width */
-        /* height: 12px; Horizontal scrollbar height */
+        width: 6px;
 }
 
-/* Scrollbar track background */
 .admin .projects .view.active .wrapper .container::-webkit-scrollbar-track {
         background: transparent;
 }
 
-/* Scrollbar thumb (the draggable part) */
 .admin .projects .view.active .wrapper .container::-webkit-scrollbar-thumb {
-        width: 10px;
-        background: #131313;
-        border-radius: 6px;
+        background: var(--admin-scrollbar-thumb);
+        border-radius: 10px;
 }
 
-/* Hover effect */
 .admin .projects .view.active .wrapper .container::-webkit-scrollbar-thumb:hover {
-        background: #0b0d0e;
+        background: var(--admin-scrollbar-thumb-hover);
 }
 
-.admin .projects .view.active .wrapper .container .title {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #ededed;
+/* Hero & Banner Section */
+.admin .projects .view.active .wrapper .container .hero-banner-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
 }
 
-.admin .projects .view.active .wrapper .container .image {
-        display: grid;
-        place-content: center;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
+.admin .projects .view.active .wrapper .container .hero-banner-section .banner-image-wrapper {
         width: 100%;
+        max-height: 280px;
         aspect-ratio: 16 / 9;
-        height:max-content;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-card);
+        border-radius: 16px;
         overflow: hidden;
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
 
-.admin .projects .view.active .wrapper .container .image img {
+.admin .projects .view.active .wrapper .container .hero-banner-section .banner-image-wrapper img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
+        object-position: center top;
 }
 
-.admin .projects .view.active .wrapper .container .image .contribution {
-        display: grid;
-        place-content: center;
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: #ededed;
-        background-color: #202020;
-        border-radius: 2vh;
-        padding: 0.5vh 3vh;
-        position: absolute;
-        left: 2vh;
-        bottom: 2vh;
-}
-
-.admin .projects .view.active .wrapper .container .domains {
+.admin .projects .view.active .wrapper .container .hero-banner-section .banner-image-wrapper .placeholder-banner {
         display: flex;
-        gap: 2vh;
-}
-
-.admin .projects .view.active .wrapper .container .domains p {
-        display: grid;
-        place-content: center;
-        font-size: 0.75rem;
-        color: #ededed;
-        background-color: #0b0d0e;
-        border-radius: 10vh;
-        padding: 0.75vh 3vh;
-}
-
-.admin .projects .view.active .wrapper .container .description {
-        display: grid;
-        font-size: 0.875rem;
-        color: #888888;
-}
-
-.admin .projects .view.active .wrapper .container .features {
-        display: grid;
-        gap: 2vh;
-}
-
-.admin .projects .view.active .wrapper .container .features p {
-        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 2vh;
+        gap: 0.75rem;
+        color: var(--admin-text-dim);
         font-size: 0.875rem;
-        color: #888888;
+        font-weight: 500;
 }
 
-.admin .projects .view.active .wrapper .container .features p img {
-        width: 2vh;
+.admin .projects .view.active .wrapper .container .hero-banner-section .banner-image-wrapper .placeholder-banner .placeholder-icon {
+        font-size: 3rem;
+        color: var(--admin-text-disabled);
 }
 
-.admin .projects .view.active .wrapper .container .tech-stack {
+.admin .projects .view.active .wrapper .container .hero-banner-section .banner-image-wrapper .contribution-pill {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--admin-overlay-blur);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--admin-accent-border);
+        color: var(--admin-accent);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+        box-shadow: 0 4px 12px var(--admin-overlay);
+}
+
+.admin .projects .view.active .wrapper .container .hero-banner-section .project-title-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+}
+
+.admin .projects .view.active .wrapper .container .hero-banner-section .project-title-meta .title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--admin-text-primary);
+        margin: 0;
+        line-height: 1.3;
+}
+
+.admin .projects .view.active .wrapper .container .hero-banner-section .project-title-meta .published-date {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--admin-text-muted);
+        font-size: 0.825rem;
+}
+
+.admin .projects .view.active .wrapper .container .hero-banner-section .project-title-meta .published-date .date-icon {
+        font-size: 0.95rem;
+}
+
+/* Domains Section */
+.admin .projects .view.active .wrapper .container .domains-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+}
+
+.admin .projects .view.active .wrapper .container .domains-section .domains-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 2vh;
+        gap: 0.6rem;
 }
 
-.admin .projects .view.active .wrapper .container .tech-stack .tech {
+.admin .projects .view.active .wrapper .container .domains-section .domain-pill {
+        background-color: var(--admin-surface-item);
+        border: 1px solid var(--admin-border-panel);
+        color: var(--admin-text-secondary);
+        font-size: 0.775rem;
+        font-weight: 500;
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+        transition: all 0.2s ease;
+}
+
+.admin .projects .view.active .wrapper .container .domains-section .domain-pill:hover {
+        border-color: var(--admin-text-disabled);
+        color: var(--admin-text-white);
+}
+
+/* Content / Description Section */
+.admin .projects .view.active .wrapper .container .content-section,
+.admin .projects .view.active .wrapper .container .features-section,
+.admin .projects .view.active .wrapper .container .tech-section,
+.admin .projects .view.active .wrapper .container .domains-section {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        gap: 0.65rem;
+}
+
+.admin .projects .view.active .wrapper .container .section-label {
+        display: inline-flex;
         align-items: center;
-        gap: 1vh;
-        font-size: 0.75rem;
-        color: #ededed;
-        background-color: #0b0d0e;
-        border-radius: 10vh;
-        padding: 0.75vh 3vh;
-}
-
-.admin .projects .view.active .wrapper .container .tech-stack .tech .icon {
-        display: grid;
-        place-content: center;
-}
-
-.admin .projects .view.active .wrapper .container .tech-stack .tech .name {
-        display: flex;
-        flex-wrap: nowrap;
-}
-
-.admin .projects .view.active .wrapper .container .tech-stack .tech .icon img {
-        width: 2.5vh;
-}
-
-.admin .projects .view.active .wrapper .container .links {
-        display: flex;
-        gap: 2vh;
-}
-
-.admin .projects .view.active .wrapper .container .links button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
-        font-size: 0.875rem;
+        gap: 0.5rem;
+        font-size: 0.8rem;
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border: none;
-        border-radius: 10vh;
-        padding: 0.75vh 3.5vh;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--admin-text-muted);
+}
+
+.admin .projects .view.active .wrapper .container .section-label .section-icon {
+        font-size: 1.05rem;
+        color: var(--admin-accent);
+}
+
+.admin .projects .view.active .wrapper .container .description-card {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 14px;
+        padding: 1.25rem 1.5rem;
+}
+
+.admin .projects .view.active .wrapper .container .description-card p {
+        margin: 0;
+        font-size: 0.925rem;
+        line-height: 1.7;
+        color: var(--admin-text-secondary);
+        white-space: pre-line;
+}
+
+/* Features Grid */
+.admin .projects .view.active .wrapper .container .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 0.75rem;
+}
+
+.admin .projects .view.active .wrapper .container .features-grid .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 12px;
+        padding: 0.85rem 1rem;
+        font-size: 0.875rem;
+        color: var(--admin-text-secondary);
+        line-height: 1.5;
+        transition: border-color 0.2s ease;
+}
+
+.admin .projects .view.active .wrapper .container .features-grid .feature-item:hover {
+        border-color: var(--admin-border-focus);
+}
+
+.admin .projects .view.active .wrapper .container .features-grid .feature-item .feature-bullet {
+        font-size: 1.05rem;
+        color: var(--admin-accent);
+        flex-shrink: 0;
+        margin-top: 2px;
+}
+
+/* Tech Stack Section */
+.admin .projects .view.active .wrapper .container .tech-stack-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+}
+
+.admin .projects .view.active .wrapper .container .tech-stack-list .tech-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 9999px;
+        padding: 0.45rem 1rem;
+        transition: all 0.2s ease;
+}
+
+.admin .projects .view.active .wrapper .container .tech-stack-list .tech-chip:hover {
+        background-color: var(--admin-surface-active);
+        border-color: var(--admin-border-focus);
+        transform: translateY(-1px);
+}
+
+.admin .projects .view.active .wrapper .container .tech-stack-list .tech-chip .tech-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.admin .projects .view.active .wrapper .container .tech-stack-list .tech-chip .tech-name {
+        font-size: 0.825rem;
+        font-weight: 500;
+        color: var(--admin-text-primary);
+}
+
+/* Modal Footer */
+.admin .projects .view.active .wrapper .view-modal-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2vh;
+        margin-top: 2vh;
+        border-top: 1px solid var(--admin-border-base);
+        flex-wrap: wrap;
+        gap: 1rem;
+}
+
+.admin .projects .view.active .wrapper .view-modal-footer .action-links {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+}
+
+.admin .projects .view.active .wrapper .view-modal-footer .action-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.65rem 1.25rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 12px;
         cursor: pointer;
-        transition: background-color 0.25s ease-out;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid transparent;
 }
 
-.admin .projects .view.active .wrapper .container .links button:focus, 
-.admin .projects .view.active .wrapper .container .links button:hover {
-        background-color: #c6ff00;
+.admin .projects .view.active .wrapper .view-modal-footer .action-link-btn .btn-icon {
+        font-size: 1.15rem;
 }
 
-.admin .projects .view.active .wrapper .container .links button img {
-        width: 2vh;
+.admin .projects .view.active .wrapper .view-modal-footer .action-link-btn.github-btn {
+        background-color: var(--admin-surface-active);
+        border-color: var(--admin-border-medium);
+        color: var(--admin-text-primary);
 }
 
-.admin .projects .view.active .wrapper .container .links .github-link img {
-        width: 2.5vh;
+.admin .projects .view.active .wrapper .view-modal-footer .action-link-btn.github-btn:hover {
+        background-color: var(--admin-border-light);
+        border-color: var(--admin-border-focus);
+        color: var(--admin-text-white);
+        transform: translateY(-1px);
+}
+
+.admin .projects .view.active .wrapper .view-modal-footer .action-link-btn.live-btn {
+        background-color: var(--admin-accent-soft);
+        border-color: var(--admin-accent-border);
+        color: var(--admin-accent);
+}
+
+.admin .projects .view.active .wrapper .view-modal-footer .action-link-btn.live-btn:hover {
+        background-color: var(--admin-accent);
+        color: var(--admin-text-ink);
+        border-color: var(--admin-accent);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px var(--admin-accent-border);
+}
+
+.admin .projects .view.active .wrapper .view-modal-footer .close-action-btn {
+        background-color: var(--admin-btn-secondary-bg);
+        color: var(--admin-btn-secondary-text);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 0.65rem 1.75rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin .projects .view.active .wrapper .view-modal-footer .close-action-btn:hover {
+        background-color: var(--admin-btn-secondary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px var(--admin-accent-border);
 }

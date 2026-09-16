@@ -2,11 +2,10 @@ import { useEffect, useState, useMemo } from 'react';
 import Select, { components } from "react-select";
 import useTechnicalSkillsReducer from '../../../../Hooks/useTechnicalSkillsReducer';
 import SimpleIcon, { searchSimpleIcons } from '../../../../Utils/simpleIcons';
-import AddIcon from '../../../../assets/Icons/Admin/Common/Edit/plus.png';
-import CancelIcon from '../../../../assets/Icons/Admin/Common/Edit/cancel-hover.png';
-import CheckBlackIcon from '../../../../assets/Icons/Admin/Common/Edit/checkmark-black.png';
-import DeleteIcon from '../../../../assets/Icons/Admin/Common/Edit/delete.png';
-import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/Edit/delete-hover.png';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import '../Styles/TagInput.css';
 
 const Option = (props) => (
@@ -188,7 +187,7 @@ function TagInput({ tag, values = [], handleValueChange, edited, handleEdit }) {
                         {inputs.length ? null : (
                                 <p className="add" onClick={handleAdd}>
                                         <span className="icon">
-                                                <img src={AddIcon} alt="Add icon" />
+                                                <AddRoundedIcon sx={{ fontSize: '1.6vh' }} />
                                         </span>
                                         add
                                 </p>
@@ -234,7 +233,7 @@ function TagInput({ tag, values = [], handleValueChange, edited, handleEdit }) {
                                                                 <p className="cancel" onClick={() => { handleCancel(index); }}>
                                                                         cancel
                                                                         <span className="icon">
-                                                                                <img src={CancelIcon} alt="Cancel icon" />
+                                                                                <CloseRoundedIcon sx={{ fontSize: '1.4vh' }} />
                                                                         </span>
                                                                 </p>
                                                         </div>
@@ -244,14 +243,14 @@ function TagInput({ tag, values = [], handleValueChange, edited, handleEdit }) {
                                         <p className="more button" onClick={handleMore}>
                                                 more
                                                 <span className="icon">
-                                                        <img src={AddIcon} alt="Add icon" />
+                                                        <AddRoundedIcon sx={{ fontSize: '1.6vh' }} />
                                                 </span>
                                         </p>
 
                                         <p className="done button" onClick={handleDone}>
                                                 done
                                                 <span className="icon">
-                                                        <img src={CheckBlackIcon} alt="Checkmark icon" />
+                                                        <CheckRoundedIcon sx={{ fontSize: '1.6vh' }} />
                                                 </span>
                                         </p>
                                 </div>
@@ -269,7 +268,13 @@ function TagInput({ tag, values = [], handleValueChange, edited, handleEdit }) {
                                                                 <p className="value">
                                                                         <span className="icon">
                                                                                 {isCustomTag ? (
-                                                                                        <img src={valIcon} alt={tag.subLabel} />
+                                                                                        typeof tag.icon === 'function' || typeof tag.icon === 'object' ? (
+                                                                                                <tag.icon sx={{ fontSize: '2vh', color: '#c6ff00' }} />
+                                                                                        ) : typeof tag.icon === 'string' && (tag.icon.endsWith('.png') || tag.icon.startsWith('/') || tag.icon.startsWith('data:')) ? (
+                                                                                                <img src={valIcon} alt={tag.subLabel} />
+                                                                                        ) : (
+                                                                                                <SimpleIcon name={valIcon} size="20px" color="#c6ff00" />
+                                                                                        )
                                                                                 ) : (
                                                                                         <SimpleIcon name={valIcon} size="20px" color="#c6ff00" />
                                                                                 )}
@@ -281,8 +286,7 @@ function TagInput({ tag, values = [], handleValueChange, edited, handleEdit }) {
                                                                 </p>
 
                                                                 <p className="delete" onClick={() => { handleRemove(index, valName); }}>
-                                                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
+                                                                        <DeleteOutlineRoundedIcon sx={{ fontSize: '1.8vh' }} />
                                                                 </p>
                                                         </div>
                                                 );

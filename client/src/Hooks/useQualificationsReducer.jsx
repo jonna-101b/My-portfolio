@@ -74,6 +74,7 @@ const useQualificationsReducer = () => {
 
         return {
                 state,
+                qualifications: state.qualifications,
                 loading: state.loading,
                 error: state.error,
                 setQualifications,

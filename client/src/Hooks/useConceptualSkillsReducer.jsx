@@ -1,6 +1,6 @@
 import { useContext, useCallback } from "react";
 import { ConceptualSkillsContext } from "../Contexts/ConceptualSkillsContext";
-import { fetchConceptualSkills, createConceptualSkill, deleteConceptualSkill } from "../api/SkillsApi";
+import { fetchConceptualSkills, createConceptualSkill, updateConceptualSkill, deleteConceptualSkill } from "../api/SkillsApi";
 import { APIError } from "../api/APIError";
 
 const useConceptualSkillsReducer = () => {
@@ -30,6 +30,21 @@ const useConceptualSkillsReducer = () => {
                 } catch (error) {
                         const apiError = APIError.fromAxiosError(error, "Failed to create conceptual skill");
                         console.error("Error creating conceptual skill:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
+                }
+        }, [dispatch]);
+
+        const updateSkill = useCallback(async (editedSkill) => {
+                try {
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const id = typeof editedSkill === "object" ? editedSkill._id : editedSkill;
+                        const res = await updateConceptualSkill(id, editedSkill);
+                        dispatch({ type: "UPDATE_SKILL", payload: res });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to update conceptual skill");
+                        console.error("Error updating conceptual skill:", apiError);
                         dispatch({ type: "SET_ERROR", payload: apiError });
                         throw apiError;
                 }
@@ -65,6 +80,7 @@ const useConceptualSkillsReducer = () => {
                 error: state.error,
                 setSkills,
                 createSkill,
+                updateSkill,
                 deleteSkill,
                 deleteSkills,
                 clearError

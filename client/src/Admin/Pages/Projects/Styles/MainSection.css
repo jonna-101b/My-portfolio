@@ -16,7 +16,7 @@
         display: flex;
         justify-content: center;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         font-weight: 500;
 }
 
@@ -38,8 +38,8 @@
 }
 
 .admin .projects .main-section .list .project-layout:nth-child(odd) {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
 }
 
 .admin .projects .main-section .list .project-layout p,
@@ -49,11 +49,11 @@
         align-items: center;
         text-align: center;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .admin .projects .main-section .list .project-layout .title {
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-weight: 600;
 }
 
@@ -65,8 +65,8 @@
 }
 
 .admin .projects .main-section .list .project-layout:hover {
-        background-color: rgba(32, 32, 32, 0.6);
-        border-color: #333333;
+        background-color: var(--admin-surface-hover);
+        border-color: var(--admin-border-medium);
 }
 
 /* =========================================
@@ -79,8 +79,8 @@
 }
 
 .admin .projects .main-section .grid .project-layout {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 1.25rem;
         padding: 2.5vh;
         display: flex;
@@ -92,7 +92,7 @@
 }
 
 .admin .projects .main-section .grid .project-layout:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -121,8 +121,8 @@
         height: 180px;
         border-radius: 0.75rem;
         overflow: hidden;
-        background-color: #121212;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         z-index: 1;
         display: flex;
         align-items: center;
@@ -155,8 +155,8 @@
 .admin .projects .main-section .grid .project-layout .placeholder-icon-box {
         width: 44px;
         height: 44px;
-        background-color: #222222;
-        border: 1px solid #434938;
+        background-color: var(--admin-surface-active);
+        border: 1px solid var(--admin-border-medium);
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -164,13 +164,13 @@
 }
 
 .admin .projects .main-section .grid .project-layout .placeholder-icon {
-        color: #c6ff00;
+        color: var(--admin-accent);
         font-size: 1.5rem;
 }
 
 .admin .projects .main-section .grid .project-layout .placeholder-text {
         font-size: 0.8rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         font-weight: 500;
 }
 
@@ -179,10 +179,10 @@
         position: absolute;
         bottom: 0.75rem;
         left: 0.75rem;
-        background-color: rgba(200, 255, 0, 0.1);
+        background-color: var(--admin-accent-soft);
         backdrop-filter: blur(6px);
-        border: 1px solid #434938;
-        color: #c6ff00;
+        border: 1px solid var(--admin-accent-border);
+        color: var(--admin-accent);
         font-size: 0.72rem;
         letter-spacing: 0.05em;
         text-transform: uppercase;
@@ -204,7 +204,7 @@
 }
 
 .admin .projects .main-section .grid .project-layout .card-middle .title {
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-size: 1.25rem;
         font-weight: 600;
         line-height: 1.3;
@@ -223,8 +223,8 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background-color: #222222;
-        border: 2px solid #171717;
+        background-color: var(--admin-surface-active);
+        border: 2px solid var(--admin-surface-main);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -232,7 +232,7 @@
         overflow: hidden;
         font-size: 0.7rem;
         font-weight: 600;
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .admin .projects .main-section .grid .project-layout .tech-avatar:first-child {
@@ -246,8 +246,8 @@
 }
 
 .admin .projects .main-section .grid .project-layout .tech-avatar.remaining-count {
-        background-color: #262626;
-        color: #c6ff00;
+        background-color: var(--admin-border-base);
+        color: var(--admin-accent);
         font-size: 0.75rem;
         font-weight: 700;
 }
@@ -255,7 +255,7 @@
 /* Card Divider */
 .admin .projects .main-section .grid .project-layout .card-divider {
         height: 1px;
-        background-color: #262626;
+        background-color: var(--admin-border-base);
         width: 100%;
         margin: 1.5rem 0 1rem 0;
         z-index: 1;
@@ -272,7 +272,7 @@
 }
 
 .admin .projects .main-section .grid .project-layout .card-footer .date {
-        color: #888888;
+        color: var(--admin-text-muted);
         font-size: 0.875rem;
         font-weight: 400;
         margin: 0;
@@ -292,7 +292,7 @@
         border: none;
         padding: 0.35rem;
         border-radius: 0.5rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -305,18 +305,18 @@
 }
 
 .admin .projects .main-section .actions .action-btn:hover {
-        background-color: rgba(255, 255, 255, 0.06);
-        color: #ededed;
+        background-color: var(--admin-surface-glass-hover);
+        color: var(--admin-text-primary);
 }
 
 .admin .projects .main-section .actions .action-btn.view-icon:hover {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin .projects .main-section .actions .action-btn.edit-icon:hover {
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .admin .projects .main-section .actions .action-btn.delete-icon:hover {
-        color: #ff5555;
+        color: var(--admin-danger-bright);
 }

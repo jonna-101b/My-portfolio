@@ -1,16 +1,19 @@
 import { format } from 'date-fns';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { LayoutContext } from '../Contexts/LayoutContext';
 import { ViewContext } from '../Contexts/ViewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
+import { DeleteContext } from '../../../Components/ConfirmDelete/Context/DeleteContext';
 import useTestimonialsReducer from '../../../../Hooks/useTestimonialsReducer';
 import useTestimonialsDisplayReducer from '../Hooks/useTestimonialsDisplayReducer';
+import { getInitials } from '../../../../Utils/avatarUtils';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/quote-shadow.png';
 import Form from './Form';
+import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
 
@@ -18,7 +21,9 @@ function TestimonialsLayout({ testimonial, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
+        const { openDeleteModal } = useContext(DeleteContext);
         const { deleteTestimonial } = useTestimonialsReducer();
+        const [imgError, setImgError] = useState(false);
 
         const handleView = () => {
                 setView(testimonial);
@@ -28,21 +33,23 @@ function TestimonialsLayout({ testimonial, layout }) {
                 setEdit(Form(testimonial));
         };
 
-        const handleDelete = async () => {
-                try {
-                        await deleteTestimonial(testimonial._id);
-                        setAction({ type: "delete", component: "testimonial", name: testimonial.name });
-                } catch (error) {
-                        console.error("Error deleting testimonial in admin:", error);
-                        setAction({ type: "error", component: "testimonial", message: error?.message || "Failed to delete testimonial" });
-                }
-        };
-
-        const getInitials = (name) => {
-                if (!name) return "";
-                const parts = name.trim().split(/\s+/);
-                if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        const handleDelete = () => {
+                openDeleteModal({
+                        id: testimonial._id,
+                        title: testimonial.name,
+                        type: "Testimonial",
+                        componentName: "testimonial",
+                        details: testimonial.position ? `${testimonial.position}${testimonial.company ? ` at ${testimonial.company}` : ''}` : testimonial.company,
+                        onConfirm: async () => {
+                                try {
+                                        await deleteTestimonial(testimonial._id);
+                                        setAction({ type: "delete", component: "testimonial", name: testimonial.name });
+                                } catch (error) {
+                                        console.error("Error deleting testimonial in admin:", error);
+                                        setAction({ type: "error", component: "testimonial", message: error?.message || "Failed to delete testimonial" });
+                                }
+                        }
+                });
         };
 
         const formatDate = (date) => {
@@ -84,8 +91,13 @@ function TestimonialsLayout({ testimonial, layout }) {
 
                         <div className="card-header">
                                 <div className="avatar-container">
-                                        { testimonial.picture ? (
-                                                <img src={testimonial.picture} alt={testimonial.name} className="avatar-img" />
+                                        { testimonial.picture && !imgError ? (
+                                                <img 
+                                                        src={testimonial.picture} 
+                                                        alt={testimonial.name} 
+                                                        className="avatar-img" 
+                                                        onError={() => setImgError(true)}
+                                                />
                                         ) : (
                                                 <span className="avatar-initials">{ getInitials(testimonial.name) }</span>
                                         ) }
@@ -129,8 +141,16 @@ function TestimonialsLayout({ testimonial, layout }) {
 }
 
 function MainSection() {
-        const { testimonials } = useTestimonialsDisplayReducer();
+        const { testimonials, loading } = useTestimonialsDisplayReducer();
         const { layout } = useContext(LayoutContext);
+
+        if (loading) {
+                return (
+                        <div className="main-section">
+                                { layout ? <AdminTableSkeleton rows={5} /> : <AdminGridSkeleton count={6} /> }
+                        </div>
+                );
+        }
 
         return (
                 <div className="main-section">

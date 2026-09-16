@@ -1,8 +1,8 @@
 /* Logo Card Styling */
 
 .logo-card {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 24px;
         display: flex;
@@ -15,14 +15,14 @@
 }
 
 .logo-card:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .logo-card .card-title {
         align-self: flex-start;
         font-size: 1.15rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
 }
 
@@ -39,12 +39,12 @@
         height: 110px;
         border-radius: 50%;
         overflow: hidden;
-        border: 2px solid #262626;
-        background-color: #131313;
+        border: 2px solid var(--admin-border-base);
+        background-color: var(--admin-bg-page);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 6px 18px var(--admin-overlay);
 }
 
 .logo-image {
@@ -63,7 +63,7 @@
 
 .logo-fallback .fallback-text {
         font-size: 0.75rem;
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .logo-camera-btn {
@@ -73,27 +73,27 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background-color: #202020;
-        border: 2px solid #171717;
-        color: #ededed;
+        background-color: var(--admin-surface-panel);
+        border: 2px solid var(--admin-surface-main);
+        color: var(--admin-text-primary);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 8px var(--admin-overlay);
 }
 
 .logo-camera-btn:hover {
-        background-color: rgba(198, 255, 0, 0.15);
-        color: #c6ff00;
-        border-color: rgba(198, 255, 0, 0.25);
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
+        border-color: var(--admin-accent-border);
         transform: scale(1.08);
 }
 
 .logo-caption {
         font-size: 0.8125rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         margin: 0;
         text-align: center;
 }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import useProjectsReducer from '../../../Hooks/useProjectsReducer';
+import ProjectsPreviewSkeleton from '../../../Components/Skeletons/ProjectsPreviewSkeleton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
@@ -61,67 +62,76 @@ const Project = ({ project }) => {
 };
 
 function ProjectsPreview() {
-        const { state } = useProjectsReducer();
+        const { state, loading } = useProjectsReducer();
         const [ projects, setProjects ] = useState(state.projects);
         const projectsRef = useRef(null);
-        const [ pagination, setPagination ] = useState(Array.from({ length: state.projects.length-2 }, (_, i) => i + 1));
-        const [ currentIndex, setCurrentIndex ] = useState(state.projects.length ? 1 : 0); 
         const indicesRef = useRef(null);
-        const [ currentIndices, setCurrentIndices ] = useState(state.projects.length >= 6 ? 1 : 0);
-        // const [ isSliding, setIsSliding ] = useState(false);
+        
+        const [ visibleCount, setVisibleCount ] = useState(3);
+        const [ currentIndex, setCurrentIndex ] = useState(1);
+        const [ currentIndices, setCurrentIndices ] = useState(1);
+
+        const updateVisibleCount = () => {
+                if (typeof window === 'undefined') return;
+                if (window.innerWidth < 680) {
+                        setVisibleCount(1);
+                } else if (window.innerWidth < 1024) {
+                        setVisibleCount(2);
+                } else {
+                        setVisibleCount(3);
+                }
+        };
+
+        useEffect(() => {
+                updateVisibleCount();
+                window.addEventListener('resize', updateVisibleCount);
+                return () => window.removeEventListener('resize', updateVisibleCount);
+        }, []);
+
+        const maxIndex = Math.max(1, (projects?.length || 0) - visibleCount + 1);
+        const pagination = Array.from({ length: maxIndex }, (_, i) => i + 1);
+
+        const slideTo = (index) => {
+                if (!projectsRef.current) return;
+                const safeIndex = Math.max(1, Math.min(index, maxIndex));
+                const children = projectsRef.current.children;
+                if (children && children[safeIndex - 1] && children[0]) {
+                        const offset = children[safeIndex - 1].offsetLeft - children[0].offsetLeft;
+                        projectsRef.current.style.transform = `translateX(-${offset}px)`;
+                }
+                setCurrentIndex(safeIndex);
+        };
 
         const handleProjectsSlide = (newIndex) => {
-                if (projectsRef.current && currentIndex !== newIndex) {
-                        const slideBy = -(newIndex - 1) * 30;
-                        projectsRef.current.style.transform = `translateX(${slideBy}vw)`;
-                        setCurrentIndex(newIndex);
+                if (currentIndex !== newIndex) {
+                        slideTo(newIndex);
                 }
         };
 
         const handlePrevIndicesSlide = () => {
-                if (indicesRef.current && currentIndices !== 1 ) {
-                        const slideBy = (-(currentIndices - 2) * 40) - 2 * (currentIndices - 2);
-                        indicesRef.current.style.transform = `translateX(${slideBy}vh)`;
-                        setCurrentIndices(prev => prev-1);
+                if (currentIndex > 1) {
+                        slideTo(currentIndex - 1);
                 }
         };
 
         const handleNextIndicesSlide = () => {
-                if (indicesRef.current && currentIndices !== Math.ceil((projects.length-2) / 6) ) {
-                        const slideBy = (-(currentIndices) * 40) - 2 * (currentIndices);
-                        indicesRef.current.style.transform = `translateX(${slideBy}vh)`;
-                        setCurrentIndices(prev => prev+1);
+                if (currentIndex < maxIndex) {
+                        slideTo(currentIndex + 1);
                 }
         };
 
-        // useEffect(() => {
-        //         if (projectsRef.current) {
-        //                 const interval = setInterval(() => {
-        //                         if (currentIndex !== pagination.length) {
-        //                                 if (currentIndex % 6 === 1 && currentIndex !== 1) {
-        //                                         handleNextIndicesSlide();
-        //                                 }
-                                        
-        //                                 handleProjectsSlide(currentIndex + 1);
-        //                         }
-        //                         else {
-        //                                 setCurrentIndex(1);
-        //                                 setCurrentIndices(1);
-        //                                 projectsRef.current.style.transform = `translateX(0vw)`;
-        //                                 indicesRef.current.style.transform = `translateX(0vh)`;
-        //                         }
-        //                 }, 10000);
-
-        //                 return () => clearInterval(interval);
-        //         }
-        // }, []);
-
         useEffect(() => {
                 setProjects(state.projects);
-                setPagination(Array.from({ length: state.projects.length-2 }, (_, i) => i + 1));
-                setCurrentIndex(state.projects.length ? 1 : 0);
-                setCurrentIndices(state.projects.length >= 6 ? 1 : 0);
-        }, [state.projects]);
+                slideTo(1);
+        }, [state.projects, visibleCount]);
+
+        if (loading) {
+                return <ProjectsPreviewSkeleton />;
+        }
+
+        if (!Array.isArray(projects) || projects.length === 0) {
+                return null;
+        }
 
         return (
                 <div className="projects-preview">
@@ -134,42 +144,48 @@ function ProjectsPreview() {
                         </div>
 
                         <div className="projects">
-                                { projects.length ? 
-                                        <div className="wrapper" ref={projectsRef} >
-                                                { projects.map((project) => 
-                                                        (<Project key={project._id} project={project} />)
-                                                )}
-                                        </div>
-                                        : 
-                                        <p className="no-project">No projects yet!</p> 
-                                }
-                        </div>
-
-                        <div className="pagination">
-                                <button 
-                                        className="prev slide" 
-                                        disabled={currentIndices === 1} 
-                                        onClick={handlePrevIndicesSlide} 
-                                >
-                                        Prev
-                                </button>
-
-                                <div className="indices">
-                                        <div className="wrapper" ref={indicesRef} >
-                                                { pagination.map((index) => (
-                                                        <p className={currentIndex === index ? "focused" : null} key={index} onClick={() => {handleProjectsSlide(index)}} >{index}</p>
-                                                )) }
-                                        </div>
+                                <div className="wrapper" ref={projectsRef} >
+                                        { projects.map((project) => 
+                                                (<Project key={project._id} project={project} />)
+                                        )}
                                 </div>
-
-                                <button 
-                                        className="next slide" 
-                                        disabled={currentIndices === Math.ceil((projects.length-2) / 6)} 
-                                        onClick={handleNextIndicesSlide} 
-                                >
-                                        Next
-                                </button>
                         </div>
+
+                        {pagination.length > 1 && (
+                                <div className="pagination">
+                                        <button 
+                                                className="prev slide" 
+                                                disabled={currentIndex <= 1} 
+                                                onClick={handlePrevIndicesSlide} 
+                                                aria-label="Previous project"
+                                        >
+                                                Prev
+                                        </button>
+
+                                        <div className="indices">
+                                                <div className="wrapper" ref={indicesRef} >
+                                                        { pagination.map((index) => (
+                                                                <p 
+                                                                        className={currentIndex === index ? "focused" : ""} 
+                                                                        key={index} 
+                                                                        onClick={() => handleProjectsSlide(index)} 
+                                                                >
+                                                                        {index}
+                                                                </p>
+                                                        )) }
+                                                </div>
+                                        </div>
+
+                                        <button 
+                                                className="next slide" 
+                                                disabled={currentIndex >= maxIndex} 
+                                                onClick={handleNextIndicesSlide} 
+                                                aria-label="Next project"
+                                        >
+                                                Next
+                                        </button>
+                                </div>
+                        )}
 
                         <div className="more">
                                 <Link className="button" to="/projects">

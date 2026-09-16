@@ -2,8 +2,8 @@
 
 .social-links-card {
         position: relative;
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 24px;
         display: flex;
@@ -15,7 +15,7 @@
 }
 
 .social-links-card:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .social-links-card .card-header {
@@ -27,7 +27,7 @@
 .social-links-card .card-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
 }
 
@@ -37,11 +37,11 @@
         top: 60px;
         right: 24px;
         z-index: 100;
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 18px;
         padding: 16px;
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 16px 36px var(--admin-overlay-heavy);
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -71,15 +71,15 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 14px;
         padding: 10px 16px;
         transition: border-color 0.2s ease;
 }
 
 .social-item:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .social-item .item-info {
@@ -98,14 +98,14 @@
 
 .social-item .item-text {
         font-size: 0.875rem;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-weight: 500;
 }
 
 .social-item .item-delete-btn {
         background: transparent;
         border: none;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         padding: 4px;
         border-radius: 6px;
@@ -116,6 +116,6 @@
 }
 
 .social-item .item-delete-btn:hover {
-        color: #ff4500;
-        background-color: rgba(255, 68, 0, 0.1);
+        color: var(--admin-danger-orange);
+        background-color: var(--admin-danger-soft);
 }

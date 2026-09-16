@@ -9,7 +9,6 @@ import SchoolIcon from '@mui/icons-material/School';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -85,17 +84,6 @@ function Sidebar() {
 
                         <div className="sidebar-footer">
                                 <div className="footer-divider"></div>
-
-                                <NavLink 
-                                        to="/admin/settings" 
-                                        className={({ isActive }) => isActive ? "footer-link focused" : "footer-link"}
-                                        title="Settings"
-                                >
-                                        <span className="icon">
-                                                <SettingsOutlinedIcon className="mui-icon" />
-                                        </span>
-                                        <span className="name">Settings</span>
-                                </NavLink>
 
                                 <button 
                                         type="button" 

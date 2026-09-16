@@ -8,7 +8,7 @@
 .quick-actions-heading {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #ededed;
+        color: var(--admin-text-primary);
         letter-spacing: -0.01em;
 }
 
@@ -25,8 +25,8 @@
         align-items: center;
         justify-content: center;
         gap: 0.85rem;
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 1rem;
         padding: 1.5rem 0.75rem;
         cursor: pointer;
@@ -36,10 +36,10 @@
 }
 
 .quick-action-card:hover {
-        background-color: #242424;
-        border-color: rgba(198, 255, 0, 0.4);
+        background-color: var(--admin-surface-hover);
+        border-color: var(--admin-accent-border-strong);
         transform: translateY(-3px);
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 10px 24px var(--admin-overlay);
 }
 
 .quick-action-card:active {
@@ -50,7 +50,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #c6ff00;
+        color: var(--admin-accent);
         transition: transform 0.2s ease;
 }
 
@@ -65,7 +65,7 @@
 .action-label {
         font-size: 0.85rem;
         font-weight: 500;
-        color: #ededed;
+        color: var(--admin-text-primary);
         letter-spacing: -0.01em;
         white-space: nowrap;
 }

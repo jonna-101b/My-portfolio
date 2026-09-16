@@ -59,6 +59,7 @@ function useQualificationsDisplayReducer() {
 
         return {
                 qualifications,
+                loading: state?.loading,
                 filters: null,
                 filterTags: null,
                 sortMethod,

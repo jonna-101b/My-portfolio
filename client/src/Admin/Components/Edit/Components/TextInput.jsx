@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import EditIcon from '../../../../assets/Icons/Admin/Common/Edit/edit.png';
-import CheckIcon from '../../../../assets/Icons/Admin/Common/Edit/checkmark-hover.png';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import '../Styles/TextInput.css';
 
 
@@ -44,13 +44,13 @@ const TextInput = ({ text, value, handleValueChange, edited, handleEdit }) => {
                                                 <>
                                                         edit
                                                         <span className="icon">
-                                                                <img src={EditIcon} alt="Edit icon" />
+                                                                <EditOutlinedIcon fontSize="small" />
                                                         </span>
                                                 </> :
                                                 <>
                                                         done
                                                         <span className="icon">
-                                                                <img src={CheckIcon} alt="Save icon" />
+                                                                <CheckRoundedIcon fontSize="small" />
                                                         </span>
                                                 </>
                                         }

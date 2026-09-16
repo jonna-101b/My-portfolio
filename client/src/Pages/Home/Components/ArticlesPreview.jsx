@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
-import { blogs } from './Trial';
+import useBlogReducer from '../../../Hooks/useBlogReducer';
 import GoToIcon from '../../../assets/Icons/Home/right-arrow with a line.png';
 import '../Styles/ArticlesPreview.css';
-
 
 function Blog({ blog }) {
         const colors = [
@@ -28,43 +27,58 @@ function Blog({ blog }) {
         "#33D4FF"  // electric cyan
         ];
 
+        const tags = Array.isArray(blog?.tags) ? blog.tags : [];
+        const links = Array.isArray(blog?.links) ? blog.links : [];
+
         return (
                 <div className="blog">
                         <div className="main-content">
                                 <div className="title">
-                                        <p>{ blog.title }</p>
+                                        <p>{ blog?.title }</p>
                                 </div>
 
                                 <div className="intro-text">
-                                        <p>{ blog.introText }</p>
+                                        <p>{ blog?.introText || blog?.subtitle || blog?.intro }</p>
                                 </div>
 
                                 <div className="tags">
-                                        { blog.tags.map((tag, index) => (<p className="tag" style={{color: colors[index]}}>{ tag }</p>))}
+                                        { tags.map((tag, index) => (
+                                                <p key={index} className="tag" style={{ color: colors[index % colors.length] }}>
+                                                        { tag }
+                                                </p>
+                                        )) }
                                 </div>
 
                                 <div className="description">
-                                        <p>{ blog.description }</p>
+                                        <p>{ blog?.description || blog?.content }</p>
                                 </div>
 
                                 <div className="links">
-                                        { blog.links.map((link, index) => (<button className="link">{ link.title }</button>)) }
+                                        { links.map((link, index) => (
+                                                <button key={index} className="link" type="button">
+                                                        { link.title }
+                                                </button>
+                                        )) }
                                 </div>
                         </div>
 
                         <div className="sub-content">
-                                <p className='image'>
-                                        <img src={ blog.image } alt="Blog image" />
-                                </p>
+                                { blog?.image && (
+                                        <p className="image">
+                                                <img src={ blog.image } alt={ blog.title || "Blog cover" } />
+                                        </p>
+                                ) }
 
                                 <div className="info">
                                         <p className="author">
-                                                Author: { blog.author }
+                                                Author: { blog?.author || 'Author' }
                                         </p>
 
-                                        <p className="date">
-                                                Date: { blog.datePublished }
-                                        </p>
+                                        { blog?.createdAt && (
+                                                <p className="date">
+                                                        Date: { new Date(blog.createdAt).toLocaleDateString() }
+                                                </p>
+                                        ) }
                                 </div>
                         </div>
                 </div>
@@ -72,6 +86,11 @@ function Blog({ blog }) {
 }
 
 function BlogsPreview() {
+        const { state } = useBlogReducer();
+        const blogs = state?.blogs || [];
+
+        if (!blogs.length) return null;
+
         return (
                 <div className="blogs-preview">
                         <div className="main-title">
@@ -83,7 +102,9 @@ function BlogsPreview() {
                         </div>
 
                         <div className="blogs">
-                                { blogs.map((blog) => (<Blog blog={ blog }/>)) }
+                                { blogs.map((blog, index) => (
+                                        <Blog key={blog._id || index} blog={ blog }/>
+                                )) }
                         </div>
 
                         <div className="more">

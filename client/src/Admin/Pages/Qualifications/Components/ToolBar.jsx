@@ -1,60 +1,56 @@
 import { useContext } from 'react';
 import { LayoutContext } from '../Contexts/LayoutContext';
-import SearchIcon from '../../../../assets/Icons/Admin/Common/search.png';
-import AddIcon from '../../../../assets/Icons/Admin/Common/plus.png';
-import ListIcon from '../../../../assets/Icons/Admin/Common/list.png';
-import ListHoverIcon from '../../../../assets/Icons/Admin/Common/list-hover.png';
-import GridIcon from '../../../../assets/Icons/Admin/Common/grid.png';
-import GridHoverIcon from '../../../../assets/Icons/Admin/Common/grid-hover.png';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import '../Styles/ToolBar.css';
 
 function ToolBar() {
-        const { layout, setLayout } = useContext(LayoutContext);
+	const { layout, setLayout } = useContext(LayoutContext);
 
-        const handleLayout = () => {
-                setLayout((prev) => !prev);
-        }
+	const handleLayout = () => {
+		setLayout((prev) => !prev);
+	};
 
-        return (
-                <div className="tool-bar">
-                        <div className="search-bar">
-                                <p className="search">
-                                        <img src={SearchIcon} alt="Search icon" />
-                                        <input type="text" name="search" id="search" placeholder="Search your qualifications"/>
-                                </p>
-                        </div>
+	return (
+		<div className="tool-bar">
+			<div className="search-bar">
+				<p className="search">
+					<SearchRoundedIcon sx={{ fontSize: '2vh', color: 'var(--admin-text-muted)' }} />
+					<input type="text" name="search" id="search" placeholder="Search your qualifications"/>
+				</p>
+			</div>
 
-                        <div className="action-bar">
-                                <p className="new-qualification">
-                                        <span className="icon">
-                                                <img src={AddIcon} alt="Add icon" />
-                                        </span>
+			<div className="action-bar">
+				<p className="new-qualification">
+					<span className="icon">
+						<AddRoundedIcon sx={{ fontSize: '1.8vh' }} />
+					</span>
 
-                                        New qualification
-                                </p>
+					New qualification
+				</p>
 
-                                <div className="layout">
-                                       { layout ?
-                                                <p className="list-view" onClick={handleLayout}>
-                                                        List
-                                                        <span className="icon">
-                                                                <img src={ListIcon} alt="List icon" />
-                                                                <img src={ListHoverIcon} alt="List icon" className="hover" />
-                                                        </span>
-                                                </p>
-                                                :
-                                                <p className="grid-view" onClick={handleLayout}>
-                                                        grid
-                                                        <span className="icon" onClick={handleLayout}>
-                                                                <img src={GridIcon} alt="Grid icon" />
-                                                                <img src={GridHoverIcon} alt="Grid icon" className="hover" />
-                                                        </span>
-                                                </p>
-                                        }
-                                </div>
-                        </div>
-                </div>
-        );
+				<div className="layout">
+					{ layout ?
+						<p className="list-view" onClick={handleLayout}>
+							List
+							<span className="icon">
+								<ViewListRoundedIcon sx={{ fontSize: '1.8vh' }} />
+							</span>
+						</p>
+						:
+						<p className="grid-view" onClick={handleLayout}>
+							Grid
+							<span className="icon" onClick={handleLayout}>
+								<GridViewRoundedIcon sx={{ fontSize: '1.8vh' }} />
+							</span>
+						</p>
+					}
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default ToolBar;

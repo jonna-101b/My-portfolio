@@ -59,6 +59,7 @@ const useActivitiesReducer = () => {
 
         return {
                 state,
+                activities: state.activities,
                 loading: state.loading,
                 error: state.error,
                 setActivities,

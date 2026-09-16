@@ -99,6 +99,7 @@ function useProjectsDisplayReducer() {
 
         return {
                 projects,
+                loading: state?.loading,
                 filters,
                 filterTags,
                 sortMethod,

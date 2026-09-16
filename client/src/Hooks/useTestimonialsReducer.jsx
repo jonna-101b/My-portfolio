@@ -74,6 +74,7 @@ const useTestimonialsReducer = () => {
 
         return {
                 state,
+                testimonials: state.testimonials,
                 loading: state.loading,
                 error: state.error,
                 setTestimonials,

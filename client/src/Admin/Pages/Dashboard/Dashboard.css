@@ -5,7 +5,7 @@
         min-height: 100%;
         padding-inline: 6vh;
         padding-block: 2vh 6vh;
-        background-color: #131313;
+        background-color: var(--admin-bg-page);
         box-sizing: border-box;
 }
 

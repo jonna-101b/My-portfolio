@@ -1,6 +1,6 @@
 .recent-actions-card {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 1.25rem;
         padding: 1.75rem;
         display: flex;
@@ -14,13 +14,13 @@
         align-items: center;
         justify-content: space-between;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba(38, 38, 38, 0.5);
+        border-bottom: 1px solid var(--admin-border-subtle);
 }
 
 .recent-actions-title {
         font-size: 1.15rem;
         font-weight: 700;
-        color: #ededed;
+        color: var(--admin-text-primary);
         letter-spacing: -0.01em;
         margin: 0;
 }
@@ -46,9 +46,9 @@
         width: 2.35rem;
         height: 2.35rem;
         border-radius: 50%;
-        background-color: #171717;
-        border: 1px solid #262626;
-        color: #888888;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        color: var(--admin-text-muted);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -57,9 +57,9 @@
 }
 
 .action-row:hover .action-icon-circle {
-        border-color: rgba(198, 255, 0, 0.35);
-        color: #c6ff00;
-        background-color: #202020;
+        border-color: var(--admin-accent-border);
+        color: var(--admin-accent);
+        background-color: var(--admin-surface-panel);
 }
 
 .action-details {
@@ -70,20 +70,20 @@
 
 .action-text {
         font-size: 0.85rem;
-        color: #ededed;
+        color: var(--admin-text-primary);
         line-height: 1.4;
         margin: 0;
 }
 
 .action-highlight {
-        color: #c6ff00;
+        color: var(--admin-accent);
         font-weight: 600;
 }
 
 .action-timestamp {
         font-size: 0.68rem;
         font-weight: 600;
-        color: #888888;
+        color: var(--admin-text-muted);
         letter-spacing: 0.05em;
         text-transform: uppercase;
 }
@@ -91,10 +91,10 @@
 .view-all-activity-btn {
         width: 100%;
         padding: 0.85rem;
-        background-color: #242424;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-hover);
+        border: 1px solid var(--admin-border-base);
         border-radius: 0.75rem;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 0.08em;
@@ -107,9 +107,9 @@
 }
 
 .view-all-activity-btn:hover {
-        background-color: #2a2a2a;
-        border-color: rgba(198, 255, 0, 0.4);
-        color: #c6ff00;
+        background-color: var(--admin-border-light);
+        border-color: var(--admin-accent-border-strong);
+        color: var(--admin-accent);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }

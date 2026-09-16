@@ -20,11 +20,14 @@ import DottedBackground from './assets/Images/Background/DottedBackground';
 import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import ServerNotification from './Components/ServerNotification/ServerNotification';
 import Admin from './Admin/Admin';
+import useProjectsReducer from './Hooks/useProjectsReducer';
 import './App.css';
-// import './Styles/Fonts.css';
 
 
 function MainLayout() {
+        const { state: projectsState } = useProjectsReducer();
+        const hasProjects = Array.isArray(projectsState?.projects) && projectsState.projects.length > 0;
+
         return (
                 <div className="main-layout">
                         <ServerNotification />
@@ -37,17 +40,13 @@ function MainLayout() {
 
                                         <Route path="/about" element={<About />} />
 
-                                        {/* <Route path="/skills" element={<Skills />} /> */}
+                                        {hasProjects && (
+                                                <>
+                                                        <Route path="/projects" element={<Projects />} />
 
-                                        <Route path="/projects" element={<Projects />} />
-
-                                        <Route path="/projects/:projectId" element={<Projects />} />
-
-                                        {/* <Route path="/testimonials" element={<Testimonials />} /> */}
-
-                                        {/* <Route path="/blogs" element={<Blog />} /> */}
-
-                                        {/* <Route path="/contacts" element={<PageContacts />} /> */}
+                                                        <Route path="/projects/:projectId" element={<Projects />} />
+                                                </>
+                                        )}
                                 </Routes>
 
                         </div>

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import useActivitiesReducer from "../../../../Hooks/useActivitiesReducer";
+import { AdminActivitySkeleton } from "../../../../Components/Skeletons/AdminSkeletons";
 
 // MUI Icons
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -14,6 +14,7 @@ import "../Styles/RecentActivitySection.css";
 
 function RecentActivitySection() {
         const { state } = useActivitiesReducer();
+        const loading = state?.loading;
         const rawActivities = state?.activities || [];
 
         // Predefined or mapped actions matching design style
@@ -55,50 +56,12 @@ function RecentActivitySection() {
                         });
                 }
 
-                // Fallback realistic actions matching the reference design image
-                return [
-                        {
-                                id: 1,
-                                actionType: "Updated",
-                                highlight: '"Cyberpunk Interface"',
-                                suffix: "project",
-                                time: "2 HOURS AGO",
-                                icon: <EditOutlinedIcon fontSize="small" />
-                        },
-                        {
-                                id: 2,
-                                actionType: "Published blog post",
-                                highlight: '"The Future of WebGL"',
-                                suffix: "",
-                                time: "YESTERDAY, 4:30 PM",
-                                icon: <ArticleOutlinedIcon fontSize="small" />
-                        },
-                        {
-                                id: 3,
-                                actionType: "New inquiry from",
-                                highlight: "SpaceX Design Team",
-                                suffix: "",
-                                time: "OCT 24, 2023",
-                                icon: <PersonAddOutlinedIcon fontSize="small" />
-                        },
-                        {
-                                id: 4,
-                                actionType: "Added new skill",
-                                highlight: '"Three.js Master"',
-                                suffix: "",
-                                time: "OCT 22, 2023",
-                                icon: <StarOutlineOutlinedIcon fontSize="small" />
-                        },
-                        {
-                                id: 5,
-                                actionType: "System maintenance completed",
-                                highlight: "",
-                                suffix: "",
-                                time: "OCT 20, 2023",
-                                icon: <AutorenewOutlinedIcon fontSize="small" />
-                        }
-                ];
+                return [];
         }, [rawActivities]);
+
+        if (loading) {
+                return <AdminActivitySkeleton />;
+        }
 
         return (
                 <div className="recent-actions-card">
@@ -107,31 +70,41 @@ function RecentActivitySection() {
                         </div>
 
                         <div className="actions-list">
-                                {recentActions.map((action) => (
-                                        <div key={action.id} className="action-row">
-                                                <div className="action-icon-circle">
-                                                        {action.icon}
-                                                </div>
+                                {recentActions.length > 0 ? (
+                                        recentActions.map((action) => (
+                                                <div key={action.id} className="action-row">
+                                                        <div className="action-icon-circle">
+                                                                {action.icon}
+                                                        </div>
 
-                                                <div className="action-details">
-                                                        <p className="action-text">
-                                                                <span className="action-verb">{action.actionType} </span>
-                                                                {action.highlight && (
-                                                                        <span className="action-highlight">{action.highlight} </span>
-                                                                )}
-                                                                {action.suffix && (
-                                                                        <span className="action-suffix">{action.suffix}</span>
-                                                                )}
-                                                        </p>
-                                                        <span className="action-timestamp">{action.time}</span>
+                                                        <div className="action-details">
+                                                                <p className="action-text">
+                                                                        <span className="action-verb">{action.actionType} </span>
+                                                                        {action.highlight && (
+                                                                                <span className="action-highlight">{action.highlight} </span>
+                                                                        )}
+                                                                        {action.suffix && (
+                                                                                <span className="action-suffix">{action.suffix}</span>
+                                                                        )}
+                                                                </p>
+                                                                <span className="action-timestamp">{action.time}</span>
+                                                        </div>
                                                 </div>
-                                        </div>
-                                ))}
+                                        ))
+                                ) : (
+                                        <p style={{ color: "var(--admin-text-dim)", fontSize: "0.85rem", padding: "16px 0", textAlign: "center" }}>
+                                                No recent activity recorded yet.
+                                        </p>
+                                )}
                         </div>
 
-                        <Link to="/admin/settings/privacy-&-security" className="view-all-activity-btn">
+                        <button 
+                                type="button" 
+                                className="view-all-activity-btn"
+                                onClick={() => window.dispatchEvent(new CustomEvent('open-admin-activities'))}
+                        >
                                 VIEW ALL ACTIVITY
-                        </Link>
+                        </button>
                 </div>
         );
 }

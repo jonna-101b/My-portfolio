@@ -10,29 +10,29 @@
 	font-size: 0.9rem;
 	font-weight: 500;
 	letter-spacing: 0.01em;
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .new.active .wrapper form .textarea-input .label .add-state {
 	display: inline-block;
-	background-color: #ff5e2e;
+	background-color: var(--admin-danger);
 	border-radius: 50%;
 	width: 7px;
 	height: 7px;
-	box-shadow: 0 0 6px rgba(255, 94, 46, 0.4);
+	box-shadow: 0 0 6px var(--admin-danger-glow);
 	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .admin .new.active .wrapper form .textarea-input .label .added {
-	background-color: #c6ff00;
-	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
+	background-color: var(--admin-accent);
+	box-shadow: 0 0 8px var(--admin-accent-glow-strong);
 }
 
 .admin .new.active .wrapper form .textarea-input .value {
 	display: grid;
 	gap: 1.8vh;
-	background-color: #131313;
-	border: 1px solid #262626;
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 14px;
 	padding: 2.2vh;
 	position: relative;
@@ -40,8 +40,8 @@
 }
 
 .admin .new.active .wrapper form .textarea-input .value:focus-within {
-	border-color: #383838;
-	background-color: #151515;
+	border-color: var(--admin-border-focus);
+	background-color: var(--admin-surface-main);
 }
 
 .admin .new.active .wrapper form .textarea-input .value .type {
@@ -52,9 +52,9 @@
 .admin .new.active .wrapper form .textarea-input .value .type p {
 	font-size: 0.8rem;
 	font-weight: 500;
-	color: #888888;
-	background-color: rgba(237, 237, 237, 0.05);
-	border: 1px solid #262626;
+	color: var(--admin-text-muted);
+	background-color: var(--admin-control-bg);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 8px;
 	padding: 0.6vh 2vh;
 	transition: all 0.2s ease;
@@ -64,31 +64,31 @@
 
 .admin .new.active .wrapper form .textarea-input .value .type p:focus, 
 .admin .new.active .wrapper form .textarea-input .value .type p:hover {
-	background-color: rgba(237, 237, 237, 0.1);
-	color: #ededed;
-	border-color: #383838;
+	background-color: var(--admin-control-bg-hover);
+	color: var(--admin-text-primary);
+	border-color: var(--admin-border-focus);
 }
  
 .admin .new.active .wrapper form .textarea-input .value .type .focused {
-	color: #111111;
-	background-color: #c6ff00;
-	border-color: #c6ff00;
+	color: var(--admin-text-ink);
+	background-color: var(--admin-accent);
+	border-color: var(--admin-accent);
 	font-weight: 600;
-	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.25);
+	box-shadow: 0 2px 10px var(--admin-accent-glow);
 }
 
 .admin .new.active .wrapper form .textarea-input .value .type .focused:focus, 
 .admin .new.active .wrapper form .textarea-input .value .type .focused:hover {
-	background-color: #d4ff26;
-	border-color: #d4ff26;
-	color: #111111;
+	background-color: var(--admin-accent-hover);
+	border-color: var(--admin-accent-hover);
+	color: var(--admin-text-ink);
 }
  
 .admin .new.active .wrapper form .textarea-input .value textarea {
 	display: block;
 	font-size: 0.875rem;
 	line-height: 1.6;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	background-color: transparent;
 	border: none;
 	outline: none;
@@ -100,12 +100,12 @@
 }
 
 .admin .new.active .wrapper form .textarea-input .value textarea::placeholder {
-	color: #666666;
+	color: var(--admin-text-dim);
 	font-size: 0.85rem;
 }
 
 .admin .new.active .wrapper form .textarea-input .value textarea:disabled {
-	color: #888888;
+	color: var(--admin-text-muted);
 }
 
 .admin .new.active .wrapper form .textarea-input .value textarea::-webkit-scrollbar {
@@ -117,12 +117,12 @@
 }
 
 .admin .new.active .wrapper form .textarea-input .value textarea::-webkit-scrollbar-thumb {
-	background-color: #262626;
+	background-color: var(--admin-scrollbar-thumb);
 	border-radius: 6px;
 }
 
 .admin .new.active .wrapper form .textarea-input .value textarea::-webkit-scrollbar-thumb:hover {
-	background-color: #383838;
+	background-color: var(--admin-scrollbar-thumb-hover);
 }
 
 .admin .new.active .wrapper form .textarea-input .value .edit-button {
@@ -133,9 +133,9 @@
 	gap: 0.8vh;
 	font-size: 0.8rem;
 	font-weight: 500;
-	color: #ededed;
-	background-color: rgba(237, 237, 237, 0.06);
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-control-bg);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 8px;
 	width: fit-content;
 	padding: 0.6vh 1.8vh;
@@ -146,23 +146,23 @@
 
 .admin .new.active .wrapper form .textarea-input .value .edit-button:focus,
 .admin .new.active .wrapper form .textarea-input .value .edit-button:hover {
-	background-color: rgba(237, 237, 237, 0.12);
-	border-color: #383838;
+	background-color: var(--admin-control-bg-hover);
+	border-color: var(--admin-border-focus);
 }
 
 .admin .new.active .wrapper form .textarea-input .value .focused {
-	color: #111111;
-	background-color: #c6ff00;
-	border-color: #c6ff00;
+	color: var(--admin-text-ink);
+	background-color: var(--admin-accent);
+	border-color: var(--admin-accent);
 	font-weight: 600;
-	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.25);
+	box-shadow: 0 2px 10px var(--admin-accent-glow);
 }
 
 .admin .new.active .wrapper form .textarea-input .value .focused:focus,
 .admin .new.active .wrapper form .textarea-input .value .focused:hover {
-	background-color: #d4ff26;
-	border-color: #d4ff26;
-	color: #111111;
+	background-color: var(--admin-accent-hover);
+	border-color: var(--admin-accent-hover);
+	color: var(--admin-text-ink);
 }
 
 .admin .new.active .wrapper form .textarea-input .value .edit-button .icon {
@@ -182,7 +182,7 @@
 	gap: 0.6vh;
 	font-size: 0.75rem;
 	font-weight: 500;
-	color: #c6ff00;
+	color: var(--admin-accent);
 	position: absolute;
 	left: 2.2vh;
 	bottom: 2.2vh;

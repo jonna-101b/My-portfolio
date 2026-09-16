@@ -13,14 +13,14 @@
         align-items: center;
         gap: 2vh;
         font-size: 0.875rem;
-        background-color: #202020;
-        border: 1px solid #888888;
+        background-color: var(--admin-surface-panel);
+        border: 1px solid var(--admin-border-focus);
         border-radius: 10vh;
         padding: 0.5vh 3vh;
 }
 
 .qualifications .tool-bar .search-bar .search input {
-        color: #888888;
+        color: var(--admin-text-primary);
         background-color: transparent;
         border: none;
         width: 20vw;
@@ -44,8 +44,8 @@
         align-items: center;
         gap: 1vh;
         font-size: 0.875rem;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--admin-btn-secondary-text);
+        background-color: var(--admin-btn-secondary-bg);
         border-radius: 2vh;
         padding: 1.5vh 3vh;
         transition: background-color 0.15s linear;
@@ -54,7 +54,8 @@
 
 .qualifications .tool-bar .action-bar .new-qualification:focus,
 .qualifications .tool-bar .action-bar .new-qualification:hover {
-        background-color: #c6ff00;
+        background-color: var(--admin-btn-secondary-hover);
+        color: var(--admin-btn-secondary-text);
 }
 
 .qualifications .tool-bar .action-bar .new-qualification img {
@@ -71,7 +72,7 @@
         align-items: center;
         gap: 1.25vh;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         border-radius: 10vh;
         padding: 0.5vh 2vh;
         transition: background-color 0.15s linear, color 0.15s linear;
@@ -80,8 +81,8 @@
 
 .qualifications .tool-bar .action-bar .layout p:focus,
 .qualifications .tool-bar .action-bar .layout p:hover {
-        background-color: rgba(32, 32, 32, 0.5);
-        color: #c6ff00;
+        background-color: var(--admin-surface-active);
+        color: var(--admin-accent);
 }
 
 .qualifications .tool-bar .action-bar .layout p:focus .icon .hover,

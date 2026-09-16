@@ -7,8 +7,10 @@ import TextAreaInput from './Components/TextAreaInput';
 import TagInput from './Components/TagInput';
 import DateInput from './Components/DateInput';
 import RadioInput from './Components/RadioInput';
-import SaveBlackIcon from '../../../assets/Icons/Admin/Common/New/save-black.png';
-import CancelBlackIcon from '../../../assets/Icons/Admin/Common/New/cancel-black.png';
+import TechSelectInput from './Components/TechSelectInput';
+import CreatableSelectInput from './Components/CreatableSelectInput';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import './New.css';
 
 
@@ -19,16 +21,16 @@ function findInputs(arr) {
                 let defaultValue;
 
                 if ( input.inputType === "tag-input" ) {
-                        defaultValue = [];
+                        defaultValue = Array.isArray(input.values) ? input.values : (Array.isArray(input.value) ? input.value : []);
                 }
                 else if ( input.inputType === "textarea-input" ) {
-                        defaultValue = input.type === "single" ? "" : {brief: "", detailed: ""};
+                        defaultValue = input.value ? input.value : (input.type === "single" ? "" : {brief: "", detailed: ""});
                 }
-                else if (  input.inputType === ("image-input" | "date-input") ) {
-                        defaultValue = null;
+                else if ( input.inputType === "image-input" || input.inputType === "date-input" ) {
+                        defaultValue = input.value !== undefined ? input.value : null;
                 }
                 else {
-                        defaultValue = "";
+                        defaultValue = input.value !== undefined && input.value !== null ? input.value : "";
                 }
                 inputs.push([ input.name, defaultValue ]);
         }
@@ -38,7 +40,12 @@ function findInputs(arr) {
 
 const findRequirements = (arr) => {
         const reqs = arr.filter(input => input.required);
-        const reqsObj = Object.fromEntries(reqs.map(input => [input.name, false]));
+        const reqsObj = Object.fromEntries(reqs.map(input => {
+                const isProvided = input.value !== undefined && input.value !== null && input.value !== "" && 
+                        (!Array.isArray(input.value) || input.value.length > 0) &&
+                        (!Array.isArray(input.values) || input.values.length > 0);
+                return [input.name, Boolean(isProvided)];
+        }));
         return reqsObj;
 };
 
@@ -73,6 +80,13 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
                                         [name]: newValues
                                 }));
                         }
+                }
+                else if (inputType === "tech-select-input" && typeof change === "object" && change !== null) {
+                        setInputs(prev => ({
+                                ...prev,
+                                name: change.name || "",
+                                icon: change.icon || change.name || ""
+                        }));
                 }
                 else if (inputType === "textarea-input") {
                         if (change.type) {
@@ -147,6 +161,12 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
                                         if (input.inputType === "text-input" ) {
                                                 return <TextInput key={index} text={input} value={inputs[input.name]} handleValueChange={handleInputsChange} added={added[input.name]} handleAdd={handleAdd} />
                                         }
+                                        else if (input.inputType === "tech-select-input" ) {
+                                                return <TechSelectInput key={index} tech={input} value={inputs[input.name] || { name: inputs.name, icon: inputs.icon }} handleValueChange={handleInputsChange} added={added[input.name]} handleAdd={handleAdd} />
+                                        }
+                                        else if (input.inputType === "creatable-select-input" ) {
+                                                return <CreatableSelectInput key={index} select={input} value={inputs[input.name]} handleValueChange={handleInputsChange} added={added[input.name]} handleAdd={handleAdd} />
+                                        }
                                         else if (input.inputType === "select-input" ) {
                                                 return <SelectInput key={index} select={input} added={added[input.name]} value={inputs[input.name]} handleValueChange={handleInputsChange} handleAdd={handleAdd} />
                                         } 
@@ -167,14 +187,14 @@ function Wrapper({ componentName, component, createComponent, handleDisplay }) {
                                 <div className="changes">
                                         <button type="submit" className="save" disabled={!formAdded} >
                                                  <span className="icon">
-                                                         <img src={SaveBlackIcon} alt="Save icon" />
+                                                         <CheckRoundedIcon fontSize="small" />
                                                  </span>
                                                  {`Create ${componentName}`}
                                         </button>   
                                         <button type="reset" className="discard" onClick={handleDisplay} disabled={!formAdded} >
                                                  Discard changes
                                                  <span className="icon">
-                                                         <img src={CancelBlackIcon} alt="Save icon" />
+                                                         <CloseRoundedIcon fontSize="small" />
                                                  </span>
                                         </button>   
                                 </div>

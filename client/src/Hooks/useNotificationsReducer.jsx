@@ -59,6 +59,7 @@ const useNotificationsReducer = () => {
 
         return {
                 state,
+                notifications: state.notifications,
                 loading: state.loading,
                 error: state.error,
                 setNotifications,

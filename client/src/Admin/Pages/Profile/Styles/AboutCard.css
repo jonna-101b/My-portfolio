@@ -1,8 +1,8 @@
 /* About Card Styling */
 
 .about-card {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 24px;
         display: flex;
@@ -14,7 +14,7 @@
 }
 
 .about-card:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .about-card .card-header {
@@ -26,7 +26,7 @@
 .about-card .card-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
 }
 
@@ -34,8 +34,8 @@
 .about-segmented-control {
         display: flex;
         align-items: center;
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 3px;
         gap: 2px;
@@ -44,7 +44,7 @@
 .segment-btn {
         background: transparent;
         border: none;
-        color: #888888;
+        color: var(--admin-text-muted);
         font-size: 0.8125rem;
         font-weight: 500;
         padding: 4px 14px;
@@ -54,19 +54,19 @@
 }
 
 .segment-btn:hover {
-        color: #ededed;
+        color: var(--admin-text-primary);
 }
 
 .segment-btn.active {
-        background-color: #c6ff00;
-        color: #0b0d0e;
+        background-color: var(--admin-accent);
+        color: var(--admin-surface-darkest);
         font-weight: 600;
 }
 
 /* Content Box */
 .about-content-box {
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 14px;
         padding: 18px 20px;
         display: flex;
@@ -76,12 +76,12 @@
 }
 
 .about-content-box.editing {
-        border-color: rgba(198, 255, 0, 0.4);
+        border-color: var(--admin-accent-border-strong);
 }
 
 .about-text {
         font-size: 0.875rem;
-        color: #ededed;
+        color: var(--admin-text-primary);
         line-height: 1.65;
         margin: 0;
         white-space: pre-wrap;
@@ -93,7 +93,7 @@
         background-color: transparent;
         border: none;
         outline: none;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-size: 0.875rem;
         line-height: 1.65;
         font-family: inherit;
@@ -102,7 +102,7 @@
 }
 
 .about-textarea::placeholder {
-        color: #555555;
+        color: var(--admin-text-dim);
 }
 
 .about-bottom-actions {

@@ -7,8 +7,10 @@ import TextAreaInput from './Components/TextAreaInput';
 import TagInput from './Components/TagInput';
 import DateInput from './Components/DateInput';
 import RadioInput from './Components/RadioInput';
-import SaveBlackIcon from '../../../assets/Icons/Admin/Common/Edit/save-black.png';
-import CancelBlackIcon from '../../../assets/Icons/Admin/Common/Edit/cancel-black.png';
+import TechSelectInput from './Components/TechSelectInput';
+import CreatableSelectInput from './Components/CreatableSelectInput';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import './Edit.css';
 
 
@@ -44,6 +46,13 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
                                         [name]: newValues
                                 }));
                         }
+                }
+                else if (inputType === "tech-select-input" && typeof change === "object" && change !== null) {
+                        setInputs(prev => ({
+                                ...prev,
+                                name: change.name || "",
+                                icon: change.icon || change.name || ""
+                        }));
                 }
                 else if (inputType === "textarea-input") {
                         if (change.type) {
@@ -121,6 +130,12 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
                                         if (input.inputType === "text-input" ) {
                                                 return <TextInput key={index} text={input} value={inputs[input.name]} handleValueChange={handleInputsChange} edited={edited[input.name]} handleEdit={handleEdit} />
                                         }
+                                        else if (input.inputType === "tech-select-input" ) {
+                                                return <TechSelectInput key={index} tech={input} value={inputs[input.name] || { name: inputs.name, icon: inputs.icon }} handleValueChange={handleInputsChange} edited={edited[input.name]} handleEdit={handleEdit} />
+                                        }
+                                        else if (input.inputType === "creatable-select-input" ) {
+                                                return <CreatableSelectInput key={index} select={input} value={inputs[input.name]} handleValueChange={handleInputsChange} edited={edited[input.name]} handleEdit={handleEdit} />
+                                        }
                                         else if (input.inputType === "select-input" ) {
                                                 return <SelectInput key={index} select={input} value={inputs[input.name]} handleValueChange={handleInputsChange} edited={edited[input.name]} handleEdit={handleEdit} />
                                         } 
@@ -140,16 +155,16 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay 
 
                                 <div className="changes">
                                         <button type="submit" className="save" disabled={!formEdited} >
-                                                <span className="icon">
-                                                        <img src={SaveBlackIcon} alt="Save icon" />
-                                                </span>
-                                                Save changes
+                                                 <span className="icon">
+                                                         <CheckRoundedIcon fontSize="small" />
+                                                 </span>
+                                                 Save changes
                                         </button>   
                                         <button type="reset" className="discard" onClick={handleDisplay} disabled={!formEdited} >
-                                                Discard changes
-                                                <span className="icon">
-                                                        <img src={CancelBlackIcon} alt="Save icon" />
-                                                </span>
+                                                 Discard changes
+                                                 <span className="icon">
+                                                         <CloseRoundedIcon fontSize="small" />
+                                                 </span>
                                         </button>   
                                 </div>
                         </form>

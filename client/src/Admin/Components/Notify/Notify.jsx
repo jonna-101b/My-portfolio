@@ -20,23 +20,23 @@ function Notify({ NotifyContext }) {
         const actions = {
                 "add": { 
                         message: (comp, msg) => msg || `You have successfully added a ${comp}!`, 
-                        color: "#c6ff00",
-                        textColor: "#0b0d0e"
+                        color: "var(--admin-accent)",
+                        textColor: "var(--admin-text-ink)"
                 },
                 "edit": { 
                         message: (comp, msg) => msg || `You have successfully edited a ${comp}!`, 
-                        color: "#3861BE",
-                        textColor: "#ffffff"
+                        color: "var(--admin-info)",
+                        textColor: "var(--admin-text-white)"
                 },
                 "delete": { 
                         message: (comp, msg) => msg || `${capitalizeFirstLetter(comp)} is moved to trash!`, 
-                        color: "#ff3d00",
-                        textColor: "#ffffff"
+                        color: "var(--admin-danger)",
+                        textColor: "var(--admin-text-white)"
                 },
                 "error": { 
                         message: (comp, msg) => msg || `Failed to process ${comp || 'request'}. Server issue occurred!`, 
-                        color: "#d32f2f",
-                        textColor: "#ffffff"
+                        color: "var(--admin-danger-bright)",
+                        textColor: "var(--admin-text-white)"
                 },
         };
 

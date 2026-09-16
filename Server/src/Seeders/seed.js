@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+﻿import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import path from "path";
@@ -95,7 +95,6 @@ function buildConceptualSkillDocument(sourceSkill) {
   return {
     title: sourceSkill.title,
     description: sourceSkill.description,
-    icon: sourceSkill.icon,
   };
 }
 

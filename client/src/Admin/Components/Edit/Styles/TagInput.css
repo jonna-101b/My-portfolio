@@ -12,16 +12,16 @@
 	font-size: 0.9rem;
 	font-weight: 500;
 	letter-spacing: 0.01em;
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .tag-input .label .edited {
 	display: inline-block;
-	background-color: #c6ff00;
+	background-color: var(--admin-accent);
 	border-radius: 50%;
 	width: 7px;
 	height: 7px;
-	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
+	box-shadow: 0 0 8px var(--admin-accent-glow-strong);
 }
 
 .admin .edit.active .wrapper form .tag-input .add {
@@ -32,8 +32,8 @@
 	gap: 0.6vh;
 	font-size: 0.8rem;
 	font-weight: 600;
-	color: #111111;
-	background-color: #ededed;
+	color: var(--admin-btn-secondary-text);
+	background-color: var(--admin-btn-secondary-bg);
 	border: 1px solid transparent;
 	border-radius: 8px;
 	padding: 0.5vh 1.6vh;
@@ -47,17 +47,16 @@
 	place-content: center;
 }
 
-.admin .edit.active .wrapper form .tag-input .add .icon img {
-	width: 1.6vh;
-	height: 1.6vh;
-	object-fit: contain;
+.admin .edit.active .wrapper form .tag-input .add .icon svg {
+	font-size: 1.6vh;
+	color: currentColor;
 }
 
 .admin .edit.active .wrapper form .tag-input .add:focus,
 .admin .edit.active .wrapper form .tag-input .add:hover {
-	background-color: #c6ff00;
-	color: #111111;
-	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.3);
+	background-color: var(--admin-btn-secondary-hover);
+	color: var(--admin-btn-secondary-text);
+	box-shadow: 0 2px 10px var(--admin-accent-glow);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag {
@@ -65,8 +64,8 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 1.8vh;
-	background-color: #131313;
-	border: 1px solid #262626;
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 14px;
 	padding: 2.2vh;
 	animation: modalFadeIn 0.2s ease forwards;
@@ -76,7 +75,7 @@
 	grid-column: span 2;
 	font-size: 0.85rem;
 	font-weight: 600;
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs {
@@ -89,21 +88,21 @@
 	display: flex;
 	align-items: center;
 	gap: 1vh;
-	background-color: #171717;
-	border: 1px solid #262626;
+	background-color: var(--admin-surface-main);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 10px;
 	padding: 0.8vh 1.2vh;
 	transition: border-color 0.2s ease;
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input:focus-within {
-	border-color: #383838;
+	border-color: var(--admin-border-focus);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input input {
 	flex-grow: 1;
 	font-size: 0.875rem;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	background-color: transparent;
 	border: none;
 	outline: none;
@@ -111,14 +110,14 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input input::placeholder {
-	color: #666666;
+	color: var(--admin-text-dim);
 	font-size: 0.85rem;
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select {
 	flex-grow: 1;
 	font-size: 0.875rem;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	background-color: transparent;
 	border: none;
 	outline: none;
@@ -127,7 +126,7 @@
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__control {
 	flex-grow: 1;
 	font-size: 0.875rem;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	background-color: transparent !important;
 	border: none !important;
 	border-radius: 8px;
@@ -137,23 +136,23 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__placeholder {
-	color: #666666;
+	color: var(--admin-text-dim);
 	font-size: 0.85rem;
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__input-container {
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__single-value {
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__menu {
 	display: grid;
-	color: #ededed;
-	background-color: #171717;
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-surface-main);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	padding: 0.6vh;
 	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
@@ -168,13 +167,13 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__option--is-focused {
-	background-color: rgba(237, 237, 237, 0.08);
-	color: #ededed;
+	background-color: var(--admin-surface-glass-hover);
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__option--is-selected {
-	background-color: rgba(198, 255, 0, 0.15);
-	color: #c6ff00;
+	background-color: var(--admin-accent-subtle);
+	color: var(--admin-accent);
 	font-weight: 600;
 }
 
@@ -187,12 +186,12 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__menu-list::-webkit-scrollbar-thumb {
-	background: #262626;
+	background: var(--admin-scrollbar-thumb);
 	border-radius: 6px;
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .select__menu-list::-webkit-scrollbar-thumb:hover {
-	background: #383838;
+	background: var(--admin-scrollbar-thumb-hover);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .cancel {
@@ -202,9 +201,9 @@
 	gap: 0.6vh;
 	font-size: 0.75rem;
 	font-weight: 500;
-	color: #ff5e2e;
-	background-color: rgba(255, 69, 0, 0.1);
-	border: 1px solid rgba(255, 69, 0, 0.25);
+	color: var(--admin-danger);
+	background-color: var(--admin-danger-soft);
+	border: 1px solid var(--admin-danger-border);
 	border-radius: 6px;
 	padding: 0.5vh 1.4vh;
 	cursor: pointer;
@@ -214,8 +213,8 @@
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .cancel:focus,
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .cancel:hover {
-	background-color: rgba(255, 69, 0, 0.2);
-	border-color: #ff5e2e;
+	background-color: var(--admin-danger-soft-hover);
+	border-color: var(--admin-danger-border-hover);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .cancel .icon {
@@ -223,10 +222,9 @@
 	place-content: center;
 }
 
-.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .cancel .icon img {
-	width: 1.4vh;
-	height: 1.4vh;
-	object-fit: contain;
+.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .cancel .icon svg {
+	font-size: 1.4vh;
+	color: currentColor;
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .button {
@@ -250,37 +248,36 @@
 	place-content: center;
 }
 
-.admin .edit.active .wrapper form .tag-input .new-tag .button .icon img {
-	width: 1.6vh;
-	height: 1.6vh;
-	object-fit: contain;
+.admin .edit.active .wrapper form .tag-input .new-tag .button .icon svg {
+	font-size: 1.6vh;
+	color: currentColor;
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .more {
-	background-color: rgba(237, 237, 237, 0.06);
-	border: 1px solid #262626;
-	color: #ededed;
+	background-color: var(--admin-control-bg);
+	border: 1px solid var(--admin-border-base);
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .more:focus,
 .admin .edit.active .wrapper form .tag-input .new-tag .more:hover {
-	background-color: rgba(237, 237, 237, 0.12);
-	border-color: #383838;
+	background-color: var(--admin-control-bg-hover);
+	border-color: var(--admin-border-focus);
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .done {
 	place-self: center end;
-	background-color: #ededed;
+	background-color: var(--admin-btn-secondary-bg);
 	border: 1px solid transparent;
-	color: #111111;
+	color: var(--admin-btn-secondary-text);
 	font-weight: 600;
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .done:focus,
 .admin .edit.active .wrapper form .tag-input .new-tag .done:hover {
-	background-color: #c6ff00;
-	color: #111111;
-	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.3);
+	background-color: var(--admin-btn-secondary-hover);
+	color: var(--admin-btn-secondary-text);
+	box-shadow: 0 2px 10px var(--admin-accent-glow);
 }
 
 .admin .edit.active .wrapper form .tag-input .list {
@@ -288,8 +285,8 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.8vh;
-	background-color: #131313;
-	border: 1px solid #262626;
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	padding: 1.2vh;
 	max-height: 22vh;
@@ -305,12 +302,12 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .list::-webkit-scrollbar-thumb {
-	background: #262626;
+	background: var(--admin-scrollbar-thumb);
 	border-radius: 6px;
 }
 
 .admin .edit.active .wrapper form .tag-input .list::-webkit-scrollbar-thumb:hover {
-	background: #383838;
+	background: var(--admin-scrollbar-thumb-hover);
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label {
@@ -318,17 +315,17 @@
 	justify-content: space-between;
 	align-items: center;
 	font-size: 0.85rem;
-	color: #ededed;
-	background-color: #171717;
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-surface-main);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 8px;
 	padding: 0.6vh 1.4vh;
 	transition: all 0.15s ease;
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label:hover {
-	background-color: #1c1c1c;
-	border-color: #383838;
+	background-color: var(--admin-surface-elevated);
+	border-color: var(--admin-border-focus);
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label .value {
@@ -357,37 +354,24 @@
 	transition: background-color 0.15s ease;
 	cursor: pointer;
 	position: relative;
+	color: var(--admin-text-muted);
+}
+
+.admin .edit.active .wrapper form .tag-input .list .sub-label .delete svg {
+	font-size: 1.8vh;
+	color: currentColor;
+	transition: color 0.15s ease;
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label .delete:hover {
-	background-color: rgba(255, 69, 0, 0.15);
-}
-
-.admin .edit.active .wrapper form .tag-input .list .sub-label .delete img {
-	width: 1.8vh;
-	height: 1.8vh;
-	object-fit: contain;
-	transition: opacity 0.15s ease;
-}
-
-.admin .edit.active .wrapper form .tag-input .list .sub-label .delete .hover {
-	position: absolute;
-	place-self: center;
-	opacity: 0;
-}
-
-.admin .edit.active .wrapper form .tag-input .list .sub-label .delete:hover .hover {
-	opacity: 1;
-}
-
-.admin .edit.active .wrapper form .tag-input .list .sub-label .delete:hover .main {
-	opacity: 0;
+	background-color: var(--admin-danger-soft-hover);
+	color: var(--admin-danger);
 }
 
 .admin .edit.active .wrapper form .tag-input .list .no-values {
 	display: grid;
 	place-content: center;
 	font-size: 0.85rem;
-	color: #666666;
+	color: var(--admin-text-dim);
 	padding: 1.5vh;
 }

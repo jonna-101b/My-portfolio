@@ -1,39 +1,42 @@
 .skills-preview {
         display: grid;
-        gap: 2vh;
-        margin: 17.5vh 0;
+        gap: clamp(1.5rem, 4vh, 3rem);
+        margin: clamp(4rem, 12vh, 10rem) 0;
+        padding: 0 clamp(1rem, 4vw, 2.5rem);
 }
 
 .skills-preview .main-title {
         display: grid;
         place-content: center;
+        text-align: center;
 }
 
 .skills-preview .main-title p {
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 3vw, 1.5rem);
         font-weight: bolder;
         color: var(--text-muted);
-}
-
-.skills-preview .technical-skills .sub-title {
-        display: grid;
-        place-content: center;
-        width: 100%;
 }
 
 .skills-preview .technical-skills {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5vh;
-        /* padding-inline: 10vh; */
-        margin-bottom: 5vh;
+        gap: clamp(1.5rem, 4vh, 2.5rem);
+        margin-bottom: clamp(2rem, 5vh, 4rem);
+        width: 100%;
+}
+
+.skills-preview .technical-skills .sub-title {
+        display: grid;
+        place-content: center;
+        text-align: center;
+        width: 100%;
 }
 
 .skills-preview .technical-skills .sub-title p {
         display: inline-block;
-        font-size: 2.25rem;
+        font-size: clamp(1.75rem, 4vw, 2.25rem);
         font-weight: 700;
         -webkit-background-clip: text;
         background-clip: text;
@@ -51,26 +54,27 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        gap: 2vh;
+        gap: 0.75rem;
         background-color: var(--panel);
         border: 1px solid var(--border);
-        border-radius: 2vh;
-        padding: 4vh;
-        width: fit-content;
-        max-width: 70%;
+        border-radius: 1.25rem;
+        padding: clamp(0.75rem, 2vw, 1.5rem);
+        width: 100%;
+        max-width: 750px;
 }
 
 .skills-preview .technical-skills .skills p {
         font-size: 0.875rem;
         color: var(--text-muted);
         background-color: var(--panel);
-        border-radius: 10vh;
-        padding: 0.5vh 3vh;
+        border-radius: 9999px;
+        padding: 0.5rem 1.25rem;
         cursor: pointer;
         transition: color 0.15s linear, background-color 0.15s linear, transform 0.15s ease;
+        user-select: none;
 }
 
-root[data-theme='light'] .skills-preview .technical-skills .skills p {
+:root[data-theme='light'] .skills-preview .technical-skills .skills p {
         background-color: var(--panel-strong);
 }
 
@@ -88,7 +92,7 @@ root[data-theme='light'] .skills-preview .technical-skills .skills p {
 .skills-preview .technical-skills .skills .focused {
         color: var(--text-ink);
         background-color: var(--button-bg);
-        border-radius: 10vh;
+        border-radius: 9999px;
         transition: none;
 }
 
@@ -111,68 +115,78 @@ root[data-theme='light'] .skills-preview .technical-skills .skills p {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 4vh;
-        padding-inline: 10vh;
+        gap: clamp(1rem, 2.5vw, 1.75rem);
+        width: 100%;
+        max-width: 1100px;
+        padding: 0;
 }
 
 .skills-preview .technical-skills .techs .tech {
-        display: grid;
-        place-content: center;
-        gap: 2vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
         font-size: 0.875rem;
         color: var(--text-muted);
         background-color: var(--panel);
-        border-radius: 2vh;
-        width: 24vh;
-        height: 24vh;
-        transition: color 0.15s linear, background-color 0.15s linear;
+        border: 1px solid var(--border);
+        border-radius: 1.25rem;
+        width: clamp(110px, 25vw, 150px);
+        height: clamp(110px, 25vw, 150px);
+        padding: 1rem;
+        transition: color 0.15s linear, background-color 0.15s linear, transform 0.2s ease, border-color 0.2s ease;
 }
 
 .skills-preview .technical-skills .techs .tech:focus,
 .skills-preview .technical-skills .techs .tech:hover {
         background-color: var(--theme-card-hover);
         color: var(--text);
+        border-color: var(--accent);
+        transform: translateY(-3px);
 }
 
 .skills-preview .technical-skills .techs .tech .icon {
-        display: grid;
-        place-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
 
 .skills-preview .technical-skills .techs .tech .icon img,
 .skills-preview .technical-skills .techs .tech .icon svg {
-        width: 10vh;
-        height: 10vh;
-        transition: transform 0.2s ease, fill 0.2s ease;
+        width: clamp(2.25rem, 5vw, 3.25rem);
+        height: clamp(2.25rem, 5vw, 3.25rem);
+        transition: transform 0.2s ease;
 }
 
 .skills-preview .technical-skills .techs .tech:hover .icon svg {
-        transform: scale(1.08);
+        transform: scale(1.1);
 }
 
 .skills-preview .technical-skills .techs .tech .name {
-        display: grid;
-        place-content: center;
         text-align: center;
+        word-break: break-word;
+        font-weight: 500;
 }
 
 .skills-preview .conceptual-skills {
         display: grid;
         place-content: center;
-        gap: 5vh;
+        gap: clamp(1.5rem, 4vh, 2.5rem);
         width: 100%;
-        margin-bottom: 5vh;
+        margin-bottom: clamp(2rem, 5vh, 4rem);
         overflow: hidden;
 }
 
 .skills-preview .conceptual-skills .sub-title {
         display: grid;
         place-content: center;
+        text-align: center;
 }
 
 .skills-preview .conceptual-skills .sub-title p {
         display: inline-block;
-        font-size: 2.25rem;
+        font-size: clamp(1.75rem, 4vw, 2.25rem);
         font-weight: 700;
         -webkit-background-clip: text;
         background-clip: text;
@@ -187,17 +201,19 @@ root[data-theme='light'] .skills-preview .technical-skills .skills p {
 
 .skills-preview .conceptual-skills .skills-loop {
         place-self: center;
-        width: calc(100% - 20vh);
+        width: 100%;
+        max-width: 1280px;
         overflow: hidden;
-        -webkit-mask: linear-gradient(to right, transparent, var(--hero-mask) 10%, var(--hero-mask) 90%, transparent);
-        mask: linear-gradient(to right, transparent, var(--hero-mask) 10%, var(--hero-mask) 90%, transparent);
+        -webkit-mask: linear-gradient(to right, transparent, var(--hero-mask) 5%, var(--hero-mask) 95%, transparent);
+        mask: linear-gradient(to right, transparent, var(--hero-mask) 5%, var(--hero-mask) 95%, transparent);
 }
 
 .skills-preview .conceptual-skills .skills-track {
         display: flex;
         width: max-content;
-        gap: 5vh;
-        animation: skills-scroll 25s linear infinite;
+        gap: clamp(1.25rem, 3vw, 2rem);
+        animation: skills-scroll 30s linear infinite;
+        padding: 0.5rem 0;
 }
 
 .skills-preview .conceptual-skills .skills-track:hover {
@@ -215,53 +231,63 @@ root[data-theme='light'] .skills-preview .technical-skills .skills p {
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill {
-        flex: none;
+        flex: 0 0 clamp(260px, 75vw, 340px);
         font-size: 0.9375rem;
         color: var(--text-muted);
         background-color: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 2vh;
+        border-radius: 1.25rem;
         box-shadow: var(--shadow);
-        width: 20vw;
-        padding: 6vh;
+        padding: clamp(1.5rem, 4vw, 2.5rem);
         overflow: hidden;
-        transition: background-color 0.15s linear;
+        transition: background-color 0.15s linear, transform 0.2s ease;
         position: relative;
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill:focus,
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill:hover {
         background-color: var(--theme-card-hover);
+        transform: translateY(-2px);
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill .icon {
-        display: grid;
-        place-content: center;
-        background-color: var(--bg);
-        border-radius: 2vh;
-        width: 8vh;
-        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--bg-dark);
+        border-radius: 0.875rem;
+        width: 3.25rem;
+        height: 3.25rem;
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill .shadow {
         display: grid;
         place-content: center;
         position: absolute;
-        top: -6vh;
-        right: -6vh;
+        top: -2rem;
+        right: -2rem;
+        pointer-events: none;
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill .shadow img {
-        width: 24vh;
+        width: 9rem;
+        opacity: 0.6;
 }
 
-.skills-preview .conceptual-skills .skills-loop .skills-track .skill .icon img {
-        width: 3vh;
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill .icon svg {
+        color: var(--icon-opt-1);
+        font-size: 1.75rem;
 }
 
 .skills-preview .conceptual-skills .skills-loop .skills-track .skill .title {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: bold;
         color: var(--text);
-        margin: 2vh 0;
+        margin: 1.25rem 0 0.5rem 0;
+}
+
+.skills-preview .conceptual-skills .skills-loop .skills-track .skill .description {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: var(--text-muted);
 }

@@ -5,8 +5,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 14px;
         padding: 10px 16px;
         gap: 12px;
@@ -14,12 +14,12 @@
 }
 
 .profile-select-row:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .profile-select-row .row-label {
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         font-weight: 400;
         min-width: 90px;
         flex-shrink: 0;
@@ -32,15 +32,15 @@
 }
 
 .select-display-value {
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-size: 0.9375rem;
         font-weight: 500;
 }
 
 .profile-select-row .row-action-btn.active-toggle {
-        background-color: rgba(198, 255, 0, 0.15);
-        border-color: rgba(198, 255, 0, 0.25);
-        color: #c6ff00;
+        background-color: var(--admin-accent-subtle);
+        border-color: var(--admin-accent-border);
+        color: var(--admin-accent);
 }
 
 /* Dropdown Popup */
@@ -49,11 +49,11 @@
         top: calc(100% + 8px);
         right: 0;
         z-index: 100;
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 14px;
         padding: 6px;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 12px 28px var(--admin-overlay-heavy);
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -68,19 +68,19 @@
         padding: 8px 12px;
         border-radius: 10px;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .select-option:hover {
-        background-color: rgba(237, 237, 237, 0.1);
-        color: #ededed;
+        background-color: var(--admin-control-bg-hover);
+        color: var(--admin-text-primary);
 }
 
 .select-option.focused {
-        background-color: rgba(198, 255, 0, 0.15);
-        color: #c6ff00;
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
         font-weight: 600;
 }
 
@@ -90,5 +90,5 @@
         justify-content: center;
         width: 16px;
         height: 16px;
-        color: #c6ff00;
+        color: var(--admin-accent);
 }

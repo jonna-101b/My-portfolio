@@ -1,8 +1,8 @@
 /* Basic Info Card Styling */
 
 .basic-info-card {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 24px;
         display: flex;
@@ -14,13 +14,13 @@
 }
 
 .basic-info-card:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .basic-info-card .card-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
 }
 

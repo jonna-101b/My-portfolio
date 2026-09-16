@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+﻿import mongoose from "mongoose";
 import { TechnicalSkillsModel, ConceptualSkillsModel } from "../Models/skills.js";
 import { APIError } from "../Errors/APIError.js";
 
@@ -70,11 +70,30 @@ const getConceptualSkills = async (req, res, next) => {
 };
 
 const addConceptualSkill = async (req, res, next) => {
-    const { title, description, icon } = req.body;
+    const { title, description } = req.body;
 
     try {
-        const newSkill = await ConceptualSkillsModel.create({ title, description, icon });
+        const newSkill = await ConceptualSkillsModel.create({ title, description });
         res.status(201).json(newSkill);
+    } catch (error) {
+        next(error);
+    }
+};
+
+const updateConceptualSkill = async (req, res, next) => {
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return next(APIError.notFound('No such skill'));
+    }
+
+    try {
+        const skill = await ConceptualSkillsModel.findByIdAndUpdate(id, { ...req.body }, { new: true, runValidators: true });
+        if (skill) {
+            res.status(200).json(skill);
+        } else {
+            return next(APIError.notFound('No such skill'));
+        }
     } catch (error) {
         next(error);
     }
@@ -106,6 +125,6 @@ export {
     deleteTechnicalSkill,
     getConceptualSkills,
     addConceptualSkill,
+    updateConceptualSkill,
     deleteConceptualSkill
 };
-

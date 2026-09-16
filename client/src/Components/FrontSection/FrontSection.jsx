@@ -8,19 +8,40 @@ import SimpleIcon from '../../Utils/simpleIcons';
 import './FrontSection.css';
 
 
-const ScrollDown = () => (
-        <div className="scroll-down">
-                <p className="image">
-                        <MouseRoundedIcon className="scroll-mouse-icon" />
-                </p>
+const ScrollDown = () => {
+        const handleScrollDown = () => {
+                window.scrollBy({
+                        top: window.innerHeight,
+                        behavior: 'smooth'
+                });
+        };
 
-                <p>Scroll down</p>
+        return (
+                <div
+                        className="scroll-down"
+                        onClick={handleScrollDown}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        handleScrollDown();
+                                }
+                        }}
+                        aria-label="Scroll down"
+                >
+                        <p className="image">
+                                <MouseRoundedIcon className="scroll-mouse-icon" />
+                        </p>
 
-                <p className="image">
-                        <SouthRoundedIcon className="scroll-arrow-icon" />
-                </p>
-        </div>
-);
+                        <p>Scroll down</p>
+
+                        <p className="image">
+                                <SouthRoundedIcon className="scroll-arrow-icon" />
+                        </p>
+                </div>
+        );
+};
 
 function MainSection({ pageTitle, pageIntro, pageDescription, pageImage  }) {
         const { profile } = useProfileReducer();

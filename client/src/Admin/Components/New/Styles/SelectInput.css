@@ -10,30 +10,30 @@
 	font-size: 0.9rem;
 	font-weight: 500;
 	letter-spacing: 0.01em;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	width: fit-content;
 }
 
 .admin .new.active .wrapper form .select-input .label .add-state {
 	display: inline-block;
-	background-color: #ff5e2e;
+	background-color: var(--admin-danger);
 	border-radius: 50%;
 	width: 7px;
 	height: 7px;
-	box-shadow: 0 0 6px rgba(255, 94, 46, 0.4);
+	box-shadow: 0 0 6px var(--admin-danger-glow);
 	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .admin .new.active .wrapper form .select-input .label .added {
-	background-color: #c6ff00;
-	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
+	background-color: var(--admin-accent);
+	box-shadow: 0 0 8px var(--admin-accent-glow-strong);
 }
 
 .admin .new.active .wrapper form .select-input select {
 	font-size: 0.875rem;
-	color: #ededed;
-	background-color: #131313;
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	outline: none;
 	padding: 1.4vh 3.5vh 1.4vh 1.8vh;
@@ -50,13 +50,13 @@
 }
 
 .admin .new.active .wrapper form .select-input select:focus {
-	border-color: rgba(198, 255, 0, 0.5);
-	background-color: #161616;
-	box-shadow: 0 0 0 2px rgba(198, 255, 0, 0.1);
+	border-color: var(--admin-accent-border-strong);
+	background-color: var(--admin-surface-main);
+	box-shadow: 0 0 0 2px var(--admin-accent-soft);
 }
 
 .admin .new.active .wrapper form .select-input select option {
-	background-color: #171717;
-	color: #ededed;
+	background-color: var(--admin-surface-main);
+	color: var(--admin-text-primary);
 	padding: 1vh;
 }

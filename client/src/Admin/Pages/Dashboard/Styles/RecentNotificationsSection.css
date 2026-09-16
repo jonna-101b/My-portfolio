@@ -7,13 +7,13 @@
 .recent-notifications-section .title {
         font-size: 0.9375rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
 }
 
 .recent-notifications-section .notifications {
         display: grid;
         gap: 2vh;
-        background-color: #171717;
+        background-color: var(--admin-surface-main);
         border-radius: 2vh;
         height: fit-content;
         padding: 4vh;
@@ -24,7 +24,7 @@
         display: flex;
         justify-content: start;
         gap: 2vh;
-        border-bottom: 1px solid rgba(32, 32, 32, 0.75);
+        border-bottom: 1px solid var(--admin-border-subtle);
         width: 100%;
         padding-bottom: 2vh;
         position: relative;
@@ -37,7 +37,7 @@
 .recent-notifications-section .notifications .notification .icon {
         display: grid;
         place-content: center;
-        background-color: rgba(237, 237, 237, 0.1);
+        background-color: var(--admin-control-bg-hover);
         border-radius: 2vh;
         width: 6vh;
         height: 6vh;
@@ -55,27 +55,27 @@
 .recent-notifications-section .notifications .notification .details .main {
         font-size: 0.75rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
 }
 
 .recent-notifications-section .notifications .notification .details .sub {
         font-size: 0.75rem;
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .recent-notifications-section .notifications .notification .details .time {
         font-size: 0.625rem;
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .recent-notifications-section .notifications .see-all {
         display: grid;
         place-content: center;
         font-size: 0.875rem;
-        color: #888888;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--admin-text-muted);
+        background-color: var(--admin-control-bg-hover);
         border-radius: 2vh;
-        box-shadow: inset 0 0 1rem 0.1rem  rgba(237, 237, 237, 0.105);
+        box-shadow: inset 0 0 1rem 0.1rem var(--admin-control-bg-hover);
         width: 100%;
         padding: 1.5vh;
         transition: background-color 0.15s linear, color 0.15s linear;
@@ -84,6 +84,6 @@
 
 .recent-notifications-section .notifications .see-all:focus,
 .recent-notifications-section .notifications .see-all:hover {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.25);
+        color: var(--admin-text-primary);
+        background-color: var(--admin-surface-active);
 }

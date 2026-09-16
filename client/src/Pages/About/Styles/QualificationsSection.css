@@ -1,34 +1,33 @@
 .qualifications-section {
         display: grid;
-        gap: 5vh;
-        margin: 17.5vh 0;
+        gap: clamp(1.5rem, 4vh, 3rem);
+        margin: clamp(4rem, 12vh, 10rem) 0;
+        padding: 0 clamp(1rem, 4vw, 2.5rem);
 }
 
 .qualifications-section .title {
         display: grid;
         place-content: center;
+        text-align: center;
 }
 
 .qualifications-section .title p {
         font-family: 'Poppins', Arial, Helvetica, sans-serif;
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 3vw, 1.5rem);
         font-weight: bolder;
         color: var(--text-muted);
-        text-align: center;
-        padding-inline: 10vh;
 }
 
 .qualifications-section .qualifications-message {
         display: grid;
         place-content: center;
-        margin-bottom: 4vh;
         text-align: center;
-        padding-inline: 10vh;
+        margin-bottom: 2rem;
 }
 
 .qualifications-section .qualifications-message p {
         display: inline-block;
-        font-size: 2.25rem;
+        font-size: clamp(1.75rem, 4vw, 2.25rem);
         font-weight: 700;
         -webkit-background-clip: text;
         background-clip: text;
@@ -46,15 +45,16 @@
         display: grid;
         font-size: 14px;
         color: var(--text-muted);
-        width: 75%;
+        width: 100%;
+        max-width: 960px;
 }
 
 .qualifications-section .qualifications .qualification {
         display: grid;
-        gap: 2vh;
+        gap: 1rem;
         width: 50%;
         position: relative;
-        padding-bottom: 8vh;
+        padding-bottom: 3rem;
 }
 
 .qualifications-section .qualifications .qualification:hover .info .details .discipline {
@@ -63,27 +63,29 @@
 
 .qualifications-section .qualifications .qualification:nth-child(odd) {
         border-right: 2px solid var(--border);
-        padding-right: 10vh;
+        padding-right: 2.5rem;
 }
 
 .qualifications-section .qualifications .qualification:nth-child(even) {
         justify-self: end;
         border-left: 2px solid var(--border);
-        padding-left: 10vh;
+        padding-left: 2.5rem;
 }
 
 .qualifications-section .qualifications .qualification .info {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
 }
 
 .qualifications-section .qualifications .qualification .info .details {
         display: grid;
-        gap: 2vh;
+        gap: 0.35rem;
 }
 
 .qualifications-section .qualifications .qualification .info .details .discipline {
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         font-weight: 600;
         color: var(--text);
         transition: color 0.15s linear;
@@ -101,12 +103,13 @@
 }
 
 .qualifications-section .qualifications .qualification .info .duration p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         font-weight: 600;
         color: var(--text);
         background-color: var(--surface-soft);
-        border-radius: 10vh;
-        padding: 0.5vh 2.5vh;
+        border-radius: 9999px;
+        padding: 0.3rem 0.85rem;
+        white-space: nowrap;
 }
 
 :root[data-theme='light'] .qualifications-section .qualifications .qualification .info .duration p {
@@ -114,65 +117,76 @@
 }
 
 .qualifications-section .qualifications .qualification .description {
-        font-size: 0.9375rem;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: var(--text-muted);
 }
 
 .qualifications-section .qualifications .qualification .icon {
-        display: grid;
-        place-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-color: var(--surface);
         border: 2px solid var(--border);
         border-radius: 50%;
-        width: 7vh;
-        height: 7vh;
-        position: relative;
-}
-
-.qualifications-section .qualifications .qualification .icon::after,
-.qualifications-section .qualifications .qualification .icon::after {
-        content: "";
-        display: grid;
-        place-content: center;
-        background-color: transparent;
-        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
         position: absolute;
         top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: background-color 0.15s linear;
-}
-
-.qualifications-section .qualifications .qualification:focus .icon::after,
-.qualifications-section .qualifications .qualification:hover .icon::after {
-        background-color: var(--pill-soft);
+        transition: all 0.2s ease;
 }
 
 .qualifications-section .qualifications .qualification:nth-child(odd) .icon {
-        position: absolute;
-        top: 0;
-        right: -3.5vh;
+        right: -1.25rem;
 }
 
 .qualifications-section .qualifications .qualification:nth-child(even) .icon {
-        position: absolute;
-        top: 0;
-        left: -3.5vh;
+        left: -1.25rem;
 }
 
 .qualifications-section .qualifications .qualification .icon .qualification-icon {
-        font-size: 3.5vh;
+        font-size: 1.25rem;
         color: var(--icon-opt-2);
-        transition: color 0.15s linear;
+        transition: color 0.15s linear, transform 0.2s ease;
         z-index: 1;
 }
 
-:root[data-theme='dark'] .qualifications-section .qualifications .qualification:hover .icon .qualification-icon,
-:root[data-theme='dark'] .qualifications-section .qualifications .qualification:focus .icon .qualification-icon {
-        color: #c6ff00;
+.qualifications-section .qualifications .qualification:hover .icon {
+        border-color: var(--accent);
+        transform: scale(1.08);
 }
 
-:root[data-theme='light'] .qualifications-section .qualifications .qualification:hover .icon .qualification-icon,
-:root[data-theme='light'] .qualifications-section .qualifications .qualification:focus .icon .qualification-icon {
-        color: #4648D4;
+.qualifications-section .qualifications .qualification:hover .icon .qualification-icon {
+        color: var(--accent);
+}
+
+/* Single Column Timeline for Tablets and Mobile */
+@media (max-width: 768px) {
+        .qualifications-section .qualifications {
+                padding-left: 1.25rem;
+        }
+
+        .qualifications-section .qualifications .qualification:nth-child(odd),
+        .qualifications-section .qualifications .qualification:nth-child(even) {
+                width: 100%;
+                border-right: none !important;
+                border-left: 2px solid var(--border) !important;
+                padding-left: 2rem !important;
+                padding-right: 0 !important;
+                justify-self: start !important;
+                text-align: left !important;
+        }
+
+        .qualifications-section .qualifications .qualification:nth-child(odd) .info,
+        .qualifications-section .qualifications .qualification:nth-child(even) .info {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 0.5rem !important;
+        }
+
+        .qualifications-section .qualifications .qualification:nth-child(odd) .icon,
+        .qualifications-section .qualifications .qualification:nth-child(even) .icon {
+                left: -1.25rem !important;
+                right: auto !important;
+        }
 }

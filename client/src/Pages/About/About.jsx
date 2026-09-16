@@ -17,7 +17,7 @@ function About() {
         
         return (
                 <div className="about">
-                        <FrontSection pageTitle={pageTitle} pageIntro={pageIntro} pageDescription={pageDescription} pageImage={theme == "dark" ? AboutImage : AboutImageLight} />
+                        <FrontSection pageTitle={pageTitle} pageIntro={pageIntro} pageDescription={pageDescription} pageImage={theme === "dark" ? AboutImage : AboutImageLight} />
 
                         <MainSection />
                         

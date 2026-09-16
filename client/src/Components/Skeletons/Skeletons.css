@@ -1,0 +1,304 @@
+/* ==========================================================================
+   Modular Component Skeletons Stylesheet
+   ========================================================================== */
+
+/* Front Preview Skeleton */
+.front-preview-skeleton {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 4rem 1.5rem 2rem;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 80vh;
+}
+
+.front-preview-skeleton .sk-greeting {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+}
+
+.front-preview-skeleton .sk-professions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+}
+
+.front-preview-skeleton .sk-bio-lines {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+}
+
+.front-preview-skeleton .sk-buttons {
+        display: flex;
+        gap: 16px;
+        margin-top: 0.5rem;
+}
+
+.front-preview-skeleton .sk-hero-image {
+        margin-top: 2rem;
+        width: min(85vw, 420px);
+        height: min(50vw, 260px);
+        border-radius: 24px;
+}
+
+/* About Preview Skeleton */
+.about-preview-skeleton {
+        width: 100%;
+        max-width: 1100px;
+        margin: 4rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+}
+
+.about-preview-skeleton .sk-card {
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+}
+
+.about-preview-skeleton .sk-top-row {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+}
+
+/* Skills Preview Skeleton */
+.skills-preview-skeleton {
+        width: 100%;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+}
+
+.skills-preview-skeleton .sk-tabs {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+}
+
+.skills-preview-skeleton .sk-tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 1.5rem;
+}
+
+.skills-preview-skeleton .sk-tech-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 1.5rem 1rem;
+        border-radius: 16px;
+}
+
+.skills-preview-skeleton .sk-soft-track {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+}
+
+/* Projects Preview Skeleton */
+.projects-preview-skeleton {
+        width: 100%;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+}
+
+.projects-preview-skeleton .sk-projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+        gap: 2rem;
+}
+
+.projects-preview-skeleton .sk-project-card {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        border-radius: 20px;
+}
+
+/* Testimonials Preview Skeleton */
+.testimonials-preview-skeleton {
+        width: 100%;
+        max-width: 1200px;
+        margin: 4rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+}
+
+.testimonials-preview-skeleton .sk-testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+        gap: 2rem;
+}
+
+.testimonials-preview-skeleton .sk-testimonial-card {
+        padding: 2rem;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+}
+
+/* Blog Section Skeleton */
+.blog-section-skeleton {
+        width: 100%;
+        max-width: 1280px;
+        margin: 4rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+}
+
+.blog-section-skeleton .sk-blog-layout {
+        display: grid;
+        grid-template-columns: 1.7fr 1fr;
+        gap: 2.5rem;
+}
+
+@media (max-width: 900px) {
+        .blog-section-skeleton .sk-blog-layout {
+                grid-template-columns: 1fr;
+        }
+}
+
+.blog-section-skeleton .sk-main-article {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+}
+
+.blog-section-skeleton .sk-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+}
+
+/* About Page Full Skeleton */
+.about-page-skeleton {
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+}
+
+.about-page-skeleton .sk-about-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 2.5rem;
+}
+
+@media (max-width: 860px) {
+        .about-page-skeleton .sk-about-grid {
+                grid-template-columns: 1fr;
+        }
+}
+
+/* Qualifications Section Skeleton */
+.qualifications-section-skeleton {
+        width: 100%;
+        max-width: 1100px;
+        margin: 3rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+}
+
+.qualifications-section-skeleton .sk-qual-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+        gap: 1.5rem;
+}
+
+/* Projects Page MainSection Skeleton */
+.projects-page-skeleton {
+        width: 100%;
+        max-width: 1280px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+}
+
+.projects-page-skeleton .sk-categories {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+}
+
+.projects-page-skeleton .sk-projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+        gap: 2rem;
+}
+
+/* Admin Specific Skeletons */
+.admin-skeleton-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+}
+
+.admin-table-skeleton {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+}
+
+.admin-table-skeleton .sk-row {
+        height: 52px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding: 0 1.5rem;
+        gap: 1rem;
+        background-color: var(--admin-skeleton-base, #1c1c1c);
+}
+
+.admin-dashboard-skeleton-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        width: 100%;
+}
+
+@media (max-width: 1024px) {
+        .admin-dashboard-skeleton-grid {
+                grid-template-columns: 1fr;
+        }
+}

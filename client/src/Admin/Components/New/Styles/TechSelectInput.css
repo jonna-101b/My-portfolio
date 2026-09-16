@@ -1,0 +1,182 @@
+/* ==========================================================================
+   Admin - Tech Select Input Styling
+   ========================================================================== */
+
+.admin .new.active .wrapper form .tech-select-input,
+.admin .edit.active .wrapper form .tech-select-input {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        width: 100%;
+}
+
+.tech-select-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+}
+
+.tech-select-header .label {
+        display: flex;
+        align-items: center;
+        gap: 1vh;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        color: var(--admin-text-primary);
+        margin: 0;
+}
+
+.tech-select-wrapper {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-card);
+        border-radius: 12px;
+        padding: 0.3vh 0.6vh;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tech-select-wrapper:focus-within {
+        border-color: var(--admin-accent-border-strong);
+        box-shadow: 0 0 10px var(--admin-accent-soft);
+}
+
+.tech-select-wrapper .select__control {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        min-height: 44px;
+        cursor: pointer;
+}
+
+.tech-select-wrapper .select__placeholder {
+        color: var(--admin-text-dim);
+        font-size: 0.875rem;
+}
+
+.tech-select-wrapper .select__single-value {
+        color: var(--admin-text-primary);
+}
+
+.tech-select-wrapper .select__input-container {
+        color: var(--admin-text-primary);
+}
+
+.tech-select-wrapper .select__menu {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-panel);
+        border-radius: 14px;
+        box-shadow: 0 16px 40px var(--admin-overlay-heavy);
+        padding: 0.5rem;
+        z-index: 1000;
+        overflow: hidden;
+}
+
+.tech-select-wrapper .select__group-heading {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--admin-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.5rem 0.75rem 0.25rem;
+}
+
+.tech-select-wrapper .select__option {
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 0.6rem 0.85rem;
+        transition: background-color 0.15s ease;
+}
+
+.tech-select-wrapper .select__option--is-focused {
+        background-color: var(--admin-control-bg);
+}
+
+.tech-select-wrapper .select__option--is-selected {
+        background-color: var(--admin-accent-subtle);
+}
+
+.tech-select-option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 0.75rem;
+}
+
+.tech-select-option-left,
+.tech-select-single-value {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+}
+
+.tech-select-name {
+        color: var(--admin-text-primary);
+        font-size: 0.875rem;
+        font-weight: 500;
+}
+
+.tech-saved-badge {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: var(--admin-accent);
+        background-color: var(--admin-accent-subtle);
+        border: 1px solid var(--admin-accent-border);
+        padding: 0.15rem 0.5rem;
+        border-radius: 999px;
+}
+
+/* Live Preview Box */
+.tech-live-preview-box {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background-color: var(--admin-surface-deep);
+        border: 1px solid var(--admin-surface-hover);
+        border-radius: 12px;
+        padding: 0.8rem 1.1rem;
+        margin-top: 0.2rem;
+        animation: previewFadeIn 0.2s ease-out;
+}
+
+@keyframes previewFadeIn {
+        from { opacity: 0; transform: translateY(-4px); }
+        to { opacity: 1; transform: translateY(0); }
+}
+
+.preview-icon-wrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: var(--admin-surface-item);
+        border: 1px solid var(--admin-border-panel);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+}
+
+.preview-text-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+}
+
+.preview-tech-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--admin-text-white);
+}
+
+.preview-tech-slug {
+        font-size: 0.75rem;
+        color: var(--admin-text-muted);
+}
+
+.preview-tech-slug code {
+        color: var(--admin-accent);
+        background-color: var(--admin-accent-soft);
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+        font-family: monospace;
+}

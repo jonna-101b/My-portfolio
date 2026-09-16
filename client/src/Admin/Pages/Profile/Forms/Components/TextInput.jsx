@@ -79,7 +79,7 @@ const TextInput = ({ text }) => {
                                 {disabled ? (
                                         <button
                                                 type="button"
-                                                className="row-action-btn edit"
+                                                className="row-action-btn"
                                                 onClick={handleEditToggle}
                                                 aria-label={`Edit ${text.label}`}
                                         >

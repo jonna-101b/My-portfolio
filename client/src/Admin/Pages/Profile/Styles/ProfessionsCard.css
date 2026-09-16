@@ -2,8 +2,8 @@
 
 .professions-card {
         position: relative;
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 24px;
         display: flex;
@@ -15,7 +15,7 @@
 }
 
 .professions-card:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .professions-card .card-header {
@@ -27,7 +27,7 @@
 .professions-card .card-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
 }
 
@@ -37,8 +37,8 @@
         align-items: center;
         justify-content: center;
         gap: 4px;
-        background-color: #ededed;
-        color: #0b0d0e;
+        background-color: var(--admin-btn-secondary-bg);
+        color: var(--admin-btn-secondary-text);
         border: none;
         border-radius: 20px;
         padding: 5px 14px;
@@ -50,7 +50,7 @@
 
 .add-pill-btn:hover,
 .add-pill-btn.active {
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
         transform: translateY(-1px);
 }
 
@@ -60,11 +60,11 @@
         top: 60px;
         right: 24px;
         z-index: 100;
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 18px;
         padding: 16px;
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 16px 36px var(--admin-overlay-heavy);
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -78,19 +78,19 @@
         align-items: center;
         justify-content: space-between;
         padding-bottom: 6px;
-        border-bottom: 1px solid #262626;
+        border-bottom: 1px solid var(--admin-border-base);
 }
 
 .popup-heading {
         font-size: 0.875rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
 }
 
 .popup-close-btn {
         background: transparent;
         border: none;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         padding: 2px;
         display: flex;
@@ -101,7 +101,7 @@
 }
 
 .popup-close-btn:hover {
-        color: #ededed;
+        color: var(--admin-text-primary);
 }
 
 .popup-inputs-list {
@@ -114,8 +114,8 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 12px;
         padding: 6px 12px;
 }
@@ -125,19 +125,19 @@
         background-color: transparent;
         border: none;
         outline: none;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-size: 0.875rem;
         font-family: inherit;
 }
 
 .popup-input::placeholder {
-        color: #666666;
+        color: var(--admin-text-dim);
 }
 
 .input-remove-btn {
         background: transparent;
         border: none;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         padding: 2px;
         display: flex;
@@ -148,7 +148,7 @@
 }
 
 .input-remove-btn:hover {
-        color: #ff4500;
+        color: var(--admin-danger-orange);
 }
 
 .popup-actions-row {
@@ -162,9 +162,9 @@
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        background-color: rgba(237, 237, 237, 0.15);
-        border: 1px solid rgba(237, 237, 237, 0.25);
-        color: #ededed;
+        background-color: var(--admin-control-bg);
+        border: 1px solid var(--admin-control-border);
+        color: var(--admin-text-primary);
         border-radius: 20px;
         padding: 4px 10px;
         font-size: 0.75rem;
@@ -174,7 +174,7 @@
 }
 
 .btn-more:hover {
-        background-color: rgba(237, 237, 237, 0.2);
+        background-color: var(--admin-control-bg-hover);
 }
 
 .popup-primary-actions {
@@ -186,9 +186,9 @@
 .btn-cancel {
         display: inline-flex;
         align-items: center;
-        background-color: rgba(237, 237, 237, 0.15);
-        border: 1px solid rgba(237, 237, 237, 0.25);
-        color: #ededed;
+        background-color: var(--admin-control-bg);
+        border: 1px solid var(--admin-control-border);
+        color: var(--admin-text-primary);
         border-radius: 20px;
         padding: 5px 12px;
         font-size: 0.8125rem;
@@ -198,16 +198,16 @@
 }
 
 .btn-cancel:hover {
-        background-color: rgba(237, 237, 237, 0.2);
+        background-color: var(--admin-control-bg-hover);
 }
 
 .btn-done {
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        background-color: #ededed;
+        background-color: var(--admin-btn-secondary-bg);
         border: none;
-        color: #0b0d0e;
+        color: var(--admin-btn-secondary-text);
         border-radius: 20px;
         padding: 5px 14px;
         font-size: 0.8125rem;
@@ -217,7 +217,7 @@
 }
 
 .btn-done:hover {
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
 }
 
 /* Professions List */
@@ -231,15 +231,15 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 14px;
         padding: 10px 16px;
         transition: border-color 0.2s ease;
 }
 
 .profession-item:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .item-info {
@@ -249,19 +249,19 @@
 }
 
 .item-icon {
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .item-text {
         font-size: 0.875rem;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-weight: 500;
 }
 
 .item-delete-btn {
         background: transparent;
         border: none;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         padding: 4px;
         border-radius: 6px;
@@ -272,13 +272,13 @@
 }
 
 .item-delete-btn:hover {
-        color: #ff4500;
-        background-color: rgba(255, 68, 0, 0.1);
+        color: var(--admin-danger-orange);
+        background-color: var(--admin-danger-soft);
 }
 
 .no-items-text {
         font-size: 0.85rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         margin: 8px 0;
         text-align: center;
 }

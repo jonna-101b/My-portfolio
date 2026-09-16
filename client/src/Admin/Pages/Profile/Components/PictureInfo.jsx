@@ -29,7 +29,7 @@ function PictureInfo() {
                                                 <img src={picture} alt={displayName} className="avatar-image" />
                                         ) : (
                                                 <div className="avatar-fallback">
-                                                        <PersonOutlineRoundedIcon style={{ fontSize: '3.5rem', color: '#888888' }} />
+                                                        <PersonOutlineRoundedIcon style={{ fontSize: '3.5rem', color: 'var(--admin-text-muted)' }} />
                                                         <span className="fallback-text">No photo</span>
                                                 </div>
                                         )}

@@ -10,17 +10,17 @@
 	font-size: 0.9rem;
 	font-weight: 500;
 	letter-spacing: 0.01em;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	width: fit-content;
 }
 
 .admin .edit.active .wrapper form .text-input .label .edited {
 	display: inline-block;
-	background-color: #c6ff00;
+	background-color: var(--admin-accent);
 	border-radius: 50%;
 	width: 7px;
 	height: 7px;
-	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
+	box-shadow: 0 0 8px var(--admin-accent-glow-strong);
 }
 
 .admin .edit.active .wrapper form .text-input .value {
@@ -28,22 +28,22 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 1.5vh;
-	background-color: #131313;
-	border: 1px solid #262626;
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	padding: 1vh 1.2vh 1vh 1.8vh;
 	transition: all 0.2s ease;
 }
 
 .admin .edit.active .wrapper form .text-input .value:focus-within {
-	border-color: #383838;
-	background-color: #161616;
+	border-color: var(--admin-border-focus);
+	background-color: var(--admin-surface-main);
 }
 
 .admin .edit.active .wrapper form .text-input .value input {
 	flex-grow: 1;
 	font-size: 0.875rem;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	background-color: transparent;
 	border: none;
 	outline: none;
@@ -52,12 +52,12 @@
 }
 
 .admin .edit.active .wrapper form .text-input .value input::placeholder {
-	color: #666666;
+	color: var(--admin-text-dim);
 	font-size: 0.85rem;
 }
 
 .admin .edit.active .wrapper form .text-input .value input:disabled {
-	color: #888888;
+	color: var(--admin-text-muted);
 }
 
 .admin .edit.active .wrapper form .text-input .value .edit-button {
@@ -67,9 +67,9 @@
 	gap: 0.8vh;
 	font-size: 0.8rem;
 	font-weight: 500;
-	color: #ededed;
-	background-color: rgba(237, 237, 237, 0.06);
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-control-bg);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 8px;
 	padding: 0.6vh 1.6vh;
 	cursor: pointer;
@@ -79,30 +79,33 @@
 
 .admin .edit.active .wrapper form .text-input .value .edit-button:focus,
 .admin .edit.active .wrapper form .text-input .value .edit-button:hover {
-	background-color: rgba(237, 237, 237, 0.12);
-	border-color: #383838;
+	background-color: var(--admin-control-bg-hover);
+	border-color: var(--admin-border-focus);
 }
 
 .admin .edit.active .wrapper form .text-input .value .focused {
-	color: #111111;
-	background-color: #c6ff00;
-	border-color: #c6ff00;
+	color: var(--admin-text-ink);
+	background-color: var(--admin-accent);
+	border-color: var(--admin-accent);
 	font-weight: 600;
-	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.25);
+	box-shadow: 0 2px 10px var(--admin-accent-glow);
 }
 
 .admin .edit.active .wrapper form .text-input .value .focused:focus,
 .admin .edit.active .wrapper form .text-input .value .focused:hover {
-	background-color: #d4ff26;
-	border-color: #d4ff26;
+	background-color: var(--admin-accent-hover);
+	border-color: var(--admin-accent-hover);
 }
 
 .admin .edit.active .wrapper form .text-input .value .edit-button .icon {
 	display: grid;
 	place-content: center;
+	color: currentColor;
 }
 
+.admin .edit.active .wrapper form .text-input .value .edit-button .icon svg,
 .admin .edit.active .wrapper form .text-input .value .edit-button .icon img {
+	font-size: 1rem;
 	width: 1.8vh;
 	height: 1.8vh;
 	object-fit: contain;

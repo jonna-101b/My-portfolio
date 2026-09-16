@@ -1,8 +1,8 @@
 /* Profile Overview Card Styling */
 
 .profile-overview-card {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 28px 24px;
         display: flex;
@@ -15,7 +15,7 @@
 }
 
 .profile-overview-card:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 /* Avatar with floating badge button */
@@ -31,12 +31,12 @@
         height: 130px;
         border-radius: 50%;
         overflow: hidden;
-        border: 3px solid #262626;
-        background-color: #131313;
+        border: 3px solid var(--admin-border-base);
+        background-color: var(--admin-bg-page);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 8px 24px var(--admin-overlay);
 }
 
 .avatar-image {
@@ -55,7 +55,7 @@
 
 .avatar-fallback .fallback-text {
         font-size: 0.7rem;
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .avatar-camera-btn {
@@ -65,21 +65,21 @@
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background-color: #202020;
-        border: 2px solid #171717;
-        color: #ededed;
+        background-color: var(--admin-surface-panel);
+        border: 2px solid var(--admin-surface-main);
+        color: var(--admin-text-primary);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 10px var(--admin-overlay);
 }
 
 .avatar-camera-btn:hover {
-        background-color: rgba(198, 255, 0, 0.15);
-        color: #c6ff00;
-        border-color: rgba(198, 255, 0, 0.25);
+        background-color: var(--admin-accent-subtle);
+        color: var(--admin-accent);
+        border-color: var(--admin-accent-border);
         transform: scale(1.08);
 }
 
@@ -95,14 +95,14 @@
 .profile-details .profile-name {
         font-size: 1.35rem;
         font-weight: 700;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
         letter-spacing: -0.01em;
 }
 
 .profile-details .profile-email {
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         margin: 0;
 }
 
@@ -112,8 +112,8 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 14px;
         padding: 12px 18px;
         box-sizing: border-box;
@@ -121,12 +121,12 @@
 }
 
 .availability-row:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .availability-label {
         font-size: 0.875rem;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-weight: 500;
 }
 
@@ -136,7 +136,7 @@
         width: 44px;
         height: 24px;
         border-radius: 20px;
-        background-color: #262626;
+        background-color: var(--admin-border-base);
         border: none;
         cursor: pointer;
         padding: 2px;
@@ -147,11 +147,11 @@
 }
 
 .toggle-switch.on {
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
 }
 
 .toggle-switch.off {
-        background-color: #262626;
+        background-color: var(--admin-border-base);
 }
 
 .toggle-switch:hover {
@@ -162,13 +162,13 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background-color: #ededed;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        background-color: var(--admin-text-primary);
+        box-shadow: 0 2px 4px var(--admin-overlay);
         transform: translateX(0);
         transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.25s ease;
 }
 
 .toggle-switch.on .toggle-thumb {
         transform: translateX(20px);
-        background-color: #0b0d0e;
+        background-color: var(--admin-surface-darkest);
 }

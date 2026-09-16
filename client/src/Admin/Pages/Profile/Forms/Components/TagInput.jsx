@@ -1,117 +1,115 @@
 import { useEffect, useState, useMemo } from 'react';
 import Select, { components } from "react-select";
 import SimpleIcon, { searchSimpleIcons } from '../../../../../Utils/simpleIcons';
-import AddIcon from '../../../../../assets/Icons/Admin/Common/Edit/add.png';
-import AddBlackIcon from '../../../../../assets/Icons/Admin/Common/Edit/add-black.png';
-import CancelIcon from '../../../../../assets/Icons/Admin/Common/Edit/cancel-hover.png';
-import CheckBlackIcon from '../../../../../assets/Icons/Admin/Common/Edit/checkmark-black.png';
-import DeleteIcon from '../../../../../assets/Icons/Admin/Common/Edit/delete.png';
-import DeleteHoverIcon from '../../../../../assets/Icons/Admin/Common/Edit/delete-hover.png';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import useProfileReducer from '../../../../../Hooks/useProfileReducer';
 import '../Styles/TagInput.css';
 
 const Option = (props) => (
-        <components.Option {...props}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", width: "100%" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                <SimpleIcon
-                                        name={props.data.icon || props.data.slug || props.data.name}
-                                        size="18px"
-                                        color="#c6ff00"
-                                />
-                                <span style={{ color: "#ededed", fontSize: "0.875rem" }}>
-                                        {props.data.name || props.data.label}
-                                </span>
-                        </div>
-                        {props.data.isAvailable && (
-                                <span style={{ fontSize: "0.7rem", color: "#c6ff00", background: "rgba(198, 255, 0, 0.1)", padding: "1px 6px", borderRadius: "4px" }}>
-                                        Available
-                                </span>
-                        )}
-                </div>
-        </components.Option>
+	<components.Option {...props}>
+		<div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", width: "100%" }}>
+			<div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+				<SimpleIcon
+					name={props.data.icon || props.data.slug || props.data.name}
+					size="18px"
+					color="var(--admin-accent)"
+				/>
+				<span style={{ color: "var(--admin-text-primary)", fontSize: "0.875rem" }}>
+					{props.data.name || props.data.label}
+				</span>
+			</div>
+			{props.data.isAvailable && (
+				<span style={{ fontSize: "0.7rem", color: "var(--admin-accent)", background: "var(--admin-accent-soft)", padding: "1px 6px", borderRadius: "4px" }}>
+					Available
+				</span>
+			)}
+		</div>
+	</components.Option>
 );
 
 const SingleValue = (props) => (
-        <components.SingleValue {...props}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <SimpleIcon
-                                name={props.data.icon || props.data.slug || props.data.name}
-                                size="18px"
-                                color="#c6ff00"
-                        />
-                        <span style={{ color: "#ededed", fontSize: "0.875rem" }}>
-                                {props.data.name || props.data.label}
-                        </span>
-                </div>
-        </components.SingleValue>
+	<components.SingleValue {...props}>
+		<div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+			<SimpleIcon
+				name={props.data.icon || props.data.slug || props.data.name}
+				size="18px"
+				color="var(--admin-accent)"
+			/>
+			<span style={{ color: "var(--admin-text-primary)", fontSize: "0.875rem" }}>
+				{props.data.name || props.data.label}
+			</span>
+		</div>
+	</components.SingleValue>
 );
 
 function NewTag({ inputs, tag, selectOptions, handleCancel, handleMore, handleDone, handleChange, setSearchQuery }) {
-        const isSelect = tag.type === "select" || tag.name === "socialLinks";
+	const isSelect = tag.type === "select" || tag.name === "socialLinks";
 
-        return (
-                <div className="new-tag">
-                        <p className="label">{`New ${tag.subLabel}`}</p>
+	return (
+		<div className="new-tag">
+			<p className="label">{`New ${tag.subLabel}`}</p>
 
-                        <div className="inputs">
-                                {inputs.map((input, index) => (
-                                        <div className="input" key={index}>
-                                                {isSelect ? (
-                                                        <Select
-                                                                className="select"
-                                                                classNamePrefix="select"
-                                                                options={selectOptions}
-                                                                isSearchable={true}
-                                                                onInputChange={(val, { action }) => {
-                                                                        if (action === "input-change") {
-                                                                                setSearchQuery(val);
-                                                                        }
-                                                                }}
-                                                                filterOption={() => true}
-                                                                placeholder={`Search available platforms or simple-icons for ${tag.subLabel}...`}
-                                                                components={{ Option, SingleValue }}
-                                                                onChange={(value) => {
-                                                                        handleChange(value, index);
-                                                                }}
-                                                        />
-                                                ) : (
-                                                        <input
-                                                                type="text"
-                                                                name={tag.subLabel}
-                                                                id={tag.subLabel}
-                                                                placeholder={`Add your ${tag.subLabel} here`}
-                                                                onChange={(e) => {
-                                                                        handleChange(e.target.value, index);
-                                                                }}
-                                                        />
-                                                )}
+			<div className="inputs">
+				{inputs.map((input, index) => (
+					<div className="input" key={index}>
+						{isSelect ? (
+							<Select
+								className="select"
+								classNamePrefix="select"
+								options={selectOptions}
+								isSearchable={true}
+								onInputChange={(val, { action }) => {
+									if (action === "input-change") {
+										setSearchQuery(val);
+									}
+								}}
+								filterOption={() => true}
+								placeholder={`Search available platforms or simple-icons for ${tag.subLabel}...`}
+								components={{ Option, SingleValue }}
+								onChange={(value) => {
+									handleChange(value, index);
+								}}
+							/>
+						) : (
+							<input
+								type="text"
+								name={tag.subLabel}
+								id={tag.subLabel}
+								placeholder={`Add your ${tag.subLabel} here`}
+								onChange={(e) => {
+									handleChange(e.target.value, index);
+								}}
+							/>
+						)}
 
-                                                <p className="cancel" onClick={() => { handleCancel(index); }}>
-                                                        cancel
-                                                        <span className="icon">
-                                                                <img src={CancelIcon} alt="Cancel icon" />
-                                                        </span>
-                                                </p>
-                                        </div>
-                                ))}
-                        </div>
+						<p className="cancel" onClick={() => { handleCancel(index); }}>
+							cancel
+							<span className="icon">
+								<CloseRoundedIcon sx={{ fontSize: '1.6vh', color: 'currentColor' }} />
+							</span>
+						</p>
+					</div>
+				))}
+			</div>
 
-                        <p className="more button" onClick={handleMore}>
-                                <span className="icon">
-                                        <img src={AddBlackIcon} alt="Add icon" />
-                                </span>
-                                more
-                        </p>
+			<p className="more button" onClick={handleMore}>
+				<span className="icon">
+					<AddRoundedIcon sx={{ fontSize: '1.6vh', color: 'currentColor' }} />
+				</span>
+				more
+			</p>
 
-                        <p className="done button" onClick={handleDone}>
-                                done
-                                <span className="icon">
-                                        <img src={CheckBlackIcon} alt="Checkmark icon" />
-                                </span>
-                        </p>
-                </div>
-        );
+			<p className="done button" onClick={handleDone}>
+				done
+				<span className="icon">
+					<CheckRoundedIcon sx={{ fontSize: '1.6vh', color: 'var(--admin-text-ink)' }} />
+				</span>
+			</p>
+		</div>
+	);
 }
 
 function TagInput({ tag, values = [] }) {
@@ -316,20 +314,25 @@ function TagInput({ tag, values = [] }) {
                                                                 <p className="value">
                                                                         <span className="icon">
                                                                                 {isCustomTag ? (
-                                                                                        <img src={tag.icon} alt={tag.subLabel} />
+                                                                                        typeof tag.icon === 'function' || typeof tag.icon === 'object' ? (
+                                                                                                <tag.icon sx={{ fontSize: '2.2vh', color: 'var(--admin-accent)' }} />
+                                                                                        ) : typeof tag.icon === 'string' && (tag.icon.endsWith('.png') || tag.icon.startsWith('/') || tag.icon.startsWith('data:')) ? (
+                                                                                                <img src={tag.icon} alt={tag.subLabel} />
+                                                                                        ) : (
+                                                                                                <SimpleIcon name={tag.icon} size="20px" color="var(--admin-accent)" />
+                                                                                        )
                                                                                 ) : (
-                                                                                        <SimpleIcon name={valIcon} size="20px" color="#c6ff00" />
+                                                                                        <SimpleIcon name={valIcon} size="20px" color="var(--admin-accent)" />
                                                                                 )}
                                                                         </span>
 
-                                                                        <span className="name" style={{ color: "#ededed" }}>
+                                                                        <span className="name" style={{ color: "var(--admin-text-primary)" }}>
                                                                                 {valName}
                                                                         </span>
                                                                 </p>
 
                                                                 <p className="delete" onClick={() => { handleRemove(index, value); }}>
-                                                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
+                                                                        <DeleteOutlineRoundedIcon sx={{ fontSize: '2.2vh', color: 'var(--admin-text-muted)' }} />
                                                                 </p>
                                                         </div>
                                                 );
@@ -341,7 +344,7 @@ function TagInput({ tag, values = [] }) {
 
                         <p className="add" onClick={handleAdd}>
                                 <span className="icon">
-                                        <img src={AddIcon} alt="Add icon" />
+                                        <AddRoundedIcon sx={{ fontSize: '2vh', color: 'currentColor' }} />
                                 </span>
                                 add
                         </p>

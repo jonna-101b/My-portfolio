@@ -6,6 +6,7 @@ import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import ImageNotSupportedRoundedIcon from '@mui/icons-material/ImageNotSupportedRounded';
 import SimpleIcon from '../../../Utils/simpleIcons';
+import ProjectsMainSectionSkeleton from '../../../Components/Skeletons/ProjectsMainSectionSkeleton';
 import '../Styles/MainSection.css';
 
 
@@ -195,11 +196,14 @@ function ProjectCard({ project, handleProjectSelection }) {
         );
 }
 
-const findDomains  = (projects) => {
+const findDomains = (projects = []) => {
         let domainsSet = new Set();
+        if (!Array.isArray(projects)) return domainsSet;
         for (let project of projects) {
-                for (let domain of project.domains) {
-                        domainsSet.add(domain);
+                if (Array.isArray(project?.domains)) {
+                        for (let domain of project.domains) {
+                                if (domain) domainsSet.add(domain);
+                        }
                 }
         }
 
@@ -208,7 +212,8 @@ const findDomains  = (projects) => {
 
 function MainSection() {
         const { state } = useProjectsReducer();
-        const { projects } = state;
+        const projects = state?.projects || [];
+        const loading = state?.loading;
         const [ view, setView ] = useState([]);
         const { projectId } = useParams();
         const [ previewedProject, setPreviewedProject ] = useState(null);
@@ -231,11 +236,17 @@ function MainSection() {
         };
 
         useEffect(() => {
-                isSelected === "All" ? setView(projects) : setView(projects.filter((project) => project.domains.includes(isSelected) ))
-        }, [isSelected])
+                if (!Array.isArray(projects)) {
+                        setView([]);
+                        return;
+                }
+                isSelected === "All"
+                        ? setView(projects)
+                        : setView(projects.filter((project) => Array.isArray(project?.domains) && project.domains.includes(isSelected)));
+        }, [isSelected, projects]);
 
         useEffect(() => {
-                if (projectId) {
+                if (projectId && Array.isArray(projects)) {
                         const project = projects.find((project) => project._id === projectId);
                         if (project) {
                                 setPreviewedProject(project);
@@ -252,20 +263,24 @@ function MainSection() {
                 }
         }, [projectId, projects]);
 
+        if (loading) {
+                return <ProjectsMainSectionSkeleton />;
+        }
+
         return (
                 <div className="main-section" ref={mainSectionRef}>
 
                         <div className="categories">
-                                { <Domain domain={"All"} isSelected={isSelected} handleDomainSelection={handleDomainSelection} /> }
+                                <Domain domain={"All"} isSelected={isSelected} handleDomainSelection={handleDomainSelection} />
                                 { domains.map((domain, index) => (<Domain key={index} domain={domain} isSelected={isSelected} handleDomainSelection={handleDomainSelection} />)) }
-                                { previewedProject ? <p className="focused" >{ previewedProject.title }</p> : "" }
+                                { previewedProject ? <p className="focused">{ previewedProject.title }</p> : null }
                         </div>
 
                         { previewedProject ? 
                                 <Project project={ previewedProject } /> 
                                 : 
                                 <div className="projects">
-                                        { view.map((project) => (<ProjectCard key={project._id} project={ project } handleProjectSelection={ handleProjectSelection } />))}
+                                        { (view || []).map((project) => (<ProjectCard key={project._id} project={ project } handleProjectSelection={ handleProjectSelection } />))}
                                 </div>
                         }
                 </div>

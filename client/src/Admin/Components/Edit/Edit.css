@@ -14,7 +14,7 @@
 	justify-content: center;
 	align-items: center;
 	opacity: 1;
-	background: rgba(0, 0, 0, 0.75);
+	background: var(--admin-overlay);
 	backdrop-filter: blur(8px);
 	-webkit-backdrop-filter: blur(8px);
 }
@@ -30,11 +30,11 @@
 	max-height: 850px;
 	display: flex;
 	flex-direction: column;
-	background-color: #171717;
-	border: 1px solid #262626;
+	background-color: var(--admin-surface-main);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 20px;
 	padding: 3.5vh 3vh 3vh 3.5vh;
-	box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	box-shadow: 0 24px 48px -12px var(--admin-overlay), 0 0 0 1px var(--admin-surface-glass), inset 0 1px 0 var(--admin-surface-glass);
 	animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 	overflow: hidden;
 }
@@ -68,12 +68,12 @@
 }
 
 .admin .edit.active .wrapper form::-webkit-scrollbar-thumb {
-	background: #262626;
+	background: var(--admin-scrollbar-thumb);
 	border-radius: 10px;
 }
 
 .admin .edit.active .wrapper form::-webkit-scrollbar-thumb:hover {
-	background: #383838;
+	background: var(--admin-scrollbar-thumb-hover);
 }
 
 .admin .edit.active .wrapper form .component-name {
@@ -84,9 +84,9 @@
 	font-size: 1.05rem;
 	font-weight: 600;
 	letter-spacing: -0.01em;
-	color: #ededed;
-	background-color: #1f1f1f;
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-surface-item);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 9999px;
 	width: fit-content;
 	padding: 0.8vh 2.8vh;
@@ -99,7 +99,7 @@
 	gap: 2vh;
 	margin-top: 1vh;
 	padding-top: 2vh;
-	border-top: 1px solid #262626;
+	border-top: 1px solid var(--admin-border-base);
 }
 
 .admin .edit.active .wrapper form .changes button {
@@ -119,29 +119,29 @@
 }
 
 .admin .edit.active .wrapper form .changes .save {
-	color: #111111;
-	background-color: #ededed;
+	color: var(--admin-btn-secondary-text);
+	background-color: var(--admin-btn-secondary-bg);
 }
 
 .admin .edit.active .wrapper form .changes .save:hover:not(:disabled),
 .admin .edit.active .wrapper form .changes .save:focus:not(:disabled) {
-	background-color: #c6ff00;
-	color: #111111;
+	background-color: var(--admin-btn-secondary-hover);
+	color: var(--admin-btn-secondary-text);
 	transform: translateY(-1px);
-	box-shadow: 0 4px 16px rgba(198, 255, 0, 0.3);
+	box-shadow: 0 4px 16px var(--admin-accent-border);
 }
 
 .admin .edit.active .wrapper form .changes .discard {
-	color: #ededed;
-	background-color: rgba(237, 237, 237, 0.05);
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-control-bg);
+	border: 1px solid var(--admin-border-base);
 }
 
 .admin .edit.active .wrapper form .changes .discard:hover:not(:disabled),
 .admin .edit.active .wrapper form .changes .discard:focus:not(:disabled) {
-	background-color: rgba(255, 69, 0, 0.12);
-	color: #ff5e2e;
-	border-color: rgba(255, 69, 0, 0.4);
+	background-color: var(--admin-danger-soft);
+	color: var(--admin-danger);
+	border-color: var(--admin-danger-border);
 	transform: translateY(-1px);
 }
 
@@ -155,9 +155,12 @@
 .admin .edit.active .wrapper form .changes button .icon {
 	display: grid;
 	place-content: center;
+	color: currentColor;
 }
 
+.admin .edit.active .wrapper form .changes button .icon svg,
 .admin .edit.active .wrapper form .changes button .icon img {
+	font-size: 1.25rem;
 	width: 2.2vh;
 	height: 2.2vh;
 	object-fit: contain;

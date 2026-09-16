@@ -16,14 +16,14 @@ const Option = (props) => (
                                 <SimpleIcon
                                         name={props.data.icon || props.data.slug || props.data.name}
                                         size="16px"
-                                        color="#c6ff00"
+                                        color="var(--admin-accent)"
                                 />
-                                <span style={{ color: "#ededed", fontSize: "0.85rem" }}>
+                                <span style={{ color: "var(--admin-text-primary)", fontSize: "0.85rem" }}>
                                         {props.data.name || props.data.label}
                                 </span>
                         </div>
                         {props.data.isAvailable && (
-                                <span style={{ fontSize: "0.65rem", color: "#c6ff00", background: "rgba(198, 255, 0, 0.1)", padding: "1px 5px", borderRadius: "4px" }}>
+                                <span style={{ fontSize: "0.65rem", color: "var(--admin-accent)", background: "var(--admin-accent-soft)", padding: "1px 5px", borderRadius: "4px" }}>
                                         Available
                                 </span>
                         )}
@@ -37,9 +37,9 @@ const SingleValue = (props) => (
                         <SimpleIcon
                                 name={props.data.icon || props.data.slug || props.data.name}
                                 size="16px"
-                                color="#c6ff00"
+                                color="var(--admin-accent)"
                         />
-                        <span style={{ color: "#ededed", fontSize: "0.85rem" }}>
+                        <span style={{ color: "var(--admin-text-primary)", fontSize: "0.85rem" }}>
                                 {props.data.name || props.data.label}
                         </span>
                 </div>
@@ -50,7 +50,7 @@ function SocialLinksCard() {
         const { profile, addSocialLinks, deleteSocialLink } = useProfileReducer();
         const socialLinks = profile?.socialLinks || [];
         const [isAddOpen, setIsAddOpen] = useState(false);
-        const [inputs, setInputs] = useState([""]);
+        const [selectedOption, setSelectedOption] = useState(null);
         const [searchQuery, setSearchQuery] = useState("");
         const popupRef = useRef(null);
 
@@ -102,70 +102,34 @@ function SocialLinksCard() {
                 ];
         }, [searchQuery, availableOptions]);
 
-        const handleAddToggle = () => {
-                setIsAddOpen(prev => !prev);
-                setInputs([""]);
-                setSearchQuery("");
+        const handleSelectChange = (val) => {
+                setSelectedOption(val);
         };
 
-        const handleSelectChange = (val, index) => {
-                const updated = [...inputs];
-                if (val && typeof val === 'object') {
-                        updated[index] = {
-                                name: val.name || val.label || val.value,
-                                icon: val.icon || val.slug || val.value,
-                                url: val.url || `https://${(val.icon || val.slug || val.name || '').toLowerCase()}.com`
-                        };
-                } else {
-                        updated[index] = val;
-                }
-                setInputs(updated);
-        };
-
-        const handleAddRow = () => {
-                setInputs(prev => [...prev, ""]);
-        };
-
-        const handleRemoveRow = (index) => {
-                if (inputs.length === 1) {
-                        setInputs([""]);
-                } else {
-                        setInputs(prev => prev.filter((_, i) => i !== index));
+        const handleInputChange = (inputValue, { action }) => {
+                if (action === "input-change") {
+                        setSearchQuery(inputValue);
                 }
         };
 
-        const handleSave = () => {
-                const newEntries = [];
-                const existingNames = new Set(socialLinks.map(s => typeof s === 'object' ? s.name : s));
+        const handleAddLink = () => {
+                if (!selectedOption) return;
+                const name = selectedOption.name || selectedOption.label || selectedOption.value;
+                const icon = selectedOption.icon || selectedOption.slug || name;
+                const url = selectedOption.url || `https://${name.toLowerCase()}.com`;
 
-                for (let input of inputs) {
-                        if (!input) continue;
-                        const itemObj = typeof input === 'object'
-                                ? {
-                                        _id: `soc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
-                                        name: input.name,
-                                        icon: input.icon || input.name,
-                                        url: input.url || `https://${input.name.toLowerCase()}.com`
-                                  }
-                                : {
-                                        _id: `soc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
-                                        name: input,
-                                        icon: input,
-                                        url: `https://${input.toLowerCase()}.com`
-                                  };
-
-                        if (itemObj.name && !existingNames.has(itemObj.name)) {
-                                newEntries.push(itemObj);
-                                existingNames.add(itemObj.name);
-                        }
+                const existing = socialLinks.some(s => (typeof s === 'object' ? s.name : s)?.toLowerCase() === name.toLowerCase());
+                if (!existing && addSocialLinks) {
+                        addSocialLinks([{
+                                _id: `soc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+                                name,
+                                icon,
+                                url
+                        }]);
                 }
 
-                if (newEntries.length > 0 && addSocialLinks) {
-                        addSocialLinks(newEntries);
-                }
-
+                setSelectedOption(null);
                 setIsAddOpen(false);
-                setInputs([""]);
                 setSearchQuery("");
         };
 
@@ -195,34 +159,34 @@ function SocialLinksCard() {
         const customSelectStyles = {
                 control: (base, state) => ({
                         ...base,
-                        backgroundColor: '#131313',
-                        borderColor: state.isFocused ? '#c6ff00' : '#262626',
+                        backgroundColor: 'var(--admin-bg-page)',
+                        borderColor: state.isFocused ? 'var(--admin-accent)' : 'var(--admin-border-base)',
                         borderRadius: '12px',
                         minHeight: '38px',
                         boxShadow: 'none',
-                        '&:hover': { borderColor: '#333333' }
+                        '&:hover': { borderColor: 'var(--admin-border-medium)' }
                 }),
                 menu: (base) => ({
                         ...base,
-                        backgroundColor: '#171717',
-                        border: '1px solid #262626',
+                        backgroundColor: 'var(--admin-surface-main)',
+                        border: '1px solid var(--admin-border-base)',
                         borderRadius: '14px',
                         padding: '6px',
                         zIndex: 999,
-                        boxShadow: '0 12px 28px rgba(0,0,0,0.6)'
+                        boxShadow: '0 12px 28px var(--admin-overlay-heavy)'
                 }),
                 option: (base, state) => ({
                         ...base,
-                        backgroundColor: state.isFocused ? 'rgba(237, 237, 237, 0.1)' : 'transparent',
+                        backgroundColor: state.isFocused ? 'var(--admin-control-bg-hover)' : 'transparent',
                         borderRadius: '8px',
                         cursor: 'pointer',
-                        color: '#ededed'
+                        color: 'var(--admin-text-primary)'
                 }),
-                input: (base) => ({ ...base, color: '#ededed' }),
-                placeholder: (base) => ({ ...base, color: '#666666', fontSize: '0.8125rem' }),
-                singleValue: (base) => ({ ...base, color: '#ededed' }),
-                groupHeading: (base) => ({ ...base, color: '#888888', fontSize: '0.7rem', fontWeight: 600 }),
-                dropdownIndicator: (base) => ({ ...base, color: '#888888', padding: '4px' }),
+                input: (base) => ({ ...base, color: 'var(--admin-text-primary)' }),
+                placeholder: (base) => ({ ...base, color: 'var(--admin-text-dim)', fontSize: '0.8125rem' }),
+                singleValue: (base) => ({ ...base, color: 'var(--admin-text-primary)' }),
+                groupHeading: (base) => ({ ...base, color: 'var(--admin-text-muted)', fontSize: '0.7rem', fontWeight: 600 }),
+                dropdownIndicator: (base) => ({ ...base, color: 'var(--admin-text-muted)', padding: '4px' }),
                 indicatorSeparator: () => ({ display: 'none' })
         };
 
@@ -233,7 +197,7 @@ function SocialLinksCard() {
                                 <button
                                         type="button"
                                         className={`add-pill-btn ${isAddOpen ? "active" : ""}`}
-                                        onClick={handleAddToggle}
+                                        onClick={() => setIsAddOpen(prev => !prev)}
                                         aria-label="Add social link"
                                 >
                                         <AddRoundedIcon style={{ fontSize: '1rem' }} />
@@ -241,62 +205,59 @@ function SocialLinksCard() {
                                 </button>
                         </div>
 
-                        {/* Anchored Popup right below + Add button */}
+                        {/* Add Link Popup */}
                         {isAddOpen && (
                                 <div className="social-popup">
                                         <div className="popup-top">
-                                                <span className="popup-heading">New Platform</span>
-                                                <button type="button" className="popup-close-btn" onClick={() => setIsAddOpen(false)}>
+                                                <span className="popup-heading">Select Platform</span>
+                                                <button
+                                                        type="button"
+                                                        className="popup-close-btn"
+                                                        onClick={() => setIsAddOpen(false)}
+                                                        aria-label="Close popup"
+                                                >
                                                         <CloseRoundedIcon style={{ fontSize: '1.1rem' }} />
                                                 </button>
                                         </div>
 
-                                        <div className="popup-inputs-list">
-                                                {inputs.map((_, index) => (
-                                                        <div className="popup-select-row" key={index}>
-                                                                <div className="select-container-wrapper">
-                                                                        <Select
-                                                                                options={selectOptions}
-                                                                                isSearchable={true}
-                                                                                onInputChange={(val, { action }) => {
-                                                                                        if (action === "input-change") setSearchQuery(val);
-                                                                                }}
-                                                                                filterOption={() => true}
-                                                                                placeholder="Search platform..."
-                                                                                components={{ Option, SingleValue }}
-                                                                                styles={customSelectStyles}
-                                                                                onChange={(val) => handleSelectChange(val, index)}
-                                                                                autoFocus={index === inputs.length - 1}
-                                                                        />
-                                                                </div>
-                                                                {inputs.length > 1 && (
-                                                                        <button
-                                                                                type="button"
-                                                                                className="input-remove-btn"
-                                                                                onClick={() => handleRemoveRow(index)}
-                                                                                title="Remove row"
-                                                                        >
-                                                                                <CloseRoundedIcon style={{ fontSize: '0.9rem' }} />
-                                                                        </button>
-                                                                )}
-                                                        </div>
-                                                ))}
+                                        <div className="popup-select-row">
+                                                <div className="select-container-wrapper">
+                                                        <Select
+                                                                options={selectOptions}
+                                                                value={selectedOption}
+                                                                onChange={handleSelectChange}
+                                                                onInputChange={handleInputChange}
+                                                                components={{ Option, SingleValue }}
+                                                                styles={customSelectStyles}
+                                                                placeholder="Search or pick a platform..."
+                                                                isClearable
+                                                                isSearchable
+                                                                autoFocus
+                                                                menuIsOpen={true}
+                                                        />
+                                                </div>
                                         </div>
 
                                         <div className="popup-actions-row">
-                                                <button type="button" className="btn-more" onClick={handleAddRow}>
-                                                        <AddRoundedIcon style={{ fontSize: '0.95rem' }} />
-                                                        <span>More</span>
+                                                <button
+                                                        type="button"
+                                                        className="btn-cancel"
+                                                        onClick={() => {
+                                                                setSelectedOption(null);
+                                                                setIsAddOpen(false);
+                                                        }}
+                                                >
+                                                        Cancel
                                                 </button>
-                                                <div className="popup-primary-actions">
-                                                        <button type="button" className="btn-cancel" onClick={() => setIsAddOpen(false)}>
-                                                                <span>Cancel</span>
-                                                        </button>
-                                                        <button type="button" className="btn-done" onClick={handleSave}>
-                                                                <CheckRoundedIcon style={{ fontSize: '0.95rem' }} />
-                                                                <span>Done</span>
-                                                        </button>
-                                                </div>
+                                                <button
+                                                        type="button"
+                                                        className="btn-done"
+                                                        onClick={handleAddLink}
+                                                        disabled={!selectedOption}
+                                                >
+                                                        <CheckRoundedIcon style={{ fontSize: '1rem' }} />
+                                                        <span>Add</span>
+                                                </button>
                                         </div>
                                 </div>
                         )}
@@ -311,7 +272,7 @@ function SocialLinksCard() {
                                                         <div className="social-item" key={index}>
                                                                 <div className="item-info">
                                                                         <span className="platform-icon">
-                                                                                <SimpleIcon name={linkIcon} size="18px" color="#c6ff00" />
+                                                                                <SimpleIcon name={linkIcon} size="18px" color="var(--admin-accent)" />
                                                                         </span>
                                                                         <span className="item-text">{linkName}</span>
                                                                 </div>

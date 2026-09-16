@@ -99,6 +99,7 @@ function useBlogDisplayReducer() {
 
         return {
                 blogs,
+                loading: state?.loading,
                 filters,
                 filterTags,
                 sortMethod,

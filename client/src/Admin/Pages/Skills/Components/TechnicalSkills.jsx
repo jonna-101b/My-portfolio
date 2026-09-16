@@ -3,7 +3,7 @@ import { NewContext } from '../../../Components/New/Context/NewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
 import useTechnicalSkillsReducer from '../../../../Hooks/useTechnicalSkillsReducer';
-import AddIcon from '../../../../assets/Icons/Admin/Common/plus.png';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/star-shadow.png';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -11,6 +11,7 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SimpleIcon from '../../../../Utils/simpleIcons';
 import { technicalForm } from './Form';
+import { AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/TechnicalSkills.css';
 
 function TechBadge({ tech, onEdit, onDelete }) {
@@ -154,10 +155,8 @@ function CategoryCard({ category, onNewTech }) {
 									onNewTech(category.label);
 								}}
 							>
-								<span className="icon">
-									<img src={AddIcon} alt="Add" />
-								</span>
-								Add Tech to {category.label}
+								<AddRoundedIcon fontSize="small" />
+								<span>Add Tech to {category.label}</span>
 							</button>
 						</div>
 					</div>
@@ -168,7 +167,7 @@ function CategoryCard({ category, onNewTech }) {
 }
 
 function TechnicalSkills() {
-	const { skills = [] } = useTechnicalSkillsReducer();
+	const { skills = [], loading } = useTechnicalSkillsReducer();
 	const { setNew } = useContext(NewContext);
 
 	// Memoized grouping of technical skills by their label (category)
@@ -194,13 +193,22 @@ function TechnicalSkills() {
 		setNew(technicalForm(defaultCategory ? { label: defaultCategory } : null));
 	};
 
+	if (loading) {
+		return (
+			<div className="technical-skills">
+				<p className="title">Technical Skills</p>
+				<AdminGridSkeleton count={4} />
+			</div>
+		);
+	}
+
 	return (
 		<div className="technical-skills">
 			<p className="title">Technical Skills</p>
 
 			<p className="new-skill" onClick={() => handleNew()}>
 				<span className="icon">
-					<img src={AddIcon} alt="Add icon" />
+					<AddRoundedIcon fontSize="small" />
 				</span>
 				New Technical Skill
 			</p>

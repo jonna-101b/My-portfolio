@@ -10,31 +10,31 @@
 	font-size: 0.9rem;
 	font-weight: 500;
 	letter-spacing: 0.01em;
-	color: #ededed;
+	color: var(--admin-text-primary);
 	width: fit-content;
 }
 
 .admin .new.active .wrapper form .radio-input .label .add-state {
 	display: inline-block;
-	background-color: #ff5e2e;
+	background-color: var(--admin-danger);
 	border-radius: 50%;
 	width: 7px;
 	height: 7px;
-	box-shadow: 0 0 6px rgba(255, 94, 46, 0.4);
+	box-shadow: 0 0 6px var(--admin-danger-glow);
 	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .admin .new.active .wrapper form .radio-input .label .added {
-	background-color: #c6ff00;
-	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
+	background-color: var(--admin-accent);
+	box-shadow: 0 0 8px var(--admin-accent-glow-strong);
 }
 
 .admin .new.active .wrapper form .radio-input .options {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1.2vh;
-	background-color: #131313;
-	border: 1px solid #262626;
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	padding: 1.2vh;
 }
@@ -46,9 +46,9 @@
 	gap: 1vh;
 	font-size: 0.85rem;
 	font-weight: 500;
-	color: #888888;
-	background-color: rgba(237, 237, 237, 0.04);
-	border: 1px solid #262626;
+	color: var(--admin-text-muted);
+	background-color: var(--admin-surface-glass);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 8px;
 	padding: 0.8vh 1.8vh;
 	transition: all 0.2s ease;
@@ -59,9 +59,9 @@
 
 .admin .new.active .wrapper form .radio-input .options .option:focus,
 .admin .new.active .wrapper form .radio-input .options .option:hover {
-	background-color: rgba(237, 237, 237, 0.08);
-	color: #ededed;
-	border-color: #383838;
+	background-color: var(--admin-surface-glass-hover);
+	color: var(--admin-text-primary);
+	border-color: var(--admin-border-focus);
 }
 
 .admin .new.active .wrapper form .radio-input .options .option input {
@@ -76,40 +76,39 @@
 .admin .new.active .wrapper form .radio-input .options .option .icon {
 	display: grid;
 	place-content: center;
-	background-color: #1c1c1c;
-	border: 1px solid #333333;
+	background-color: var(--admin-surface-elevated);
+	border: 1px solid var(--admin-border-medium);
 	border-radius: 50%;
 	width: 2vh;
 	height: 2vh;
 	transition: all 0.2s ease;
 }
 
-.admin .new.active .wrapper form .radio-input .options .option .icon img {
-	width: 1.1vh;
-	height: 1.1vh;
-	object-fit: contain;
+.admin .new.active .wrapper form .radio-input .options .option .icon svg {
+	font-size: 1.2vh;
+	color: var(--admin-text-ink);
 	opacity: 0;
 	transition: opacity 0.15s ease;
 }
 
 .admin .new.active .wrapper form .radio-input .options .checked {
-	color: #c6ff00;
-	background-color: rgba(198, 255, 0, 0.08);
-	border-color: rgba(198, 255, 0, 0.4);
+	color: var(--admin-accent);
+	background-color: var(--admin-accent-soft);
+	border-color: var(--admin-accent-border-strong);
 	font-weight: 600;
 }
 
 .admin .new.active .wrapper form .radio-input .options .checked:focus,
 .admin .new.active .wrapper form .radio-input .options .checked:hover {
-	background-color: rgba(198, 255, 0, 0.12);
-	border-color: #c6ff00;
+	background-color: var(--admin-accent-subtle);
+	border-color: var(--admin-accent);
 }
 
 .admin .new.active .wrapper form .radio-input .options .checked .icon {
-	background-color: #c6ff00;
-	border-color: #c6ff00;
+	background-color: var(--admin-accent);
+	border-color: var(--admin-accent);
 }
 
-.admin .new.active .wrapper form .radio-input .options .checked .icon img {
+.admin .new.active .wrapper form .radio-input .options .checked .icon svg {
 	opacity: 1;
 }

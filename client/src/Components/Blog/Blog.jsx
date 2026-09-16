@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import useBlogReducer from '../../Hooks/useBlogReducer';
+import BlogSectionSkeleton from '../Skeletons/BlogSectionSkeleton';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
@@ -113,7 +114,7 @@ function BlogMedia({ blog }) {
 					) }
 
 					<div className="author-badge">
-						<span className="author-name">{ blog?.author || 'Jane Doe' }</span>
+						<span className="author-name">{ blog?.author || 'Author' }</span>
 					</div>
 				</div>
 			) }
@@ -282,7 +283,7 @@ function PreviousBlogCard({ blog, onSelect, focused }) {
 
 				<div className="story-meta">
 					<span className="author-avatar">{ getInitials(blog.author) }</span>
-					<span className="author-name">{ blog.author || 'Jonna' }</span>
+					<span className="author-name">{ blog.author || 'Author' }</span>
 					<span className="meta-dot">•</span>
 					<span className="story-date">{ formatStoryDate(blog.createdAt) }</span>
 				</div>
@@ -292,7 +293,7 @@ function PreviousBlogCard({ blog, onSelect, focused }) {
 }
 
 function BlogSection() {
-	const { state } = useBlogReducer();
+	const { state, loading } = useBlogReducer();
 	const [blogs, setBlogs] = useState(state.blogs);
 	const [selectedBlogId, setSelectedBlogId] = useState(state.blogs[0]?._id || null);
 	const [sidebarStart, setSidebarStart] = useState(0);
@@ -348,6 +349,14 @@ function BlogSection() {
 
 		return () => window.clearInterval(intervalId);
 	}, [previousBlogs.length]);
+
+	if (loading) {
+		return <BlogSectionSkeleton />;
+	}
+
+	if (!Array.isArray(blogs) || blogs.length === 0 || !selectedBlog) {
+		return null;
+	}
 
 	return (
 		<section className="blog-section" id="blogs">

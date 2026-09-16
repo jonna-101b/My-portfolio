@@ -34,6 +34,11 @@ export const createConceptualSkill = async (conceptualSkillData) => {
   return response.data;
 };
 
+export const updateConceptualSkill = async (id, conceptualSkillData) => {
+  const response = await protectedApi.put(`/skills/conceptual/${id}`, conceptualSkillData);
+  return response.data;
+};
+
 export const deleteConceptualSkill = async (id) => {
   const response = await protectedApi.delete(`/skills/conceptual/${id}`);
   return response.data;

@@ -24,7 +24,7 @@ function LogoCard() {
                                                 <img src={logo} alt="Brand Logo" className="logo-image" />
                                         ) : (
                                                 <div className="logo-fallback">
-                                                        <ImageOutlinedIcon style={{ fontSize: '2.25rem', color: '#888888' }} />
+                                                        <ImageOutlinedIcon style={{ fontSize: '2.25rem', color: 'var(--admin-text-muted)' }} />
                                                         <span className="fallback-text">No logo set</span>
                                                 </div>
                                         )}

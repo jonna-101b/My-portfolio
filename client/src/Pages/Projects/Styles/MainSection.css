@@ -1,8 +1,10 @@
 .projects .main-section {
         display: grid;
-        gap: 8vh;
+        gap: clamp(2rem, 5vh, 4rem);
         width: 100%;
-        padding-inline: 10vh;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 clamp(1rem, 4vw, 2.5rem);
         scroll-margin-top: 10vh;
 }
 
@@ -11,12 +13,13 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 2vh;
+        gap: 0.75rem;
         background-color: var(--panel);
         border: 1px solid var(--border);
-        border-radius: 2vh;
-        width: calc(100% - 20vh);
-        padding: 4vh;
+        border-radius: 1.25rem;
+        width: 100%;
+        max-width: 850px;
+        padding: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .projects .main-section .categories p {

@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
 import { useState, useContext, useMemo } from "react";
 import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTechnicalSkillsReducer from '../../../Hooks/useTechnicalSkillsReducer';
 import useConceptualSkillsReducer from '../../../Hooks/useConceptualSkillsReducer';
-import SimpleIcon, { getSimpleIcon } from '../../../Utils/simpleIcons';
+import SkillsPreviewSkeleton from '../../../Components/Skeletons/SkillsPreviewSkeleton';
+import SimpleIcon from '../../../Utils/simpleIcons';
 import ShadowIcon from '../../../assets/Icons/Common/star-shadow.png';
 import ShadowLightIcon from '../../../assets/Icons/Common/star-light.png';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import '../Styles/SkillsPreview.css';
 
 // Backward compatibility helper
@@ -22,7 +23,7 @@ const Tech = ({ tech, color = "var(--icon-opt-1)" }) => {
 	return (
 		<div className="tech">
 			<p className="icon">
-				<SimpleIcon name={tech.icon || tech.name} color={color} size="10vh" />
+				<SimpleIcon name={tech.icon || tech.name} color={color} size="clamp(2.25rem, 5vw, 3.25rem)" />
 			</p>
 			<p className="name">{tech.name}</p>
 		</div>
@@ -34,7 +35,7 @@ function ConceptualSkill({ skill }) {
 	return (
 		<div className="skill">
 			<p className="icon">
-				<img src={skill.icon} alt={skill.title || "Conceptual skill icon"} />
+				<LightbulbIcon />
 			</p>
 
 			<p className="shadow">
@@ -50,8 +51,8 @@ function ConceptualSkill({ skill }) {
 }
 
 function SkillsPreview() {
-	const { skills: hardSkills = [] } = useTechnicalSkillsReducer();
-	const { skills: softSkills = [] } = useConceptualSkillsReducer();
+	const { skills: hardSkills = [], loading: techLoading } = useTechnicalSkillsReducer();
+	const { skills: softSkills = [], loading: conceptLoading } = useConceptualSkillsReducer();
 
 	// Heavy calculation memoized: group flat technical skills by their category (label)
 	const categorizedSkills = useMemo(() => {
@@ -86,49 +87,64 @@ function SkillsPreview() {
 		return current ? current.techs : [];
 	}, [categorizedSkills, activeCategory]);
 
+	if (techLoading || conceptLoading) {
+		return <SkillsPreviewSkeleton />;
+	}
+
+	const hasTechnical = categorizedSkills.length > 0 && visibleTechs.length > 0;
+	const hasConceptual = Array.isArray(softSkills) && softSkills.length > 0;
+
+	if (!hasTechnical && !hasConceptual) {
+		return null;
+	}
+
 	return (
 		<div className="skills-preview">
 			<div className="main-title">
 				<p>My Skills</p>
 			</div>
 
-			<div className="technical-skills">
-				<div className="sub-title">
-					<p>Technical Skills</p>
-				</div>
+			{hasTechnical && (
+				<div className="technical-skills">
+					<div className="sub-title">
+						<p>Technical Skills</p>
+					</div>
 
-				<div className="skills">
-					{categorizedSkills.map((category) => (
-						<p
-							key={category.label}
-							className={activeCategory === category.label ? "focused" : ""}
-							onClick={() => setSelectedCategory(category.label)}
-						>
-							{category.label}
-						</p>
-					))}
-				</div>
+					<div className="skills">
+						{categorizedSkills.map((category) => (
+							<p
+								key={category.label}
+								className={activeCategory === category.label ? "focused" : ""}
+								onClick={() => setSelectedCategory(category.label)}
+							>
+								{category.label}
+							</p>
+						))}
+					</div>
 
-				<div className="techs">
-					{visibleTechs.map((tech) => (
-						<Tech key={tech._id || tech.name} tech={tech} />
-					))}
-				</div>
-			</div>
-
-			<div className="conceptual-skills">
-				<div className="sub-title">
-					<p>Conceptual Skills</p>
-				</div>
-
-				<div className="skills-loop">
-					<div className="skills-track">
-						{softSkills.map((skill) => (
-							<ConceptualSkill key={skill._id} skill={skill} />
+					<div className="techs">
+						{visibleTechs.map((tech) => (
+							<Tech key={tech._id || tech.name} tech={tech} />
 						))}
 					</div>
 				</div>
-			</div>
+			)}
+
+			{hasConceptual && (
+				<div className="conceptual-skills">
+					<div className="sub-title">
+						<p>Conceptual Skills</p>
+					</div>
+
+					<div className="skills-loop">
+						<div className="skills-track">
+							{softSkills.map((skill) => (
+								<ConceptualSkill key={skill._id} skill={skill} />
+							))}
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

@@ -1,24 +1,35 @@
 .contacts {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 5vh;
-        padding: 0 10vh;
-        margin: 10vh 0;
+        gap: clamp(2rem, 5vw, 4rem);
+        max-width: 1240px;
+        margin: clamp(4rem, 10vh, 8rem) auto;
+        padding: 0 clamp(1rem, 4vw, 2.5rem);
+        width: 100%;
+}
+
+@media (max-width: 900px) {
+        .contacts {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+        }
 }
 
 .contacts .get-in-touch {
-        display: grid;
-        gap: 4vh;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
 }
 
 .contacts .get-in-touch .title {
-        font-size: 3.5rem;
-        letter-spacing: -0.1rem;
-        font-weight: 700;
+        font-size: clamp(2.25rem, 5vw, 3.5rem);
+        letter-spacing: -0.03em;
+        font-weight: 800;
         color: transparent;
         -webkit-background-clip: text;
         background-clip: text;
         background-image: linear-gradient(to right, var(--accent), var(--text));
+        line-height: 1.15;
 }
 
 :root[data-theme='light'] .contacts .get-in-touch .title {
@@ -26,104 +37,211 @@
 }
 
 .contacts .get-in-touch .contact-message {
-        font-size: 0.9375rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
         color: var(--text-muted);
-        margin-bottom: 2vh;
 }
 
 .contacts .get-in-touch .contact {
         display: flex;
         align-items: center;
-        gap: 2vh;
+        gap: 1.25rem;
+        position: relative;
+        cursor: pointer;
+        width: fit-content;
+        padding: 0.5rem;
+        margin-left: -0.5rem;
+        border-radius: 1rem;
+        transition: background-color 0.15s ease;
+}
+
+.contacts .get-in-touch .contact:hover {
+        background-color: var(--surface-soft);
 }
 
 .contacts .get-in-touch .contact .icon {
-        display: grid;
-        place-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: 2px solid var(--accent);
-        border-radius: 2vh;
-        width: 9vh;
-        height: 9vh;
+        border-radius: 1rem;
+        width: 3.5rem;
+        height: 3.5rem;
+        flex-shrink: 0;
+        background-color: var(--surface);
+        transition: transform 0.2s ease;
+}
+
+.contacts .get-in-touch .contact:hover .icon {
+        transform: scale(1.05);
 }
 
 .contacts .get-in-touch .contact .icon img {
-        width: 4vh;
+        width: 1.75rem;
 }
 
 .contacts .get-in-touch .contact .icon .contact-icon {
-        font-size: 4vh;
+        font-size: 1.75rem;
         color: var(--icon-opt-1);
 }
 
 .contacts .get-in-touch .contact .details {
         display: grid;
-        gap: 1vh;
+        gap: 0.25rem;
 }
 
 .contacts .get-in-touch .contact .details .title {
-        font-size: 1.125rem;
-        font-weight: 500;
+        font-size: 1.1rem;
+        font-weight: 600;
         letter-spacing: normal;
         color: var(--text);
+        line-height: 1.3;
 }
 
 .contacts .get-in-touch .contact .details .info {
-        font-size: 0.9375rem;
+        font-size: 0.9rem;
         color: var(--text-muted);
+        word-break: break-all;
+}
+
+/* Simple overlay caption on hover */
+.contacts .get-in-touch .contact .copy-tooltip {
+        position: absolute;
+        bottom: -10px;
+        left: 4.5rem;
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border-strong);
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 0.775rem;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+
+.contacts .get-in-touch .contact:hover .copy-tooltip,
+.contacts .get-in-touch .contact:focus-visible .copy-tooltip {
+        opacity: 1;
+        visibility: visible;
+}
+
+.contacts .get-in-touch .contact .copy-tooltip.copied {
+        opacity: 1;
+        visibility: visible;
+        color: var(--accent);
+        border-color: var(--accent);
 }
 
 .contacts .form form {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr auto 1fr;
-        gap: 4vh;
-        padding-top: 3vh;
+        gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+        .contacts .form form {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+        }
 }
 
 .contacts .form form input,
-.contacts .form form textarea{
-        font-size: 0.875rem;
-        color: var(--text-muted);
+.contacts .form form textarea {
+        font-size: 0.9rem;
+        color: var(--text);
         background-color: var(--panel-strong);
         border: 1px solid var(--border);
-        border-radius: 2vh;
-        padding: 2vh 4vh;
+        border-radius: 0.875rem;
+        padding: 0.85rem 1.25rem;
         outline: none;
-        transition: color 0.15s linear;
+        min-height: 48px;
+        transition: color 0.15s linear, border-color 0.15s linear, background-color 0.15s linear;
 }
 
 .contacts .form form input:focus,
 .contacts .form form input:hover,
 .contacts .form form textarea:focus,
 .contacts .form form textarea:hover {
-        color: var(--text);
+        border-color: var(--accent);
+        background-color: var(--surface);
 }
 
 .contacts .form form #subject {
-        grid-column: span 2;
-        grid-row: 2/3;
-        
+        grid-column: 1 / -1;
 }
 
 .contacts .form form textarea {
-        grid-column: span 2;
-        grid-row: 3/4;
-        height: 20vh;
-        resize: none;
-        
+        grid-column: 1 / -1;
+        height: 140px;
+        resize: vertical;
+}
+
+.contacts .form form .form-feedback {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.75rem;
+        animation: fadeInFeedback 0.25s ease forwards;
+}
+
+.contacts .form form .form-feedback.error {
+        background-color: rgba(255, 85, 85, 0.12);
+        color: #ff6b6b;
+        border: 1px solid rgba(255, 85, 85, 0.3);
+}
+
+.contacts .form form .form-feedback.success {
+        background-color: rgba(198, 255, 0, 0.12);
+        color: var(--accent);
+        border: 1px solid rgba(198, 255, 0, 0.3);
+}
+
+:root[data-theme='light'] .contacts .form form .form-feedback.success {
+        background-color: rgba(70, 72, 212, 0.12);
+        color: #4648D4;
+        border-color: rgba(70, 72, 212, 0.3);
+}
+
+:root[data-theme='light'] .contacts .form form .form-feedback.error {
+        background-color: rgba(220, 38, 38, 0.1);
+        color: #dc2626;
+        border-color: rgba(220, 38, 38, 0.25);
+}
+
+@keyframes fadeInFeedback {
+        from {
+                opacity: 0;
+                transform: translateY(-4px);
+        }
+        to {
+                opacity: 1;
+                transform: translateY(0);
+        }
 }
 
 .contacts .form form button {
-        grid-row: 4/5;
-        font-size: 0.875rem;
-        font-weight: 600;
+        grid-column: 1 / -1;
+        font-size: 1rem;
+        font-weight: 700;
         color: var(--text-ink);
         background-color: var(--button-bg);
         border: none;
-        border-radius: 2vh;
+        border-radius: 0.875rem;
         text-align: center;
-        padding: 2vh 0;
-        transition: background-color 0.15s linear, transform 0.15s ease;
+        padding: 0.95rem 1.5rem;
+        min-height: 48px;
+        transition: background-color 0.15s linear, transform 0.15s ease, opacity 0.15s ease;
         cursor: pointer;
 }
 
@@ -131,4 +249,10 @@
 .contacts .form form button:hover {
         background-color: var(--button-hover);
         transform: translateY(-1.5px);
+}
+
+.contacts .form form button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
 }

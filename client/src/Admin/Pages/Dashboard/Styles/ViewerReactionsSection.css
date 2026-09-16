@@ -1,6 +1,6 @@
 .viewer-reactions-card {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 1.25rem;
         padding: 1.5rem;
         display: flex;
@@ -11,7 +11,7 @@
 }
 
 .viewer-reactions-card:hover {
-        border-color: rgba(198, 255, 0, 0.3);
+        border-color: var(--admin-accent-border);
         transform: translateY(-2px);
 }
 
@@ -23,7 +23,7 @@
 .reactions-title {
         font-size: 0.7rem;
         font-weight: 700;
-        color: #888888;
+        color: var(--admin-text-muted);
         letter-spacing: 0.08em;
         text-transform: uppercase;
 }
@@ -43,7 +43,7 @@
 .main-score {
         font-size: 2.25rem;
         font-weight: 800;
-        color: #c6ff00;
+        color: var(--admin-accent);
         line-height: 1;
         letter-spacing: -0.02em;
 }
@@ -51,14 +51,14 @@
 .max-score {
         font-size: 1.05rem;
         font-weight: 600;
-        color: #888888;
+        color: var(--admin-text-muted);
 }
 
 .stars-group {
         display: flex;
         align-items: center;
         gap: 0.15rem;
-        color: #c6ff00;
+        color: var(--admin-accent);
 }
 
 .stars-group .star-icon {
@@ -73,7 +73,7 @@
 .reviews-count {
         font-size: 0.68rem;
         font-weight: 700;
-        color: #888888;
+        color: var(--admin-text-muted);
         letter-spacing: 0.08em;
         text-transform: uppercase;
 }

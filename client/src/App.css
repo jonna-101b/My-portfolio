@@ -20,6 +20,7 @@
         --surface-soft: rgba(237, 237, 237, 0.05);
         --surface-softer: rgba(38, 38, 38, 0.75);
         --border: #262626;
+        --border-strong: #333333;
         --text: #ededed;
         --text-muted: #888888;
         --text-ink: #000000;
@@ -29,6 +30,7 @@
         --overlay: rgba(0, 0, 0, 0.6);
         --panel: rgba(28, 28, 28, 0.85);
         --panel-strong: #1c1c1c;
+        --pill: rgba(198, 255, 0, 0.2);
         --pill-soft: rgba(198, 255, 0, 0.12);
         --pill-strong: rgba(198, 255, 0, 0.45);
         --radiant: rgb(198, 255, 0, 0.06);
@@ -45,6 +47,102 @@
         --icon-opt-1: #c6ff00;
         --icon-opt-2: #ededed;
         --icon-opt-3: #0b0d0e;
+
+        /* Skeleton Tokens (Dark Mode) */
+        --skeleton-base: #1f1f1f;
+        --skeleton-highlight: #2c2c2c;
+        --skeleton-shimmer: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.02) 100%);
+        --skeleton-card: #181818;
+        --skeleton-card-inner: #222222;
+        --skeleton-border: rgba(255, 255, 255, 0.06);
+
+        /* ==========================================================================
+           Admin Dashboard Color Palette (Always Dark Theme)
+           ========================================================================== */
+        /* Backgrounds & Surfaces */
+        --admin-bg-page: #131313;
+        --admin-bg-sidebar: #000000;
+        --admin-surface-main: #171717;
+        --admin-surface-card: #1a1a1a;
+        --admin-surface-elevated: #1c1c1c;
+        --admin-surface-item: #1f1f1f;
+        --admin-surface-panel: #202020;
+        --admin-surface-active: #222222;
+        --admin-surface-hover: #242424;
+        --admin-surface-deep: #141414;
+        --admin-surface-darkest: #0b0d0e;
+        --admin-surface-glass: rgba(255, 255, 255, 0.04);
+        --admin-surface-glass-hover: rgba(255, 255, 255, 0.08);
+
+        /* Admin Skeletons */
+        --admin-skeleton-base: #1c1c1c;
+        --admin-skeleton-highlight: #282828;
+        --admin-skeleton-shimmer: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.09) 50%, rgba(255, 255, 255, 0.03) 100%);
+        --admin-skeleton-card: #171717;
+        --admin-skeleton-border: rgba(255, 255, 255, 0.05);
+
+        /* Borders */
+        --admin-border-subtle: #222222;
+        --admin-border-base: #262626;
+        --admin-border-card: #282828;
+        --admin-border-light: #2a2a2a;
+        --admin-border-panel: #2e2e2e;
+        --admin-border-medium: #333333;
+        --admin-border-focus: #383838;
+
+        /* Typography */
+        --admin-text-white: #ffffff;
+        --admin-text-primary: #ededed;
+        --admin-text-secondary: #cccccc;
+        --admin-text-muted: #888888;
+        --admin-text-dim: #666666;
+        --admin-text-disabled: #444444;
+        --admin-text-ink: #111111;
+
+        /* Primary Brand Accent (Neon Lime) */
+        --admin-accent: #c6ff00;
+        --admin-accent-hover: #d4ff26;
+        --admin-accent-active: #b8eb00;
+        --admin-accent-soft: rgba(198, 255, 0, 0.08);
+        --admin-accent-subtle: rgba(198, 255, 0, 0.12);
+        --admin-accent-border: rgba(198, 255, 0, 0.3);
+        --admin-accent-border-strong: rgba(198, 255, 0, 0.5);
+        --admin-accent-glow: rgba(198, 255, 0, 0.25);
+        --admin-accent-glow-strong: rgba(198, 255, 0, 0.6);
+
+        /* Status: Danger / Error (Coral-Red) */
+        --admin-danger: #ff5e2e;
+        --admin-danger-bright: #ff5252;
+        --admin-danger-soft: rgba(255, 94, 46, 0.1);
+        --admin-danger-soft-hover: rgba(255, 94, 46, 0.2);
+        --admin-danger-border: rgba(255, 94, 46, 0.25);
+        --admin-danger-border-hover: #ff5e2e;
+        --admin-danger-glow: rgba(255, 94, 46, 0.4);
+
+        /* Status: Other Semantic Colors */
+        --admin-danger-orange: #ff4500;
+        --admin-warning-orange: #ff8a65;
+        --admin-success: #10b981;
+        --admin-info: #38bdf8;
+        --admin-info-soft: rgba(56, 189, 248, 0.12);
+        --admin-info-border: rgba(56, 189, 248, 0.3);
+        --admin-warning: #f59e0b;
+        --admin-purple: #a855f7;
+        --admin-pink: #ec4899;
+
+        /* Controls, Buttons & Overlays */
+        --admin-control-bg: rgba(237, 237, 237, 0.06);
+        --admin-control-bg-hover: rgba(237, 237, 237, 0.12);
+        --admin-control-border: #262626;
+        --admin-btn-secondary-bg: #ededed;
+        --admin-btn-secondary-text: #111111;
+        --admin-btn-secondary-hover: #c6ff00;
+        --admin-overlay: rgba(0, 0, 0, 0.75);
+        --admin-overlay-heavy: rgba(0, 0, 0, 0.85);
+        --admin-overlay-blur: rgba(22, 22, 22, 0.95);
+        --admin-scrollbar-thumb: #262626;
+        --admin-scrollbar-thumb-hover: #383838;
+
         color-scheme: dark;
 }
 
@@ -64,6 +162,15 @@
 
         /* Borders */
         --border: #B6BEC7;
+        --border-strong: #a1a7ae;
+
+        /* Skeleton Tokens (Light Mode) */
+        --skeleton-base: #CAD0D8;
+        --skeleton-highlight: #DFE3E8;
+        --skeleton-shimmer: linear-gradient(90deg, rgba(70, 72, 212, 0.03) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(70, 72, 212, 0.03) 100%);
+        --skeleton-card: #CDD3DA;
+        --skeleton-card-inner: #DFE3E8;
+        --skeleton-border: rgba(70, 72, 212, 0.1);
 
         /* Typography */
         --text: #0B1C30;
@@ -86,6 +193,7 @@
         --panel-strong: rgb(201, 207, 214, 0.75);
 
         /* Accent-related surfaces */
+        --pill: rgb(70, 72, 212, 0.5);
         --pill-soft: rgba(70, 72, 212, 0.12);
         --pill-strong: #4648D4;
 
@@ -139,4 +247,134 @@ body {
         height: 99vh;
         z-index: 0;
         pointer-events: none;
+}
+
+/* ==========================================================================
+   Global Skeleton Shimmer Keyframes & Base Utility Classes
+   ========================================================================== */
+@keyframes skeleton-sweep {
+        0% {
+                background-position: -200% 0;
+        }
+        100% {
+                background-position: 200% 0;
+        }
+}
+
+.skeleton-shimmer {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--skeleton-base);
+}
+
+.skeleton-shimmer::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--skeleton-shimmer);
+        background-size: 200% 100%;
+        animation: skeleton-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        pointer-events: none;
+}
+
+.skeleton-box {
+        display: inline-block;
+        vertical-align: middle;
+        background-color: var(--skeleton-base);
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+}
+
+.skeleton-box::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--skeleton-shimmer);
+        background-size: 200% 100%;
+        animation: skeleton-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        pointer-events: none;
+}
+
+.skeleton-text {
+        height: 14px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        background-color: var(--skeleton-base);
+        position: relative;
+        overflow: hidden;
+}
+
+.skeleton-text::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--skeleton-shimmer);
+        background-size: 200% 100%;
+        animation: skeleton-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        pointer-events: none;
+}
+
+.skeleton-circle {
+        border-radius: 50% !important;
+        background-color: var(--skeleton-base);
+        position: relative;
+        overflow: hidden;
+}
+
+.skeleton-circle::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--skeleton-shimmer);
+        background-size: 200% 100%;
+        animation: skeleton-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        pointer-events: none;
+}
+
+.skeleton-pill {
+        border-radius: 9999px !important;
+        background-color: var(--skeleton-base);
+        position: relative;
+        overflow: hidden;
+}
+
+.skeleton-pill::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--skeleton-shimmer);
+        background-size: 200% 100%;
+        animation: skeleton-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        pointer-events: none;
+}
+
+.skeleton-card {
+        background-color: var(--skeleton-card);
+        border: 1px solid var(--skeleton-border);
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+}
+
+/* Admin Specific Skeleton Overrides */
+.admin-skeleton-box,
+.admin-skeleton-text,
+.admin-skeleton-circle,
+.admin-skeleton-pill {
+        background-color: var(--admin-skeleton-base) !important;
+}
+
+.admin-skeleton-box::after,
+.admin-skeleton-text::after,
+.admin-skeleton-circle::after,
+.admin-skeleton-pill::after {
+        background: var(--admin-skeleton-shimmer) !important;
+        background-size: 200% 100% !important;
+        animation: skeleton-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+}
+
+.admin-skeleton-card {
+        background-color: var(--admin-skeleton-card) !important;
+        border: 1px solid var(--admin-skeleton-border) !important;
 }

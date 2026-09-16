@@ -4,8 +4,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #131313;
-        border: 1px solid #262626;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
         border-radius: 14px;
         padding: 10px 16px;
         gap: 12px;
@@ -13,11 +13,11 @@
 }
 
 .profile-text-row:hover {
-        border-color: #333333;
+        border-color: var(--admin-border-medium);
 }
 
 .profile-text-row:focus-within {
-        border-color: rgba(198, 255, 0, 0.5);
+        border-color: var(--admin-accent-border-strong);
 }
 
 .row-label {
@@ -25,7 +25,7 @@
         align-items: center;
         gap: 6px;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         font-weight: 400;
         min-width: 90px;
         flex-shrink: 0;
@@ -35,7 +35,7 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
         display: inline-block;
 }
 
@@ -50,7 +50,7 @@
         background-color: transparent;
         border: none;
         outline: none;
-        color: #ededed;
+        color: var(--admin-text-primary);
         font-size: 0.9375rem;
         font-weight: 500;
         font-family: inherit;
@@ -59,12 +59,12 @@
 }
 
 .row-input:disabled {
-        color: #ededed;
+        color: var(--admin-text-primary);
         cursor: default;
 }
 
 .row-input::placeholder {
-        color: #555555;
+        color: var(--admin-text-dim);
         font-weight: 400;
 }
 
@@ -86,9 +86,9 @@
         align-items: center;
         justify-content: center;
         gap: 5px;
-        background-color: rgba(237, 237, 237, 0.15);
-        border: 1px solid rgba(237, 237, 237, 0.25);
-        color: #ededed;
+        background-color: var(--admin-control-bg);
+        border: 1px solid var(--admin-control-border);
+        color: var(--admin-text-primary);
         border-radius: 20px;
         padding: 4px 12px;
         font-size: 0.8125rem;
@@ -98,7 +98,7 @@
 }
 
 .row-action-btn:hover {
-        background-color: rgba(237, 237, 237, 0.2);
+        background-color: var(--admin-control-bg-hover);
 }
 
 .row-action-btn:active {
@@ -106,22 +106,22 @@
 }
 
 .row-action-btn.save {
-        background-color: rgba(198, 255, 0, 0.15);
-        border-color: rgba(198, 255, 0, 0.25);
-        color: #c6ff00;
+        background-color: var(--admin-accent-subtle);
+        border-color: var(--admin-accent-border);
+        color: var(--admin-accent);
 }
 
 .row-action-btn.save:hover {
-        background-color: rgba(198, 255, 0, 0.2);
+        background-color: var(--admin-accent-glow);
 }
 
 .row-action-btn.cancel {
-        background-color: rgba(255, 68, 0, 0.15);
-        border-color: rgba(255, 68, 0, 0.25);
-        color: #ff4500;
+        background-color: var(--admin-danger-soft);
+        border-color: var(--admin-danger-border);
+        color: var(--admin-danger-orange);
         padding: 4px 8px;
 }
 
 .row-action-btn.cancel:hover {
-        background-color: rgba(255, 68, 0, 0.2);
+        background-color: var(--admin-danger-soft-hover);
 }

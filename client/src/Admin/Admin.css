@@ -5,12 +5,12 @@
         width: 100%;
         min-height: 100vh;
         max-height: 100vh;
-        background-color: #171717;
+        background-color: var(--admin-surface-main);
         overflow: hidden;
 }
 
 .admin .pages {
-        background-color: #131313;
+        background-color: var(--admin-bg-page);
         overflow-y: auto;
         height: 100vh;
 }

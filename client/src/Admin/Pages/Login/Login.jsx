@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import useAdminAuth from '../../../Hooks/useAdminAuth';
+import { sendForgotPasswordNotification } from '../../../api/NotificationsApi';
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import './Login.css';
 
 function Login() {
@@ -10,6 +13,7 @@ function Login() {
   const [formValues, setFormValues] = useState({ email: '', password: '', rememberMe: false });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
+  const [forgotStatus, setForgotStatus] = useState({ loading: false, message: '', isError: false });
 
   const redirectTo = location.state?.from?.pathname || '/admin/dashboard';
 
@@ -48,6 +52,30 @@ function Login() {
       clearError();
     }
     setErrors((currentErrors) => ({ ...currentErrors, [name]: '' }));
+  };
+
+  const handleForgotPassword = async (event) => {
+    event.preventDefault();
+    if (forgotStatus.loading) return;
+
+    setServerError('');
+    setForgotStatus({ loading: true, message: '', isError: false });
+
+    try {
+      const res = await sendForgotPasswordNotification(formValues.email.trim());
+      setForgotStatus({
+        loading: false,
+        message: res?.message || 'Security key sent! Please check your registered email inbox.',
+        isError: false,
+      });
+    } catch (err) {
+      const errMsg = err?.data?.error || err?.data?.message || err?.message || 'Failed to send recovery key. Please check your network or try again.';
+      setForgotStatus({
+        loading: false,
+        message: errMsg,
+        isError: true,
+      });
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -108,7 +136,7 @@ function Login() {
               name="email"
               value={formValues.email}
               onChange={handleChange}
-              placeholder="Jhon_doe@gmail.com"
+              placeholder="admin@example.com"
               autoComplete="email"
               aria-invalid={Boolean(errors.email)}
             />
@@ -118,9 +146,15 @@ function Login() {
           <label className="field">
             <span className="label-row">
               <span className="label">Security Key</span>
-              <Link to="/admin/login" className="forgot-link" onClick={(event) => event.preventDefault()}>
-                Forgot?
-              </Link>
+              <button
+                type="button"
+                className="forgot-link"
+                onClick={handleForgotPassword}
+                disabled={forgotStatus.loading}
+                title="Send security key to admin email"
+              >
+                {forgotStatus.loading ? 'Sending key...' : 'Forgot?'}
+              </button>
             </span>
             <input
               type="password"
@@ -133,6 +167,17 @@ function Login() {
             />
             {errors.password ? <span className="error">{errors.password}</span> : null}
           </label>
+
+          {forgotStatus.message && (
+            <div className={`login-feedback-toast ${forgotStatus.isError ? 'error' : 'success'}`} role="status">
+              {forgotStatus.isError ? (
+                <ErrorOutlineRoundedIcon fontSize="small" className="feedback-icon" />
+              ) : (
+                <CheckCircleOutlineRoundedIcon fontSize="small" className="feedback-icon" />
+              )}
+              <span>{forgotStatus.message}</span>
+            </div>
+          )}
 
           <label className="remember-row">
             <input

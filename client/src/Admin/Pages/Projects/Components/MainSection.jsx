@@ -3,6 +3,7 @@ import { LayoutContext } from '../Contexts/LayoutContext';
 import { ViewContext } from '../Contexts/ViewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
+import { DeleteContext } from '../../../Components/ConfirmDelete/Context/DeleteContext';
 import { format, formatDistanceToNow } from "date-fns";
 import useProjectsReducer from '../../../../Hooks/useProjectsReducer';
 import useProjectsDisplayReducer from '../Hooks/useProjectsDisplayReducer';
@@ -13,6 +14,7 @@ import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/cube-shadow.png';
 import SimpleIcon from '../../../../Utils/simpleIcons';
 import Form from './Form';
+import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
 
@@ -20,6 +22,7 @@ function ProjectLayout({ project, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
+        const { openDeleteModal } = useContext(DeleteContext);
         const { deleteProject } = useProjectsReducer();
 
         const handleView = () => {
@@ -30,18 +33,27 @@ function ProjectLayout({ project, layout }) {
                 setEdit(Form(project));
         };
 
-        const handleDelete = async () => {
-                try {
-                        await deleteProject(project._id);
-                        if (setAction) {
-                                setAction({ type: "delete", component: "project", name: project.title });
+        const handleDelete = () => {
+                openDeleteModal({
+                        id: project._id,
+                        title: project.title,
+                        type: "Project",
+                        componentName: "project",
+                        details: project.contribution || (project.domains ? project.domains.join(', ') : null),
+                        onConfirm: async () => {
+                                try {
+                                        await deleteProject(project._id);
+                                        if (setAction) {
+                                                setAction({ type: "delete", component: "project", name: project.title });
+                                        }
+                                } catch (error) {
+                                        console.error("Error deleting project:", error);
+                                        if (setAction) {
+                                                setAction({ type: "error", component: "project", message: error?.message || "Failed to delete project" });
+                                        }
+                                }
                         }
-                } catch (error) {
-                        console.error("Error deleting project:", error);
-                        if (setAction) {
-                                setAction({ type: "error", component: "project", message: error?.message || "Failed to delete project" });
-                        }
-                }
+                });
         };
 
         const formatDate = (date) => {
@@ -150,8 +162,16 @@ function ProjectLayout({ project, layout }) {
 }
 
 function MainSection() {
-        const { projects } = useProjectsDisplayReducer();
+        const { projects, loading } = useProjectsDisplayReducer();
         const { layout } = useContext(LayoutContext);
+
+        if (loading) {
+                return (
+                        <div className="main-section">
+                                { layout ? <AdminTableSkeleton rows={5} /> : <AdminGridSkeleton count={6} /> }
+                        </div>
+                );
+        }
 
         return (
                 <div className="main-section">

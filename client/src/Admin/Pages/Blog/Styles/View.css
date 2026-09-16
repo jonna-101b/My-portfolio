@@ -1,161 +1,380 @@
+/* ==========================================================================
+   Admin Blogs - Details View Modal Redesign
+   ========================================================================== */
+
 .admin .blogs .view {
         display: none;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
         opacity: 0;
-        transition: opacity 1s linear;
-        z-index: 3;
+        transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 999;
 }
 
 .admin .blogs .view.active {
-        display: grid;
-        place-content: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         opacity: 1;
-        background: rgba(11, 13, 14, 0.5); /* translucent background */
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px); /* for Safari */
+        background: var(--admin-overlay);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
 }
 
 .admin .blogs .view.active .wrapper {
-        place-self: center;
-        display: grid;
-        background-color: #171717;
-        border: 1px solid #262626;
-        border-radius: 2vh;
-        box-shadow: 0 0 5rem #000;
-        width: 65%;
-        height: 80vh;
-        padding: 4vh 6vh;
-        padding-right: 1vh;
+        width: 92%;
+        max-width: 720px;
+        height: auto;
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 20px;
+        padding: 3vh 3.5vh;
+        box-shadow: 0 24px 48px -12px var(--admin-overlay), 0 0 0 1px var(--admin-surface-glass), inset 0 1px 0 var(--admin-surface-glass);
+        animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        overflow: hidden;
 }
 
+@keyframes modalFadeIn {
+        from {
+                opacity: 0;
+                transform: scale(0.96) translateY(8px);
+        }
+        to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+        }
+}
+
+/* Modal Header Bar */
+.admin .blogs .view.active .wrapper .view-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        padding-bottom: 2vh;
+        border-bottom: 1px solid var(--admin-border-base);
+        margin-bottom: 2.5vh;
+}
+
+.admin .blogs .view.active .wrapper .view-modal-header .component-name {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--admin-text-primary);
+        background-color: var(--admin-surface-item);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 9999px;
+        padding: 0.5rem 1.25rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.admin .blogs .view.active .wrapper .view-modal-header .component-name .header-icon {
+        color: var(--admin-accent);
+        font-size: 1.15rem;
+}
+
+.admin .blogs .view.active .wrapper .view-modal-header .view-close-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--admin-text-muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+}
+
+.admin .blogs .view.active .wrapper .view-modal-header .view-close-btn:hover {
+        background-color: var(--admin-surface-glass-hover);
+        border-color: var(--admin-border-medium);
+        color: var(--admin-text-white);
+        transform: rotate(90deg);
+}
+
+/* Scrollable Container */
 .admin .blogs .view.active .wrapper .container {
-        display: grid;
-        gap: 4vh;
-        overflow: auto;
-        padding-right: 5vh;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5vh;
+        overflow-y: auto;
+        padding-right: 1vh;
+        padding-bottom: 1vh;
 }
 
-/* Scrollbar track */
+/* Scrollbar styling */
 .admin .blogs .view.active .wrapper .container::-webkit-scrollbar {
-        width: 9px; /* Vertical scrollbar width */
-        /* height: 12px; Horizontal scrollbar height */
+        width: 6px;
 }
 
-/* Scrollbar track background */
 .admin .blogs .view.active .wrapper .container::-webkit-scrollbar-track {
         background: transparent;
 }
 
-/* Scrollbar thumb (the draggable part) */
 .admin .blogs .view.active .wrapper .container::-webkit-scrollbar-thumb {
-        width: 10px;
-        background: #131313;
-        border-radius: 6px;
+        background: var(--admin-scrollbar-thumb);
+        border-radius: 10px;
 }
 
-/* Hover effect */
 .admin .blogs .view.active .wrapper .container::-webkit-scrollbar-thumb:hover {
-        background: #0b0d0e;
+        background: var(--admin-scrollbar-thumb-hover);
 }
 
-.admin .blogs .view.active .wrapper .container .title {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #ededed;
+/* Hero & Banner Section */
+.admin .blogs .view.active .wrapper .container .hero-banner-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
 }
 
-.admin .blogs .view.active .wrapper .container .image {
-        display: grid;
-        place-content: center;
-        background-color: #0b0d0e;
-        border-radius: 2vh;
+.admin .blogs .view.active .wrapper .container .hero-banner-section .banner-image-wrapper {
         width: 100%;
+        max-height: 280px;
         aspect-ratio: 16 / 9;
-        height:max-content;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-card);
+        border-radius: 16px;
         overflow: hidden;
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
 
-.admin .blogs .view.active .wrapper .container .image img {
+.admin .blogs .view.active .wrapper .container .hero-banner-section .banner-image-wrapper img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
+        object-position: center top;
 }
 
-.admin .blogs .view.active .wrapper .container .image .author {
-        display: grid;
-        place-content: center;
+.admin .blogs .view.active .wrapper .container .hero-banner-section .banner-image-wrapper .placeholder-banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--admin-text-dim);
+        font-size: 0.875rem;
+        font-weight: 500;
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .banner-image-wrapper .placeholder-banner .placeholder-icon {
+        font-size: 3rem;
+        color: var(--admin-text-disabled);
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta .title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--admin-text-primary);
+        margin: 0;
+        line-height: 1.3;
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta .author-meta-row {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta .author-meta-row .author-info {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta .author-meta-row .author-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--admin-accent-soft);
+        border: 1px solid var(--admin-accent-border);
+        color: var(--admin-accent);
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta .author-meta-row .author-name {
         font-size: 0.875rem;
         font-weight: 600;
-        color: #ededed;
-        background-color: #202020;
-        border-radius: 2vh;
-        padding: 0.5vh 3vh;
-        position: absolute;
-        left: 2vh;
-        bottom: 2vh;
+        color: var(--admin-text-primary);
 }
 
-.admin .blogs .view.active .wrapper .container .tags {
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta .author-meta-row .published-date {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--admin-text-muted);
+        font-size: 0.825rem;
+}
+
+.admin .blogs .view.active .wrapper .container .hero-banner-section .blog-title-meta .author-meta-row .published-date .date-icon {
+        font-size: 0.95rem;
+}
+
+/* Tags Section */
+.admin .blogs .view.active .wrapper .container .tags-section {
         display: flex;
-        gap: 2vh;
+        flex-direction: column;
+        gap: 0.65rem;
 }
 
-.admin .blogs .view.active .wrapper .container .tags p {
-        display: grid;
-        place-content: center;
-        font-size: 0.75rem;
-        color: #ededed;
-        background-color: #0b0d0e;
-        border-radius: 10vh;
-        padding: 0.75vh 3vh;
-}
-
-
-.admin .blogs .view.active .wrapper .container .intro {
-        color: #ededed;
-}
-
-.admin .blogs .view.active .wrapper .container .description {
-        display: grid;
-        font-size: 0.875rem;
-        color: #888888;
-}
-
-.admin .blogs .view.active .wrapper .container .links {
+.admin .blogs .view.active .wrapper .container .tags-section .tags-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 2vh;
+        gap: 0.6rem;
 }
 
-.admin .blogs .view.active .wrapper .container .links button {
+.admin .blogs .view.active .wrapper .container .tags-section .tag-pill {
+        background-color: var(--admin-surface-item);
+        border: 1px solid var(--admin-border-panel);
+        color: var(--admin-text-secondary);
+        font-size: 0.775rem;
+        font-weight: 500;
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+        transition: all 0.2s ease;
+}
+
+.admin .blogs .view.active .wrapper .container .tags-section .tag-pill:hover {
+        border-color: var(--admin-text-disabled);
+        color: var(--admin-text-white);
+}
+
+/* Intro Callout Card */
+.admin .blogs .view.active .wrapper .container .intro-callout-card {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-left: 3px solid var(--admin-accent);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+}
+
+.admin .blogs .view.active .wrapper .container .intro-callout-card .intro-text {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: var(--admin-text-primary);
+        font-weight: 500;
+}
+
+/* Content / Description Section */
+.admin .blogs .view.active .wrapper .container .content-section,
+.admin .blogs .view.active .wrapper .container .links-section {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        gap: 0.65rem;
+}
+
+.admin .blogs .view.active .wrapper .container .section-label {
+        display: inline-flex;
         align-items: center;
-        gap: 1vh;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--admin-text-muted);
+}
+
+.admin .blogs .view.active .wrapper .container .section-label .section-icon {
+        font-size: 1.05rem;
+        color: var(--admin-accent);
+}
+
+.admin .blogs .view.active .wrapper .container .description-card {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 14px;
+        padding: 1.25rem 1.5rem;
+}
+
+.admin .blogs .view.active .wrapper .container .description-card p {
+        margin: 0;
+        font-size: 0.925rem;
+        line-height: 1.75;
+        color: var(--admin-text-secondary);
+        white-space: pre-line;
+}
+
+/* Related Links Section */
+.admin .blogs .view.active .wrapper .container .links-section .links-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+}
+
+.admin .blogs .view.active .wrapper .container .links-section .reference-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        color: var(--admin-text-secondary);
+        font-size: 0.825rem;
+        font-weight: 500;
+        padding: 0.5rem 1.15rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin .blogs .view.active .wrapper .container .links-section .reference-link-btn .btn-icon {
+        font-size: 1rem;
+        color: var(--admin-accent);
+}
+
+.admin .blogs .view.active .wrapper .container .links-section .reference-link-btn:hover {
+        background-color: var(--admin-surface-active);
+        border-color: var(--admin-border-focus);
+        color: var(--admin-text-white);
+        transform: translateY(-1px);
+}
+
+/* Modal Footer */
+.admin .blogs .view.active .wrapper .view-modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 2vh;
+        margin-top: 2vh;
+        border-top: 1px solid var(--admin-border-base);
+}
+
+.admin .blogs .view.active .wrapper .view-modal-footer .close-action-btn {
+        background-color: var(--admin-btn-secondary-bg);
+        color: var(--admin-btn-secondary-text);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
         font-size: 0.875rem;
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border: none;
-        border-radius: 10vh;
-        padding: 0.75vh 3.5vh;
         cursor: pointer;
-        transition: background-color 0.25s ease-out;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.admin .blogs .view.active .wrapper .container .links button:focus, 
-.admin .blogs .view.active .wrapper .container .links button:hover {
-        background-color: #c6ff00;
-}
-
-.admin .blogs .view.active .wrapper .container .links button img {
-        width: 2vh;
-}
-
-.admin .blogs .view.active .wrapper .container .links .github-link img {
-        width: 2.5vh;
+.admin .blogs .view.active .wrapper .view-modal-footer .close-action-btn:hover {
+        background-color: var(--admin-btn-secondary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px var(--admin-accent-border);
 }

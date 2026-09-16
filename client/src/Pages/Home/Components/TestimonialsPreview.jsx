@@ -1,153 +1,141 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTestimonialsReducer from '../../../Hooks/useTestimonialsReducer';
-import TestimonialImage from '../../../assets/Images/Testimonials/1.svg';
-import UploadIcon from '../../../assets/Icons/Home/image.png';
+import TestimonialsPreviewSkeleton from '../../../Components/Skeletons/TestimonialsPreviewSkeleton';
+import { getInitials } from '../../../Utils/avatarUtils';
 import QuoteShadowIcon from '../../../assets/Icons/Common/quote-shadow.png';
 import QuoteLightShadowIcon from '../../../assets/Icons/Common/quote-light.png';
 import "../Styles/TestimonialsPreview.css";
 
-
-function NewTestimonial() {
-        return (
-                <div className="new-testimonial">
-                        <div className="sub-content">
-                                <div className="title">
-                                        <p>Share Your Thoughts</p>
-                                </div>
-
-                                <div className="new-testimonial-message">
-                                        <p>Whether it's a suggestions or praise, i would love to hear words from you - feel free to share your honest thoughts on me!</p>
-                                </div>
-
-                                <div className="image">
-                                        <img src={ TestimonialImage } alt="Testimonial image" />
-                                </div>
-                        </div>
-
-                        <div className="main-content">
-                                        <form action="">
-                                                <p className="input">
-                                                        <label htmlFor="name">Name*:</label>
-                                                        <input type="text" name="name" id="name" placeholder='e.g Jhon Doe'/>
-                                                </p>
-
-                                                <p className="input">
-                                                        <label htmlFor="email">Email*:</label>
-                                                        <input type="text" name="email" id="email" placeholder='e.g itIsJohnDoe@gmail.com'/>
-                                                </p>
-
-                                                <p className="input">
-                                                        <label htmlFor="profession">Profession*:</label>
-                                                        <input type="text" name="profession" id="profession" placeholder='e.g Software Developer'/>
-                                                </p>
-
-                                                <p className="input">
-                                                        <label htmlFor="company">Company:</label>
-                                                        <input type="text" name="company" id="company" placeholder='e.g Meta'/>
-                                                </p>
-
-                                                <p className="text-area">
-                                                        <label htmlFor="testimony">Testimony*:</label>
-                                                        <textarea name="testimony" id="testimony" placeholder='Share you thoughts here...'></textarea>
-                                                </p>
-
-                                                <div className="upload-image">
-                                                        <p className="icon">
-                                                                <img src={ UploadIcon } alt="Upload icon" />
-                                                        </p>
-
-                                                        <p className="drag">Drag and drop picture</p>
-
-                                                        <p className="or">or</p>
-
-                                                        <button>Browse</button>
-                                                </div>
-
-                                                <button type='submit'>Send message</button>
-
-                                                <p className="reminder">* Indicates fields required.</p>
-                                        </form>
-                        </div>
-                </div>
-        );
-}
-
-
 function Testimonial({ testimonial }) {
-        const { theme } = useContext(ThemeContext);
+	const { theme } = useContext(ThemeContext);
+	const [imgError, setImgError] = useState(false);
 
-        return (
-                <div className="testimonial">
-                        <p className="shadow">
-                                <img src={theme === 'dark' ? QuoteShadowIcon : QuoteLightShadowIcon} alt="Quote shadow icon" />
-                        </p>
+	const hasValidImage = testimonial?.picture && !imgError;
 
-                        <div className="info">
-                                <div className="image">
-                                        <img src={ testimonial.picture }/>
-                                </div>
+	return (
+		<div className="testimonial">
+			<p className="shadow">
+				<img src={theme === 'dark' ? QuoteShadowIcon : QuoteLightShadowIcon} alt="Quote shadow icon" />
+			</p>
 
-                                <div className="details">
-                                        <p className="name">{ testimonial.name }</p>
+			<div className="info">
+				<div className="image">
+					{hasValidImage ? (
+						<img 
+							src={ testimonial.picture } 
+							alt={ testimonial.name || "Testimonial author" }
+							onError={() => setImgError(true)}
+						/>
+					) : (
+						<span className="avatar-initials">{ getInitials(testimonial?.name) }</span>
+					)}
+				</div>
 
-                                        <p className="position">{ testimonial.company ? `${testimonial.position} at ` + testimonial.company : testimonial.position}</p>
-                                </div>
-                        </div>
+				<div className="details">
+					<p className="name">{ testimonial.name }</p>
 
-                        <div className="testimony">
-                                <p>{ testimonial.testimony }</p>
-                        </div>
-                </div>
-        );
+					<p className="position">{ testimonial.company ? `${testimonial.position} at ` + testimonial.company : testimonial.position}</p>
+				</div>
+			</div>
+
+			<div className="testimony">
+				<p>{ testimonial.testimony }</p>
+			</div>
+		</div>
+	);
 }
 
 function TestimonialsPreview() {
-        const { state } = useTestimonialsReducer();
-        const [ testimonials, setTestimonials ] = useState(state.testimonials);
-        const testimonialsRef = useRef(null);
-        const [ pagination, setPagination ] = useState(Array.from({ length: state.testimonials.length-2 }, (_, i) => i + 1));
-        const [ currentIndex, setCurrentIndex ] = useState(state.testimonials.length ? 1 : 0); 
+	const { state, loading } = useTestimonialsReducer();
+	const [ testimonials, setTestimonials ] = useState(state.testimonials);
+	const testimonialsRef = useRef(null);
+	
+	const [ visibleCount, setVisibleCount ] = useState(3);
+	const [ currentIndex, setCurrentIndex ] = useState(1);
 
-        const handleTestimonialsSlide = (newIndex) => {
-                if (testimonialsRef.current && currentIndex !== newIndex) {
-                        const slideBy = -(newIndex - 1) * 30;
-                        testimonialsRef.current.style.transform = `translateX(${slideBy}vw)`;
-                        setCurrentIndex(newIndex);
-                }
-        };        
+	const updateVisibleCount = () => {
+		if (typeof window === 'undefined') return;
+		if (window.innerWidth < 680) {
+			setVisibleCount(1);
+		} else if (window.innerWidth < 1024) {
+			setVisibleCount(2);
+		} else {
+			setVisibleCount(3);
+		}
+	};
 
-        useEffect(() => {
-                setTestimonials(state.testimonials);
-                setPagination(Array.from({ length: state.testimonials.length-2 }, (_, i) => i + 1));
-                setCurrentIndex(state.testimonials.length ? 1 : 0);
-        }, [state.testimonials]);
+	useEffect(() => {
+		updateVisibleCount();
+		window.addEventListener('resize', updateVisibleCount);
+		return () => window.removeEventListener('resize', updateVisibleCount);
+	}, []);
 
-        return (
-                <div className="testimonials-preview">
-                        <div className="title">
-                                <p>Testimonials</p>
-                        </div>
+	const maxIndex = Math.max(1, (testimonials?.length || 0) - visibleCount + 1);
+	const pagination = Array.from({ length: maxIndex }, (_, i) => i + 1);
 
-                        <div className="testimonials-message">
-                                <p>Don't Just Take My Word For It — See What Others Have to Say</p>
-                        </div>
+	const slideTo = (index) => {
+		if (!testimonialsRef.current) return;
+		const safeIndex = Math.max(1, Math.min(index, maxIndex));
+		const children = testimonialsRef.current.children;
+		if (children && children[safeIndex - 1] && children[0]) {
+			const offset = children[safeIndex - 1].offsetLeft - children[0].offsetLeft;
+			testimonialsRef.current.style.transform = `translateX(-${offset}px)`;
+		}
+		setCurrentIndex(safeIndex);
+	};
 
-                        <div className="testimonials">
-                                <div className="wrapper" ref={testimonialsRef} >
-                                        { testimonials.map((testimonial) => (<Testimonial testimonial={ testimonial } />)) }
-                                </div>
-                        </div>
+	const handleTestimonialsSlide = (newIndex) => {
+		if (currentIndex !== newIndex) {
+			slideTo(newIndex);
+		}
+	};
 
-                        <div className="pagination">
-                                { pagination.map((index) => (
-                                        <p className={currentIndex === index ? "focused" : null} key={index} onClick={() => {handleTestimonialsSlide(index)}} ></p>
-                                )) }
-                        </div>
+	useEffect(() => {
+		setTestimonials(state.testimonials);
+		slideTo(1);
+	}, [state.testimonials, visibleCount]);
 
-                        {/* <NewTestimonial /> */}
-                </div>
-        );
+	if (loading) {
+		return <TestimonialsPreviewSkeleton />;
+	}
+
+	if (!Array.isArray(testimonials) || testimonials.length === 0) {
+		return null;
+	}
+
+	return (
+		<div className="testimonials-preview">
+			<div className="title">
+				<p>Testimonials</p>
+			</div>
+
+			<div className="testimonials-message">
+				<p>Don't Just Take My Word For It — See What Others Have to Say</p>
+			</div>
+
+			<div className="testimonials">
+				<div className="wrapper" ref={testimonialsRef} >
+					{ testimonials.map((testimonial, index) => (
+						<Testimonial key={testimonial._id || index} testimonial={ testimonial } />
+					)) }
+				</div>
+			</div>
+
+			{pagination.length > 1 && (
+				<div className="pagination">
+					{ pagination.map((index) => (
+						<p 
+							className={currentIndex === index ? "focused" : ""} 
+							key={index} 
+							onClick={() => handleTestimonialsSlide(index)}
+							aria-label={`Go to slide ${index}`}
+						/>
+					)) }
+				</div>
+			)}
+		</div>
+	);
 }
 
 export default TestimonialsPreview;

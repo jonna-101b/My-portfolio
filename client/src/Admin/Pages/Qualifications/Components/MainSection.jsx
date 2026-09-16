@@ -3,6 +3,7 @@ import { LayoutContext } from '../Contexts/LayoutContext';
 import { ViewContext } from '../Contexts/ViewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
+import { DeleteContext } from '../../../Components/ConfirmDelete/Context/DeleteContext';
 import { getYear } from 'date-fns';
 import useQualificationsDisplayReducer from '../Hooks/useQualificationsDisplayReducer';
 import useQualificationsReducer from '../../../../Hooks/useQualificationsReducer';
@@ -13,6 +14,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/medal-shadow.png';
+import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
 
@@ -20,6 +22,7 @@ function QualificationsLayout({ qualification, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
+        const { openDeleteModal } = useContext(DeleteContext);
         const { deleteQualification } = useQualificationsReducer();
 
         const handleView = () => {
@@ -30,14 +33,23 @@ function QualificationsLayout({ qualification, layout }) {
                 setEdit(Form(qualification));
         };
 
-        const handleDelete = async () => {
-                try {
-                        await deleteQualification(qualification._id);
-                        setAction({ type: "delete", component: "qualification", name: qualification.discipline });
-                } catch (error) {
-                        console.error("Error deleting qualification in admin:", error);
-                        setAction({ type: "error", component: "qualification", message: error?.message || "Failed to delete qualification" });
-                }
+        const handleDelete = () => {
+                openDeleteModal({
+                        id: qualification._id,
+                        title: qualification.discipline,
+                        type: "Qualification",
+                        componentName: "qualification",
+                        details: `${qualification.organization}${qualification.type ? ` • ${qualification.type}` : ''}`,
+                        onConfirm: async () => {
+                                try {
+                                        await deleteQualification(qualification._id);
+                                        setAction({ type: "delete", component: "qualification", name: qualification.discipline });
+                                } catch (error) {
+                                        console.error("Error deleting qualification in admin:", error);
+                                        setAction({ type: "error", component: "qualification", message: error?.message || "Failed to delete qualification" });
+                                }
+                        }
+                });
         };
 
         const formatDuration = (duration) => {
@@ -122,8 +134,16 @@ function QualificationsLayout({ qualification, layout }) {
 }
 
 function MainSection() {
-        const { qualifications } = useQualificationsDisplayReducer();
+        const { qualifications, loading } = useQualificationsDisplayReducer();
         const { layout } = useContext(LayoutContext);
+
+        if (loading) {
+                return (
+                        <div className="main-section">
+                                { layout ? <AdminTableSkeleton rows={5} /> : <AdminGridSkeleton count={6} /> }
+                        </div>
+                );
+        }
 
         return (
                 <div className="main-section">

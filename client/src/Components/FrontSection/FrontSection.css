@@ -82,7 +82,7 @@
         display: flex;
         align-items: center;
         gap: 1vh;
-        font-size: 0.875rem;
+        font-size: 0.9375rem;
         font-weight: 600;
         background-color: var(--surface-soft);
         border: none;
@@ -110,19 +110,9 @@
 }
 
 .front-section .intro .contact button .send-icon {
-        font-size: 2vh;
-        color: var(--icon-opt-2);
+        font-size: 2.5vh;
+        color: var(--text);
         transition: color 0.15s linear;
-}
-
-:root[data-theme='dark'] .front-section .intro .contact button:hover .send-icon,
-:root[data-theme='dark'] .front-section .intro .contact button:focus .send-icon {
-        color: #c6ff00;
-}
-
-:root[data-theme='light'] .front-section .intro .contact button:hover .send-icon,
-:root[data-theme='light'] .front-section .intro .contact button:focus .send-icon {
-        color: #4648D4;
 }
 
 .front-section .intro .image img{
@@ -134,11 +124,21 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 2vh;
+        gap: 1.5vh;
         font-size: 0.875rem;
-        color: var(--text);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: var(--text-muted);
         position: absolute;
         top: 90vh;
+        cursor: pointer;
+        user-select: none;
+        transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+        animation: scrollDownBob 1s ease-in-out infinite;
+}
+
+.front-section .scroll-down:hover {
+        color: var(--text);
 }
 
 .front-section .scroll-down .image {
@@ -154,4 +154,96 @@
 .front-section .scroll-down .image .scroll-arrow-icon {
         font-size: 2.75vh;
         color: var(--icon-opt-1);
+        transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.front-section .scroll-down .image .scroll-arrow-icon {
+        animation: scrollArrowNudge 2.2s ease-in-out infinite;
+}
+
+.front-section .scroll-down:hover .scroll-mouse-icon,
+.front-section .scroll-down:hover .scroll-arrow-icon {
+        color: var(--accent);
+}
+
+@keyframes scrollDownBob {
+        0%, 100% {
+                transform: translateY(0);
+        }
+        50% {
+                transform: translateY(8px);
+        }
+}
+
+@keyframes scrollArrowNudge {
+        0%, 100% {
+                transform: translateY(0);
+        }
+        50% {
+                transform: translateY(4px);
+        }
+}
+
+@media (prefers-reduced-motion: reduce) {
+        .front-section .scroll-down,
+        .front-section .scroll-down .image .scroll-arrow-icon {
+                animation: none;
+        }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints for FrontSection
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+        .front-section .intro {
+                width: 90vw;
+                height: auto;
+                min-height: 80vh;
+                flex-direction: column-reverse;
+                justify-content: center;
+                gap: 3rem;
+                padding: 5rem 1rem 3rem;
+        }
+
+        .front-section .intro .social-links {
+                position: relative;
+                left: auto;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: 1.5rem;
+                width: 100%;
+        }
+
+        .front-section .intro .image img {
+                width: min(70vw, 320px);
+                height: auto;
+        }
+
+        .front-section .intro .info {
+                text-align: center;
+                justify-items: center;
+        }
+
+        .front-section .scroll-down {
+                position: relative;
+                top: auto;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+        }
+}
+
+@media (max-width: 640px) {
+        .front-section .intro .info .title {
+                font-size: 2rem;
+        }
+
+        .front-section .intro .info .intro-text {
+                font-size: 1.1rem;
+        }
+
+        .front-section .intro .contact button {
+                padding: 0.85rem 2rem;
+        }
 }

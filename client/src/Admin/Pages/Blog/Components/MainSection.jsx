@@ -3,6 +3,7 @@ import { LayoutContext } from '../Contexts/LayoutContext';
 import { ViewContext } from '../Contexts/ViewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
+import { DeleteContext } from '../../../Components/ConfirmDelete/Context/DeleteContext';
 import { format, formatDistanceToNow } from "date-fns";
 import useBlogDisplayReducer from '../Hooks/useBlogDisplayReducer';
 import useBlogReducer from '../../../../Hooks/useBlogReducer';
@@ -12,6 +13,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/blog-shadow.png';
 import Form from './Form';
+import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
 
@@ -19,6 +21,7 @@ function BlogLayout({ blog, layout }) {
         const { setView } = useContext(ViewContext);
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
+        const { openDeleteModal } = useContext(DeleteContext);
         const { deleteBlog } = useBlogReducer();
 
         const handleView = () => {
@@ -29,14 +32,23 @@ function BlogLayout({ blog, layout }) {
                 setEdit(Form(blog));
         };
 
-        const handleDelete = async () => {
-                try {
-                        await deleteBlog(blog._id);
-                        setAction({ type: "delete", component: "blog", name: blog.title });
-                } catch (error) {
-                        console.error("Error deleting blog in admin:", error);
-                        setAction({ type: "error", component: "blog", message: error?.message || "Failed to delete blog" });
-                }
+        const handleDelete = () => {
+                openDeleteModal({
+                        id: blog._id,
+                        title: blog.title,
+                        type: "Blog Post",
+                        componentName: "blog",
+                        details: blog.author ? `By ${blog.author}` : null,
+                        onConfirm: async () => {
+                                try {
+                                        await deleteBlog(blog._id);
+                                        setAction({ type: "delete", component: "blog", name: blog.title });
+                                } catch (error) {
+                                        console.error("Error deleting blog in admin:", error);
+                                        setAction({ type: "error", component: "blog", message: error?.message || "Failed to delete blog" });
+                                }
+                        }
+                });
         };
 
         const getInitials = (name) => {
@@ -131,8 +143,16 @@ function BlogLayout({ blog, layout }) {
 }
 
 function MainSection() {
-        const { blogs } = useBlogDisplayReducer();
+        const { blogs, loading } = useBlogDisplayReducer();
         const { layout } = useContext(LayoutContext);
+
+        if (loading) {
+                return (
+                        <div className="main-section">
+                                { layout ? <AdminTableSkeleton rows={5} /> : <AdminGridSkeleton count={6} /> }
+                        </div>
+                );
+        }
 
         return (
                 <div className="main-section">

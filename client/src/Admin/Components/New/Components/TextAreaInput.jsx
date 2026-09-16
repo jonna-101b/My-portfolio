@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import EditIcon from '../../../../assets/Icons/Admin/Common/New/edit.png';
-import CheckIcon from '../../../../assets/Icons/Admin/Common/New/checkmark-hover.png';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import '../Styles/TextAreaInput.css';
 
 
@@ -46,14 +46,14 @@ function SingleValue({ textarea, value, handleValueChange, added, handleAdd }) {
                                                 <>
                                                         edit
                                                         <span className="icon">
-                                                                        <img src={EditIcon} alt="Edit icon" />
+                                                                <EditOutlinedIcon fontSize="small" />
                                                         </span>
                                                 </>
                                         ) : (
                                                 <>
                                                         done
                                                         <span className="icon">
-                                                                <img src={CheckIcon} alt="Save icon" />
+                                                                <CheckRoundedIcon fontSize="small" />
                                                         </span>
                                                 </>
                                         )}
@@ -131,14 +131,14 @@ function Options({ textarea, value, handleValueChange, handleAdd }) {
                                                 <>
                                                         edit
                                                         <span className="icon">
-                                                                        <img src={EditIcon} alt="Edit icon" />
+                                                                <EditOutlinedIcon fontSize="small" />
                                                         </span>
                                                 </>
                                         ) : (
                                                 <>
                                                         done
                                                         <span className="icon">
-                                                                <img src={CheckIcon} alt="Save icon" />
+                                                                <CheckRoundedIcon fontSize="small" />
                                                         </span>
                                                 </>
                                         )}

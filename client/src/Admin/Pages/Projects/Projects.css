@@ -10,8 +10,7 @@
 
 /* Scrollbar track */
 .admin .projects::-webkit-scrollbar {
-        width: 10px; /* Vertical scrollbar width */
-        /* height: 12px; Horizontal scrollbar height */
+        width: 10px;
 }
 
 /* Scrollbar track background */
@@ -21,11 +20,11 @@
 
 /* Scrollbar thumb (the draggable part) */
 .admin .projects::-webkit-scrollbar-thumb {
-        background: #131313;
+        background: var(--admin-scrollbar-thumb);
         border-radius: 6px;
 }
 
 /* Hover effect */
 .admin .projects::-webkit-scrollbar-thumb:hover {
-        background: #333333;
+        background: var(--admin-scrollbar-thumb-hover);
 }

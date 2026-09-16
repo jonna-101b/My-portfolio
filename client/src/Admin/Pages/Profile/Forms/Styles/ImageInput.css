@@ -6,7 +6,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: var(--admin-overlay);
         backdrop-filter: blur(4px);
         display: flex;
         justify-content: center;
@@ -16,13 +16,13 @@
 }
 
 .image-modal-content {
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 20px;
         padding: 24px;
         width: 90%;
         max-width: 440px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 20px 40px var(--admin-overlay-heavy);
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -38,7 +38,7 @@
 .image-modal-header .modal-title {
         font-size: 1.15rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
 }
 
@@ -48,7 +48,7 @@
         justify-content: center;
         background-color: transparent;
         border: none;
-        color: #888888;
+        color: var(--admin-text-muted);
         cursor: pointer;
         padding: 4px;
         border-radius: 50%;
@@ -56,14 +56,14 @@
 }
 
 .image-modal-header .close-btn:hover {
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.15);
+        color: var(--admin-text-primary);
+        background-color: var(--admin-control-bg-hover);
 }
 
 /* Dropzone Area */
 .dropzone-area {
-        background-color: #131313;
-        border: 2px dashed #262626;
+        background-color: var(--admin-bg-page);
+        border: 2px dashed var(--admin-border-base);
         border-radius: 16px;
         padding: 28px 20px;
         display: flex;
@@ -77,8 +77,8 @@
 }
 
 .dropzone-area.active {
-        border-color: #c6ff00;
-        background-color: rgba(198, 255, 0, 0.05);
+        border-color: var(--admin-accent);
+        background-color: var(--admin-accent-soft);
 }
 
 .dropzone-placeholder {
@@ -89,26 +89,26 @@
 }
 
 .dropzone-placeholder .upload-icon {
-        color: #888888;
+        color: var(--admin-text-muted);
         transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .dropzone-area:hover .upload-icon,
 .dropzone-area.active .upload-icon {
-        color: #c6ff00;
+        color: var(--admin-accent);
         transform: translateY(-2px);
 }
 
 .dropzone-placeholder .drag-text {
         font-size: 0.95rem;
         font-weight: 500;
-        color: #ededed;
+        color: var(--admin-text-primary);
         margin: 0;
 }
 
 .dropzone-placeholder .or-text {
         font-size: 0.8rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         margin: 0;
 }
 
@@ -125,8 +125,8 @@
         height: 130px;
         object-fit: cover;
         border-radius: 50%;
-        border: 2px solid #262626;
-        background-color: #131313;
+        border: 2px solid var(--admin-border-base);
+        background-color: var(--admin-bg-page);
 }
 
 .preview-img.logo {
@@ -139,8 +139,8 @@
         position: absolute;
         top: 0;
         right: 0;
-        background-color: rgba(255, 68, 0, 0.9);
-        color: #ededed;
+        background-color: var(--admin-danger-orange);
+        color: var(--admin-text-primary);
         border: none;
         border-radius: 50%;
         width: 28px;
@@ -153,7 +153,7 @@
 }
 
 .remove-preview-btn:hover {
-        background-color: #ff4500;
+        background-color: var(--admin-danger);
         transform: scale(1.1);
 }
 
@@ -162,8 +162,8 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        background-color: #ededed;
-        color: #0b0d0e;
+        background-color: var(--admin-btn-secondary-bg);
+        color: var(--admin-btn-secondary-text);
         border: none;
         border-radius: 20px;
         padding: 8px 20px;
@@ -174,13 +174,13 @@
 }
 
 .browse-btn:hover {
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
         transform: translateY(-1px);
 }
 
 .upload-tip {
         font-size: 0.75rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         margin: 0;
 }
 
@@ -198,9 +198,9 @@
         align-items: center;
         justify-content: center;
         gap: 6px;
-        background-color: rgba(237, 237, 237, 0.15);
-        border: 1px solid rgba(237, 237, 237, 0.25);
-        color: #ededed;
+        background-color: var(--admin-control-bg);
+        border: 1px solid var(--admin-control-border);
+        color: var(--admin-text-primary);
         border-radius: 20px;
         padding: 7px 18px;
         font-size: 0.875rem;
@@ -210,7 +210,7 @@
 }
 
 .image-modal-actions .cancel-btn:hover {
-        background-color: rgba(237, 237, 237, 0.2);
+        background-color: var(--admin-control-bg-hover);
 }
 
 .image-modal-actions .save-btn {
@@ -218,8 +218,8 @@
         align-items: center;
         justify-content: center;
         gap: 6px;
-        background-color: #ededed;
-        color: #0b0d0e;
+        background-color: var(--admin-btn-secondary-bg);
+        color: var(--admin-btn-secondary-text);
         border: none;
         border-radius: 20px;
         padding: 8px 20px;
@@ -230,7 +230,7 @@
 }
 
 .image-modal-actions .save-btn:hover {
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
         transform: translateY(-1px);
 }
 

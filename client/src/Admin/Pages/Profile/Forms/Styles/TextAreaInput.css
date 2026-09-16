@@ -9,13 +9,13 @@
         gap: 1vh;
         font-size: 1rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
 }
 
 .admin .profile .info .textarea-input .label .edited {
         display: grid;
         place-content: center;
-        background-color: #c6ff00;
+        background-color: var(--admin-accent);
         border-radius: 2vh;
         width: 1.25vh;
         height: 1.25vh;
@@ -24,8 +24,8 @@
 .admin .profile .info .textarea-input .value {
         display: grid;
         gap: 2vh;
-        background-color: #202020;
-        border: 1px solid #333333;
+        background-color: var(--admin-surface-panel);
+        border: 1px solid var(--admin-border-medium);
         border-radius: 2vh;
         padding: 4vh 6vh;
         position: relative;
@@ -38,8 +38,8 @@
 
 .admin .profile .info .textarea-input .value .type p {
         font-size: 0.875rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--admin-text-primary);
+        background-color: var(--admin-control-bg);
         border-radius: 2vh;
         padding: 0.75vh 3vh;
         transition: background-color 0.15s linear;
@@ -48,23 +48,23 @@
 
 .admin .profile .info .textarea-input .value .type p:focus, 
 .admin .profile .info .textarea-input .value .type p:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--admin-control-bg-hover);
 }
  
 .admin .profile .info .textarea-input .value .type .focused {
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
+        color: var(--admin-accent);
+        background-color: var(--admin-accent-soft);
 }
 
 .admin .profile .info .textarea-input .value .type .focused:focus, 
 .admin .profile .info .textarea-input .value .type .focused:hover {
-        background-color: rgba(200, 255, 0, 0.1);
+        background-color: var(--admin-accent-soft);
 }
  
 .admin .profile .info .textarea-input .value textarea {
         display: grid;
         font-size: 0.875rem;
-        color: #888888;
+        color: var(--admin-text-muted);
         background-color: transparent;
         border: none;
         outline: none;
@@ -84,12 +84,12 @@
 }
 
 .admin .profile .info .textarea-input .value textarea::-webkit-scrollbar-thumb {
-        background-color: rgba(11, 13, 14, 0.5);
+        background-color: var(--admin-surface-darkest);
         border-radius: 10px;
 }
 
 .admin .profile .info .textarea-input .value textarea::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(11, 13, 14, 0.75);
+        background-color: var(--admin-border-medium);
 }
 
 .admin .profile .info .textarea-input .value .edit-button {
@@ -99,8 +99,8 @@
         align-items: center;
         gap: 1vh;
         font-size: 0.875rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.1);
+        color: var(--admin-text-primary);
+        background-color: var(--admin-control-bg);
         border-radius: 2vh;
         width: fit-content;
         padding: 0.75vh 3vh;
@@ -110,27 +110,27 @@
 
 .admin .profile .info .textarea-input .value .edit-button:focus,
 .admin .profile .info .textarea-input .value .edit-button:hover {
-        background-color: rgba(237, 237, 237, 0.25);
+        background-color: var(--admin-control-bg-hover);
 }
 
 .admin .profile .info .textarea-input .value .save {
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
+        color: var(--admin-accent);
+        background-color: var(--admin-accent-soft);
 }
 
 .admin .profile .info .textarea-input .value .save:focus,
 .admin .profile .info .textarea-input .value .save:hover {
-        background-color: rgba(200, 255, 0, 0.25);
+        background-color: var(--admin-accent-soft);
 }
 
 .admin .profile .info .textarea-input .value .cancel {
-        color: #ff4500;
-        background-color: rgba(255, 68, 0, 0.1);
+        color: var(--admin-danger-orange);
+        background-color: var(--admin-danger-soft);
 }
 
 .admin .profile .info .textarea-input .value .cancel:focus,
 .admin .profile .info .textarea-input .value .cancel:hover {
-        background-color: rgba(255, 68, 0, 0.25);
+        background-color: var(--admin-danger-soft-hover);
 }
 
 .admin .profile .info .textarea-input .value .edit-button .icon {
@@ -138,14 +138,15 @@
         place-content: center;
 }
 
-.admin .profile .info .textarea-input .value .edit-button .icon img {
-        width: 2vh;
+.admin .profile .info .textarea-input .value .edit-button .icon svg {
+        font-size: 1.8vh;
+        color: currentColor;
 }
 
 .admin .profile .info .textarea-input .value .editing-text {
         display: grid;
         font-size: 0.75rem;
-        color: #c6ff00;
+        color: var(--admin-accent);
         position: absolute;
         left: 4vh;
         padding-block: 0.75vh;

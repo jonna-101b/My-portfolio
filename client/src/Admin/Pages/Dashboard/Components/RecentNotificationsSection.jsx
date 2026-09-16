@@ -1,79 +1,104 @@
-import { useState, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
-import ContactNotificationIcon from '../../../../assets/Icons/Admin/Notifications/message.png';
-import TestimonialNotificationIcon from '../../../../assets/Icons/Admin/Notifications/rating.png';
+import useNotificationsReducer from "../../../../Hooks/useNotificationsReducer";
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
+import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import LockResetRoundedIcon from '@mui/icons-material/LockResetRounded';
+import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
+import { AdminNotificationsSkeleton } from "../../../../Components/Skeletons/AdminSkeletons";
 import "../Styles/RecentNotificationsSection.css";
 
 
+function getNotificationIcon(type) {
+	switch (type) {
+		case 'contact':
+		case 'message':
+			return <MailOutlineRoundedIcon sx={{ fontSize: '3vh', color: 'var(--admin-accent)' }} />;
+		case 'testimonial':
+			return <FormatQuoteRoundedIcon sx={{ fontSize: '3vh', color: 'var(--admin-accent)' }} />;
+		case 'password':
+		case 'recovery':
+		case 'security':
+			return <LockResetRoundedIcon sx={{ fontSize: '3vh', color: 'var(--admin-accent)' }} />;
+		case 'edit':
+			return <EditOutlinedIcon sx={{ fontSize: '3vh', color: 'var(--admin-accent)' }} />;
+		case 'add':
+			return <AddCircleOutlineRoundedIcon sx={{ fontSize: '3vh', color: 'var(--admin-accent)' }} />;
+		case 'delete':
+			return <DeleteOutlineRoundedIcon sx={{ fontSize: '3vh', color: 'var(--admin-danger)' }} />;
+		default:
+			return <NotificationsNoneRoundedIcon sx={{ fontSize: '3vh', color: 'var(--admin-accent)' }} />;
+	}
+}
+
 function Notification({ notification }) {
-        const notificationIcons = {"contact": ContactNotificationIcon, "testimonial": TestimonialNotificationIcon};
-        const icon = notificationIcons[notification.type] || ContactNotificationIcon;
+	const typeStr = notification?.type ? String(notification.type) : 'Notification';
+	const pageStr = notification?.page || notification?.title || '';
+	const dateVal = notification?.timestamp || notification?.createdAt || notification?.date;
+	let timeStr = 'Recently';
+	try {
+		if (dateVal) {
+			timeStr = formatDistanceToNow(new Date(dateVal), { addSuffix: true });
+		}
+	} catch {
+		timeStr = 'Recently';
+	}
 
-        return (
-                <div className="notification">
-                        <p className="icon">
-                                <img src={icon} alt="notification icon" />
-                        </p>
+	return (
+		<div className="notification">
+			<p className="icon">
+				{getNotificationIcon(notification.type)}
+			</p>
 
-                        <div className="details">
-                                <p className="main">
-                                        {`${notification.type.charAt(0).toUpperCase() + notification.type.slice(1)} ${notification.page}`}
+			<div className="details">
+				<p className="main">
+					{`${typeStr.charAt(0).toUpperCase() + typeStr.slice(1)} ${pageStr}`.trim()}
+				</p>
 
-                                </p>
-
-                                <p className="time">
-                                        {formatDistanceToNow(new Date(notification.timestamp), { addSuffix: true })}
-                                        {/* {" • "}
-                                        {new Date(notification.timestamp).toLocaleString()} */}
-                                </p>
-                        </div>
-                </div>
-        );
+				<p className="time">
+					{timeStr}
+				</p>
+			</div>
+		</div>
+	);
 }
 
 function RecentNotificationsSection() {
-        const [notifications, setNotifications] = useState([]);
+        const { state } = useNotificationsReducer();
+        const loading = state?.loading;
+        const notifications = state?.notifications || [];
+        const recentList = notifications.slice(0, 5);
 
-        useEffect(() => {
-                setNotifications([
-                        {
-                                type: "edit",
-                                page: "About Page",
-                                detail: "Updated Bio",
-                                timestamp: "2025-08-11T15:32:00Z",
-                                user: "Admin"
-                        },
-                        {
-                                type: "add",
-                                page: "Projects Page",
-                                detail: "Added Portfolio Website Project",
-                                timestamp: "2025-08-10T12:15:00Z",
-                                user: "Admin"
-                        },
-                        {
-                                type: "delete",
-                                page: "Testimonials Page",
-                                detail: "Removed Outdated Testimonial",
-                                timestamp: "2025-08-09T18:45:00Z",
-                                user: "Admin"
-                        }
-                ]);
-        }, []);
+        if (loading) {
+                return <AdminNotificationsSkeleton />;
+        }
 
         return (
                 <div className="recent-notifications-section">
                         <p className="title">Recent notifications</p>
 
                         <div className="notifications">
-                                {notifications.map((notification, index) => (
-                                        <Notification key={index} notification={notification} />
-                                ))}
+                                {recentList.length > 0 ? (
+                                        recentList.map((notification, index) => (
+                                                <Notification key={notification._id || index} notification={notification} />
+                                        ))
+                                ) : (
+                                        <p style={{ color: "var(--admin-text-dim)", fontSize: "0.85rem", padding: "16px 0", textAlign: "center" }}>
+                                                No notifications yet.
+                                        </p>
+                                )}
 
-                                <p className="see-all">
+                                <p 
+                                        className="see-all" 
+                                        style={{ cursor: "pointer" }}
+                                        onClick={() => window.dispatchEvent(new CustomEvent('open-admin-notifications'))}
+                                >
                                         See all
                                 </p>
                         </div>
-        </div>
+                </div>
         );
 }
 

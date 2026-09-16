@@ -2,37 +2,45 @@ import { useContext } from 'react';
 import { NewContext } from '../../../Components/New/Context/NewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
 import { NotifyContext } from '../Contexts/NotifyContext';
+import { DeleteContext } from '../../../Components/ConfirmDelete/Context/DeleteContext';
 import useConceptualSkillsReducer from '../../../../Hooks/useConceptualSkillsReducer';
-import AddIcon from '../../../../assets/Icons/Admin/Common/plus.png';
-import EditIcon from '../../../../assets/Icons/Admin/Common/edit.png';
-import EditHoverIcon from '../../../../assets/Icons/Admin/Common/edit-hover.png';
-import DeleteIcon from '../../../../assets/Icons/Admin/Common/delete.png';
-import DeleteHoverIcon from '../../../../assets/Icons/Admin/Common/delete-hover.png';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/star-shadow.png';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { conceptualForm } from './Form';
+import { AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/ConceptualSkills.css';
-
 
 
 function Skill({ skill }) {
         const { setEdit } = useContext(EditContext);
         const { setAction } = useContext(NotifyContext);
+        const { openDeleteModal } = useContext(DeleteContext);
         const { deleteSkill } = useConceptualSkillsReducer();
 
         const handleEdit = () => {
                 setEdit(conceptualForm(skill));
         };
 
-        const handleDelete = async () => {
-                try {
-                        await deleteSkill(skill._id);
-                        setAction({ type: "delete", component: "skill", name: skill.title });
-                } catch (error) {
-                        console.error("Error deleting conceptual skill in admin:", error);
-                        setAction({ type: "error", component: "skill", message: error?.message || "Failed to delete skill" });
-                }
+        const handleDelete = () => {
+                openDeleteModal({
+                        id: skill._id,
+                        title: skill.title,
+                        type: "Conceptual Skill",
+                        componentName: "skill",
+                        details: skill.description,
+                        onConfirm: async () => {
+                                try {
+                                        await deleteSkill(skill._id);
+                                        setAction({ type: "delete", component: "skill", name: skill.title });
+                                } catch (error) {
+                                        console.error("Error deleting conceptual skill in admin:", error);
+                                        setAction({ type: "error", component: "skill", message: error?.message || "Failed to delete skill" });
+                                }
+                        }
+                });
         };
 
 
@@ -44,23 +52,11 @@ function Skill({ skill }) {
 
                         <div className="content">
                                 <p className="icon">
-                                        <img src={ skill.icon } />
+                                        <LightbulbIcon />
                                 </p>
 
                                 <p className="title">{ skill.title }</p>
                         </div>
-
-                        {/* <div className="actions">
-                                <p className="edit-button" onClick={handleEdit} >
-                                        <img src={EditIcon} alt="Edit icon" className="main" />
-                                        <img src={EditHoverIcon} alt="Edit icon" className="hover" />
-                                </p>
-
-                                <p className="delete-button" onClick={handleDelete} >
-                                        <img src={DeleteIcon} alt="Delete icon" className="main" />
-                                        <img src={DeleteHoverIcon} alt="Delete icon" className="hover" />
-                                </p>
-                        </div> */}
 
                         <p className="description">{ skill.description }</p>
 
@@ -80,12 +76,21 @@ function Skill({ skill }) {
 }
 
 function ConceptualSkills() {
-        const { skills } = useConceptualSkillsReducer();
+        const { skills, loading } = useConceptualSkillsReducer();
         const { setNew } = useContext(NewContext);
 
         const handleNew = () => {
                 setNew(conceptualForm());
         };
+
+        if (loading) {
+                return (
+                        <div className="conceptual-skills">
+                                <p className="title">Conceptual Skills</p>
+                                <AdminGridSkeleton count={4} />
+                        </div>
+                );
+        }
 
         return (
                 <div className="conceptual-skills">
@@ -93,14 +98,14 @@ function ConceptualSkills() {
 
                         <p className="new-skill" onClick={handleNew} >
                                 <span className="icon">
-                                        <img src={AddIcon} alt="Add icon" />
+                                        <AddRoundedIcon fontSize="small" />
                                 </span>
                                 New Conceptual Skill
                         </p>
 
                         <div className="grid">
                                 { skills.map((skill, index) => (
-                                        <Skill key={index} skill={skill} />
+                                         <Skill key={index} skill={skill} />
                                 )) }
                         </div>
                 </div>

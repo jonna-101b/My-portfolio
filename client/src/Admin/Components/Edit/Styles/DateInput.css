@@ -10,16 +10,16 @@
 	font-size: 0.9rem;
 	font-weight: 500;
 	letter-spacing: 0.01em;
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .date-input .label .edited {
 	display: inline-block;
-	background-color: #c6ff00;
+	background-color: var(--admin-accent);
 	border-radius: 50%;
 	width: 7px;
 	height: 7px;
-	box-shadow: 0 0 8px rgba(198, 255, 0, 0.6);
+	box-shadow: 0 0 8px var(--admin-accent-glow-strong);
 }
 
 .admin .edit.active .wrapper form .date-input .value {
@@ -27,27 +27,27 @@
 	justify-content: space-between;
 	align-items: center;
 	gap: 1.5vh;
-	background-color: #131313;
-	border: 1px solid #262626;
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	padding: 1vh 1.4vh 1vh 1.8vh;
 	transition: all 0.2s ease;
 }
 
 .admin .edit.active .wrapper form .date-input .value:hover {
-	border-color: #383838;
+	border-color: var(--admin-border-focus);
 }
 
 .admin .edit.active .wrapper form .date-input .value .input {
 	display: flex;
 	align-items: center;
 	gap: 1vh;
-	color: #888888;
+	color: var(--admin-text-muted);
 }
 
 .admin .edit.active .wrapper form .date-input .value .input span {
 	font-size: 0.875rem;
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .date-input .value .duration-value {
@@ -59,9 +59,9 @@
 .admin .edit.active .wrapper form .date-input .value .duration-value span {
 	display: inline-flex;
 	align-items: center;
-	color: #ededed;
-	background-color: rgba(237, 237, 237, 0.06);
-	border: 1px solid #262626;
+	color: var(--admin-text-primary);
+	background-color: var(--admin-control-bg);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 6px;
 	padding: 0.3vh 1.2vh;
 	font-size: 0.8rem;
@@ -74,8 +74,8 @@
 	align-items: center;
 	width: 3.8vh;
 	height: 3.8vh;
-	background-color: rgba(237, 237, 237, 0.06);
-	border: 1px solid #262626;
+	background-color: var(--admin-control-bg);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 8px;
 	padding: 0;
 	cursor: pointer;
@@ -85,40 +85,25 @@
 
 .admin .edit.active .wrapper form .date-input .value .edit-button:focus,
 .admin .edit.active .wrapper form .date-input .value .edit-button:hover {
-	background-color: rgba(237, 237, 237, 0.12);
-	border-color: #383838;
+	background-color: var(--admin-control-bg-hover);
+	border-color: var(--admin-border-focus);
 }
 
 .admin .edit.active .wrapper form .date-input .value .focused {
-	background-color: #c6ff00;
-	border-color: #c6ff00;
-	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.25);
+	background-color: var(--admin-accent);
+	border-color: var(--admin-accent);
+	box-shadow: 0 2px 10px var(--admin-accent-glow);
 }
 
 .admin .edit.active .wrapper form .date-input .value .focused:focus,
 .admin .edit.active .wrapper form .date-input .value .focused:hover {
-	background-color: #d4ff26;
-	border-color: #d4ff26;
+	background-color: var(--admin-accent-hover);
+	border-color: var(--admin-accent-hover);
 }
 
-.admin .edit.active .wrapper form .date-input .value .edit-button img {
-	width: 1.8vh;
-	height: 1.8vh;
-	object-fit: contain;
-	transition: opacity 0.15s linear;
-}
-
-.admin .edit.active .wrapper form .date-input .value .edit-button .active {
-	position: absolute;
-	opacity: 0;
-}
-
-.admin .edit.active .wrapper form .date-input .value .focused .active {
-	opacity: 1;
-}
-
-.admin .edit.active .wrapper form .date-input .value .focused .main {
-	opacity: 0;
+.admin .edit.active .wrapper form .date-input .value .edit-button svg {
+	font-size: 1.8vh;
+	transition: color 0.15s ease;
 }
 
 /* Date Picker Panel */
@@ -126,8 +111,8 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 1.8vh;
-	background-color: #131313;
-	border: 1px solid #262626;
+	background-color: var(--admin-bg-page);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 14px;
 	padding: 2.2vh;
 	animation: modalFadeIn 0.2s ease forwards;
@@ -137,7 +122,7 @@
 	grid-column: span 2;
 	font-size: 0.85rem;
 	font-weight: 600;
-	color: #ededed;
+	color: var(--admin-text-primary);
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker {
@@ -146,8 +131,8 @@
 	display: grid;
 	gap: 1.5vh;
 	font-size: 0.85rem;
-	background-color: #171717;
-	border: 1px solid #262626;
+	background-color: var(--admin-surface-main);
+	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	width: fit-content;
 	padding: 1.8vh;
@@ -169,13 +154,13 @@
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__header {
-	background-color: #171717;
-	border-bottom: 1px solid #262626;
+	background-color: var(--admin-surface-main);
+	border-bottom: 1px solid var(--admin-border-base);
 	padding-bottom: 1vh;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__header .react-datepicker__current-month {
-	color: #ededed;
+	color: var(--admin-text-primary);
 	font-weight: 600;
 	font-size: 0.9rem;
 	margin-bottom: 0.5vh;
@@ -184,48 +169,48 @@
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__day-names {
 	display: flex;
 	justify-content: space-around;
-	color: #888888;
+	color: var(--admin-text-muted);
 	margin-top: 1vh;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__day-names .react-datepicker__day-name {
-	color: #888888;
+	color: var(--admin-text-muted);
 	font-weight: 500;
 	font-size: 0.75rem;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day {
-	color: #ededed;
+	color: var(--admin-text-primary);
 	border-radius: 6px;
 	transition: all 0.15s ease;
 	font-size: 0.8rem;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day:hover {
-	color: #111111;
-	background-color: #ededed;
+	color: var(--admin-btn-secondary-text);
+	background-color: var(--admin-btn-secondary-bg);
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--keyboard-selected {
-	color: #111111;
-	background-color: #ededed;
+	color: var(--admin-btn-secondary-text);
+	background-color: var(--admin-btn-secondary-bg);
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--selected {
-	color: #111111 !important;
-	background-color: #c6ff00 !important;
+	color: var(--admin-text-ink) !important;
+	background-color: var(--admin-accent) !important;
 	font-weight: 700;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--in-range {
-	color: #c6ff00 !important;
-	background-color: rgba(198, 255, 0, 0.15) !important;
+	color: var(--admin-accent) !important;
+	background-color: var(--admin-accent-subtle) !important;
 	border-radius: 0;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .react-datepicker .react-datepicker__month-container .react-datepicker__day--in-selecting-range {
-	color: #c6ff00 !important;
-	background-color: rgba(198, 255, 0, 0.15) !important;
+	color: var(--admin-accent) !important;
+	background-color: var(--admin-accent-subtle) !important;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .button {
@@ -249,35 +234,34 @@
 	place-content: center;
 }
 
-.admin .edit.active .wrapper form .date-input .new-date .button .icon img {
-	width: 1.6vh;
-	height: 1.6vh;
-	object-fit: contain;
+.admin .edit.active .wrapper form .date-input .new-date .button .icon svg {
+	font-size: 1.6vh;
+	color: currentColor;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .cancel {
-	background-color: rgba(255, 69, 0, 0.1);
-	border: 1px solid rgba(255, 69, 0, 0.25);
-	color: #ff5e2e;
+	background-color: var(--admin-danger-soft);
+	border: 1px solid var(--admin-danger-border);
+	color: var(--admin-danger);
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .cancel:focus,
 .admin .edit.active .wrapper form .date-input .new-date .cancel:hover {
-	background-color: rgba(255, 69, 0, 0.2);
-	border-color: #ff5e2e;
+	background-color: var(--admin-danger-soft-hover);
+	border-color: var(--admin-danger-border-hover);
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .done {
 	place-self: center end;
-	background-color: #ededed;
+	background-color: var(--admin-btn-secondary-bg);
 	border: 1px solid transparent;
-	color: #111111;
+	color: var(--admin-btn-secondary-text);
 	font-weight: 600;
 }
 
 .admin .edit.active .wrapper form .date-input .new-date .done:focus,
 .admin .edit.active .wrapper form .date-input .new-date .done:hover {
-	background-color: #c6ff00;
-	color: #111111;
-	box-shadow: 0 2px 10px rgba(198, 255, 0, 0.3);
+	background-color: var(--admin-btn-secondary-hover);
+	color: var(--admin-btn-secondary-text);
+	box-shadow: 0 2px 10px var(--admin-accent-glow);
 }

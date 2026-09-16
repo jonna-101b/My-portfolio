@@ -1,126 +1,337 @@
+/* ==========================================================================
+   Admin Qualifications - Details View Modal Redesign
+   ========================================================================== */
+
 .admin .qualifications .view {
         display: none;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
         opacity: 0;
-        transition: opacity 1s linear;
+        transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 999;
 }
 
-.admin .qualifications .active {
-        display: grid;
-        place-content: center;
+.admin .qualifications .view.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         opacity: 1;
-        z-index: 2;
-        background: rgba(11, 13, 14, 0.5); /* translucent background */
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px); /* for Safari */
+        background: var(--admin-overlay);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
 }
 
-.admin .qualifications .active .wrapper {
-        place-self: center;
-        display: grid;
-        background-color: #171717;
-        border: 1px solid #262626;
-        border-radius: 2vh;
-        box-shadow: 0 0 5rem #000;
-        width: 50%;
-        max-height: 80vh;
-        padding: 6vh 6vh;
-        padding-right: 1vh;
+.admin .qualifications .view.active .wrapper {
+        width: 92%;
+        max-width: 620px;
+        height: auto;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 20px;
+        padding: 3vh 3.5vh;
+        box-shadow: 0 24px 48px -12px var(--admin-overlay), 0 0 0 1px var(--admin-surface-glass), inset 0 1px 0 var(--admin-surface-glass);
+        animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        overflow: hidden;
 }
 
-.admin .qualifications .active .wrapper .container {
-        display: grid;
-        gap: 4vh;
-        font-size: 0.875rem;
-        padding-right: 5vh;
-        overflow: auto;
+@keyframes modalFadeIn {
+        from {
+                opacity: 0;
+                transform: scale(0.96) translateY(8px);
+        }
+        to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+        }
+}
+
+/* Modal Header Bar */
+.admin .qualifications .view.active .wrapper .view-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         position: relative;
+        padding-bottom: 2vh;
+        border-bottom: 1px solid var(--admin-border-base);
+        margin-bottom: 2.5vh;
 }
 
-/* Scrollbar track */
-.admin .qualifications .active .wrapper .container::-webkit-scrollbar {
-        width: 9px; /* Vertical scrollbar width */
-        /* height: 12px; Horizontal scrollbar height */
+.admin .qualifications .view.active .wrapper .view-modal-header .component-name {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--admin-text-primary);
+        background-color: var(--admin-surface-item);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 9999px;
+        padding: 0.5rem 1.25rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Scrollbar track background */
-.admin .qualifications .active .wrapper .container::-webkit-scrollbar-track {
+.admin .qualifications .view.active .wrapper .view-modal-header .component-name .header-icon {
+        color: var(--admin-accent);
+        font-size: 1.15rem;
+}
+
+.admin .qualifications .view.active .wrapper .view-modal-header .view-close-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--admin-text-muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+}
+
+.admin .qualifications .view.active .wrapper .view-modal-header .view-close-btn:hover {
+        background-color: var(--admin-surface-glass-hover);
+        border-color: var(--admin-border-medium);
+        color: var(--admin-text-white);
+        transform: rotate(90deg);
+}
+
+/* Scrollable Container */
+.admin .qualifications .view.active .wrapper .container {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5vh;
+        overflow-y: auto;
+        padding-right: 1vh;
+        padding-bottom: 1vh;
+}
+
+/* Scrollbar styling */
+.admin .qualifications .view.active .wrapper .container::-webkit-scrollbar {
+        width: 6px;
+}
+
+.admin .qualifications .view.active .wrapper .container::-webkit-scrollbar-track {
         background: transparent;
 }
 
-/* Scrollbar thumb (the draggable part) */
-.admin .qualifications .active .wrapper .container::-webkit-scrollbar-thumb {
-        width: 10px;
-        background: #131313;
-        border-radius: 6px;
+.admin .qualifications .view.active .wrapper .container::-webkit-scrollbar-thumb {
+        background: var(--admin-scrollbar-thumb);
+        border-radius: 10px;
 }
 
-/* Hover effect */
-.admin .qualifications .active .wrapper .container::-webkit-scrollbar-thumb:hover {
-        background: #0b0d0e;
+.admin .qualifications .view.active .wrapper .container::-webkit-scrollbar-thumb:hover {
+        background: var(--admin-scrollbar-thumb-hover);
 }
 
-.admin .qualifications .active .wrapper .container .info {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        gap: 2vh;
-}
-
-.admin .qualifications .active .wrapper .container .info .details {
-        display: grid;
-        gap: 2vh;
-}
-
-.admin .qualifications .active .wrapper .container .info .details .discipline {
+/* Hero Section */
+.admin .qualifications .view.active .wrapper .container .hero-section {
         display: flex;
         align-items: center;
-        gap: 2vh;
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #ededed;
+        gap: 1.25rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 16px;
+        padding: 1.25rem 1.5rem;
 }
 
-.admin .qualifications .active .wrapper .container .info .details .discipline .type {
-        display: inline-block;
+.admin .qualifications .view.active .wrapper .container .hero-section .icon-wrapper {
+        width: 52px;
+        height: 52px;
+        background-color: var(--admin-surface-active);
+        border: 1px solid var(--admin-border-medium);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+}
+
+.admin .qualifications .view.active .wrapper .container .hero-section .icon-wrapper .mortarboard-icon {
+        color: var(--admin-accent);
+        font-size: 2rem;
+}
+
+.admin .qualifications .view.active .wrapper .container .hero-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+}
+
+.admin .qualifications .view.active .wrapper .container .hero-details .discipline {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--admin-text-primary);
+        margin: 0;
+        line-height: 1.3;
+}
+
+.admin .qualifications .view.active .wrapper .container .hero-details .organization {
+        font-size: 0.95rem;
+        color: var(--admin-text-muted);
+        margin: 0;
+        font-weight: 500;
+}
+
+/* Meta Badges Row */
+.admin .qualifications .view.active .wrapper .container .meta-badges-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .type-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        background-color: var(--admin-accent-soft);
+        border: 1px solid var(--admin-accent-border);
+        color: var(--admin-accent);
         font-size: 0.75rem;
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: #ededed;
-        border-radius: 10vh;
-        height: fit-content;
-        padding: 0.25vh 2vh;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        padding: 0.4rem 0.9rem;
+        border-radius: 9999px;
 }
 
-.admin .qualifications .active .wrapper .container .info .details .organization {
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .type-badge .badge-icon {
+        font-size: 1rem;
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .duration-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        background-color: var(--admin-control-bg);
+        border: 1px solid var(--admin-border-card);
+        color: var(--admin-text-primary);
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding: 0.4rem 0.9rem;
+        border-radius: 9999px;
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .duration-badge .badge-icon {
+        font-size: 1rem;
+        color: var(--admin-text-muted);
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.4rem 0.9rem;
+        border-radius: 9999px;
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .status-badge.active {
+        color: var(--admin-accent);
+        background-color: var(--admin-accent-soft);
+        border: 1px solid var(--admin-accent-border);
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .status-badge.completed {
+        color: var(--admin-text-muted);
+        background-color: var(--admin-surface-glass);
+        border: 1px solid var(--admin-border-card);
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .status-badge .badge-icon {
+        font-size: 1rem;
+}
+
+.admin .qualifications .view.active .wrapper .container .meta-badges-row .status-badge .pulse-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: var(--admin-accent);
+        box-shadow: 0 0 6px var(--admin-accent);
+        animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+        0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+        }
+        50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+        }
+}
+
+/* Content / Description Section */
+.admin .qualifications .view.active .wrapper .container .content-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+}
+
+.admin .qualifications .view.active .wrapper .container .content-section .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--admin-text-muted);
+}
+
+.admin .qualifications .view.active .wrapper .container .content-section .section-label .section-icon {
+        font-size: 1.05rem;
+        color: var(--admin-accent);
+}
+
+.admin .qualifications .view.active .wrapper .container .content-section .description-card {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 14px;
+        padding: 1.25rem 1.5rem;
+}
+
+.admin .qualifications .view.active .wrapper .container .content-section .description-card p {
+        margin: 0;
+        font-size: 0.925rem;
+        line-height: 1.7;
+        color: var(--admin-text-secondary);
+        white-space: pre-line;
+}
+
+/* Modal Footer */
+.admin .qualifications .view.active .wrapper .view-modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 2vh;
+        margin-top: 2vh;
+        border-top: 1px solid var(--admin-border-base);
+}
+
+.admin .qualifications .view.active .wrapper .view-modal-footer .close-action-btn {
+        background-color: var(--admin-btn-secondary-bg);
+        color: var(--admin-btn-secondary-text);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
         font-size: 0.875rem;
-        color: #888888;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.admin .qualifications .active .wrapper .container .info .duration {
-        font-size: 0.875rem;
-        color: #ededed;
-        background-color: rgba(237, 237, 237, 0.15);
-        border: none;
-        border-radius: 10vh;
-        padding: 0.5vh 2vh;
-}
-
-.admin .qualifications .active .wrapper .container .description {
-        color: #888888;
-}
-
-.admin .qualifications .active .wrapper .container .active {
-        place-self: center start;
-        display: grid;
-        place-content: center;
-        color: #c6ff00;
-        background-color: rgba(200, 255, 0, 0.1);
-        border-radius: 10vh;
-        width: fit-content;
-        padding: 0.5vh 3vh;
+.admin .qualifications .view.active .wrapper .view-modal-footer .close-action-btn:hover {
+        background-color: var(--admin-btn-secondary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px var(--admin-accent-border);
 }

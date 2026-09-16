@@ -1,13 +1,16 @@
+/* ==========================================================================
+   Admin Testimonials - Details View Modal Redesign
+   ========================================================================== */
+
 .admin .testimonials .view {
         display: none;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
         opacity: 0;
-        transition: opacity 1s linear;
-        z-index: 3;
+        transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 999;
 }
 
 .admin .testimonials .view.active {
@@ -15,89 +18,284 @@
         justify-content: center;
         align-items: center;
         opacity: 1;
-        background: rgba(11, 13, 14, 0.5); /* translucent background */
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px); /* for Safari */
+        background: var(--admin-overlay);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
 }
 
 .admin .testimonials .view.active .wrapper {
-        flex: 0 0 40%;
-        display: grid;
-        background-color: #171717;
-        border: 1px solid #262626;
-        border-radius: 2vh;
-        box-shadow: 0 0 5rem #000;
-        max-height: 80vh;
-        padding: 6vh 6vh;
-        padding-right: 1vh;
+        width: 92%;
+        max-width: 620px;
+        height: auto;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 20px;
+        padding: 3vh 3.5vh;
+        box-shadow: 0 24px 48px -12px var(--admin-overlay), 0 0 0 1px var(--admin-surface-glass), inset 0 1px 0 var(--admin-surface-glass);
+        animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        overflow: hidden;
 }
 
-.admin .testimonials .view.active .wrapper .container {
-        display: grid;
-        gap: 4vh;
-        font-size: 0.875rem;
-        color: #ededed;
-        padding-right: 5vh;
-        overflow: auto;
+@keyframes modalFadeIn {
+        from {
+                opacity: 0;
+                transform: scale(0.96) translateY(8px);
+        }
+        to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+        }
+}
+
+/* Modal Header Bar */
+.admin .testimonials .view.active .wrapper .view-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         position: relative;
+        padding-bottom: 2vh;
+        border-bottom: 1px solid var(--admin-border-base);
+        margin-bottom: 2.5vh;
 }
 
-/* Scrollbar track */
+.admin .testimonials .view.active .wrapper .view-modal-header .component-name {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--admin-text-primary);
+        background-color: var(--admin-surface-item);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 9999px;
+        padding: 0.5rem 1.25rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.admin .testimonials .view.active .wrapper .view-modal-header .component-name .header-icon {
+        color: var(--admin-accent);
+        font-size: 1.15rem;
+}
+
+.admin .testimonials .view.active .wrapper .view-modal-header .view-close-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--admin-text-muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+}
+
+.admin .testimonials .view.active .wrapper .view-modal-header .view-close-btn:hover {
+        background-color: var(--admin-surface-glass-hover);
+        border-color: var(--admin-border-medium);
+        color: var(--admin-text-white);
+        transform: rotate(90deg);
+}
+
+/* Scrollable Container */
+.admin .testimonials .view.active .wrapper .container {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5vh;
+        overflow-y: auto;
+        padding-right: 1vh;
+        padding-bottom: 1vh;
+}
+
+/* Scrollbar styling */
 .admin .testimonials .view.active .wrapper .container::-webkit-scrollbar {
-        width: 9px; /* Vertical scrollbar width */
-        /* height: 12px; Horizontal scrollbar height */
+        width: 6px;
 }
 
-/* Scrollbar track background */
 .admin .testimonials .view.active .wrapper .container::-webkit-scrollbar-track {
         background: transparent;
 }
 
-/* Scrollbar thumb (the draggable part) */
 .admin .testimonials .view.active .wrapper .container::-webkit-scrollbar-thumb {
-        width: 10px;
-        background: #131313;
-        border-radius: 6px;
+        background: var(--admin-scrollbar-thumb);
+        border-radius: 10px;
 }
 
-/* Hover effect */
 .admin .testimonials .view.active .wrapper .container::-webkit-scrollbar-thumb:hover {
-        background: #0b0d0e;
+        background: var(--admin-scrollbar-thumb-hover);
 }
 
-.admin .testimonials .view.active .wrapper .container .info {
+/* Author Hero Card */
+.admin .testimonials .view.active .wrapper .container .author-hero-card {
         display: flex;
-        justify-content: start;
         align-items: center;
-        gap: 2vh;
+        gap: 1.25rem;
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 16px;
+        padding: 1.25rem 1.5rem;
 }
 
-.admin .testimonials .view.active .wrapper .container .info .image {
-        display: grid;
-        place-content: center;
-        background-color: rgba(11, 13, 14, 0.5);
+.admin .testimonials .view.active .wrapper .container .author-hero-card .avatar-wrapper {
+        width: 64px;
+        height: 64px;
         border-radius: 50%;
-        width: 14vh;
-        height: 14vh;
-        transition: background-color 0.25s linear;
+        background-color: var(--admin-surface-active);
+        border: 2px solid var(--admin-border-medium);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-shrink: 0;
 }
 
-.admin .testimonials .view.active .wrapper .container .info .image img {
-        width: 12vh;
-        border-radius: 50%;
+.admin .testimonials .view.active .wrapper .container .author-hero-card .avatar-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
 }
 
-.admin .testimonials .view.active .wrapper .container .info .details .name {
-        font-size: 1.125rem;
-        color: #ededed;
+.admin .testimonials .view.active .wrapper .container .author-hero-card .avatar-wrapper .avatar-initials {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--admin-accent);
+        letter-spacing: 0.05em;
+        line-height: 1;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, var(--admin-accent-subtle), transparent 70%);
 }
 
-.admin .testimonials .view.active .wrapper .container .info .details .position {
+.admin .testimonials .view.active .wrapper .container .author-hero-card .author-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        flex-grow: 1;
+}
+
+.admin .testimonials .view.active .wrapper .container .author-hero-card .author-info .name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--admin-text-primary);
+        margin: 0;
+        line-height: 1.3;
+}
+
+.admin .testimonials .view.active .wrapper .container .author-hero-card .author-info .role-company {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--admin-text-muted);
         font-size: 0.875rem;
-        color: #888888;
-        /* width: max-content; */
+        font-weight: 500;
 }
 
-.admin .testimonials .view.active .wrapper .container .testimony {
-        color: #888888;
+.admin .testimonials .view.active .wrapper .container .author-hero-card .author-info .role-company .meta-icon {
+        font-size: 1rem;
+        color: var(--admin-text-muted);
+}
+
+.admin .testimonials .view.active .wrapper .container .author-hero-card .author-info .email-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--admin-accent);
+        font-size: 0.825rem;
+        text-decoration: none;
+        width: fit-content;
+        transition: opacity 0.2s ease;
+}
+
+.admin .testimonials .view.active .wrapper .container .author-hero-card .author-info .email-link:hover {
+        text-decoration: underline;
+        opacity: 0.85;
+}
+
+.admin .testimonials .view.active .wrapper .container .author-hero-card .author-info .email-link .meta-icon {
+        font-size: 0.95rem;
+}
+
+/* Testimony Card with Quote Watermark */
+.admin .testimonials .view.active .wrapper .container .testimony-card {
+        background-color: var(--admin-surface-card);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 16px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+}
+
+.admin .testimonials .view.active .wrapper .container .testimony-card .quote-watermark {
+        position: absolute;
+        top: -0.5rem;
+        right: -0.5rem;
+        font-size: 7rem;
+        color: var(--admin-surface-glass);
+        pointer-events: none;
+        user-select: none;
+}
+
+.admin .testimonials .view.active .wrapper .container .testimony-card .testimony-body {
+        position: relative;
+        z-index: 1;
+}
+
+.admin .testimonials .view.active .wrapper .container .testimony-card .testimony-body p {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        font-style: italic;
+        color: var(--admin-text-primary);
+        white-space: pre-line;
+}
+
+/* Date Meta Row */
+.admin .testimonials .view.active .wrapper .container .date-meta-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--admin-text-muted);
+        font-size: 0.825rem;
+        padding-left: 0.5rem;
+}
+
+.admin .testimonials .view.active .wrapper .container .date-meta-row .meta-icon {
+        font-size: 1rem;
+}
+
+/* Modal Footer */
+.admin .testimonials .view.active .wrapper .view-modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 2vh;
+        margin-top: 2vh;
+        border-top: 1px solid var(--admin-border-base);
+}
+
+.admin .testimonials .view.active .wrapper .view-modal-footer .close-action-btn {
+        background-color: var(--admin-btn-secondary-bg);
+        color: var(--admin-btn-secondary-text);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin .testimonials .view.active .wrapper .view-modal-footer .close-action-btn:hover {
+        background-color: var(--admin-btn-secondary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px var(--admin-accent-border);
 }

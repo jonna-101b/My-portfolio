@@ -1,0 +1,267 @@
+/* ==========================================================================
+   Admin - Confirm Delete Modal Redesign
+   ========================================================================== */
+
+.admin-confirm-delete-backdrop {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--admin-overlay);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        animation: deleteBackdropFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        padding: 1.5rem;
+}
+
+@keyframes deleteBackdropFadeIn {
+        from {
+                opacity: 0;
+        }
+        to {
+                opacity: 1;
+        }
+}
+
+.confirm-delete-card {
+        width: 92%;
+        max-width: 480px;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-card);
+        border-radius: 20px;
+        box-shadow: 0 24px 48px -12px var(--admin-overlay-heavy), 0 0 0 1px var(--admin-surface-glass), inset 0 1px 0 var(--admin-surface-glass);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        animation: deleteCardScaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes deleteCardScaleIn {
+        from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+        }
+        to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+        }
+}
+
+/* Modal Header */
+.delete-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 1.75rem 1.25rem;
+        border-bottom: 1px solid var(--admin-border-base);
+        background-color: var(--admin-surface-card);
+}
+
+.delete-badge-title {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+}
+
+.delete-danger-icon-wrapper {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background-color: var(--admin-danger-soft);
+        border: 1px solid var(--admin-danger-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+}
+
+.delete-danger-icon-wrapper .danger-icon {
+        color: var(--admin-danger-bright);
+        font-size: 1.45rem;
+}
+
+.header-text-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+}
+
+.delete-modal-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--admin-text-primary);
+        margin: 0;
+        letter-spacing: -0.01em;
+}
+
+.delete-modal-subtitle {
+        font-size: 0.75rem;
+        color: var(--admin-danger-bright);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+}
+
+.delete-modal-close-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--admin-text-muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+}
+
+.delete-modal-close-btn:hover:not(:disabled) {
+        background-color: var(--admin-surface-glass-hover);
+        border-color: var(--admin-border-medium);
+        color: var(--admin-text-white);
+}
+
+.delete-modal-close-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+}
+
+/* Modal Body */
+.delete-modal-body {
+        padding: 1.5rem 1.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        background-color: var(--admin-surface-main);
+}
+
+.warning-callout {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+        background-color: var(--admin-danger-soft);
+        border: 1px solid var(--admin-danger-border);
+        border-radius: 12px;
+        padding: 0.9rem 1.1rem;
+}
+
+.warning-callout-icon {
+        color: var(--admin-danger-bright);
+        font-size: 1.25rem;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+}
+
+.warning-callout-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        color: var(--admin-text-secondary);
+        margin: 0;
+}
+
+.delete-target-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        background-color: var(--admin-surface-elevated);
+        border: 1px solid var(--admin-border-base);
+        border-left: 3px solid var(--admin-danger-bright);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+}
+
+.preview-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--admin-text-muted);
+}
+
+.preview-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--admin-text-white);
+        margin: 0;
+        line-height: 1.35;
+        word-break: break-word;
+}
+
+.preview-details {
+        font-size: 0.8rem;
+        color: var(--admin-text-muted);
+        margin: 0;
+        line-height: 1.4;
+}
+
+/* Modal Footer */
+.delete-modal-footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        padding: 1.25rem 1.75rem;
+        border-top: 1px solid var(--admin-border-base);
+        background-color: var(--admin-surface-card);
+}
+
+.delete-cancel-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        background-color: var(--admin-control-bg);
+        border: 1px solid var(--admin-border-card);
+        color: var(--admin-text-primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.delete-cancel-btn:hover:not(:disabled) {
+        background-color: var(--admin-control-bg-hover);
+        border-color: var(--admin-border-focus);
+        color: var(--admin-text-white);
+        transform: translateY(-1px);
+}
+
+.delete-confirm-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        background-color: var(--admin-danger);
+        border: 1px solid transparent;
+        color: var(--admin-text-white);
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px var(--admin-danger-glow);
+}
+
+.delete-confirm-btn:hover:not(:disabled) {
+        background-color: var(--admin-danger-bright);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px var(--admin-danger-glow);
+}
+
+.delete-cancel-btn:disabled,
+.delete-confirm-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+}
+
+.confirm-delete-icon {
+        font-size: 1.15rem;
+}

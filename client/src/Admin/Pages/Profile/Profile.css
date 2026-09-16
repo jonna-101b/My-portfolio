@@ -22,13 +22,13 @@
 }
 
 .profile-page-container::-webkit-scrollbar-thumb {
-        background: #171717;
-        border: 1px solid #262626;
+        background: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 6px;
 }
 
 .profile-page-container::-webkit-scrollbar-thumb:hover {
-        background: #262626;
+        background: var(--admin-border-base);
 }
 
 /* Two-column layout grid */

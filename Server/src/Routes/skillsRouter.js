@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
 import {
   getTechnicalSkills,
@@ -7,6 +7,7 @@ import {
   deleteTechnicalSkill,
   getConceptualSkills,
   addConceptualSkill,
+  updateConceptualSkill,
   deleteConceptualSkill
 } from '../Controllers/skills.js';
 import {
@@ -14,6 +15,7 @@ import {
   updateTechnicalSkillValidator,
   technicalSkillIdParamValidator,
   createConceptualSkillValidator,
+  updateConceptualSkillValidator,
   conceptualSkillIdParamValidator
 } from '../Validator/skillsValidator.js';
 
@@ -28,6 +30,7 @@ skillsRouter.delete("/technical/:id", authenticate, technicalSkillIdParamValidat
 // Conceptual skills routes
 skillsRouter.get("/conceptual", getConceptualSkills);
 skillsRouter.post("/conceptual", authenticate, createConceptualSkillValidator, addConceptualSkill);
+skillsRouter.put("/conceptual/:id", authenticate, updateConceptualSkillValidator, updateConceptualSkill);
 skillsRouter.delete("/conceptual/:id", authenticate, conceptualSkillIdParamValidator, deleteConceptualSkill);
 
 export default skillsRouter;

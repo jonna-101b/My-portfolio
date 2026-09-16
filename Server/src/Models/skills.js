@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-
+﻿import mongoose from 'mongoose';
 
 const technicalSkillsSchema = new mongoose.Schema({
 	name: { type: String, required: true },
@@ -9,10 +8,9 @@ const technicalSkillsSchema = new mongoose.Schema({
 
 const conceptualSkillsSchema = new mongoose.Schema({
 	title: { type: String, required: true },
-	description: { type: String, required: true },
-	icon: { type: String }
-});
+	description: { type: String, required: true }
+}, { timestamps: true });
 
 const TechnicalSkillsModel = mongoose.model('TechnicalSkills', technicalSkillsSchema);
 const ConceptualSkillsModel = mongoose.model('ConceptualSkills', conceptualSkillsSchema);
-export { TechnicalSkillsModel, ConceptualSkillsModel };
+export { TechnicalSkillsModel, ConceptualSkillsModel };

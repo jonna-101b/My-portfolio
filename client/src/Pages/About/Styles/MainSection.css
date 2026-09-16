@@ -333,7 +333,7 @@
 
 .skill-pill-item:hover {
         background-color: var(--surface-strong);
-        border-color: var(--accent);
+        border-color: var(--pill);
         transform: translateY(-3px);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }

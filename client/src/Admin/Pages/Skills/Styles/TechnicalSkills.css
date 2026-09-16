@@ -7,7 +7,7 @@
 .admin .technical-skills .title {
         font-size: 1rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         width: fit-content;
 }
 
@@ -18,8 +18,8 @@
         gap: 1vh;
         font-size: 0.875rem;
         font-weight: 550;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--admin-btn-secondary-text);
+        background-color: var(--admin-btn-secondary-bg);
         border-radius: 2vh;
         width: fit-content;
         padding: 1.5vh 3vh;
@@ -29,7 +29,8 @@
 
 .admin .technical-skills .new-skill:focus,
 .admin .technical-skills .new-skill:hover {
-        background-color: #c6ff00;
+        background-color: var(--admin-btn-secondary-hover);
+        color: var(--admin-btn-secondary-text);
 }
 
 .admin .technical-skills .new-skill .icon img {
@@ -48,9 +49,9 @@
         grid-template-columns: auto auto;
         gap: 4vh;
         font-size: 0.875rem;
-        color: #888888;
-        background-color: #171717;
-        border: 1px solid #262626;
+        color: var(--admin-text-muted);
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 2vh;
         padding: 4vh;
         transition: background-color 0.15s linear;
@@ -60,7 +61,8 @@
 
 .admin .technical-skills .grid .skill:focus,
 .admin .technical-skills .grid .skill:hover {
-        background-color: rgba(32, 32, 32, 0.5);
+        background-color: var(--admin-surface-hover);
+        border-color: var(--admin-border-medium);
 }
 
 .admin .technical-skills .grid .skill p,
@@ -72,6 +74,7 @@
         grid-column: span 2;
         font-size: 1.15rem;
         font-weight: 600;
+        color: var(--admin-text-primary);
 }
 
 .admin .technical-skills .grid .skill .tech-stack {
@@ -82,8 +85,8 @@
 .admin .technical-skills .grid .skill .tech-stack p {
         display: grid;
         place-content: center;
-        background-color: #0b0d0e;
-        border: 2px solid #202020;
+        background-color: var(--admin-surface-darkest);
+        border: 2px solid var(--admin-surface-panel);
         border-radius: 50%;
         width: 5.5vh;
         height: 5.5vh;
@@ -97,7 +100,7 @@
 .admin .technical-skills .grid .skill .tech-stack .more {
         font-size: 0.75rem;
         font-weight: 600;
-        color: #ededed;
+        color: var(--admin-text-primary);
         left: -6vh;
 }
 
@@ -106,15 +109,15 @@
         margin-top: 1vh;
         width: 100%;
         height: 0.1vh;
-        background-color: #262626;
+        background-color: var(--admin-border-base);
 }
 
 .admin .technical-skills .grid .skill .see-all p {
         display: inline-block;
         font-size: 0.875rem;
         font-weight: 550;
-        color: #0b0d0e;
-        background-color: #ededed;
+        color: var(--admin-btn-secondary-text);
+        background-color: var(--admin-btn-secondary-bg);
         border-radius: 1.5vh;
         padding: 0.75vh 2.5vh;
         transition: background-color 0.15s linear;
@@ -123,7 +126,8 @@
 
 .admin .technical-skills .grid .skill .see-all p:focus,
 .admin .technical-skills .grid .skill .see-all p:hover {
-        background-color: #c6ff00;
+        background-color: var(--admin-btn-secondary-hover);
+        color: var(--admin-btn-secondary-text);
 }
 
 .admin .technical-skills .grid .skill .actions {
@@ -145,7 +149,7 @@
 
 .admin .technical-skills .grid .skill .actions p:focus, 
 .admin .technical-skills .grid .skill .actions p:hover {
-        background-color: rgb(32, 32, 32);
+        background-color: var(--admin-surface-active);
 }
 
 .admin .technical-skills .grid .skill .actions p:focus .hover, 
@@ -179,7 +183,7 @@
 .admin-tech-modal-overlay {
         position: fixed;
         inset: 0;
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: var(--admin-overlay);
         backdrop-filter: blur(4px);
         display: grid;
         place-content: center;
@@ -188,8 +192,8 @@
 }
 
 .admin-tech-modal {
-        background-color: #171717;
-        border: 1px solid #2e2e2e;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-panel);
         border-radius: 1.5rem;
         width: 90vw;
         max-width: 580px;
@@ -197,7 +201,7 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 20px 40px var(--admin-overlay);
         animation: adminModalFadeIn 0.2s ease-out;
 }
 
@@ -217,20 +221,20 @@
         justify-content: space-between;
         align-items: center;
         padding: 1.25rem 1.5rem;
-        border-bottom: 1px solid #262626;
+        border-bottom: 1px solid var(--admin-border-base);
 }
 
 .admin-tech-modal-header h3 {
         margin: 0;
         font-size: 1.15rem;
         font-weight: 600;
-        color: #f3f4f6;
+        color: var(--admin-text-primary);
 }
 
 .admin-modal-close {
         background: transparent;
         border: none;
-        color: #9ca3af;
+        color: var(--admin-text-muted);
         cursor: pointer;
         display: grid;
         place-content: center;
@@ -240,8 +244,8 @@
 }
 
 .admin-modal-close:hover {
-        color: #ffffff;
-        background-color: #262626;
+        color: var(--admin-text-white);
+        background-color: var(--admin-surface-active);
 }
 
 .admin-tech-modal-list {
@@ -257,16 +261,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #0d0e10;
-        border: 1px solid #22252a;
+        background-color: var(--admin-surface-darkest);
+        border: 1px solid var(--admin-border-subtle);
         border-radius: 0.75rem;
         padding: 0.6rem 1rem;
         transition: border-color 0.15s, background-color 0.15s;
 }
 
 .admin-tech-item:hover {
-        border-color: #3b4252;
-        background-color: #121418;
+        border-color: var(--admin-border-focus);
+        background-color: var(--admin-surface-deep);
 }
 
 .admin-tech-info {
@@ -280,7 +284,7 @@
         height: 32px;
         display: grid;
         place-content: center;
-        background: #1a1c22;
+        background: var(--admin-surface-card);
         border-radius: 6px;
         padding: 4px;
 }
@@ -294,7 +298,7 @@
 .admin-tech-name {
         font-size: 0.95rem;
         font-weight: 500;
-        color: #e5e7eb;
+        color: var(--admin-text-primary);
 }
 
 .admin-tech-actions {
@@ -306,7 +310,7 @@
 .admin-mini-action {
         background: transparent;
         border: 1px solid transparent;
-        color: #9ca3af;
+        color: var(--admin-text-muted);
         cursor: pointer;
         padding: 0.35rem;
         border-radius: 0.4rem;
@@ -316,20 +320,20 @@
 }
 
 .admin-mini-action.edit:hover {
-        color: #38bdf8;
-        background-color: rgba(56, 189, 248, 0.1);
-        border-color: rgba(56, 189, 248, 0.3);
+        color: var(--admin-info);
+        background-color: var(--admin-info-soft);
+        border-color: var(--admin-info-border);
 }
 
 .admin-mini-action.delete:hover {
-        color: #f87171;
-        background-color: rgba(248, 113, 113, 0.1);
-        border-color: rgba(248, 113, 113, 0.3);
+        color: var(--admin-danger-bright);
+        background-color: var(--admin-danger-soft);
+        border-color: var(--admin-danger-border);
 }
 
 .admin-tech-modal-footer {
         padding: 1rem 1.5rem;
-        border-top: 1px solid #262626;
+        border-top: 1px solid var(--admin-border-base);
         display: flex;
         justify-content: flex-end;
 }
@@ -340,8 +344,8 @@
         gap: 0.5rem;
         font-size: 0.85rem;
         font-weight: 600;
-        color: #0b0d0e;
-        background-color: #c6ff00;
+        color: var(--admin-text-ink);
+        background-color: var(--admin-accent);
         border: none;
         border-radius: 0.75rem;
         padding: 0.6rem 1.25rem;
@@ -350,11 +354,11 @@
 }
 
 .admin-modal-add-btn:hover {
-        opacity: 0.9;
+        background-color: var(--admin-accent-hover);
         transform: translateY(-1px);
 }
 
 .admin-modal-add-btn .icon img {
         width: 14px;
         height: 14px;
-}
+}

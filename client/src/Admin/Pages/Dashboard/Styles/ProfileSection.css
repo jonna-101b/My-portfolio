@@ -2,8 +2,8 @@
         display: grid;
         grid-template-columns: 180px 1fr;
         gap: 2rem;
-        background-color: #171717;
-        border: 1px solid #262626;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
         border-radius: 1.25rem;
         padding: 2rem;
         position: relative;
@@ -21,10 +21,10 @@
         width: 170px;
         height: 170px;
         border-radius: 1.1rem;
-        border: 2px solid rgba(198, 255, 0, 0.4);
+        border: 2px solid var(--admin-accent-border-strong);
         padding: 4px;
-        background: #171717;
-        box-shadow: 0 0 25px rgba(198, 255, 0, 0.12);
+        background: var(--admin-surface-main);
+        box-shadow: 0 0 25px var(--admin-accent-subtle);
         overflow: hidden;
         flex-shrink: 0;
 }
@@ -52,9 +52,9 @@
         display: inline-flex;
         align-items: center;
         gap: 0.45rem;
-        background-color: rgba(198, 255, 0, 0.08);
-        border: 1px solid rgba(198, 255, 0, 0.28);
-        color: #c6ff00;
+        background-color: var(--admin-accent-soft);
+        border: 1px solid var(--admin-accent-border);
+        color: var(--admin-accent);
         font-size: 0.68rem;
         letter-spacing: 0.08em;
         padding: 0.35rem 0.75rem;
@@ -66,14 +66,14 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background-color: #c6ff00;
-        box-shadow: 0 0 6px #c6ff00;
+        background-color: var(--admin-accent);
+        box-shadow: 0 0 6px var(--admin-accent);
 }
 
 .profile-greeting {
         font-size: 2.25rem;
         font-weight: 800;
-        color: #ededed;
+        color: var(--admin-text-primary);
         letter-spacing: -0.02em;
         line-height: 1.15;
         margin: 0;
@@ -82,7 +82,7 @@
 .profile-bio {
         font-size: 0.95rem;
         font-weight: 400;
-        color: #ededed;
+        color: var(--admin-text-primary);
         line-height: 1.6;
         opacity: 0.9;
         margin: 0;
@@ -105,7 +105,7 @@
 .meta-label {
         font-size: 0.7rem;
         font-weight: 600;
-        color: #888888;
+        color: var(--admin-text-muted);
         letter-spacing: 0.06em;
         text-transform: uppercase;
 }
@@ -113,7 +113,7 @@
 .meta-value {
         font-size: 0.925rem;
         font-weight: 500;
-        color: #ededed;
+        color: var(--admin-text-primary);
         word-break: break-all;
 }
 
@@ -127,7 +127,7 @@
 .socials-label {
         font-size: 0.7rem;
         font-weight: 600;
-        color: #888888;
+        color: var(--admin-text-muted);
         letter-spacing: 0.06em;
         text-transform: uppercase;
 }
@@ -145,9 +145,9 @@
         width: 2.75rem;
         height: 2.75rem;
         border-radius: 50%;
-        background-color: #171717;
-        border: 1px solid #262626;
-        color: #ededed;
+        background-color: var(--admin-surface-main);
+        border: 1px solid var(--admin-border-base);
+        color: var(--admin-text-primary);
         text-decoration: none;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -158,16 +158,16 @@
 }
 
 .social-btn:hover {
-        background-color: #242424;
-        border-color: rgba(198, 255, 0, 0.4);
-        color: #c6ff00;
+        background-color: var(--admin-surface-hover);
+        border-color: var(--admin-accent-border-strong);
+        color: var(--admin-accent);
         transform: translateY(-2px);
 }
 
 .social-btn:hover .simple-icon,
 .social-btn:hover svg {
-        fill: #c6ff00;
-        color: #c6ff00;
+        fill: var(--admin-accent);
+        color: var(--admin-accent);
         transform: scale(1.1);
 }
 

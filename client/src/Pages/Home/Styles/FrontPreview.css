@@ -1,51 +1,57 @@
+/* ==========================================================================
+   Responsive Hero / Front Preview Stylesheet
+   ========================================================================== */
+
 .front-preview {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 5vh;
-        height: 99vh;
-        padding: 0 10vh;
-        padding-top: 10vh;
+        gap: clamp(1.25rem, 3.5vh, 2.5rem);
+        min-height: calc(100vh - 60px);
+        padding: clamp(6rem, 12vh, 8rem) clamp(1.25rem, 6vw, 10rem) 3rem;
         position: relative;
+        overflow: hidden;
 }
 
 .front-preview .name {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        width: 50%;
+        width: 55%;
+        max-width: 600px;
 }
 
 .front-preview .name .code-open {
-        font-size: 8vh;
-        width: 8vh;
-        height: 8vh;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        width: clamp(2rem, 5vw, 3.5rem);
+        height: clamp(2rem, 5vw, 3.5rem);
         color: var(--icon-opt-1);
 }
 
 .front-preview .name .code-close {
         position: relative;
-        left: -2.25vh;
-        font-size: 8vh;
-        width: 8vh;
-        height: 8vh;
+        left: -0.75rem;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        width: clamp(2rem, 5vw, 3.5rem);
+        height: clamp(2rem, 5vw, 3.5rem);
         transform: rotate(180deg);
         color: var(--icon-opt-1);
 }
 
 .front-preview .name .slash {
-        font-size: 6vh;
-        width: 6vh;
-        height: 6vh;
+        font-size: clamp(1.5rem, 4vw, 2.75rem);
+        width: clamp(1.5rem, 4vw, 2.75rem);
+        height: clamp(1.5rem, 4vw, 2.75rem);
         color: var(--icon-opt-1);
 }
 
 .front-preview .name p {
-        font-size: 1.125rem;
+        font-size: clamp(0.95rem, 2vw, 1.25rem);
         font-weight: 600;
         color: var(--text);
         display: inline-block;
-        margin: 0 1vh;
+        margin: 0 0.4rem;
+        white-space: nowrap;
 }
 
 .front-preview .name p span {
@@ -53,15 +59,18 @@
 }
 
 .front-preview .professions {
-        display: grid;
-        justify-content: center;
-        gap: 2vh;
-        font-size: 3.5rem;
-        font-weight: 700;
-        letter-spacing: -0.15rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 1rem;
+        font-size: clamp(2.2rem, 5vw, 3.75rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.15;
         color: var(--text);
-        text-align: center;
-        width: 50%;
+        text-align: left;
+        width: 55%;
+        max-width: 650px;
 }
 
 .front-preview .professions p span {
@@ -70,53 +79,64 @@
 
 .front-preview .hero-text {
         display: flex;
-        justify-content: center;
-        text-align: center;
+        justify-content: flex-start;
+        text-align: left;
         color: var(--text-muted);
-        width: 50%;
+        font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+        line-height: 1.7;
+        width: 55%;
+        max-width: 580px;
 }
 
 .front-preview .links {
         display: flex;
-        justify-content: center;
-        gap: 4vh;
-        width: 50%;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1.25rem;
+        width: 55%;
+        max-width: 580px;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
 }
 
 .front-preview .links .hire-me {
         color: var(--text);
         background-color: var(--surface-soft);
+        border: 1px solid var(--border);
 }
 
 :root[data-theme='light'] .front-preview .links .hire-me {
-        background-color: var(--surface-soft);
+        background-color: var(--surface-strong);
+        color: var(--text);
 }
 
 .front-preview .links .resume {
         color: var(--text-ink);
         background-color: var(--accent);
-        opacity: 0.8;
+        opacity: 0.9;
+        font-weight: 700;
 }
 
 .front-preview .links a {
-        display: flex;
+        display: inline-flex;
         justify-content: center;
         align-items: center;
-        font-size: 0.875rem;
+        font-size: 0.925rem;
         font-weight: 600;
         text-decoration: none;
-        gap: 1vh;
-        border: none;
-        border-radius: 10vh;
+        gap: 0.6rem;
+        border-radius: 9999px;
         outline: none;
-        padding: 0.75vh 4vh;
-        transition: background-color 0.15s linear, transform 0.15s ease, opacity 0.15s linear;
+        padding: 0.75rem 2rem;
+        transition: background-color 0.15s linear, transform 0.15s ease, opacity 0.15s linear, box-shadow 0.2s ease;
         cursor: pointer;
+        white-space: nowrap;
 }
 
 .front-preview .links a:focus,
 .front-preview .links a:hover {
-        transform: translateY(-1.5px);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 :root[data-theme='light'] .front-preview .links .hire-me:focus,
@@ -124,34 +144,129 @@
 .front-preview .links .hire-me:focus,
 .front-preview .links .hire-me:hover {
         background-color: var(--button-hover-soft);
+        color: var(--accent);
 }
 
 .front-preview .links .resume:focus,
 .front-preview .links .resume:hover {
         opacity: 1;
-}
-
-.front-preview .links a img {
-        height: 2vh;
+        box-shadow: 0 6px 22px var(--pill);
 }
 
 .front-preview .links .hire-me .briefcase-icon {
-        font-size: 2.5vh;
-        color: var(--icon-opt-2);
+        font-size: 1.25rem;
+        color: currentColor;
 }
 
 .front-preview .links .resume .download-icon {
-        font-size: 2.5vh;
-        color: var(--icon-opt-3);
+        font-size: 1.25rem;
+        color: var(--text-ink);
 }
 
 .front-preview .front-image {
         position: absolute;
-        top: 0;
-        right: 10vh;
-        height: 100%;
+        top: 50%;
+        right: clamp(1rem, 5vw, 5rem);
+        transform: translateY(-50%);
+        height: min(100vh, 800px);
+        max-width: 45%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        z-index: 1;
 }
 
 .front-preview .front-image img {
         height: 100%;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.3));
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+        .front-preview {
+                padding: 10vh 40vh;
+                gap: 1.75rem;
+                align-items: center;
+                text-align: center;
+                min-height: auto;
+        }
+
+        .front-preview .name,
+        .front-preview .professions,
+        .front-preview .hero-text,
+        .front-preview .links {
+                width: 100%;
+                max-width: 650px;
+                justify-content: center;
+                text-align: center;
+        }
+
+        .front-preview .name {
+                justify-content: center;
+        }
+
+        .front-preview .front-image {
+                order: -1;
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                max-width: 380px;
+                height: auto;
+                margin: 1.5rem auto 0;
+                width: 75vw;
+        }
+
+        .front-preview .front-image img {
+                width: 100%;
+                height: auto;
+        }
+}
+
+@media (max-width: 640px) {
+        .front-preview {
+                padding: 5.5rem 1.25rem 2.5rem;
+                gap: 1.25rem;
+        }
+
+        .front-preview .name p {
+                font-size: 0.95rem;
+        }
+
+        .front-preview .professions {
+                font-size: 2.15rem;
+                line-height: 1.18;
+                gap: 0.25rem 0.6rem;
+        }
+
+        .front-preview .hero-text {
+                font-size: 0.95rem;
+                line-height: 1.6;
+        }
+
+        .front-preview .links {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.75rem;
+        }
+
+        .front-preview .links a {
+                width: 100%;
+                max-width: 320px;
+                padding: 0.85rem 1.5rem;
+        }
+
+        .front-preview .front-image {
+                order: -1;
+                width: 85vw;
+                max-width: 300px;
+                margin-top: 1rem;
+        }
 }

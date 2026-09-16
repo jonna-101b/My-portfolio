@@ -8,16 +8,19 @@ import useQualificationsReducer from '../../../../Hooks/useQualificationsReducer
 import useProjectsReducer from '../../../../Hooks/useProjectsReducer';
 import useTestimonialsReducer from '../../../../Hooks/useTestimonialsReducer';
 import useBlogReducer from '../../../../Hooks/useBlogReducer';
+import { AdminStatisticsSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 
 import '../Styles/StatisticsSection.css';
 
 function StatisticsSection() {
-        const { skills: technicalSkills = [] } = useTechnicalSkillsReducer();
-        const { skills: conceptualSkills = [] } = useConceptualSkillsReducer(); 
+        const { skills: technicalSkills = [], loading: techLoading } = useTechnicalSkillsReducer();
+        const { skills: conceptualSkills = [], loading: concLoading } = useConceptualSkillsReducer(); 
         const { state: qualState } = useQualificationsReducer();
         const { state: projState } = useProjectsReducer();
         const { state: testState } = useTestimonialsReducer();
         const { state: blogState } = useBlogReducer();
+
+        const isAnyLoading = techLoading || concLoading || qualState?.loading || projState?.loading || testState?.loading || blogState?.loading;
 
         const qualifications = qualState?.qualifications || [];
         const projects = projState?.projects || [];
@@ -54,6 +57,10 @@ function StatisticsSection() {
                 }));
                 return nonZero;
         }, [categories]);
+
+        if (isAnyLoading) {
+                return <AdminStatisticsSkeleton />;
+        }
 
         return (
                 <div className="statistics-card">

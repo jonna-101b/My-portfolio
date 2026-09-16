@@ -4,11 +4,14 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        padding: 5vh 10vh;
+        max-width: 100%;
+        padding: 2.5rem clamp(1rem, 5vw, 4rem);
         color: var(--text-muted);
         background-color: var(--bg);
         border-top: 1px solid var(--border);
         z-index: 2;
+        gap: 1.5rem;
+        flex-wrap: wrap;
 }
 
 .footer .copyright {
@@ -20,7 +23,8 @@
 .footer .social-links {
         display: flex;
         align-items: center;
-        gap: 4vh;
+        gap: 1.5rem;
+        flex-wrap: wrap;
 }
 
 .footer .social-links .social-link {
@@ -32,6 +36,8 @@
         opacity: 0.8;
         transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
         cursor: pointer;
+        padding: 6px;
+        border-radius: 8px;
 }
 
 .footer .social-links .social-link:hover,
@@ -39,6 +45,7 @@
         color: var(--icon-opt-1);
         opacity: 1;
         transform: translateY(-2px);
+        background-color: var(--surface-soft);
 }
 
 .footer .social-links .social-link .simple-icon,
@@ -66,9 +73,14 @@
 @media (max-width: 768px) {
         .footer {
                 flex-direction: column-reverse;
-                gap: 2vh;
-                padding: 3vh 4vh;
+                gap: 1.5rem;
+                padding: 2rem 1.25rem;
                 text-align: center;
                 justify-content: center;
+        }
+
+        .footer .social-links {
+                justify-content: center;
+                gap: 1rem;
         }
 }

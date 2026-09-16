@@ -4,7 +4,6 @@ import { NotifyContext, NotifyContextProvider } from "./Contexts/NotifyContext";
 import { LayoutContext, LayoutContextProvider } from "./Contexts/LayoutContext";
 import { ViewContextProvider } from "./Contexts/ViewContext";
 import { NewContext } from "../../Components/New/Context/NewContext";
-import { EditContext, EditContextProvider } from "./Contexts/EditContext";
 import useTestimonialsReducer from "../../../Hooks/useTestimonialsReducer";
 import Notify from "../../Components/Notify/Notify";
 import TopView from "../../Components/TopView/TopView";
