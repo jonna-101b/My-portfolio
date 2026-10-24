@@ -1,4 +1,4 @@
-﻿import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import path from "path";
@@ -27,7 +27,7 @@ import testimonials from "../../../client/src/Mock/trialTestimonials.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
+dotenv.config();
 
 const adminSeedEmail = (process.env.ADMIN_SEED_EMAIL || "admin@example.com").toLowerCase().trim();
 const adminSeedPassword = process.env.ADMIN_SEED_PASSWORD || "Admin@12345!";
@@ -45,6 +45,7 @@ function buildProfileDocument(sourceProfile) {
     picture: sourceProfile.picture,
     bio: sourceProfile.bio,
     logo: sourceProfile.logo,
+    logoVisible: sourceProfile.logoVisible !== undefined ? sourceProfile.logoVisible : true,
     description: {
       brief: sourceProfile.description.brief,
       detailed: sourceProfile.description.detailed,
@@ -202,17 +203,16 @@ async function seedProfile() {
 }
 
 async function main() {
-  const mongoUri = process.env.MONGODB_URI;
+  const mongoUri = process.env.MONGO_URI;
 
   if (!mongoUri) {
-    throw new Error("MONGODB_URI is missing from Server/.env");
+    throw new Error("MONGO_URI is missing from Server/.env");
   }
 
   await mongoose.connect(mongoUri);
 
   const summary = [];
 
-  summary.push(await seedAdminAdmin());
   summary.push(await seedProfile());
   summary.push(
     await seedCollection("projects", ProjectModel, projects, buildProjectDocument, (item) => ({ _id: item._id }))

@@ -7,12 +7,30 @@ export default defineConfig({
   server: {
     proxy: {
       '/uploads': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:3000',
         changeOrigin: true,
       },
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:3000',
         changeOrigin: true,
+      },
+    },
+  },
+  build: {
+    outDir: 'dist',
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('simple-icons')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('chart.js') || id.includes('react-chartjs-2') || id.includes('@mui/x-charts')) {
+              return 'vendor-charts';
+            }
+          }
+        },
       },
     },
   },

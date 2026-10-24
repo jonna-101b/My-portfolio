@@ -6,7 +6,7 @@ import {
   DOCUMENT_ALLOWED_TYPES,
   ALL_ALLOWED_TYPES,
 } from '../Middleware/upload.js';
-import { uploadSingleFile } from '../Controllers/upload.js';
+import { uploadSingleFile, deleteFile } from '../Controllers/upload.js';
 import { APIError } from '../Errors/APIError.js';
 import multer from 'multer';
 
@@ -30,6 +30,7 @@ const createFlexibleUploadHandler = (options) => {
   return (req, res, next) => {
     upload.fields(fields)(req, res, (err) => {
       if (err) {
+        console.error('Upload middleware error:', err);
         if (err instanceof multer.MulterError) {
           if (err.code === 'LIMIT_FILE_SIZE') {
             return next(APIError.badRequest('File too large. Exceeds size limit.'));
@@ -75,5 +76,9 @@ const anyUpload = createFlexibleUploadHandler({
 uploadRouter.post('/image', authenticate, imageUpload, uploadSingleFile);
 uploadRouter.post('/document', authenticate, documentUpload, uploadSingleFile);
 uploadRouter.post('/', authenticate, anyUpload, uploadSingleFile);
+
+// Direct delete routes
+uploadRouter.delete('/', authenticate, deleteFile);
+uploadRouter.post('/delete', authenticate, deleteFile);
 
 export default uploadRouter;

@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { fetchBlogs } from '../api/BlogApi';
 import { APIError } from '../api/APIError';
-import blogs from '../mock/trialBlogs';
 
 const BlogContext = createContext();
 

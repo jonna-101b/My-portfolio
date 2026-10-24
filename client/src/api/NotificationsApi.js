@@ -17,6 +17,13 @@ export const deleteNotification = async (id) => {
   return response.data;
 };
 
+export const deleteAllNotifications = async (ids) => {
+  const response = await protectedApi.delete('/notifications', { data: { ids } });
+  return response.data;
+};
+
+export const deleteNotifications = deleteAllNotifications;
+
 export const sendForgotPasswordNotification = async (email) => {
   const response = await publicApi.post('/notifications/forgot-password', { email });
   return response.data;

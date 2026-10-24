@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import useProjectsReducer from '../../../Hooks/useProjectsReducer';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import ImageNotSupportedRoundedIcon from '@mui/icons-material/ImageNotSupportedRounded';
+import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
+import { ImageWithFallback } from '../../../Utils/imageUtils';
 import SimpleIcon from '../../../Utils/simpleIcons';
 import ProjectsMainSectionSkeleton from '../../../Components/Skeletons/ProjectsMainSectionSkeleton';
 import '../Styles/MainSection.css';
@@ -22,14 +24,14 @@ function Project({ project }) {
         return (
                 <div className="project">
                         <div className="project-image-column">
-                                {project.image ? (
-                                        <img src={project.image} alt={project.title} className="project-cover-image" />
-                                ) : (
-                                        <div className="project-image-placeholder">
-                                                <ImageNotSupportedRoundedIcon className="placeholder-icon" />
-                                                <p className="placeholder-text">No preview image available</p>
-                                        </div>
-                                )}
+                                <ImageWithFallback 
+                                        src={project.image} 
+                                        alt={project.title} 
+                                        className="project-cover-image"
+                                        fallbackColor="transparent"
+                                        fallbackIcon={<CodeOutlinedIcon style={{ fontSize: '3rem', color: 'var(--accent, #c6ff00)' }} />}
+                                        fallbackText={project.title || "Project Preview"}
+                                />
                         </div>
 
                         <div className="project-info-column">
@@ -112,14 +114,14 @@ function ProjectCard({ project, handleProjectSelection }) {
         return (
                 <div className="project-card">
                         <div className="card-image-wrapper">
-                                {project.image ? (
-                                        <img src={project.image} alt={project.title} className="card-image" />
-                                ) : (
-                                        <div className="card-image-placeholder">
-                                                <ImageNotSupportedRoundedIcon className="placeholder-icon" />
-                                                <span className="placeholder-text">No preview image</span>
-                                        </div>
-                                )}
+                                <ImageWithFallback 
+                                        src={project.image} 
+                                        alt={project.title} 
+                                        className="card-image"
+                                        fallbackColor="transparent"
+                                        fallbackIcon={<CodeOutlinedIcon style={{ fontSize: '3rem', color: 'var(--accent, #c6ff00)' }} />}
+                                        fallbackText={project.title || "Project Preview"}
+                                />
                         </div>
 
                         <div className="card-content">
@@ -212,13 +214,13 @@ const findDomains = (projects = []) => {
 
 function MainSection() {
         const { state } = useProjectsReducer();
-        const projects = state?.projects || [];
+        const projects = useMemo(() => state?.projects || [], [state?.projects]);
         const loading = state?.loading;
         const [ view, setView ] = useState([]);
         const { projectId } = useParams();
         const [ previewedProject, setPreviewedProject ] = useState(null);
         const [ isSelected, setIsSelected ] = useState("All");
-        const domains = [ ...findDomains(projects) ];
+        const domains = useMemo(() => [ ...findDomains(projects) ], [projects]);
         const mainSectionRef = useRef(null);
         let navigate = useNavigate();
 

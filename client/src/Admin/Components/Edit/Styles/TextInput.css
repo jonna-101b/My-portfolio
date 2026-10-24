@@ -106,7 +106,4 @@
 .admin .edit.active .wrapper form .text-input .value .edit-button .icon svg,
 .admin .edit.active .wrapper form .text-input .value .edit-button .icon img {
 	font-size: 1rem;
-	width: 1.8vh;
-	height: 1.8vh;
-	object-fit: contain;
 }

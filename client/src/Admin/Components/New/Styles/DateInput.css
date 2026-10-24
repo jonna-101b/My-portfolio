@@ -78,8 +78,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 3.8vh;
-	height: 3.8vh;
+	width: 5vh;
+	height:5vh;
 	background-color: var(--admin-control-bg);
 	border: 1px solid var(--admin-border-base);
 	border-radius: 8px;
@@ -108,7 +108,7 @@
 }
 
 .admin .new.active .wrapper form .date-input .value .edit-button svg {
-	font-size: 1.8vh;
+	font-size: 1.25rem;
 	transition: color 0.15s ease;
 }
 

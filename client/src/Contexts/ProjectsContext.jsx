@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { fetchProjects } from '../api/ProjectsApi';
 import { APIError } from '../api/APIError';
-import projects from '../Mock/trialProjects';
 
 export const ProjectsContext = createContext();
 
@@ -60,7 +59,7 @@ const projectsReducer = (state, action) => {
 
 export function ProjectsContextProvider({ children }) {
 	const [state, dispatch] = useReducer(projectsReducer, {
-		projects: projects,
+		projects: [],
 		loading: true,
 		error: null
 	});

@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
-import { getActivities, addActivity, deleteActivity } from '../Controllers/activities.js';
+import { getActivities, addActivity, deleteActivity, deleteAllActivities } from '../Controllers/activities.js';
 import { createActivityValidator, activityIdParamValidator } from '../Validator/activitiesValidator.js';
 
 const activitiesRouter = express.Router();
@@ -10,6 +10,9 @@ const activitiesRouter = express.Router();
 activitiesRouter.get('/', getActivities);
 
 activitiesRouter.post('/', authenticate, createActivityValidator, addActivity );
+
+activitiesRouter.delete('/all', authenticate, deleteAllActivities);
+activitiesRouter.delete('/', authenticate, deleteAllActivities);
 
 activitiesRouter.delete('/:id', authenticate, activityIdParamValidator, deleteActivity );
 

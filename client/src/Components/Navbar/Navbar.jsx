@@ -7,12 +7,14 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { getAssetUrl } from '../../Utils/assetUtils';
+import { ImageWithFallback } from '../../Utils/imageUtils';
 import './Navbar.css';
 
 function Navbar() {
         const { profile } = useProfileReducer();
-        const { logo, nickName = '' } = profile || {};
+        const { logo, nickName = '', logoVisible } = profile || {};
+        const isLogoVisible = logoVisible === true || logoVisible === "true" || (logoVisible === undefined && true);
+        const showLogo = Boolean(isLogoVisible && logo);
         const { state: projectsState } = useProjectsReducer();
         const hasProjects = Array.isArray(projectsState?.projects) && projectsState.projects.length > 0;
         const { theme, toggleTheme } = useContext(ThemeContext);
@@ -81,11 +83,32 @@ function Navbar() {
                 <header className={`navbar ${isVisible ? '' : 'navbar-hidden'} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
                         <div className="navbar-container">
                                 <Link className="logo" to={'/admin/dashboard'} onClick={() => setIsMobileMenuOpen(false)}>
-                                        {logo ? (
-                                                <img src={getAssetUrl(logo)} alt="Logo" />
+                                        {showLogo ? (
+                                                <ImageWithFallback
+                                                        src={logo}
+                                                        alt="Logo"
+                                                        fallbackColor="transparent"
+                                                        fallbackIcon={
+                                                                <span 
+                                                                        className='logo-name'
+                                                                        style={{ 
+                                                                                fontSize: 'clamp(1.4rem, 4vw, 1.85rem)', 
+                                                                                color: 'var(--text) !important',
+                                                                        }}
+                                                                >
+                                                                        {nickName || 'Portfolio'}.
+                                                                </span>
+                                                        }
+                                                />
                                         ) : (
-                                                <span className='logo-name'>
-                                                        {nickName}.
+                                                <span 
+                                                        className='logo-name'
+                                                        style={{ 
+                                                                fontSize: 'clamp(1.4rem, 4vw, 1.85rem)', 
+                                                                color: 'var(--text) !important',
+                                                        }}
+                                                >
+                                                        {nickName || 'Portfolio'}.
                                                 </span>
                                         )}
                                 </Link>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import '../Styles/TextAreaInput.css';
@@ -65,12 +65,13 @@ function SingleValue({ textarea, value, handleValueChange, edited, handleEdit })
   );
 }
 
-function Options({ textarea, value, handleValueChange, handleEdit }) {
+function Options({ textarea, value, handleValueChange, edited, handleEdit }) {
         const [type, setType] = useState("brief");
         const [disabled, setDisabled] = useState(true);
-        const [ edited, setEdited ] = useState({ "brief": false, "detailed": false });
 
-        const typeMap = { "brief": textarea.brief, "detailed": textarea.detailed };
+        const initialBrief = textarea?.value?.brief ?? textarea?.brief ?? "";
+        const initialDetailed = textarea?.value?.detailed ?? textarea?.detailed ?? "";
+        const typeMap = { brief: initialBrief, detailed: initialDetailed };
 
         const handleDisable = () => {
                 setDisabled((prev) => !prev);
@@ -82,27 +83,27 @@ function Options({ textarea, value, handleValueChange, handleEdit }) {
         };
 
         const handleChange = (event) => {
-                handleValueChange(textarea.name, textarea.inputType, {type: type, value: event.target.value});
+                const newText = event.target.value;
+                handleValueChange(textarea.name, textarea.inputType, { type: type, value: newText });
 
-                if ( event.target.value === typeMap[type]) {
-                        setEdited(prev => ({ ...prev, [type]: false }));
-                }
-                else {
-                        setEdited(prev => ({ ...prev, [type]: true }));
+                if (handleEdit) {
+                        const isCurrentEdited = newText !== (typeMap[type] || "");
+                        const otherType = type === "brief" ? "detailed" : "brief";
+                        const otherVal = value && typeof value === 'object' ? (value[otherType] || "") : "";
+                        const isOtherEdited = otherVal !== (typeMap[otherType] || "");
+                        handleEdit(textarea.name, isCurrentEdited || isOtherEdited);
                 }
         };
 
-        const optionsEdited = Object.values(edited).some(Boolean);
-        
-        useEffect(() => {
-                handleEdit(textarea.name, optionsEdited)
-        }, [optionsEdited])
+        const isBriefEdited = (value?.brief || "") !== (typeMap.brief || "");
+        const isDetailedEdited = (value?.detailed || "") !== (typeMap.detailed || "");
+        const optionsEdited = isBriefEdited || isDetailedEdited;
 
         return (
                 <div className="textarea-input">
                         <p className="label">
                                 { textarea.label }
-                                <span className={ optionsEdited ? "edited" : "" } ></span>
+                                <span className={ (edited || optionsEdited) ? "edited" : "" } ></span>
                         </p>
 
                         <div className="value">
@@ -119,8 +120,9 @@ function Options({ textarea, value, handleValueChange, handleEdit }) {
                                 <textarea
                                         name={type}
                                         disabled={disabled}
-                                        maxLength={type === "brief" ? 100 : 10000000000}
-                                        value={value[type]}
+                                        maxLength={type === "brief" ? 200 : 1000}
+                                        placeholder="Write something down..."
+                                        value={value && typeof value === 'object' ? (value[type] || "") : ""}
                                         onChange={handleChange}
                                 />
 
@@ -129,14 +131,14 @@ function Options({ textarea, value, handleValueChange, handleEdit }) {
                                                 <>
                                                         edit
                                                         <span className="icon">
-                                                                        <img src={EditIcon} alt="Edit icon" />
+                                                                <EditOutlinedIcon fontSize="small" />
                                                         </span>
                                                 </>
                                         ) : (
                                                 <>
                                                         done
                                                         <span className="icon">
-                                                                <img src={CheckIcon} alt="Save icon" />
+                                                                <CheckRoundedIcon fontSize="small" />
                                                         </span>
                                                 </>
                                         )}
@@ -144,19 +146,19 @@ function Options({ textarea, value, handleValueChange, handleEdit }) {
 
                                 {type === "brief" ? (
                                         <p className={`editing-text ${disabled ? "disabled" : ""}`}>
-                                                Maximum 100 characters
+                                                Maximum 200 characters
                                         </p>
                                 ) : null}
                         </div>
                 </div>
-  );
+        );
 }
 
 function TextAreaInput({ textarea, value, handleValueChange, edited, handleEdit }) {
         return textarea.type === "single" ? 
                 <SingleValue textarea={textarea} value={value} handleValueChange={handleValueChange} edited={edited} handleEdit={handleEdit} /> 
                 : 
-                <Options textarea={textarea} value={value} handleValueChange={handleValueChange} handleEdit={handleEdit} />
+                <Options textarea={textarea} value={value} handleValueChange={handleValueChange} edited={edited} handleEdit={handleEdit} />
         ;
 }
 

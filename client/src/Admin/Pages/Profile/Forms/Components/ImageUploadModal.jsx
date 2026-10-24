@@ -7,18 +7,18 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CircularProgress from '@mui/material/CircularProgress';
 import { uploadImage } from '../../../../../api/UploadApi';
-import { getAssetUrl } from '../../../../../Utils/assetUtils';
+import { ImageWithFallback, parseImageUrl } from '../../../../../Utils/imageUtils';
 import '../Styles/ImageInput.css';
 
 function ImageUploadModal({ isOpen, onClose, onSave, title = "Update Image", currentImage, type = "profile" }) {
-        const [preview, setPreview] = useState(getAssetUrl(currentImage) || null);
+        const [preview, setPreview] = useState(parseImageUrl(currentImage) || null);
         const [selectedFile, setSelectedFile] = useState(null);
         const [isUploading, setIsUploading] = useState(false);
         const [errorMessage, setErrorMessage] = useState('');
 
         useEffect(() => {
                 if (isOpen) {
-                        setPreview(getAssetUrl(currentImage) || null);
+                        setPreview(parseImageUrl(currentImage) || null);
                         setSelectedFile(null);
                         setErrorMessage('');
                         setIsUploading(false);
@@ -68,7 +68,11 @@ function ImageUploadModal({ isOpen, onClose, onSave, title = "Update Image", cur
                                 onClose();
                         } catch (error) {
                                 console.error('Image upload failed:', error);
-                                setErrorMessage(error?.response?.data?.message || error?.message || 'Failed to upload image. Please try again.');
+                                const isAuthError = error?.response?.status === 401;
+                                const message = isAuthError
+                                        ? 'Session expired or unauthorized. Please log in again.'
+                                        : (error?.response?.data?.message || error?.message || 'Failed to upload image. Please try again.');
+                                setErrorMessage(message);
                         } finally {
                                 setIsUploading(false);
                         }
@@ -108,7 +112,13 @@ function ImageUploadModal({ isOpen, onClose, onSave, title = "Update Image", cur
 
                                         {preview ? (
                                                 <div className="preview-container">
-                                                        <img src={preview} alt="Preview" className={`preview-img ${type}`} />
+                                                        <ImageWithFallback 
+                                                                src={preview} 
+                                                                alt="Preview" 
+                                                                className={`preview-img ${type}`} 
+                                                                fallbackColor="var(--admin-surface-darkest, #151515)"
+                                                                fallbackIcon={<CloudUploadOutlinedIcon style={{ fontSize: '2.5rem', color: 'var(--admin-accent)' }} />}
+                                                        />
                                                         <button 
                                                                 type="button" 
                                                                 className="remove-preview-btn" 
@@ -116,7 +126,7 @@ function ImageUploadModal({ isOpen, onClose, onSave, title = "Update Image", cur
                                                                 title="Remove image"
                                                                 disabled={isUploading}
                                                         >
-                                                                <DeleteOutlineRoundedIcon style={{ fontSize: '1.1rem' }} />
+                                                                <DeleteOutlineRoundedIcon style={{ fontSize: '1.45rem' }} />
                                                         </button>
                                                 </div>
                                         ) : (

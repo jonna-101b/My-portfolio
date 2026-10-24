@@ -6,6 +6,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import { ImageWithFallback, parseImageUrl } from '../../../../Utils/imageUtils';
 import '../Styles/TagInput.css';
 
 const Option = (props) => (
@@ -47,13 +48,27 @@ const SingleValue = (props) => (
 
 function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
         const [inputs, setInputs] = useState([]);
-        const [valuesSet, setValuesSet] = useState(() => new Set(
-                tag.icon ? [...values] : values.map(v => typeof v === 'object' ? v.name : v)
-        ));
         const [searchQuery, setSearchQuery] = useState("");
 
+        const isLink = tag.type === "link" || tag.name === "links" || tag.subLabel === "link";
         const isTechSkill = tag.type === "select" || tag.subLabel === "tech" || tag.name === "techStack";
         const { skills: reducerSkills = [] } = useTechnicalSkillsReducer();
+
+        const getValueKey = (val) => {
+                if (!val) return "";
+                if (isLink) {
+                        if (typeof val === 'string') return val.trim().toLowerCase();
+                        return `${(val.title || '').trim().toLowerCase()}|${(val.url || '').trim().toLowerCase()}`;
+                }
+                if (tag.icon) {
+                        return typeof val === 'string' ? val.trim() : (val.name || '');
+                }
+                return typeof val === 'object' ? (val.name || val.label || '') : String(val);
+        };
+
+        const getValuesKeySet = (vals) => new Set((vals || []).map(getValueKey).filter(Boolean));
+
+        const [valuesSet, setValuesSet] = useState(() => getValuesKeySet(values));
 
         // Technical skills available in reducer
         const reducerOptions = useMemo(() => {
@@ -101,7 +116,7 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
         }, [isTechSkill, tag.options, searchQuery, reducerOptions]);
 
         const handleAdding = () => {
-                setInputs([""]);
+                setInputs(isLink ? [{ title: "", url: "" }] : [""]);
                 setSearchQuery("");
         };
 
@@ -118,6 +133,18 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
                 setInputs(updatedInputs);
         };
 
+        const handleLinkChange = (index, field, value) => {
+                const updatedInputs = [...inputs];
+                const current = typeof updatedInputs[index] === 'object' && updatedInputs[index] !== null
+                        ? updatedInputs[index]
+                        : { title: '', url: '' };
+                updatedInputs[index] = {
+                        ...current,
+                        [field]: value
+                };
+                setInputs(updatedInputs);
+        };
+
         const handleCancel = (index) => {
                 const updatedInputs = [...inputs];
                 updatedInputs.splice(index, 1);
@@ -125,29 +152,48 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
         };
 
         const handleMore = () => {
-                setInputs((prev) => [...prev, ""]);
+                setInputs((prev) => [...prev, isLink ? { title: "", url: "" } : ""]);
+        };
+
+        const handleKeyDown = (e) => {
+                if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleDone();
+                }
         };
 
         const handleDone = () => {
                 let newEntries = [];
                 let newValuesSet = new Set(valuesSet);
-                let addedState = false;
 
                 for (let input of inputs) {
                         if (!input) continue;
 
-                        if (tag.icon) {
+                        if (isLink) {
+                                const title = typeof input === 'object' ? (input.title || '').trim() : '';
+                                let url = typeof input === 'object' ? (input.url || '').trim() : (typeof input === 'string' ? input.trim() : '');
+
+                                if (!title || !url) continue;
+
+                                if (!/^https?:\/\//i.test(url)) {
+                                        url = `https://${url}`;
+                                }
+
+                                const linkKey = `${title.toLowerCase()}|${url.toLowerCase()}`;
+                                if (!newValuesSet.has(linkKey)) {
+                                        newEntries.push({ title, url });
+                                        newValuesSet.add(linkKey);
+                                }
+                        } else if (tag.icon) {
                                 const valStr = typeof input === 'string' ? input.trim() : input.name;
                                 if (valStr && !newValuesSet.has(valStr)) {
                                         newEntries.push(valStr);
-                                        addedState = true;
                                         newValuesSet.add(valStr);
                                 }
                         } else {
                                 const itemObj = typeof input === 'object' ? input : { name: input, icon: input };
                                 if (itemObj.name && !newValuesSet.has(itemObj.name)) {
                                         newEntries.push(itemObj);
-                                        addedState = true;
                                         newValuesSet.add(itemObj.name);
                                 }
                         }
@@ -155,7 +201,7 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
 
                 if (newEntries.length > 0) {
                         handleValueChange(tag.name, tag.inputType, { action: "entry", values: newEntries });
-                        if (tag.required) handleAdd(tag.name, true);
+                        if (tag.required && handleAdd) handleAdd(tag.name, true);
                 }
 
                 setValuesSet(new Set([...valuesSet, ...newValuesSet]));
@@ -163,19 +209,22 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
                 setSearchQuery("");
         };
 
-        const handleRemove = (index, deletedValue) => {
+        const handleRemove = (index, value) => {
+                const deletedKey = getValueKey(value);
                 setValuesSet((prev) => {
                         const updatedSet = new Set(prev);
-                        updatedSet.delete(deletedValue);
+                        updatedSet.delete(deletedKey);
                         return updatedSet;
                 });
                 handleValueChange(tag.name, tag.inputType, { action: "delete", index: index });
+                if (tag.required && handleAdd) {
+                        handleAdd(tag.name, (values.length - 1) > 0);
+                }
         };
 
         useEffect(() => {
-                if (!values.length && tag.required) handleAdd(tag.name, false);
-                setValuesSet(new Set(tag.icon ? [...values] : values.map(v => typeof v === 'object' ? v.name : v)));
-        }, [values]);
+                setValuesSet(getValuesKeySet(values));
+        }, [values, tag.icon, isLink]);
 
         return (
                 <div className="tag-input">
@@ -199,8 +248,36 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
 
                                         <div className="inputs">
                                                 {inputs.map((input, index) => (
-                                                        <div className="input" key={index}>
-                                                                {tag.type === "select" || isTechSkill ? (
+                                                        <div className={`input ${isLink ? 'link-input-group' : ''}`} key={index}>
+                                                                {isLink ? (
+                                                                        <>
+                                                                                <input
+                                                                                        type="text"
+                                                                                        className="link-title-input"
+                                                                                        name={`${tag.subLabel}-title-${index}`}
+                                                                                        id={`${tag.subLabel}-title-${index}`}
+                                                                                        placeholder="Link title (e.g. GitHub)"
+                                                                                        value={typeof input === 'object' ? (input.title || '') : ''}
+                                                                                        onChange={(e) => {
+                                                                                                handleLinkChange(index, 'title', e.target.value);
+                                                                                        }}
+                                                                                        onKeyDown={handleKeyDown}
+                                                                                />
+                                                                                <div className="link-input-divider" />
+                                                                                <input
+                                                                                        type="url"
+                                                                                        className="link-url-input"
+                                                                                        name={`${tag.subLabel}-url-${index}`}
+                                                                                        id={`${tag.subLabel}-url-${index}`}
+                                                                                        placeholder="Link URL (e.g. https://...)"
+                                                                                        value={typeof input === 'object' ? (input.url || '') : (typeof input === 'string' ? input : '')}
+                                                                                        onChange={(e) => {
+                                                                                                handleLinkChange(index, 'url', e.target.value);
+                                                                                        }}
+                                                                                        onKeyDown={handleKeyDown}
+                                                                                />
+                                                                        </>
+                                                                ) : (tag.type === "select" || isTechSkill) ? (
                                                                         <Select
                                                                                 className="select"
                                                                                 classNamePrefix="select"
@@ -227,6 +304,7 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
                                                                                 onChange={(e) => {
                                                                                         handleChange(e.target.value, index);
                                                                                 }}
+                                                                                onKeyDown={handleKeyDown}
                                                                         />
                                                                 )}
 
@@ -264,14 +342,19 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
                                                 const valIcon = isCustomTag ? tag.icon : (typeof value === 'object' ? (value.icon || value.name) : value);
 
                                                 return (
-                                                        <div key={index} className={`sub-label ${tag.subLabel}`}>
-                                                                <p className="value">
+                                                        <div key={index} className={`sub-label ${tag.subLabel} ${isLink ? 'link-item' : ''}`}>
+                                                                <div className="value">
                                                                         <span className="icon">
                                                                                 {isCustomTag ? (
                                                                                         typeof tag.icon === 'function' || typeof tag.icon === 'object' ? (
                                                                                                 <tag.icon sx={{ fontSize: '2vh', color: '#c6ff00' }} />
                                                                                         ) : typeof tag.icon === 'string' && (tag.icon.endsWith('.png') || tag.icon.startsWith('/') || tag.icon.startsWith('data:')) ? (
-                                                                                                <img src={valIcon} alt={tag.subLabel} />
+                                                                                                <ImageWithFallback 
+                                                                                                        src={parseImageUrl(valIcon)} 
+                                                                                                        alt={tag.subLabel} 
+                                                                                                        fallbackColor="transparent"
+                                                                                                        fallbackIcon={<SimpleIcon name="code" size="20px" color="#c6ff00" />}
+                                                                                                />
                                                                                         ) : (
                                                                                                 <SimpleIcon name={valIcon} size="20px" color="#c6ff00" />
                                                                                         )
@@ -280,13 +363,33 @@ function TagInput({ tag, values = [], handleValueChange, added, handleAdd }) {
                                                                                 )}
                                                                         </span>
 
-                                                                        <span className="name">
-                                                                                {valName}
-                                                                        </span>
-                                                                </p>
+                                                                        {isLink ? (
+                                                                                <div className="link-info">
+                                                                                        <span className="link-title">
+                                                                                                {typeof value === 'object' ? (value.title || 'Untitled Link') : value}
+                                                                                        </span>
+                                                                                        {typeof value === 'object' && value.url ? (
+                                                                                                <a
+                                                                                                        href={value.url.startsWith('http') ? value.url : `https://${value.url}`}
+                                                                                                        target="_blank"
+                                                                                                        rel="noreferrer"
+                                                                                                        className="link-url"
+                                                                                                        onClick={(e) => e.stopPropagation()}
+                                                                                                        title={value.url}
+                                                                                                >
+                                                                                                        {value.url}
+                                                                                                </a>
+                                                                                        ) : null}
+                                                                                </div>
+                                                                        ) : (
+                                                                                <span className="name">
+                                                                                        {valName}
+                                                                                </span>
+                                                                        )}
+                                                                </div>
 
-                                                                <p className="delete" onClick={() => { handleRemove(index, valName); }}>
-                                                                        <DeleteOutlineRoundedIcon sx={{ fontSize: '1.8vh' }} />
+                                                                <p className="delete" onClick={() => { handleRemove(index, value); }}>
+                                                                        <DeleteOutlineRoundedIcon  />
                                                                 </p>
                                                         </div>
                                                 );

@@ -5,6 +5,8 @@ import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
+import { ImageWithFallback } from '../../Utils/imageUtils';
+import BlogImageSlideshow from './BlogImageSlideshow';
 import './Blog.css';
 
 function getInitials(name) {
@@ -61,63 +63,29 @@ function BlogTags({ tags }) {
 
 	return (
 		<div className="blog-tags">
-			{ tags.map((tag, index) => (
-				<span className="tag-pill" key={index}>{ tag }</span>
-			)) }
+			{tags.map((tag, index) => (
+				<span className="tag-pill" key={index}>{tag}</span>
+			))}
 		</div>
 	);
 }
 
 function BlogMedia({ blog }) {
-	const videoUrl = blog?.videoUrl || blog?.video || null;
-	const hasVideo = typeof videoUrl === 'string' && videoUrl.trim().length > 0;
-	const isEmbeddedVideo = hasVideo && /youtube|youtu\.be|vimeo/i.test(videoUrl);
-	const [imageError, setImageError] = useState(false);
-
-	useEffect(() => {
-		setImageError(false);
-	}, [blog?.image]);
-
-	const hasImage = Boolean(blog?.image) && !imageError;
-
 	return (
 		<div className="blog-media">
-			{ hasVideo ? (
-				<div className="video-container">
-					{ isEmbeddedVideo ? (
-						<iframe
-							src={videoUrl}
-							title={blog.title || 'Embedded blog video'}
-							loading="lazy"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-							referrerPolicy="strict-origin-when-cross-origin"
-							allowFullScreen
-						/>
-					) : (
-						<video src={videoUrl} controls preload="metadata" />
-					) }
-				</div>
-			) : (
-				<div className="image-container">
-					{ hasImage ? (
-						<img
-							src={blog.image}
-							alt={blog.title || 'Blog cover image'}
-							onError={() => setImageError(true)}
-							loading="lazy"
-						/>
-					) : (
-						<div className="image-placeholder">
-							<ArticleRoundedIcon className="placeholder-icon" />
-							<p className="placeholder-text">Story Cover • {blog?.title || 'Featured Article'}</p>
-						</div>
-					) }
-
+			<div className="image-container">
+				<BlogImageSlideshow
+					images={blog?.image}
+					alt={blog?.title || 'Blog cover image'}
+					fallbackColor="rgba(56, 189, 248, 0.05)"
+					fallbackIcon={<ArticleRoundedIcon style={{ fontSize: '3rem', color: '#38bdf8' }} />}
+					fallbackText={`Story Cover • ${blog?.title || 'Featured Article'}`}
+				>
 					<div className="author-badge">
-						<span className="author-name">{ blog?.author || 'Author' }</span>
+						<span className="author-name">{blog?.author || 'Author'}</span>
 					</div>
-				</div>
-			) }
+				</BlogImageSlideshow>
+			</div>
 		</div>
 	);
 }
@@ -149,7 +117,7 @@ function BlogRatingCard() {
 				aria-label={`Rating: ${selectedRating} out of 5 stars`}
 				onMouseLeave={() => setHoverRating(null)}
 			>
-				{ [1, 2, 3, 4, 5].map((starValue) => {
+				{[1, 2, 3, 4, 5].map((starValue) => {
 					const isFilled = starValue <= currentRating;
 					return (
 						<button
@@ -160,18 +128,18 @@ function BlogRatingCard() {
 							onMouseEnter={() => setHoverRating(starValue)}
 							aria-label={`${starValue} star`}
 						>
-							{ isFilled ? (
+							{isFilled ? (
 								<StarRoundedIcon className="star-icon" />
 							) : (
 								<StarOutlineRoundedIcon className="star-icon" />
-							) }
+							)}
 						</button>
 					);
-				}) }
+				})}
 			</div>
 
 			<p className="rating-subtitle">
-				{ submitted ? 'Thank you for your feedback!' : 'Your feedback matters!' }
+				{submitted ? 'Thank you for your feedback!' : 'Your feedback matters!'}
 			</p>
 
 			<hr className="rating-divider" />
@@ -181,7 +149,7 @@ function BlogRatingCard() {
 				className={`rating-submit-btn ${submitted ? 'submitted' : ''}`}
 				onClick={handleSubmit}
 			>
-				{ submitted ? 'Feedback Submitted ✓' : 'Submit Feedback' }
+				{submitted ? 'Feedback Submitted ✓' : 'Submit Feedback'}
 			</button>
 		</section>
 	);
@@ -198,23 +166,23 @@ function BlogContent({ blog }) {
 
 	return (
 		<div className="blog-content">
-			<h2 className="article-title">{ blog.title }</h2>
+			<h2 className="article-title">{blog.title}</h2>
 
-			<p className="article-highlight">{ subtitle }</p>
+			<p className="article-highlight">{subtitle}</p>
 
-			<p className="article-date">{ formatFeaturedDate(blog.createdAt) }</p>
+			<p className="article-date">{formatFeaturedDate(blog.createdAt)}</p>
 
 			<BlogTags tags={blog.tags} />
 
 			<div className="article-description">
-				{ paragraphs.length > 0
-					? paragraphs.map((paragraph, index) => (<p key={index}>{ paragraph }</p>))
-					: <p>This article explores ideas, architecture, and technology innovations shaping our industry.</p> }
+				{paragraphs.length > 0
+					? paragraphs.map((paragraph, index) => (<p key={index}>{paragraph}</p>))
+					: <p>This article explores ideas, architecture, and technology innovations shaping our industry.</p>}
 			</div>
 
-			{ links.length > 0 ? (
+			{links.length > 0 ? (
 				<div className="article-actions">
-					{ links.map((link, index) => (
+					{links.map((link, index) => (
 						<a
 							href={link.url}
 							target="_blank"
@@ -222,9 +190,9 @@ function BlogContent({ blog }) {
 							key={index}
 							className={`btn-action ${index === 0 ? 'btn-primary' : 'btn-secondary'}`}
 						>
-							{ link.title }
+							{link.title}
 						</a>
-					)) }
+					))}
 				</div>
 			) : (
 				<div className="article-actions">
@@ -235,19 +203,12 @@ function BlogContent({ blog }) {
 						Explore More
 					</button>
 				</div>
-			) }
+			)}
 		</div>
 	);
 }
 
 function PreviousBlogCard({ blog, onSelect, focused }) {
-	const [thumbError, setThumbError] = useState(false);
-
-	useEffect(() => {
-		setThumbError(false);
-	}, [blog.image]);
-
-	const hasThumb = Boolean(blog.image) && !thumbError;
 	const tags = Array.isArray(blog.tags) ? blog.tags.slice(0, 3) : ['AI', 'Technology', 'Future'];
 
 	return (
@@ -258,34 +219,29 @@ function PreviousBlogCard({ blog, onSelect, focused }) {
 			aria-label={`Select blog: ${blog.title}`}
 		>
 			<div className="story-thumbnail">
-				{ hasThumb ? (
-					<img
-						src={blog.image}
-						alt={blog.title || 'Blog thumbnail'}
-						onError={() => setThumbError(true)}
-						loading="lazy"
-					/>
-				) : (
-					<div className="thumbnail-fallback">
-						<MenuBookRoundedIcon className="fallback-icon" />
-					</div>
-				) }
+				<ImageWithFallback
+					src={Array.isArray(blog?.image) ? blog.image[0] : blog?.image}
+					alt={blog?.title || 'Blog thumbnail'}
+					loading="lazy"
+					fallbackColor="rgba(56, 189, 248, 0.05)"
+					fallbackIcon={<MenuBookRoundedIcon style={{ fontSize: '1.8rem', color: '#38bdf8' }} />}
+				/>
 			</div>
 
 			<div className="story-info">
-				<p className="story-title">{ blog.title }</p>
+				<p className="story-title">{blog.title}</p>
 
 				<div className="story-tags">
-					{ tags.map((tag, index) => (
-						<span className="story-tag" key={index}>{ tag }</span>
-					)) }
+					{tags.map((tag, index) => (
+						<span className="story-tag" key={index}>{tag}</span>
+					))}
 				</div>
 
 				<div className="story-meta">
-					<span className="author-avatar">{ getInitials(blog.author) }</span>
-					<span className="author-name">{ blog.author || 'Author' }</span>
+					<span className="author-avatar">{getInitials(blog.author)}</span>
+					<span className="author-name">{blog.author || 'Author'}</span>
 					<span className="meta-dot">•</span>
-					<span className="story-date">{ formatStoryDate(blog.createdAt) }</span>
+					<span className="story-date">{formatStoryDate(blog.createdAt)}</span>
 				</div>
 			</div>
 		</button>
@@ -380,14 +336,14 @@ function BlogSection() {
 					</div>
 
 					<div className={`previous-blogs ${isRotating ? 'rotating' : ''}`}>
-						{ visiblePreviousBlogs.map((blog, index) => (
+						{visiblePreviousBlogs.map((blog, index) => (
 							<PreviousBlogCard
 								key={blog._id || index}
 								blog={blog}
 								onSelect={() => setSelectedBlogId(blog._id)}
 								focused={selectedBlogId === blog._id}
 							/>
-						)) }
+						))}
 					</div>
 
 					<BlogRatingCard />

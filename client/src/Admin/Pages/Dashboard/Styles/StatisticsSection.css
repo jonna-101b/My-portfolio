@@ -173,7 +173,14 @@
         letter-spacing: -0.02em;
 }
 
-@media (max-width: 900px) {
+@media (min-width: 769px) and (max-width: 1024px) {
+        .chart-main-layout {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.25rem;
+        }
+}
+
+@media (max-width: 768px) {
         .chart-main-layout {
                 grid-template-columns: 1fr;
                 justify-items: center;

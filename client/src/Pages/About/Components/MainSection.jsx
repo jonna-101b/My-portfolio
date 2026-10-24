@@ -3,16 +3,14 @@ import useProfileReducer from '../../../Hooks/useProfileReducer';
 import useTechnicalSkillsReducer from '../../../Hooks/useTechnicalSkillsReducer';
 import SimpleIcon from '../../../Utils/simpleIcons';
 import { getInitials } from '../../../Utils/avatarUtils';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import { ImageWithFallback } from '../../../Utils/imageUtils';
 import AboutMainSectionSkeleton from '../../../Components/Skeletons/AboutMainSectionSkeleton';
 import '../Styles/MainSection.css';
 
 function MainSection() {
 	const { profile, loading } = useProfileReducer();
 	const { skills = [] } = useTechnicalSkillsReducer();
-
-	if (loading) {
-		return <AboutMainSectionSkeleton />;
-	}
 
 	const {
 		picture,
@@ -82,6 +80,10 @@ function MainSection() {
 		return [text];
 	}, [description]);
 
+	if (loading) {
+		return <AboutMainSectionSkeleton />;
+	}
+
 	const displayName = `${firstName || ''} ${lastName || ''}`.trim() || nickName || '';
 
 	return (
@@ -90,20 +92,15 @@ function MainSection() {
 				{/* Left Column: Profile Card & Quick Info */}
 				<div className="about-profile-col">
 					<div className="profile-image-card">
-						{picture ? (
-							<img
-								src={picture}
-								alt={displayName || "Profile photo"}
-								className="profile-photo-img"
-								loading="lazy"
-							/>
-						) : (
-							<div className="profile-photo-img" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--card-bg, #1e293b)' }}>
-								<span style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--admin-accent, #c6ff00)' }}>
-									{getInitials(displayName)}
-								</span>
-							</div>
-						)}
+						<ImageWithFallback
+							src={picture}
+							alt={displayName || "Profile photo"}
+							className="profile-photo-img"
+							fallbackInitials={getInitials(displayName)}
+							fallbackIcon={<PersonOutlineRoundedIcon style={{ fontSize: '3rem', color: 'var(--accent, #c6ff00)' }} />}
+							fallbackColor="var(--card-bg, #1e293b)"
+							loading="lazy"
+						/>
 
 						{availability ? (
 							<div className="availability-badge" aria-label="Available for work">

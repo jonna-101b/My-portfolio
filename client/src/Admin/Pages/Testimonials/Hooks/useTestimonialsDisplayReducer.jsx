@@ -32,8 +32,8 @@ function useTestimonialsDisplayReducer() {
         const [sortMethod, setSortMethod] = useState({ sortBy: "createdAt", order: "desc"});
         const [searchQuery, setSearchQuery] = useState("");
 
-        const computeTestimonials = () => {
-                let result = [...state.testimonials];
+        useEffect(() => {
+                let result = [...(state.testimonials || [])];
 
                 if (searchQuery.trim() !== "") {
                         const q = searchQuery.toLowerCase();
@@ -41,13 +41,8 @@ function useTestimonialsDisplayReducer() {
                 }
 
                 result.sort((a, b) => sortTestimonials(a, b, sortMethod.sortBy, sortMethod.order));
-
-                return result;
-        };
-
-        useEffect(() => {
-                setTestimonials(computeTestimonials());
-        }, [state.testimonials, sortMethod, searchQuery]);
+                setTestimonials(result);
+        }, [state.testimonials, sortMethod, searchQuery, setTestimonials]);
 
         const searchComponent = query => setSearchQuery(query);
         

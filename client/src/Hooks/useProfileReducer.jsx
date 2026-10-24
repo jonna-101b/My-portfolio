@@ -6,7 +6,8 @@ import {
         updateProfileDescription as updateProfileDescriptionApi,
         createProfileSocialLink as createProfileSocialLinkApi,
         updateProfileSocialLink as updateProfileSocialLinkApi,
-        deleteProfileSocialLink as deleteProfileSocialLinkApi
+        deleteProfileSocialLink as deleteProfileSocialLinkApi,
+        updateLogoVisibility as updateLogoVisibilityApi
 } from "../api/ProfileApi";
 import { APIError } from "../api/APIError";
 
@@ -50,7 +51,8 @@ const useProfileReducer = () => {
                 try {
                         dispatch({ type: "SET_LOADING", payload: true });
                         const res = await updateProfileDescriptionApi(descriptionUpdates);
-                        dispatch({ type: "UPDATE_DESCRIPTION", payload: res || descriptionUpdates });
+                        const newDescription = res?.description || descriptionUpdates;
+                        dispatch({ type: "UPDATE_DESCRIPTION", payload: newDescription });
                         return res || descriptionUpdates;
                 } catch (error) {
                         const apiError = APIError.fromAxiosError(error, "Failed to update profile description");
@@ -64,8 +66,12 @@ const useProfileReducer = () => {
                 try {
                         dispatch({ type: "SET_LOADING", payload: true });
                         const payload = Array.isArray(linksArray) ? linksArray : [linksArray];
-                        const res = await createProfileSocialLinkApi(payload[0] || linksArray);
-                        dispatch({ type: "ADD_SOCIAL_LINKS", payload: res ? (Array.isArray(res) ? res : [res]) : payload });
+                        const res = await createProfileSocialLinkApi(payload);
+                        if (res?.socialLinks) {
+                                dispatch({ type: "UPDATE_PROFILE", payload: { socialLinks: res.socialLinks } });
+                        } else {
+                                dispatch({ type: "ADD_SOCIAL_LINKS", payload });
+                        }
                         return res || payload;
                 } catch (error) {
                         const apiError = APIError.fromAxiosError(error, "Failed to add social link");
@@ -104,6 +110,24 @@ const useProfileReducer = () => {
                 }
         }, [dispatch]);
 
+        const updateLogoVisibility = useCallback(async (logoVisible) => {
+                try {
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const isVisible = typeof logoVisible === 'object' && logoVisible !== null && 'logoVisible' in logoVisible
+                                ? Boolean(logoVisible.logoVisible)
+                                : Boolean(logoVisible);
+                        const res = await updateLogoVisibilityApi(isVisible);
+                        const updatedVal = res?.logoVisible !== undefined ? res.logoVisible : isVisible;
+                        dispatch({ type: "UPDATE_LOGO_VISIBILITY", payload: updatedVal });
+                        return res || { logoVisible: updatedVal };
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to update logo visibility");
+                        console.error("Error updating logo visibility:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
+                }
+        }, [dispatch]);
+
         const clearError = useCallback(() => {
                 dispatch({ type: "CLEAR_ERROR" });
         }, [dispatch]);
@@ -119,6 +143,7 @@ const useProfileReducer = () => {
                 addSocialLinks,
                 updateSocialLink,
                 deleteSocialLink,
+                updateLogoVisibility,
                 clearError
         };
 };

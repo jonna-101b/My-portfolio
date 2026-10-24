@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import useActivitiesReducer from '../../../Hooks/useActivitiesReducer';
 
@@ -65,13 +65,13 @@ function Activities({ isOpen, onToggle, onClose }) {
 		}
 	};
 
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		if (onClose) {
 			onClose();
 		} else {
 			setShowInternal(false);
 		}
-	};
+	}, [onClose]);
 
 	useEffect(() => {
 		const handleClickOutside = (e) => {
@@ -103,12 +103,16 @@ function Activities({ isOpen, onToggle, onClose }) {
 			document.removeEventListener('keydown', handleKeyDown);
 			window.removeEventListener('open-admin-activities', handleOpenActivities);
 		};
-	}, [isOpen, onToggle, onClose]);
+	}, [isOpen, onToggle, handleClose]);
 
-	const handleClearAllActivities = () => {
+	const handleClearAllActivities = async () => {
 		const allIds = activities.map((a) => a._id);
 		if (allIds.length > 0) {
-			deleteActivities(allIds);
+			try {
+				await deleteActivities(allIds);
+			} catch (error) {
+				console.error("Failed to clear activities:", error);
+			}
 		}
 	};
 
@@ -130,7 +134,7 @@ function Activities({ isOpen, onToggle, onClose }) {
 						<div className="popover-header-title">
 							<HistoryRoundedIcon className="popover-title-icon" fontSize="small" />
 							<span className="title-text">Recent Activities</span>
-							<span className="popover-count-chip">{activities.length} recorded</span>
+							<span className="popover-count-chip">{activities.length} actions</span>
 						</div>
 
 						<div className="popover-header-actions">

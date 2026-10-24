@@ -11,6 +11,13 @@ export const IMAGE_ALLOWED_TYPES = [
   'image/webp',
   'image/gif',
   'image/svg+xml',
+  'image/svg',
+  'image/avif',
+  'image/bmp',
+  'image/x-icon',
+  'image/vnd.microsoft.icon',
+  'image/pjpeg',
+  'image/x-png',
 ];
 
 export const DOCUMENT_ALLOWED_TYPES = [
@@ -69,7 +76,10 @@ const createFileFilter = (allowedTypes) => {
       return;
     }
 
-    if (allowedTypes.includes(file.mimetype)) {
+    if (
+      allowedTypes.includes(file.mimetype) ||
+      ((allowedTypes === IMAGE_ALLOWED_TYPES || allowedTypes === ALL_ALLOWED_TYPES) && file.mimetype && file.mimetype.startsWith('image/'))
+    ) {
       cb(null, true);
       return;
     }

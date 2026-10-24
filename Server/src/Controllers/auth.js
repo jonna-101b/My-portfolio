@@ -2,12 +2,14 @@ import AdminModel from "../Models/admin.js";
 import { generateToken, verifyToken } from "../Utils/auth.js";
 import { config } from "../Config/environments.js";
 import RefreshTokenModel from "../Models/refreshToken.js";
+import { APIError } from "../Errors/APIError.js";
 
 
+const isProduction = process.env.NODE_ENV === 'production';
 const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // true in production (HTTPS)
-    sameSite: 'strict',
+    secure: isProduction, // HTTPS required for sameSite: 'none'
+    sameSite: isProduction ? 'none' : 'lax', // 'none' enables cross-domain cookie exchange between Vercel and Render
 };
 
 export const loginAdmin = async (req, res, next) => {

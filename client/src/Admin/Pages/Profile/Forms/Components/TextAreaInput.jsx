@@ -21,7 +21,7 @@ function SingleValue({ textarea }) {
 	};
 
 	const handleChange = (event) => {
-		const { name, value } = event.target;
+		const { value } = event.target;
 		setInput(value);
 
 		if ( value === textarea.defaultValue) {

@@ -5,7 +5,7 @@ import { APIError } from '../Errors/APIError.js';
 // Qualifications controllers
 const getQualifications = async (req, res, next) => {
         try {
-                const Qualifications = await QualificationsModel.find({}).sort({ createdAt: -1 });
+                const Qualifications = await QualificationsModel.find({}).sort({ 'duration.to': -1, 'duration.from': -1 });
                 res.status(200).json(Qualifications);
         }
         catch (error) {

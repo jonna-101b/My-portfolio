@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import { NewContext } from './Context/NewContext';
 import ImageInput from './Components/ImageInput';
 import TextInput from './Components/TextInput';
@@ -26,62 +26,81 @@ function findInputs(arr) {
                         defaultValue = Array.isArray(input.values) ? input.values : (Array.isArray(input.value) ? input.value : []);
                 }
                 else if ( input.inputType === "textarea-input" ) {
-                        defaultValue = input.value ? input.value : (input.type === "single" ? "" : {brief: "", detailed: ""});
+                        if (input.type === "single") {
+                                defaultValue = typeof input.value === "string" ? input.value : "";
+                        } else {
+                                defaultValue = typeof input.value === "object" && input.value !== null
+                                        ? { brief: input.value.brief || "", detailed: input.value.detailed || "" }
+                                        : { brief: typeof input.value === "string" ? input.value : "", detailed: "" };
+                        }
                 }
                 else if ( input.inputType === "image-input" || input.inputType === "date-input" ) {
                         defaultValue = input.value !== undefined ? input.value : null;
+                }
+                else if ( input.inputType === "select-input" || input.inputType === "radio-input" ) {
+                        defaultValue = input.value !== undefined && input.value !== null && input.value !== ""
+                                ? input.value
+                                : (input.options?.[0]?.value || "");
                 }
                 else {
                         defaultValue = input.value !== undefined && input.value !== null ? input.value : "";
                 }
                 inputs.push([ input.name, defaultValue ]);
         }
-        const inputsObj = Object.fromEntries(inputs);
-        return inputsObj;
+        return Object.fromEntries(inputs);
+}
+
+const isValueProvided = (input) => {
+        const val = input.value !== undefined && input.value !== null ? input.value : input.values;
+        if (val === undefined || val === null || val === "") return false;
+        if (Array.isArray(val)) return val.length > 0;
+        if (typeof val === "object") {
+                if (input.inputType === "textarea-input" && input.type === "options") {
+                        return Boolean(val.brief && String(val.brief).trim() && val.detailed && String(val.detailed).trim());
+                }
+                if (input.inputType === "tech-select-input") {
+                        return Boolean(val.name && String(val.name).trim() !== "");
+                }
+                if (input.inputType === "date-input" && input.type === "duration") {
+                        return Boolean(val.from && val.to);
+                }
+                if (input.inputType === "image-input") {
+                        return Boolean(val.file || val.preview || (typeof val === "string" && val.trim() !== ""));
+                }
+                return Object.values(val).some(v => v !== undefined && v !== null && v !== "");
+        }
+        if (typeof val === "string") return val.trim().length > 0;
+        return Boolean(val);
 };
 
 const findRequirements = (arr) => {
         const reqs = arr.filter(input => input.required);
-        const reqsObj = Object.fromEntries(reqs.map(input => {
-                const isProvided = input.value !== undefined && input.value !== null && input.value !== "" && 
-                        (!Array.isArray(input.value) || input.value.length > 0) &&
-                        (!Array.isArray(input.values) || input.values.length > 0);
-                return [input.name, Boolean(isProvided)];
-        }));
+        const reqsObj = Object.fromEntries(reqs.map(input => [input.name, isValueProvided(input)]));
         return reqsObj;
 };
-
-function generateObjectId() {
-        const timestamp = Math.floor(Date.now() / 1000).toString(16); // 4 bytes (8 hex chars)
-  
-        // 8 bytes = 16 hex chars (random)
-        const random = Array.from({ length: 16 }, () =>
-                Math.floor(Math.random() * 16).toString(16)
-        ).join('');
-  
-        return timestamp + random;
-}
 
 function Wrapper({ componentName, component, createComponent, handleDisplay, setAction }) {
         const [ inputs, setInputs ] = useState( findInputs(component) );
         const [ added, setAdded ] = useState( findRequirements(component) );
         const [ isSubmitting, setIsSubmitting ] = useState(false);
 
-        const handleInputsChange = (name, inputType, change) => {
+        const handleInputsChange = useCallback((name, inputType, change) => {
                 if (inputType === "tag-input" ) {
                         if ( change.action === "entry" ) {
                                 setInputs(prev => ({
                                         ...prev,
-                                        [name]: [ ...prev[name], ...change.values ]
+                                        [name]: [ ...(prev[name] || []), ...change.values ]
                                 }));
                         }
                         else {
-                                const newValues = [...inputs[name]];
-                                newValues.splice(change.index, 1);
-                                setInputs(prev => ({
-                                        ...prev,
-                                        [name]: newValues
-                                }));
+                                setInputs(prev => {
+                                        const newValues = [...(prev[name] || [])];
+                                        newValues.splice(change.index, 1);
+                                        return {
+                                                ...prev,
+                                                [name]: newValues
+                                        };
+                                });
                         }
                 }
                 else if (inputType === "tech-select-input" && typeof change === "object" && change !== null) {
@@ -92,11 +111,11 @@ function Wrapper({ componentName, component, createComponent, handleDisplay, set
                         }));
                 }
                 else if (inputType === "textarea-input") {
-                        if (change.type) {
+                        if (change && change.type) {
                                 setInputs(prev => ({
                                         ...prev,
                                         [name]: {
-                                                ...prev[name],
+                                                ...(prev[name] || {}),
                                                 [change.type]: change.value
                                         }
                                 }));
@@ -114,14 +133,17 @@ function Wrapper({ componentName, component, createComponent, handleDisplay, set
                                 [name]: change
                         }));
                 }
-        };
+        }, []);
 
-        const handleAdd = (name, bool) => {
-                setAdded((prev) => ({
-                        ...prev,
-                        [name]: bool,
-                }));
-        };
+        const handleAdd = useCallback((name, bool) => {
+                setAdded((prev) => {
+                        if (prev[name] === bool) return prev;
+                        return {
+                                ...prev,
+                                [name]: bool,
+                        };
+                });
+        }, []);
 
         // form is "added" if all inputs are added
         const formAdded = Object.values(added).every(Boolean);
@@ -133,7 +155,25 @@ function Wrapper({ componentName, component, createComponent, handleDisplay, set
                         for (let input of component) {
                                 let val = inputs[input.name];
                                 // Handle file uploads
-                                if (val && typeof val === 'object' && val.file instanceof File) {
+                                if (Array.isArray(val)) {
+                                        const uploadedList = [];
+                                        for (const item of val) {
+                                                if (item && typeof item === 'object' && item.file instanceof File) {
+                                                        const uploadRes = await uploadImage(item.file);
+                                                        uploadedList.push(uploadRes.url);
+                                                } else if (item instanceof File) {
+                                                        const uploadRes = await uploadImage(item);
+                                                        uploadedList.push(uploadRes.url);
+                                                } else if (item && typeof item === 'object' && item.preview && !item.file) {
+                                                        uploadedList.push(item.preview);
+                                                } else if (typeof item === 'string') {
+                                                        uploadedList.push(item);
+                                                } else {
+                                                        uploadedList.push(item);
+                                                }
+                                        }
+                                        val = uploadedList;
+                                } else if (val && typeof val === 'object' && val.file instanceof File) {
                                         const uploadRes = await uploadImage(val.file);
                                         val = uploadRes.url;
                                 } else if (val instanceof File) {
@@ -153,12 +193,12 @@ function Wrapper({ componentName, component, createComponent, handleDisplay, set
                                 setAction({ type: "add", component: componentName, name: "" });
                         }
                 } catch (error) {
-                        console.error(`Error creating ${componentName}:`, error);
+                        console.error(`Error creating ${componentName}:`, error?.response?.data || error);
                         if (setAction) {
                                 setAction({
                                         type: "error",
                                         component: componentName,
-                                        message: error?.message || `Failed to create ${componentName}`
+                                        message: error?.response?.data?.message || error?.message || `Failed to create ${componentName}`
                                 });
                         }
                 } finally {

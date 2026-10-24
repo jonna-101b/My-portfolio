@@ -120,7 +120,7 @@ export function AdminAuthContextProvider({ children }) {
         if (isMounted) {
           dispatch({ type: 'AUTH_SUCCESS', payload: userData?.user || userData });
         }
-      } catch (error) {
+      } catch {
         // Attempt token refresh on session failure
         try {
           const refreshData = await refreshTokenApi();

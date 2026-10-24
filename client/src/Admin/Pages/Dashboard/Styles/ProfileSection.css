@@ -170,8 +170,28 @@
         color: var(--admin-accent);
         transform: scale(1.1);
 }
+@media (min-width: 769px) and (max-width: 1024px) {
+        .dash-profile-card {
+                grid-template-columns: 140px 1fr;
+                gap: 1.25rem;
+                padding: 1.5rem;
+        }
 
-@media (max-width: 992px) {
+        .profile-image-frame {
+                width: 130px;
+                height: 130px;
+        }
+
+        .profile-name {
+                font-size: 1.35rem;
+        }
+
+        .profile-title {
+                font-size: 0.825rem;
+        }
+}
+
+@media (max-width: 768px) {
         .dash-profile-card {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;

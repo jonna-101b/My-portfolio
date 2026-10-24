@@ -1,6 +1,7 @@
 import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
-import { getNotifications, addNotification, deleteNotification, sendForgotPasswordNotification } from '../Controllers/notifications.js';
+import trackActivity from '../Middlewares/trackActivity.js';
+import { getNotifications, addNotification, deleteNotification, sendForgotPasswordNotification, deleteAllNotifications } from '../Controllers/notifications.js';
 import { createNotificationValidator, notificationIdParamValidator } from '../Validator/notificationsValidator.js';
 import contactLimiter from '../Middleware/contactLimiter.js';
 
@@ -13,6 +14,9 @@ notificationsRouter.post('/', createNotificationValidator, contactLimiter, addNo
 
 notificationsRouter.post('/forgot-password', contactLimiter, sendForgotPasswordNotification);
 
-notificationsRouter.delete('/:id', authenticate, notificationIdParamValidator, deleteNotification );
+notificationsRouter.delete('/all', authenticate, trackActivity({ destination: 'Notifications', title: 'All Notifications', action: 'Deleted' }), deleteAllNotifications);
+notificationsRouter.delete('/', authenticate, trackActivity({ destination: 'Notifications', title: 'All Notifications', action: 'Deleted' }), deleteAllNotifications);
+
+notificationsRouter.delete('/:id', authenticate, notificationIdParamValidator, trackActivity('Notifications'), deleteNotification );
 
 export default notificationsRouter;

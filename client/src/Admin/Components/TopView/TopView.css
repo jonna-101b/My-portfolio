@@ -326,38 +326,6 @@
         color: var(--admin-text-white);
 }
 
-/* Filter Tabs */
-.popover-filter-tabs {
-        display: flex;
-        gap: 0.4rem;
-        padding: 0.65rem 1.25rem;
-        border-bottom: 1px solid var(--admin-surface-hover);
-        background-color: var(--admin-surface-main);
-}
-
-.popover-filter-tab {
-        background: transparent;
-        border: 1px solid transparent;
-        color: var(--admin-text-muted);
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 0.3rem 0.7rem;
-        border-radius: 999px;
-        cursor: pointer;
-        transition: all 0.15s ease;
-}
-
-.popover-filter-tab:hover {
-        color: var(--admin-text-primary);
-        background-color: var(--admin-surface-active);
-}
-
-.popover-filter-tab.active {
-        background-color: var(--admin-accent-subtle);
-        border-color: var(--admin-accent-border);
-        color: var(--admin-accent);
-}
-
 /* Scrollable Content List */
 .popover-content-list {
         display: flex;

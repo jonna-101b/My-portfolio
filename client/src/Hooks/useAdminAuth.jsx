@@ -50,7 +50,7 @@ const useAdminAuth = () => {
       const user = data?.user || data;
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
       return user;
-    } catch (error) {
+    } catch {
       try {
         const refreshData = await refreshTokenApi();
         const user = refreshData?.user || refreshData;

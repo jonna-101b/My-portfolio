@@ -1,6 +1,6 @@
 import { useContext, useCallback } from "react";
 import { ActivitiesContext } from "../Contexts/ActivitiesContext";
-import { fetchActivities, createActivity as createActivityApi, deleteActivity as deleteActivityApi } from "../api/ActivitiesApi";
+import { fetchActivities, createActivity as createActivityApi, deleteActivity as deleteActivityApi, deleteAllActivities as deleteAllActivitiesApi } from "../api/ActivitiesApi";
 import { APIError } from "../api/APIError";
 
 const useActivitiesReducer = () => {
@@ -49,9 +49,22 @@ const useActivitiesReducer = () => {
                 }
         }, [dispatch]);
 
-        const deleteActivities = useCallback((activityIds) => {
-                dispatch({ type: "DELETE_ACTIVITIES", payload: activityIds });
-        }, [dispatch]);
+        const deleteActivities = useCallback(async (activityIds) => {
+                try {
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const ids = Array.isArray(activityIds)
+                                ? activityIds
+                                : (state?.activities || []).map((a) => a._id);
+                        const res = await deleteAllActivitiesApi(ids);
+                        dispatch({ type: "DELETE_ACTIVITIES", payload: ids });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to delete activities");
+                        console.error("Error deleting activities:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
+                }
+        }, [dispatch, state?.activities]);
 
         const clearError = useCallback(() => {
                 dispatch({ type: "CLEAR_ERROR" });
@@ -70,4 +83,4 @@ const useActivitiesReducer = () => {
         };
 };
 
-export default useActivitiesReducer;
+export default useActivitiesReducer;

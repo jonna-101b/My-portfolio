@@ -33,14 +33,25 @@
         min-width: 0;
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 769px) and (max-width: 1200px) {
+        .dashboard {
+                padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+                padding-block: 1.5rem 3rem;
+        }
+
         .dashboard-content-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+                gap: 1.5rem;
+        }
+
+        .dash-main-col {
+                gap: 1.5rem;
         }
 
         .dash-side-col {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
         }
 }
 

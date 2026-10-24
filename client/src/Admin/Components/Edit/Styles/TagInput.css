@@ -48,7 +48,7 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .add .icon svg {
-	font-size: 1.6vh;
+	font-size: 1rem;
 	color: currentColor;
 }
 
@@ -223,7 +223,7 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .cancel .icon svg {
-	font-size: 1.4vh;
+	font-size: 1rem;
 	color: currentColor;
 }
 
@@ -249,7 +249,7 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .new-tag .button .icon svg {
-	font-size: 1.6vh;
+	font-size: 1rem;
 	color: currentColor;
 }
 
@@ -284,13 +284,11 @@
 	grid-column: span 2;
 	display: flex;
 	flex-direction: column;
-	gap: 0.8vh;
+	gap: 1.2vh;
 	background-color: var(--admin-bg-page);
 	border: 1px solid var(--admin-border-base);
 	border-radius: 12px;
 	padding: 1.2vh;
-	max-height: 22vh;
-	overflow-y: auto;
 }
 
 .admin .edit.active .wrapper form .tag-input .list::-webkit-scrollbar {
@@ -328,10 +326,72 @@
 	border-color: var(--admin-border-focus);
 }
 
+.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input.link-input-group {
+	display: flex;
+	align-items: center;
+	gap: 1vh;
+	padding: 0.6vh 1.2vh;
+}
+
+.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .link-title-input {
+	flex: 1 1 35%;
+	min-width: 110px;
+}
+
+.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .link-input-divider {
+	width: 1px;
+	height: 18px;
+	background-color: var(--admin-border-base);
+	flex-shrink: 0;
+	margin: 0 0.2vh;
+}
+
+.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .link-url-input {
+	flex: 1.8 1 55%;
+	min-width: 150px;
+}
+
+.admin .edit.active .wrapper form .tag-input .list .sub-label.link-item {
+	gap: 1.2vh;
+}
+
 .admin .edit.active .wrapper form .tag-input .list .sub-label .value {
 	display: flex;
 	align-items: center;
 	gap: 1.2vh;
+	min-width: 0;
+	flex: 1;
+}
+
+.admin .edit.active .wrapper form .tag-input .list .sub-label .value .link-info {
+	display: flex;
+	align-items: center;
+	gap: 1.2vh;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.admin .edit.active .wrapper form .tag-input .list .sub-label .value .link-info .link-title {
+	font-weight: 500;
+	color: var(--admin-text-primary);
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+.admin .edit.active .wrapper form .tag-input .list .sub-label .value .link-info .link-url {
+	font-size: 0.8rem;
+	color: var(--admin-accent);
+	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	opacity: 0.85;
+	transition: opacity 0.2s ease, text-decoration 0.2s ease;
+}
+
+.admin .edit.active .wrapper form .tag-input .list .sub-label .value .link-info .link-url:hover {
+	opacity: 1;
+	text-decoration: underline;
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label .value .icon {
@@ -340,17 +400,15 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label .value .icon img {
-	width: 2vh;
-	height: 2vh;
-	object-fit: contain;
+	font-size: 1rem;
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label .delete {
 	display: grid;
 	place-content: center;
 	border-radius: 6px;
-	width: 3.5vh;
-	height: 3.5vh;
+	width: 36px;
+	height: 36px;
 	transition: background-color 0.15s ease;
 	cursor: pointer;
 	position: relative;
@@ -358,7 +416,7 @@
 }
 
 .admin .edit.active .wrapper form .tag-input .list .sub-label .delete svg {
-	font-size: 1.8vh;
+	font-size: 1.25rem;
 	color: currentColor;
 	transition: color 0.15s ease;
 }
@@ -374,4 +432,35 @@
 	font-size: 0.85rem;
 	color: var(--admin-text-dim);
 	padding: 1.5vh;
+}
+
+@media (max-width: 560px) {
+	.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input.link-input-group {
+		flex-wrap: wrap;
+		gap: 0.8vh;
+	}
+
+	.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .link-title-input,
+	.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .link-url-input {
+		flex: 1 1 100%;
+		min-width: 100%;
+	}
+
+	.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input .link-input-divider {
+		display: none;
+	}
+
+	.admin .edit.active .wrapper form .tag-input .new-tag .inputs .input.link-input-group .cancel {
+		margin-left: auto;
+	}
+
+	.admin .edit.active .wrapper form .tag-input .list .sub-label .value .link-info {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.3vh;
+	}
+
+	.admin .edit.active .wrapper form .tag-input .list .sub-label .value .link-info .link-url {
+		max-width: 180px;
+	}
 }

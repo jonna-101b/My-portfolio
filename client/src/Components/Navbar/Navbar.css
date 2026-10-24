@@ -81,7 +81,7 @@
         color: var(--text);
         text-decoration: none;
         border-radius: 9999px;
-        padding: 0.45rem 1.25rem;
+        padding: 0.35rem 1rem;
         cursor: pointer;
         outline: none;
         transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
@@ -143,7 +143,7 @@
 .navbar .appearance:hover,
 .navbar .appearance:focus-visible {
         background-color: var(--pill-soft);
-        border-color: var(--accent);
+        border-color: var(--pill);
         transform: scale(1.05);
 }
 
@@ -197,8 +197,8 @@
 
 .mobile-menu-toggle:hover,
 .mobile-menu-toggle:focus-visible {
-        background-color: var(--surface-soft);
-        border-color: var(--accent);
+        background-color: var(--pill-soft);
+        border-color: var(--pill);
 }
 
 .mobile-menu-toggle .menu-icon {
@@ -209,6 +209,29 @@
 /* ==========================================================================
    Responsive Breakpoints for Navbar
    ========================================================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+        .navbar .nav-container {
+                padding: 0 1.5rem;
+        }
+
+        .navbar .logo-name {
+                font-size: 1.45rem;
+        }
+
+        .navbar nav.nav-links-menu {
+                gap: 0.35rem;
+        }
+
+        .navbar nav .nav-link {
+                padding: 0.4rem 0.85rem;
+                font-size: 0.825rem;
+        }
+
+        .navbar .appearance {
+                padding: 0.45rem;
+        }
+}
 
 @media (max-width: 768px) {
         .navbar {

@@ -1,6 +1,8 @@
 import React from 'react';
 import * as simpleIcons from 'simple-icons';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
+import { ImageWithFallback, parseImageUrl } from './imageUtils';
 
 // Extract all valid icon objects from simple-icons
 const rawIcons = Object.values(simpleIcons).filter(
@@ -32,10 +34,34 @@ export const LINKEDIN_ICON = {
   path: 'M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 0 0-1.64 1.64 1.64 1.64 0 0 0 1.64 1.63 1.64 1.64 0 0 0 1.63-1.63 1.64 1.64 0 0 0-1.63-1.64',
 };
 
-// Register LinkedIn in lookup maps
-slugMap.set('linkedin', LINKEDIN_ICON);
-titleMap.set('linkedin', LINKEDIN_ICON);
-normalizedMap.set('linkedin', LINKEDIN_ICON);
+// Dedicated Java Icon Object
+export const JAVA_ICON = {
+  title: 'Java',
+  name: 'Java',
+  slug: 'java',
+  hex: 'ED8B00',
+  path: 'M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639',
+};
+
+// Dedicated Canva Icon Object
+export const CANVA_ICON = {
+  title: 'Canva',
+  name: 'Canva',
+  slug: 'canva',
+  hex: '00C4CC',
+  path: 'M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zM6.962 7.68c.754 0 1.337.549 1.405 1.2.069.583-.171 1.097-.822 1.406-.343.171-.48.172-.549.069-.034-.069 0-.137.069-.206.617-.514.617-.926.548-1.508-.034-.378-.308-.618-.583-.618-1.2 0-2.914 2.674-2.674 4.629.103.754.549 1.646 1.509 1.646.308 0 .65-.103.96-.24.5-.264.799-.47 1.097-.8-.073-.885.704-2.046 1.851-2.046.515 0 .926.205.96.583.068.514-.377.582-.514.582s-.378-.034-.378-.17c-.034-.138.309-.07.275-.378-.035-.206-.24-.274-.446-.274-.72 0-1.131.994-1.029 1.611.035.275.172.549.447.549.205 0 .514-.31.617-.755.068-.308.343-.514.583-.514.102 0 .17.034.205.171v.138c-.034.137-.137.548-.102.651 0 .069.034.171.17.171.092 0 .436-.18.777-.459.117-.59.253-1.298.253-1.357.034-.24.137-.48.617-.48.103 0 .171.034.205.171v.138l-.136.617c.445-.583 1.097-.994 1.508-.994.172 0 .309.102.309.274 0 .103 0 .274-.069.446-.137.377-.309.96-.412 1.474 0 .137.035.274.207.274.171 0 .685-.206 1.096-.754l.007-.004c-.002-.068-.007-.134-.007-.202 0-.411.035-.754.104-.994.068-.274.411-.514.617-.514.103 0 .205.069.205.171 0 .035 0 .103-.034.137-.137.446-.24.857-.24 1.269 0 .24.034.582.102.788 0 .034.035.069.07.069.068 0 .548-.445.89-1.028-.308-.206-.48-.549-.48-.96 0-.72.446-1.097.858-1.097.343 0 .617.24.617.72 0 .308-.103.65-.274.96h.102a.77.77 0 0 0 .584-.24.293.293 0 0 1 .134-.117c.335-.425.83-.74 1.41-.74.48 0 .924.205.959.582.068.515-.378.618-.515.618l-.002-.002c-.138 0-.377-.035-.377-.172 0-.137.309-.068.274-.376-.034-.206-.24-.275-.446-.275-.686 0-1.13.891-1.028 1.611.034.275.171.583.445.583.206 0 .515-.308.652-.754.068-.274.343-.514.583-.514.103 0 .17.034.205.171 0 .069 0 .206-.137.652-.17.308-.171.48-.137.617.034.274.171.48.309.583.034.034.068.102.068.102 0 .069-.034.138-.137.138-.034 0-.068 0-.103-.035-.514-.205-.72-.548-.789-.891-.205.24-.445.377-.72.377-.445 0-.89-.411-.96-.926a1.609 1.609 0 0 1 .075-.649c-.203.13-.422.203-.623.203h-.17c-.447.652-.927 1.098-1.27 1.303a.896.896 0 0 1-.377.104c-.068 0-.171-.035-.205-.104-.095-.152-.156-.392-.193-.667-.481.527-1.145.805-1.453.805-.343 0-.548-.206-.582-.55v-.376c.102-.754.377-1.2.377-1.337a.074.074 0 0 0-.069-.07c-.24 0-1.028.824-1.166 1.373l-.103.445c-.068.309-.377.515-.582.515-.103 0-.172-.035-.206-.172v-.137l.046-.233c-.435.31-.87.508-1.075.508-.308 0-.48-.172-.514-.412-.206.274-.445.412-.754.412-.352 0-.696-.24-.862-.593-.244.275-.523.553-.852.764-.48.309-1.028.549-1.68.549-.582 0-1.097-.309-1.371-.583-.412-.377-.651-.96-.686-1.509-.205-1.68.823-3.84 2.4-4.8.378-.205.755-.343 1.132-.343zm9.77 3.291c-.104 0-.172.172-.172.343 0 .274.137.583.309.755a1.74 1.74 0 0 0 .102-.583c0-.343-.137-.515-.24-.515z',
+};
+
+// Register custom icons in lookup maps and rawIcons list
+[LINKEDIN_ICON, JAVA_ICON, CANVA_ICON].forEach((customIcon) => {
+  slugMap.set(customIcon.slug.toLowerCase(), customIcon);
+  titleMap.set(customIcon.title.toLowerCase(), customIcon);
+  normalizedMap.set(customIcon.slug.toLowerCase().replace(/[^a-z0-9]/g, ''), customIcon);
+  normalizedMap.set(customIcon.title.toLowerCase().replace(/[^a-z0-9]/g, ''), customIcon);
+  if (!rawIcons.some((icon) => icon.slug === customIcon.slug)) {
+    rawIcons.push(customIcon);
+  }
+});
 
 // Common tech & social aliases and variations
 const TECH_ALIASES = {
@@ -192,6 +218,7 @@ const TECH_ALIASES = {
 
   // Design
   figma: 'figma',
+  canva: 'canva',
   sketch: 'sketch',
   framer: 'framer',
   blender: 'blender',
@@ -287,10 +314,10 @@ export function searchSimpleIcons(query = '', limit = 30) {
     const popularSlugs = [
       'linkedin', 'github', 'x', 'facebook', 'instagram', 'youtube',
       'discord', 'reddit', 'whatsapp', 'tiktok', 'telegram', 'threads', 'bluesky',
-      'react', 'nodedotjs', 'javascript', 'typescript', 'python',
+      'react', 'nodedotjs', 'javascript', 'typescript', 'python', 'java',
       'vuedotjs', 'nextdotjs', 'angular', 'svelte', 'html5',
       'css', 'tailwindcss', 'mongodb', 'postgresql', 'mysql',
-      'docker', 'figma', 'graphql', 'medium', 'dribbble', 'stackoverflow'
+      'docker', 'figma', 'canva', 'graphql', 'medium', 'dribbble', 'stackoverflow'
     ];
     return popularSlugs
       .map((slug) => slugMap.get(slug) || (slug === 'linkedin' ? LINKEDIN_ICON : null))
@@ -312,9 +339,15 @@ export function searchSimpleIcons(query = '', limit = 30) {
   const prefixMatches = [];
   const containsMatches = [];
 
-  // Check LinkedIn match
+  // Check custom icon matches (LinkedIn, Java, Canva)
   if ('linkedin'.includes(q) || 'linkedin'.includes(normQ) || normQ === 'in' || normQ === 'li') {
     exactMatches.push(LINKEDIN_ICON);
+  }
+  if ('java'.includes(q) || 'java'.includes(normQ)) {
+    if (!exactMatches.includes(JAVA_ICON)) exactMatches.push(JAVA_ICON);
+  }
+  if ('canva'.includes(q) || 'canva'.includes(normQ)) {
+    if (!exactMatches.includes(CANVA_ICON)) exactMatches.push(CANVA_ICON);
   }
 
   // Check alias matches (e.g. searching 'twitter' points to 'x')
@@ -444,10 +477,12 @@ export function SimpleIcon({
     trimmedKey.endsWith('.svg')
   ) {
     return (
-      <img
-        src={trimmedKey}
+      <ImageWithFallback
+        src={parseImageUrl(trimmedKey)}
         alt={title || (typeof name === 'string' ? name : name?.name || 'Icon')}
         className={className}
+        fallbackColor="transparent"
+        fallbackIcon={<CodeOutlinedIcon style={{ fontSize: size, color: color || 'currentColor' }} />}
         style={{
           width: size,
           height: size,

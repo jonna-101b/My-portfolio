@@ -7,7 +7,8 @@ import MaleIllustration from '../../../assets/Icons/Home/man.png';
 import MaleLightIllustration from '../../../assets/Icons/Home/man-light.png';
 import FemaleIllustration from '../../../assets/Icons/Home/pharmacist.png';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import { getAssetUrl } from '../../../Utils/assetUtils';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import { ImageWithFallback } from '../../../Utils/imageUtils';
 import '../Styles/AboutPreview.css';
 
 function AboutPreview() {
@@ -36,11 +37,15 @@ function AboutPreview() {
 
 			<div className="main-content">
 				<div className="top">
-					{picture ? (
-						<p className="profile-picture">
-							<img src={ getAssetUrl(picture) } alt="Profile picture" />
-						</p>
-					) : null}
+					<p className="profile-picture">
+						<ImageWithFallback 
+							src={picture} 
+							alt="Profile picture"
+							fallbackInitials={firstName && lastName ? `${firstName[0]}${lastName[0]}`.toUpperCase() : "ME"}
+							fallbackIcon={<PersonOutlineRoundedIcon style={{ fontSize: '2.5rem', color: 'var(--accent, #c6ff00)' }} />}
+							fallbackColor="rgba(198, 255, 0, 0.08)"
+						/>
+					</p>
 
 					<div className="right">
 						{(firstName || lastName) ? (

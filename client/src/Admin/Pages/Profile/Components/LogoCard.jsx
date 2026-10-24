@@ -3,7 +3,8 @@ import useProfileReducer from '../../../../Hooks/useProfileReducer';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ImageUploadModal from '../Forms/Components/ImageUploadModal';
-import { getAssetUrl } from '../../../../Utils/assetUtils';
+import { ImageWithFallback } from '../../../../Utils/imageUtils';
+import LogoVisibilityToggle from './LogoVisibilityToggle';
 import '../Styles/LogoCard.css';
 
 function LogoCard() {
@@ -21,14 +22,14 @@ function LogoCard() {
 
                         <div className="logo-preview-wrapper">
                                 <div className="logo-circle">
-                                        {logo ? (
-                                                <img src={getAssetUrl(logo)} alt="Brand Logo" className="logo-image" />
-                                        ) : (
-                                                <div className="logo-fallback">
-                                                        <ImageOutlinedIcon style={{ fontSize: '2.25rem', color: 'var(--admin-text-muted)' }} />
-                                                        <span className="fallback-text">No logo set</span>
-                                                </div>
-                                        )}
+                                        <ImageWithFallback 
+                                                src={logo} 
+                                                alt="Brand Logo" 
+                                                className="logo-image"
+                                                fallbackIcon={<ImageOutlinedIcon style={{ fontSize: '2.25rem', color: 'var(--admin-text-muted)' }} />}
+                                                fallbackText="No logo set"
+                                                fallbackColor="var(--admin-surface-darkest, #151515)"
+                                        />
                                 </div>
 
                                 <button
@@ -38,11 +39,13 @@ function LogoCard() {
                                         aria-label="Upload brand logo"
                                         title="Change brand logo"
                                 >
-                                        <CameraAltOutlinedIcon style={{ fontSize: '1rem' }} />
+                                        <CameraAltOutlinedIcon style={{ fontSize: '1.15rem' }} />
                                 </button>
                         </div>
 
                         <p className="logo-caption">Your brand logo.</p>
+
+                        <LogoVisibilityToggle />
 
                         <ImageUploadModal
                                 isOpen={isUploadOpen}

@@ -13,7 +13,7 @@ function BasicInfo() {
                 { name: "lastName", label: "Last name", value: lastName, type: "text" },
                 { name: "nickName", label: "Nick name", value: nickName, type: "text" },
                 { name: "birthDate", label: "Birth date", value: birthDate, type: "date" },
-                { name: "gender", label: "Gender", value: gender, options: ["Male", "Female", "Other"] },
+                { name: "gender", label: "Gender", value: gender, options: ["Male", "Female"] },
         ];
 
         return (

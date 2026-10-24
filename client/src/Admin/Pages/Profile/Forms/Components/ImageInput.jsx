@@ -8,14 +8,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import '../Styles/ImageInput.css';
 import useProfileReducer from '../../../../../Hooks/useProfileReducer';
 import { uploadImage } from '../../../../../api/UploadApi';
-import { getAssetUrl } from '../../../../../Utils/assetUtils';
+import { ImageWithFallback, parseImageUrl } from '../../../../../Utils/imageUtils';
 
 function ImageInput({ image }) {
 	const { updateProfile } = useProfileReducer();
 	const [preview, setPreview] = useState(image.image || null);
 	const [uploading, setUploading] = useState(false);
 	const [isServerUploading, setIsServerUploading] = useState(false);
-	const [imageError, setImageError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const onDrop = async (acceptedFiles, fileRejections) => {
@@ -33,7 +32,6 @@ function ImageInput({ image }) {
 				if (response && response.url) {
 					setPreview(response.url);
 					await updateProfile({ [image.name]: response.url });
-					setImageError(false);
 					setUploading(false);
 				}
 			} catch (error) {
@@ -59,27 +57,24 @@ function ImageInput({ image }) {
 		setErrorMessage('');
 	};
 
-	const handleImageError = (bool) => {
-		setImageError(bool);
-	};
-
 	useEffect(() => {
 		setPreview(image.image);
 	}, [image.image]);
 
-	const displayUrl = getAssetUrl(preview);
+	const displayUrl = parseImageUrl(preview);
 
 	const value = (
 		<div className={`value ${image.type}`}>
-			{imageError || !displayUrl ? (
-				typeof image.backup === 'function' || (typeof image.backup === 'object' && image.backup !== null) ? (
-					<image.backup sx={{ fontSize: image.type === 'profile' ? '8vh' : '6vh', color: 'var(--admin-text-muted)', placeSelf: 'center' }} />
-				) : (
-					<img src={getAssetUrl(image.backup)} className="preview-image backup" alt="Preview backup" />
-				)
-			) : (
-				<img src={displayUrl} className="preview-image" onError={() => { handleImageError(true); }} alt="Preview" />
-			)}
+			<ImageWithFallback 
+				src={displayUrl} 
+				className="preview-image"
+				fallbackImage={typeof image.backup === 'string' ? image.backup : null}
+				fallbackIcon={typeof image.backup === 'function' || (typeof image.backup === 'object' && image.backup !== null) ? image.backup : null}
+				fallbackColor="var(--admin-surface-darkest, #151515)"
+				iconSize={image.type === 'profile' ? '8vh' : '6vh'}
+				iconColor="var(--admin-text-muted)"
+				alt="Preview"
+			/>
 
 			<div className="upload-button" onClick={handleUploading} >
 				<p>

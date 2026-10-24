@@ -32,6 +32,7 @@
         --panel-strong: #1c1c1c;
         --pill: rgba(198, 255, 0, 0.2);
         --pill-soft: rgba(198, 255, 0, 0.12);
+        --pill-softer: rgba(198, 255, 0, 0.04);
         --pill-strong: rgba(198, 255, 0, 0.45);
         --radiant: rgb(198, 255, 0, 0.06);
         --button-bg: #ededed;
@@ -221,10 +222,19 @@
         color-scheme: light;
 }
 
+html,
 body {
+        max-width: 100%;
+        overflow-x: hidden;
         background-color: var(--bg);
         color: var(--text);
         transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.main-layout {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
 }
 
 .app {
@@ -256,6 +266,7 @@ body {
         0% {
                 background-position: -200% 0;
         }
+
         100% {
                 background-position: 200% 0;
         }

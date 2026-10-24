@@ -8,10 +8,28 @@
         width: 100%;
 }
 
-@media (max-width: 900px) {
+@media (min-width: 769px) and (max-width: 1024px) {
+        .contacts {
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(1.5rem, 3vw, 2.5rem);
+                padding: 0 1.5rem;
+                margin: clamp(3rem, 8vh, 6rem) auto;
+        }
+
+        .contacts .get-in-touch .title {
+                font-size: clamp(2rem, 3.8vw, 2.85rem);
+        }
+
+        .contacts .form form {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.85rem;
+        }
+}
+
+@media (max-width: 768px) {
         .contacts {
                 grid-template-columns: 1fr;
-                gap: 3rem;
+                gap: 2.5rem;
         }
 }
 
@@ -169,7 +187,7 @@
 .contacts .form form input:hover,
 .contacts .form form textarea:focus,
 .contacts .form form textarea:hover {
-        border-color: var(--accent);
+        border-color: var(--pill-strong);
         background-color: var(--surface);
 }
 

@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { fetchQualifications } from '../api/QualificationsApi';
 import { APIError } from '../api/APIError';
-import qualifications from '../mock/trialQualifications';
 
 export const QualificationsContext = createContext();
 
@@ -60,7 +59,7 @@ const QualificationsReducer = (state, action) => {
 
 export function QualificationsContextProvider({ children }) {
 	const [state, dispatch] = useReducer(QualificationsReducer, {
-		qualifications: qualifications,
+		qualifications: [],
 		loading: true,
 		error: null
 	});

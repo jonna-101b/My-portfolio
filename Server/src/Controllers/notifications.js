@@ -23,7 +23,7 @@ const addNotification = async (req, res, next) => {
                 if (!name || !email || !subject || !message) {
                         return next(APIError.badRequest('All fields are required.'));
                 }
-                
+
                 const notification = await NotificationsModel.create({ name, email, subject, message });
 
                 // Sanitize message input for HTML rendering
@@ -98,7 +98,7 @@ const sendForgotPasswordNotification = async (req, res, next) => {
 const deleteNotification = async (req, res, next) => {
         try {
                 const id = req.params.id;
-        
+
                 if (!mongoose.Types.ObjectId.isValid(id)) {
                         return next(APIError.notFound('No such message!'));
                 }
@@ -117,4 +117,26 @@ const deleteNotification = async (req, res, next) => {
         }
 };
 
-export { getNotifications, addNotification, deleteNotification, sendForgotPasswordNotification };
+const deleteAllNotifications = async (req, res, next) => {
+        try {
+                const { ids } = req.body || {};
+                let result;
+                if (Array.isArray(ids) && ids.length > 0) {
+                        const validIds = ids.filter((id) => mongoose.Types.ObjectId.isValid(id));
+                        result = await NotificationsModel.deleteMany({ _id: { $in: validIds } });
+                } else {
+                        result = await NotificationsModel.deleteMany({});
+                }
+
+                res.status(200).json({
+                        success: true,
+                        message: 'Notifications deleted successfully',
+                        deletedCount: result.deletedCount
+                });
+        }
+        catch (error) {
+                next(error);
+        }
+};
+
+export { getNotifications, addNotification, deleteNotification, sendForgotPasswordNotification, deleteAllNotifications };

@@ -6,11 +6,15 @@ export const updateProfileValidator = [
   body('lastName').optional().trim().isLength({ min: 2, max: 50 }).withMessage('Last name must be between 2 and 50 characters'),
   body('nickName').optional().trim().isLength({ min: 2, max: 50 }).withMessage('Nickname must be between 2 and 50 characters'),
   body('gender').optional().trim().isLength({ min: 2, max: 30 }).withMessage('Gender must be between 2 and 30 characters'),
+  body('availability').optional().isBoolean().withMessage('Availability must be a boolean'),
   body('birthDate').optional().isISO8601().toDate().withMessage('Birth date must be a valid ISO 8601 date'),
   body('profession').optional().trim().isLength({ min: 2, max: 100 }).withMessage('Profession must be between 2 and 100 characters'),
+  body('professions').optional().isArray().withMessage('Professions must be an array'),
+  body('professions.*').optional().trim().isLength({ min: 2, max: 100 }).withMessage('Each profession must be between 2 and 100 characters'),
   body('picture').optional().trim().isLength({ min: 1, max: 1000 }).withMessage('Picture must be between 1 and 1000 characters'),
   body('bio').optional().trim().isLength({ min: 10, max: 5000 }).withMessage('Bio must be between 10 and 5000 characters'),
-  body('logo').optional().trim().isLength({ min: 1, max: 1000 }).withMessage('Logo must be between 1 and 1000 characters'),
+  body('logo').optional({ values: 'falsy' }).trim().isLength({ min: 1, max: 1000 }).withMessage('Logo must be between 1 and 1000 characters'),
+  body('logoVisible').optional().isBoolean().withMessage('Logo visibility must be a boolean'),
   body('description').optional().isObject().withMessage('Description must be an object'),
   body('description.brief').optional().trim().isLength({ min: 10, max: 500 }).withMessage('Brief description must be between 10 and 500 characters'),
   body('description.detailed').optional().trim().isLength({ min: 20, max: 10000 }).withMessage('Detailed description must be between 20 and 10000 characters'),
@@ -21,7 +25,7 @@ export const updateProfileValidator = [
   body('socialLinks.*.name').optional().trim().isLength({ min: 2, max: 50 }).withMessage('Social link name must be between 2 and 50 characters'),
   body('socialLinks.*.icon').optional().trim().isLength({ min: 1, max: 500 }).withMessage('Social link icon must be between 1 and 500 characters'),
   body('socialLinks.*.url').optional().trim().isURL().withMessage('Social link URL must be valid'),
-  body('resumeLink').optional().trim().isLength({ min: 1, max: 1000 }).withMessage('Resume link must be between 1 and 1000 characters'),
+  body('resumeLink').optional({ values: 'falsy' }).trim().isLength({ min: 1, max: 1000 }).withMessage('Resume link must be between 1 and 1000 characters'),
   parseValidationErrors,
 ];
 
@@ -48,3 +52,8 @@ export const updateSocialLinkValidator = [
 ];
 
 export const socialLinkIdParamValidator = [param('id').isMongoId().withMessage('Invalid social link ID format'), parseValidationErrors];
+
+export const updateLogoVisibilityValidator = [
+  body('logoVisible').isBoolean().withMessage('Logo visibility must be a boolean'),
+  parseValidationErrors,
+];

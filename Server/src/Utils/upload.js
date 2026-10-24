@@ -53,25 +53,144 @@ export const getRelativeFilePath = (filename, subDir = '') => {
 };
 
 /**
- * Deletes a local file given its relative or absolute path.
- * @param {string} fileRelativeOrAbsolutePath
+ * Safely deletes a local file from Server/uploads given a URL, relative path, or filename.
+ * Handles:
+ * - Full URLs: 'http://localhost:5000/uploads/images/xyz.jpg'
+ * - Relative paths: '/uploads/images/xyz.jpg' or 'uploads/images/xyz.jpg'
+ * - Windows paths: '\uploads\images\xyz.jpg' or 'uploads\images\xyz.jpg'
+ * - Direct subDir paths: 'images/xyz.jpg' or 'documents/xyz.pdf'
+ * - Objects with .url or .path
+ * - Arrays of paths/objects
+ * - Ignores external URLs (e.g. cloudinary, unsplash) not in /uploads/
+ * - Protects against path traversal outside Server/uploads
+ * 
+ * @param {string|object|Array} fileSource - Path, URL, object, or array of paths/objects
+ * @returns {boolean} Whether file(s) were successfully deleted
  */
-export const deleteUploadedFile = (fileRelativeOrAbsolutePath) => {
-  if (!fileRelativeOrAbsolutePath) return;
-  try {
-    let absolutePath = fileRelativeOrAbsolutePath;
-    if (fileRelativeOrAbsolutePath.startsWith('/uploads/')) {
-      const relativePart = fileRelativeOrAbsolutePath.replace(/^\/uploads\//, '');
-      absolutePath = path.join(UPLOADS_ROOT, relativePart);
-    } else if (fileRelativeOrAbsolutePath.startsWith('uploads/')) {
-      const relativePart = fileRelativeOrAbsolutePath.replace(/^uploads\//, '');
-      absolutePath = path.join(UPLOADS_ROOT, relativePart);
-    }
+export const deleteUploadedFile = (fileSource) => {
+  if (!fileSource) return false;
 
+  // If array, recursively delete each item
+  if (Array.isArray(fileSource)) {
+    let allDeleted = true;
+    for (const item of fileSource) {
+      const res = deleteUploadedFile(item);
+      if (!res) allDeleted = false;
+    }
+    return allDeleted;
+  }
+
+  // If object, extract url, path, or preview
+  let pathStr = fileSource;
+  if (typeof fileSource === 'object' && fileSource !== null) {
+    pathStr = fileSource.url || fileSource.path || fileSource.preview || '';
+  }
+
+  if (typeof pathStr !== 'string' || !pathStr.trim()) {
+    return false;
+  }
+
+  pathStr = pathStr.trim();
+
+  // If full URL, parse pathname
+  if (pathStr.startsWith('http://') || pathStr.startsWith('https://')) {
+    try {
+      const parsedUrl = new URL(pathStr);
+      pathStr = parsedUrl.pathname;
+    } catch {
+      pathStr = pathStr.replace(/^https?:\/\/[^\/]+/, '');
+    }
+  }
+
+  // Strip query parameters and hash
+  pathStr = pathStr.split('?')[0].split('#')[0];
+
+  // Normalize slashes (convert backslashes to forward slashes)
+  pathStr = pathStr.replace(/\\/g, '/');
+
+  let relativePart = null;
+
+  if (pathStr.includes('/uploads/')) {
+    relativePart = pathStr.substring(pathStr.indexOf('/uploads/') + '/uploads/'.length);
+  } else if (pathStr.startsWith('uploads/')) {
+    relativePart = pathStr.substring('uploads/'.length);
+  } else if (
+    pathStr.startsWith('/images/') ||
+    pathStr.startsWith('images/') ||
+    pathStr.startsWith('/documents/') ||
+    pathStr.startsWith('documents/')
+  ) {
+    relativePart = pathStr.replace(/^\//, '');
+  }
+
+  // If not pointing to an uploads directory path, safely ignore
+  if (!relativePart) {
+    return false;
+  }
+
+  try {
+    relativePart = decodeURIComponent(relativePart);
+  } catch {
+    // Keep raw relative part
+  }
+
+  const absolutePath = path.resolve(UPLOADS_ROOT, relativePart);
+
+  // Security check: Ensure target path is strictly within UPLOADS_ROOT
+  const normalizedRoot = path.resolve(UPLOADS_ROOT);
+  if (!absolutePath.startsWith(normalizedRoot) || absolutePath === normalizedRoot) {
+    console.warn(`Blocked attempt to delete file outside uploads directory: ${absolutePath}`);
+    return false;
+  }
+
+  try {
     if (fs.existsSync(absolutePath)) {
-      fs.unlinkSync(absolutePath);
+      const stats = fs.statSync(absolutePath);
+      if (stats.isFile()) {
+        fs.unlinkSync(absolutePath);
+        console.log(`Successfully deleted uploaded file: ${absolutePath}`);
+        return true;
+      }
     }
   } catch (error) {
-    console.error(`Failed to delete uploaded file: ${fileRelativeOrAbsolutePath}`, error);
+    console.error(`Failed to delete uploaded file at ${absolutePath}:`, error.message);
+  }
+
+  return false;
+};
+
+export const deleteUploadedFiles = deleteUploadedFile;
+
+/**
+ * Compares previous file value(s) with new file value(s) and deletes any old files that are no longer present.
+ * 
+ * @param {string|Array} oldVal - Previous file path/URL or array
+ * @param {string|Array} newVal - New file path/URL or array
+ */
+export const deleteReplacedFiles = (oldVal, newVal) => {
+  const extractUrls = (val) => {
+    if (!val) return [];
+    if (Array.isArray(val)) {
+      return val
+        .map((item) => (typeof item === 'object' && item !== null ? item.url || item.path || '' : item))
+        .filter((item) => typeof item === 'string' && item.trim().length > 0);
+    }
+    if (typeof val === 'object' && val !== null) {
+      const u = val.url || val.path || '';
+      return typeof u === 'string' && u.trim().length > 0 ? [u] : [];
+    }
+    if (typeof val === 'string' && val.trim().length > 0) {
+      return [val.trim()];
+    }
+    return [];
+  };
+
+  const oldList = extractUrls(oldVal);
+  const newList = extractUrls(newVal);
+
+  for (const oldFile of oldList) {
+    if (!newList.includes(oldFile)) {
+      deleteUploadedFile(oldFile);
+    }
   }
 };

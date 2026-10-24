@@ -6,11 +6,11 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import Select, { components } from 'react-select';
+import Select, { components as SelectComponents } from 'react-select';
 import '../Styles/SocialLinksCard.css';
 
 const Option = (props) => (
-        <components.Option {...props}>
+        <SelectComponents.Option {...props}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", width: "100%" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                                 <SimpleIcon
@@ -28,11 +28,11 @@ const Option = (props) => (
                                 </span>
                         )}
                 </div>
-        </components.Option>
+        </SelectComponents.Option>
 );
 
 const SingleValue = (props) => (
-        <components.SingleValue {...props}>
+        <SelectComponents.SingleValue {...props}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         <SimpleIcon
                                 name={props.data.icon || props.data.slug || props.data.name}
@@ -43,7 +43,7 @@ const SingleValue = (props) => (
                                 {props.data.name || props.data.label}
                         </span>
                 </div>
-        </components.SingleValue>
+        </SelectComponents.SingleValue>
 );
 
 function SocialLinksCard() {
@@ -51,6 +51,8 @@ function SocialLinksCard() {
         const socialLinks = profile?.socialLinks || [];
         const [isAddOpen, setIsAddOpen] = useState(false);
         const [selectedOption, setSelectedOption] = useState(null);
+        const [urlInput, setUrlInput] = useState("");
+        const [urlError, setUrlError] = useState("");
         const [searchQuery, setSearchQuery] = useState("");
         const popupRef = useRef(null);
 
@@ -104,6 +106,22 @@ function SocialLinksCard() {
 
         const handleSelectChange = (val) => {
                 setSelectedOption(val);
+                if (val) {
+                        const defaultUrl = val.url || (val.name ? `https://${val.name.toLowerCase().replace(/[^a-z0-9]/g, '')}.com/` : "");
+                        setUrlInput(defaultUrl);
+                        setUrlError("");
+                } else {
+                        setUrlInput("");
+                        setUrlError("");
+                }
+        };
+
+        const handleClosePopup = () => {
+                setSelectedOption(null);
+                setUrlInput("");
+                setUrlError("");
+                setSearchQuery("");
+                setIsAddOpen(false);
         };
 
         const handleInputChange = (inputValue, { action }) => {
@@ -116,21 +134,34 @@ function SocialLinksCard() {
                 if (!selectedOption) return;
                 const name = selectedOption.name || selectedOption.label || selectedOption.value;
                 const icon = selectedOption.icon || selectedOption.slug || name;
-                const url = selectedOption.url || `https://${name.toLowerCase()}.com`;
+                let url = urlInput.trim();
+
+                if (!url) {
+                        setUrlError("Please enter your profile URL");
+                        return;
+                }
+
+                if (!/^https?:\/\//i.test(url)) {
+                        url = `https://${url}`;
+                }
+
+                try {
+                        new URL(url);
+                } catch {
+                        setUrlError("Please enter a valid URL (e.g. https://...)");
+                        return;
+                }
 
                 const existing = socialLinks.some(s => (typeof s === 'object' ? s.name : s)?.toLowerCase() === name.toLowerCase());
                 if (!existing && addSocialLinks) {
                         addSocialLinks([{
-                                _id: `soc-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
                                 name,
                                 icon,
                                 url
                         }]);
                 }
 
-                setSelectedOption(null);
-                setIsAddOpen(false);
-                setSearchQuery("");
+                handleClosePopup();
         };
 
         const handleDeleteLink = (link) => {
@@ -144,7 +175,7 @@ function SocialLinksCard() {
         useEffect(() => {
                 const handleClickOutside = (e) => {
                         if (popupRef.current && !popupRef.current.contains(e.target)) {
-                                setIsAddOpen(false);
+                                handleClosePopup();
                         }
                 };
                 if (isAddOpen) {
@@ -209,18 +240,19 @@ function SocialLinksCard() {
                         {isAddOpen && (
                                 <div className="social-popup">
                                         <div className="popup-top">
-                                                <span className="popup-heading">Select Platform</span>
+                                                <span className="popup-heading">Add Social Link</span>
                                                 <button
                                                         type="button"
                                                         className="popup-close-btn"
-                                                        onClick={() => setIsAddOpen(false)}
+                                                        onClick={handleClosePopup}
                                                         aria-label="Close popup"
                                                 >
                                                         <CloseRoundedIcon style={{ fontSize: '1.1rem' }} />
                                                 </button>
                                         </div>
 
-                                        <div className="popup-select-row">
+                                        <div className="popup-field-group">
+                                                <label className="popup-field-label">Platform</label>
                                                 <div className="select-container-wrapper">
                                                         <Select
                                                                 options={selectOptions}
@@ -233,8 +265,30 @@ function SocialLinksCard() {
                                                                 isClearable
                                                                 isSearchable
                                                                 autoFocus
-                                                                menuIsOpen={true}
                                                         />
+                                                </div>
+                                        </div>
+
+                                        <div className="popup-field-group">
+                                                <label className="popup-field-label">Profile URL</label>
+                                                <div className="url-input-container">
+                                                        <input
+                                                                type="text"
+                                                                className={`popup-url-input ${urlError ? "has-error" : ""}`}
+                                                                placeholder="https://example.com/username"
+                                                                value={urlInput}
+                                                                onChange={(e) => {
+                                                                        setUrlInput(e.target.value);
+                                                                        if (urlError) setUrlError("");
+                                                                }}
+                                                                onKeyDown={(e) => {
+                                                                        if (e.key === 'Enter') {
+                                                                                e.preventDefault();
+                                                                                handleAddLink();
+                                                                        }
+                                                                }}
+                                                        />
+                                                        {urlError && <span className="url-error-msg">{urlError}</span>}
                                                 </div>
                                         </div>
 
@@ -242,10 +296,7 @@ function SocialLinksCard() {
                                                 <button
                                                         type="button"
                                                         className="btn-cancel"
-                                                        onClick={() => {
-                                                                setSelectedOption(null);
-                                                                setIsAddOpen(false);
-                                                        }}
+                                                        onClick={handleClosePopup}
                                                 >
                                                         Cancel
                                                 </button>
@@ -253,7 +304,7 @@ function SocialLinksCard() {
                                                         type="button"
                                                         className="btn-done"
                                                         onClick={handleAddLink}
-                                                        disabled={!selectedOption}
+                                                        disabled={!selectedOption || !urlInput.trim()}
                                                 >
                                                         <CheckRoundedIcon style={{ fontSize: '1rem' }} />
                                                         <span>Add</span>
@@ -267,14 +318,28 @@ function SocialLinksCard() {
                                         socialLinks.map((link, index) => {
                                                 const linkName = typeof link === 'object' ? link.name : link;
                                                 const linkIcon = typeof link === 'object' ? (link.icon || link.name) : link;
+                                                const linkUrl = typeof link === 'object' ? link.url : '';
 
                                                 return (
-                                                        <div className="social-item" key={index}>
+                                                        <div className="social-item" key={link?._id || index}>
                                                                 <div className="item-info">
                                                                         <span className="platform-icon">
                                                                                 <SimpleIcon name={linkIcon} size="18px" color="var(--admin-accent)" />
                                                                         </span>
-                                                                        <span className="item-text">{linkName}</span>
+                                                                        <div className="item-details">
+                                                                                <span className="item-text">{linkName}</span>
+                                                                                {linkUrl && (
+                                                                                        <a
+                                                                                                href={linkUrl}
+                                                                                                target="_blank"
+                                                                                                rel="noopener noreferrer"
+                                                                                                className="item-link"
+                                                                                                title={linkUrl}
+                                                                                        >
+                                                                                                {linkUrl}
+                                                                                        </a>
+                                                                                )}
+                                                                        </div>
                                                                 </div>
                                                                 <button
                                                                         type="button"

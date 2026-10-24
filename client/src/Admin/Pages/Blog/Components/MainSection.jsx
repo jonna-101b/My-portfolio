@@ -13,7 +13,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/blog-shadow.png';
 import Form from './Form';
-import { getAssetUrl } from '../../../../Utils/assetUtils';
+import { ImageWithFallback } from '../../../../Utils/imageUtils';
 import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
@@ -97,16 +97,14 @@ function BlogLayout({ blog, layout }) {
                         </div>
 
                         <div className="banner-container">
-                                { blog.image ? (
-                                        <img src={getAssetUrl(blog.image)} alt={blog.title} className="banner-image" />
-                                ) : (
-                                        <div className="placeholder-banner">
-                                                <div className="placeholder-icon-box">
-                                                        <ArticleOutlinedIcon className="placeholder-icon" />
-                                                </div>
-                                                <span className="placeholder-text">Blog Post Preview</span>
-                                        </div>
-                                )}
+                                <ImageWithFallback 
+                                        src={Array.isArray(blog.image) ? blog.image[0] : blog.image} 
+                                        alt={blog.title} 
+                                        className="banner-image"
+                                        fallbackIcon={<ArticleOutlinedIcon className="placeholder-icon" style={{ fontSize: '2.5rem', color: '#38bdf8' }} />}
+                                        fallbackText="Blog Post Preview"
+                                        fallbackColor="var(--admin-surface-darkest, #151515)"
+                                />
                         </div>
 
                         <h3 className="title">{ blog.title }</h3>

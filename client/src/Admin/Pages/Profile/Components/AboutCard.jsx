@@ -7,21 +7,22 @@ import '../Styles/AboutCard.css';
 
 function AboutCard() {
         const { profile, updateDescription } = useProfileReducer();
-        const description = profile?.description || { brief: "", detailed: "" };
+        const brief = profile?.description?.brief || "";
+        const detailed = profile?.description?.detailed || "";
         const [tab, setTab] = useState("brief");
         const [isEditing, setIsEditing] = useState(false);
         const [descriptions, setDescriptions] = useState({
-                brief: description.brief || "",
-                detailed: description.detailed || "",
+                brief,
+                detailed,
         });
         const textareaRef = useRef(null);
 
         useEffect(() => {
                 setDescriptions({
-                        brief: description.brief || "",
-                        detailed: description.detailed || "",
+                        brief,
+                        detailed,
                 });
-        }, [description]);
+        }, [brief, detailed]);
 
         useEffect(() => {
                 if (isEditing && textareaRef.current) {
@@ -37,8 +38,8 @@ function AboutCard() {
         const handleEditToggle = () => {
                 if (isEditing) {
                         setDescriptions({
-                                brief: description.brief || "",
-                                detailed: description.detailed || "",
+                                brief,
+                                detailed,
                         });
                         setIsEditing(false);
                 } else {
@@ -131,7 +132,7 @@ function AboutCard() {
                                                 ) : (
                                                         <button
                                                                 type="button"
-                                                                className="row-action-btn edit"
+                                                                className="row-action-btn"
                                                                 onClick={handleEditToggle}
                                                                 aria-label="Edit about description"
                                                         >

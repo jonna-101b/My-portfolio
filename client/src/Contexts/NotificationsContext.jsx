@@ -37,8 +37,9 @@ const notificationsReducer = (state, action) => {
 		case "DELETE_NOTIFICATIONS":
 			return {
 				...state,
-				notifications: state.notifications.filter(
-					(notification) => !action.payload.includes(notification._id)),
+				notifications: Array.isArray(action.payload)
+					? state.notifications.filter((notification) => !action.payload.includes(notification._id))
+					: [],
 				loading: false,
 				error: null
 			};

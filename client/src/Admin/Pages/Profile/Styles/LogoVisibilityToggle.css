@@ -1,0 +1,80 @@
+/* Logo Visibility Toggle Switch Styling */
+
+.logo-visibility-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 14px;
+        padding: 12px 18px;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+        margin-top: 8px;
+}
+
+.logo-visibility-row:hover {
+        border-color: var(--admin-border-medium);
+}
+
+.logo-visibility-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+}
+
+.logo-visibility-label {
+        font-size: 0.875rem;
+        color: var(--admin-text-primary);
+        font-weight: 500;
+}
+
+.logo-visibility-hint {
+        font-size: 0.75rem;
+        color: var(--admin-text-muted);
+}
+
+/* Custom iOS-style animated Toggle Switch matching PictureInfo */
+.logo-visibility-row .toggle-switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        border-radius: 20px;
+        background-color: var(--admin-border-base);
+        border: none;
+        cursor: pointer;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: none;
+        flex-shrink: 0;
+}
+
+.logo-visibility-row .toggle-switch.on {
+        background-color: var(--admin-accent);
+}
+
+.logo-visibility-row .toggle-switch.off {
+        background-color: var(--admin-border-base);
+}
+
+.logo-visibility-row .toggle-switch:hover {
+        opacity: 0.95;
+}
+
+.logo-visibility-row .toggle-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--admin-text-primary);
+        box-shadow: 0 2px 4px var(--admin-overlay);
+        transform: translateX(0);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.25s ease;
+}
+
+.logo-visibility-row .toggle-switch.on .toggle-thumb {
+        transform: translateX(20px);
+        background-color: var(--admin-surface-darkest);
+}

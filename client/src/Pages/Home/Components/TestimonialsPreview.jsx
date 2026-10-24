@@ -1,18 +1,16 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState, useCallback } from 'react';
 import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTestimonialsReducer from '../../../Hooks/useTestimonialsReducer';
 import TestimonialsPreviewSkeleton from '../../../Components/Skeletons/TestimonialsPreviewSkeleton';
 import { getInitials } from '../../../Utils/avatarUtils';
-import { getAssetUrl } from '../../../Utils/assetUtils';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import { ImageWithFallback } from '../../../Utils/imageUtils';
 import QuoteShadowIcon from '../../../assets/Icons/Common/quote-shadow.png';
 import QuoteLightShadowIcon from '../../../assets/Icons/Common/quote-light.png';
 import "../Styles/TestimonialsPreview.css";
 
 function Testimonial({ testimonial }) {
 	const { theme } = useContext(ThemeContext);
-	const [imgError, setImgError] = useState(false);
-
-	const hasValidImage = testimonial?.picture && !imgError;
 
 	return (
 		<div className="testimonial">
@@ -22,26 +20,34 @@ function Testimonial({ testimonial }) {
 
 			<div className="info">
 				<div className="image">
-					{hasValidImage ? (
-						<img 
-							src={ getAssetUrl(testimonial.picture) } 
-							alt={ testimonial.name || "Testimonial author" }
-							onError={() => setImgError(true)}
-						/>
-					) : (
-						<span className="avatar-initials">{ getInitials(testimonial?.name) }</span>
-					)}
+					<ImageWithFallback
+						src={testimonial?.picture}
+						alt={testimonial?.name || "Testimonial author"}
+						iconColor={'var(--text)'}
+						iconSize={'1.25rem'}
+						fallbackInitials={
+							getInitials(testimonial?.name)
+						}
+						fallbackIcon={
+							<PersonOutlineRoundedIcon 
+								style={{ 
+									fontSize: '1.8rem', 
+									color: 'var(--accent, #c6ff00)' 
+								}} 
+							/>
+						}
+					/>
 				</div>
 
 				<div className="details">
-					<p className="name">{ testimonial.name }</p>
+					<p className="name">{testimonial.name}</p>
 
-					<p className="position">{ testimonial.company ? `${testimonial.position} at ` + testimonial.company : testimonial.position}</p>
+					<p className="position">{testimonial.company ? `${testimonial.position} at ` + testimonial.company : testimonial.position}</p>
 				</div>
 			</div>
 
 			<div className="testimony">
-				<p>{ testimonial.testimony }</p>
+				<p>{testimonial.testimony}</p>
 			</div>
 		</div>
 	);
@@ -49,11 +55,11 @@ function Testimonial({ testimonial }) {
 
 function TestimonialsPreview() {
 	const { state, loading } = useTestimonialsReducer();
-	const [ testimonials, setTestimonials ] = useState(state.testimonials);
+	const [testimonials, setTestimonials] = useState(state.testimonials);
 	const testimonialsRef = useRef(null);
-	
-	const [ visibleCount, setVisibleCount ] = useState(3);
-	const [ currentIndex, setCurrentIndex ] = useState(1);
+
+	const [visibleCount, setVisibleCount] = useState(3);
+	const [currentIndex, setCurrentIndex] = useState(1);
 
 	const updateVisibleCount = () => {
 		if (typeof window === 'undefined') return;
@@ -75,7 +81,7 @@ function TestimonialsPreview() {
 	const maxIndex = Math.max(1, (testimonials?.length || 0) - visibleCount + 1);
 	const pagination = Array.from({ length: maxIndex }, (_, i) => i + 1);
 
-	const slideTo = (index) => {
+	const slideTo = useCallback((index) => {
 		if (!testimonialsRef.current) return;
 		const safeIndex = Math.max(1, Math.min(index, maxIndex));
 		const children = testimonialsRef.current.children;
@@ -84,7 +90,7 @@ function TestimonialsPreview() {
 			testimonialsRef.current.style.transform = `translateX(-${offset}px)`;
 		}
 		setCurrentIndex(safeIndex);
-	};
+	}, [maxIndex]);
 
 	const handleTestimonialsSlide = (newIndex) => {
 		if (currentIndex !== newIndex) {
@@ -95,7 +101,7 @@ function TestimonialsPreview() {
 	useEffect(() => {
 		setTestimonials(state.testimonials);
 		slideTo(1);
-	}, [state.testimonials, visibleCount]);
+	}, [state.testimonials, visibleCount, slideTo]);
 
 	if (loading) {
 		return <TestimonialsPreviewSkeleton />;
@@ -117,22 +123,22 @@ function TestimonialsPreview() {
 
 			<div className="testimonials">
 				<div className="wrapper" ref={testimonialsRef} >
-					{ testimonials.map((testimonial, index) => (
-						<Testimonial key={testimonial._id || index} testimonial={ testimonial } />
-					)) }
+					{testimonials.map((testimonial, index) => (
+						<Testimonial key={testimonial._id || index} testimonial={testimonial} />
+					))}
 				</div>
 			</div>
 
 			{pagination.length > 1 && (
 				<div className="pagination">
-					{ pagination.map((index) => (
-						<p 
-							className={currentIndex === index ? "focused" : ""} 
-							key={index} 
+					{pagination.map((index) => (
+						<p
+							className={currentIndex === index ? "focused" : ""}
+							key={index}
 							onClick={() => handleTestimonialsSlide(index)}
 							aria-label={`Go to slide ${index}`}
 						/>
-					)) }
+					))}
 				</div>
 			)}
 		</div>

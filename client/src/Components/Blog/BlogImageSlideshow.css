@@ -1,0 +1,148 @@
+.blog-slideshow-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.blog-slideshow-container.single-image img,
+.blog-slideshow-container.single-image .app-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.blog-slideshow-track {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: transform;
+}
+
+.blog-slideshow-slide {
+	flex: 0 0 100%;
+	min-width: 100%;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.blog-slideshow-slide img,
+.blog-slideshow-slide .app-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* Arrows */
+.slideshow-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	background: rgba(15, 23, 42, 0.65);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	color: #f8fafc;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 6;
+	opacity: 0;
+	transition: opacity 0.25s ease, background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+	padding: 0;
+}
+
+.blog-slideshow-container:hover .slideshow-arrow {
+	opacity: 0.9;
+}
+
+.slideshow-arrow:hover {
+	opacity: 1 !important;
+	transform: translateY(-50%) scale(1.1);
+	background: var(--pill);
+	border-color: var(--accent);
+	color: var(--accent);
+}
+
+.slideshow-arrow.arrow-prev {
+	left: 12px;
+}
+
+.slideshow-arrow.arrow-next {
+	right: 12px;
+}
+
+/* Indicators & counter footer */
+.slideshow-footer-overlay {
+	position: absolute;
+	bottom: clamp(1rem, 2vw, 1.5rem);
+	right: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 10px;
+	z-index: 6;
+	pointer-events: none;
+}
+
+.slideshow-indicators {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	background: rgba(15, 23, 42, 0.65);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border-radius: 20px;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	pointer-events: auto;
+}
+
+.indicator-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.35);
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.indicator-dot:hover {
+	background: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-dot.active {
+	width: 20px;
+	border-radius: 8px;
+	background: var(--accent);
+	box-shadow: 0 0 10px var(--pill-strong);
+}
+
+.slideshow-counter {
+	padding: 3px 8px;
+	font-size: 0.72rem;
+	font-weight: 600;
+	color: #f1f5f9;
+	background: rgba(15, 23, 42, 0.65);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 12px;
+	pointer-events: auto;
+	letter-spacing: 0.04em;
+}

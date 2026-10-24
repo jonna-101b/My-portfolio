@@ -12,7 +12,7 @@ export const uploadImage = async (file, onProgress) => {
 
   const response = await protectedApi.post('/upload/image', formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': undefined,
     },
     onUploadProgress: (progressEvent) => {
       if (onProgress && progressEvent.total) {
@@ -37,7 +37,7 @@ export const uploadDocument = async (file, onProgress) => {
 
   const response = await protectedApi.post('/upload/document', formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': undefined,
     },
     onUploadProgress: (progressEvent) => {
       if (onProgress && progressEvent.total) {
@@ -62,7 +62,7 @@ export const uploadFile = async (file, onProgress) => {
 
   const response = await protectedApi.post('/upload', formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': undefined,
     },
     onUploadProgress: (progressEvent) => {
       if (onProgress && progressEvent.total) {
@@ -72,5 +72,18 @@ export const uploadFile = async (file, onProgress) => {
     },
   });
 
+  return response.data;
+};
+
+/**
+ * Delete an uploaded file from the server
+ * @param {string} fileUrl - Relative URL or path of file to delete (e.g., /uploads/images/xyz.jpg)
+ * @returns {Promise<{ success: boolean, deleted: boolean, message: string }>}
+ */
+export const deleteFile = async (fileUrl) => {
+  if (!fileUrl) return { success: false, deleted: false };
+  const response = await protectedApi.delete('/upload', {
+    data: { url: fileUrl },
+  });
   return response.data;
 };

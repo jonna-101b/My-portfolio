@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import useNotificationsReducer from '../../../Hooks/useNotificationsReducer';
 
@@ -71,7 +71,6 @@ function Notifications({ isOpen, onToggle, onClose }) {
 
 	const [showInternal, setShowInternal] = useState(false);
 	const [selectedNotification, setSelectedNotification] = useState(null);
-	const [notificationFilter, setNotificationFilter] = useState('all');
 	const notifContainerRef = useRef(null);
 
 	const isControlled = typeof isOpen === 'boolean';
@@ -85,13 +84,13 @@ function Notifications({ isOpen, onToggle, onClose }) {
 		}
 	};
 
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		if (onClose) {
 			onClose();
 		} else {
 			setShowInternal(false);
 		}
-	};
+	}, [onClose]);
 
 	useEffect(() => {
 		const handleClickOutside = (e) => {
@@ -124,24 +123,19 @@ function Notifications({ isOpen, onToggle, onClose }) {
 			document.removeEventListener('keydown', handleKeyDown);
 			window.removeEventListener('open-admin-notifications', handleOpenNotifications);
 		};
-	}, [isOpen, onToggle, onClose]);
+	}, [isOpen, onToggle, handleClose]);
 
-	const handleClearAllNotifications = () => {
+	const handleClearAllNotifications = async () => {
 		const allIds = notifications.map((n) => n._id);
 		if (allIds.length > 0) {
-			deleteNotifications(allIds);
+			try {
+				await deleteNotifications(allIds);
+			} catch (error) {
+				console.error("Failed to clear notifications:", error);
+			}
 		}
 	};
 
-	const filteredNotifications = notifications.filter((notif) => {
-		if (notificationFilter === 'testimonials') {
-			return (notif.subject || "").toLowerCase() === 'testimony' || (notif.subject || "").toLowerCase() === 'testimonial';
-		}
-		if (notificationFilter === 'messages') {
-			return (notif.subject || "").toLowerCase() !== 'testimony' && (notif.subject || "").toLowerCase() !== 'testimonial';
-		}
-		return true;
-	});
 
 	const formattedNotifCount = formatNotificationCount(notifications.length);
 
@@ -202,37 +196,10 @@ function Notifications({ isOpen, onToggle, onClose }) {
 						</div>
 					</div>
 
-					{/* Filter tabs if notifications exist */}
-					{notifications.length > 0 && (
-						<div className="popover-filter-tabs">
-							<button 
-								type="button" 
-								className={`popover-filter-tab ${notificationFilter === 'all' ? 'active' : ''}`}
-								onClick={() => setNotificationFilter('all')}
-							>
-								All ({notifications.length})
-							</button>
-							<button 
-								type="button" 
-								className={`popover-filter-tab ${notificationFilter === 'messages' ? 'active' : ''}`}
-								onClick={() => setNotificationFilter('messages')}
-							>
-								Messages
-							</button>
-							<button 
-								type="button" 
-								className={`popover-filter-tab ${notificationFilter === 'testimonials' ? 'active' : ''}`}
-								onClick={() => setNotificationFilter('testimonials')}
-							>
-								Testimonials
-							</button>
-						</div>
-					)}
-
 					<div className="popover-content-list custom-scrollbar">
 						{notifState?.loading ? (
 							<AdminNotificationsSkeleton rows={3} />
-						) : filteredNotifications.length === 0 ? (
+						) : notifications.length === 0 ? (
 							<div className="popover-empty-state">
 								<div className="empty-icon-circle notif-empty">
 									<NotificationsOffOutlinedIcon fontSize="medium" />
@@ -241,7 +208,7 @@ function Notifications({ isOpen, onToggle, onClose }) {
 								<p className="empty-desc">You are all caught up with your alerts and messages!</p>
 							</div>
 						) : (
-							filteredNotifications.map((notif, index) => {
+							notifications.map((notif, index) => {
 								const isTestimony = (notif.subject || "").toLowerCase() === "testimony";
 								let timeAgo = "Recently";
 								try {

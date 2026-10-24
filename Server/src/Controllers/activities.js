@@ -5,7 +5,7 @@ import { APIError } from '../Errors/APIError.js';
 // Controller functions for activities
 const getActivities = async (req, res, next) => {
         try {
-                const activities = await ActivitiesModel.find({}).sort({ createdAt: -1 });
+                const activities = await ActivitiesModel.find({}).sort({ date: -1, _id: -1 });
                 res.status(200).json(activities);
         }
         catch (error) {
@@ -28,7 +28,7 @@ const deleteActivity = async (req, res, next) => {
                 const id = req.params.id;
         
                 if (!mongoose.Types.ObjectId.isValid(id)) {
-                        return next(APIError.notFound('No such message!'));
+                        return next(APIError.notFound('No such activity!'));
                 }
 
                 const activity = await ActivitiesModel.findByIdAndDelete(id);
@@ -37,7 +37,7 @@ const deleteActivity = async (req, res, next) => {
                         res.status(200).json(activity);
                 }
                 else {
-                        return next(APIError.notFound('No such message'));
+                        return next(APIError.notFound('No such activity!'));
                 }
         }
         catch (error) {
@@ -45,4 +45,26 @@ const deleteActivity = async (req, res, next) => {
         }
 };
 
-export { getActivities, addActivity, deleteActivity };
+const deleteAllActivities = async (req, res, next) => {
+        try {
+                const { ids } = req.body || {};
+                let result;
+                if (Array.isArray(ids) && ids.length > 0) {
+                        const validIds = ids.filter((id) => mongoose.Types.ObjectId.isValid(id));
+                        result = await ActivitiesModel.deleteMany({ _id: { $in: validIds } });
+                } else {
+                        result = await ActivitiesModel.deleteMany({});
+                }
+
+                res.status(200).json({
+                        success: true,
+                        message: 'Activities deleted successfully',
+                        deletedCount: result.deletedCount
+                });
+        }
+        catch (error) {
+                next(error);
+        }
+};
+
+export { getActivities, addActivity, deleteActivity, deleteAllActivities };

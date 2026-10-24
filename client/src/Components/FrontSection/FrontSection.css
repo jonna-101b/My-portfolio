@@ -84,7 +84,7 @@
         gap: 1vh;
         font-size: 0.9375rem;
         font-weight: 600;
-        background-color: var(--surface-soft);
+        background-color: var(--surface-strong);
         border: none;
         border-radius: 10vh;
         padding: 1vh 4vh;
@@ -93,7 +93,7 @@
 }
 
 :root[data-theme='light'] .front-section .intro .contact button {
-        background-color: var(--surface);
+        background-color: var(--pill-soft);
 }
 
 :root[data-theme='light'] .front-section .intro .contact button:focus,
@@ -195,7 +195,56 @@
    Responsive Breakpoints for FrontSection
    ========================================================================== */
 
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
+        .front-section .intro {
+                width: 92vw;
+                max-width: 960px;
+                height: auto;
+                min-height: 72vh;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 2.5rem;
+                padding: 4.5rem 1.5rem 2.5rem;
+        }
+
+        .front-section .intro .info {
+                text-align: left;
+                justify-items: start;
+                max-width: 55%;
+                gap: 2.5vh;
+        }
+
+        .front-section .intro .info .title {
+                font-size: 2.25rem;
+        }
+
+        .front-section .intro .info .intro-text {
+                font-size: 1.1rem;
+        }
+
+        .front-section .intro .image img {
+                width: clamp(240px, 32vw, 360px);
+                height: auto;
+        }
+
+        .front-section .intro .social-links {
+                position: relative;
+                left: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+        }
+
+        .front-section .scroll-down {
+                position: relative;
+                top: auto;
+                margin-top: 1.5rem;
+                margin-bottom: 1.5rem;
+        }
+}
+
+@media (max-width: 768px) {
         .front-section .intro {
                 width: 90vw;
                 height: auto;
@@ -235,8 +284,19 @@
 }
 
 @media (max-width: 640px) {
+        .front-section {
+                position: relative;
+                top: 30px;
+                gap: 0rem;
+                margin-bottom: 90px;
+        }
+
+        .front-section .intro {
+                padding-bottom: 1rem;               
+        }
+
         .front-section .intro .info .title {
-                font-size: 2rem;
+                font-size: 2.75rem;               
         }
 
         .front-section .intro .info .intro-text {

@@ -31,3 +31,11 @@ export const deleteProfileSocialLink = async (socialLinkId) => {
   const response = await protectedApi.delete(`/profile/social/${socialLinkId}`);
   return response.data;
 };
+
+export const updateLogoVisibility = async (logoVisible) => {
+  const payload = typeof logoVisible === 'object' && logoVisible !== null && 'logoVisible' in logoVisible
+    ? logoVisible
+    : { logoVisible: Boolean(logoVisible) };
+  const response = await protectedApi.patch('/profile/logo-visibility', payload);
+  return response.data;
+};

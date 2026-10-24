@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { ViewContext } from '../Contexts/ViewContext';
 import { format } from 'date-fns';
 import { getInitials } from '../../../../Utils/avatarUtils';
@@ -7,13 +7,12 @@ import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { getAssetUrl } from '../../../../Utils/assetUtils';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import { ImageWithFallback } from '../../../../Utils/imageUtils';
 import '../Styles/View.css';
 
 
 function Wrapper({ testimonial, handleDisplay }) {
-        const [imgError, setImgError] = useState(false);
-
         const formatDate = (date) => {
                 if (!date) return "";
                 try {
@@ -44,15 +43,13 @@ function Wrapper({ testimonial, handleDisplay }) {
                         <div className="container">
                                 <div className="author-hero-card">
                                         <div className="avatar-wrapper">
-                                                {testimonial.picture && !imgError ? (
-                                                        <img 
-                                                                src={getAssetUrl(testimonial.picture)} 
-                                                                alt={testimonial.name || "Author avatar"} 
-                                                                onError={() => setImgError(true)}
-                                                        />
-                                                ) : (
-                                                        <span className="avatar-initials">{getInitials(testimonial.name)}</span>
-                                                )}
+                                                <ImageWithFallback 
+                                                        src={testimonial.picture} 
+                                                        alt={testimonial.name || "Author avatar"}
+                                                        fallbackInitials={getInitials(testimonial.name)}
+                                                        fallbackIcon={<PersonOutlineRoundedIcon style={{ fontSize: '2.5rem', color: 'var(--admin-accent)' }} />}
+                                                        fallbackColor="var(--admin-surface-darkest, #151515)"
+                                                />
                                         </div>
 
                                         <div className="author-info">

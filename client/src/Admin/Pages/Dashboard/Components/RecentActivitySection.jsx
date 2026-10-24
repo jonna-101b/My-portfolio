@@ -15,7 +15,7 @@ import "../Styles/RecentActivitySection.css";
 function RecentActivitySection() {
         const { state } = useActivitiesReducer();
         const loading = state?.loading;
-        const rawActivities = state?.activities || [];
+        const rawActivities = useMemo(() => state?.activities || [], [state?.activities]);
 
         // Predefined or mapped actions matching design style
         const recentActions = useMemo(() => {

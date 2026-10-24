@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { fetchActivities } from '../api/ActivitiesApi';
 import { APIError } from '../api/APIError';
-import activities from '../Mock/trialActivities';
 
 export const ActivitiesContext = createContext();
 
@@ -38,8 +37,9 @@ const activitiesReducer = (state, action) => {
 		case "DELETE_ACTIVITIES":
 			return {
 				...state,
-				activities: state.activities.filter(
-					(activity) => !action.payload.includes(activity._id)),
+				activities: Array.isArray(action.payload)
+					? state.activities.filter((activity) => !action.payload.includes(activity._id))
+					: [],
 				loading: false,
 				error: null
 			};
@@ -51,7 +51,7 @@ const activitiesReducer = (state, action) => {
 
 export function ActivitiesContextProvider({ children }) {
 	const [state, dispatch] = useReducer(activitiesReducer, {
-		activities: activities,
+		activities: [],
 		loading: true,
 		error: null
 	});

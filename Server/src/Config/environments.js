@@ -41,7 +41,11 @@ const envScchema = joi.object({
         .required()
         .messages({
             'any.required': 'MY_NICKNAME environment variable is missing.'
-        })
+        }),
+    FRONTEND_URL: joi.string()
+        .allow('')
+        .default('')
+        .description("Allowed Frontend Origin(s) for CORS")
 }).unknown(true);
 
 const { error, value: envVars } = envScchema.validate(process.env);
@@ -59,5 +63,6 @@ export const config = {
     myGmail: envVars.MY_GMAIL,
     resendApiKey: envVars.RESEND_API_KEY,
     myPortfolioPassword: envVars.MY_PORTFOLIO_PASSWORD,
-    myName: envVars.MY_NICKNAME
+    myName: envVars.MY_NICKNAME,
+    frontendUrl: envVars.FRONTEND_URL,
 };

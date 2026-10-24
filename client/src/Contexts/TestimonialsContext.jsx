@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { fetchTestimonials } from '../api/TestimonialsApi';
 import { APIError } from '../api/APIError';
-import testimonials from '../Mock/trialTestimonials';
 
 export const TestimonialsContext = createContext();
 
@@ -60,7 +59,7 @@ const testimonialsReducer = (state, action) => {
 
 export function TestimonialsContextProvider({ children }) {
 	const [state, dispatch] = useReducer(testimonialsReducer, {
-		testimonials: testimonials,
+		testimonials: [],
 		loading: true,
 		error: null
 	});

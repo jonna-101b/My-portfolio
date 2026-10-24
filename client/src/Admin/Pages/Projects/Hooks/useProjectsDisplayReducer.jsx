@@ -58,8 +58,8 @@ function useProjectsDisplayReducer() {
 
         const [ filters, setFilters ] = useState(findFilters(state.projects));
 
-        const computeProjects = () => {
-                let result = [...state.projects];
+        useEffect(() => {
+                let result = [...(state.projects || [])];
 
                 if (filterTags.size > 0) result = result.filter(p => hasTags(p.domains, filterTags));
           
@@ -70,12 +70,8 @@ function useProjectsDisplayReducer() {
 
                 result.sort((a, b) => sortProjects(a, b, sortMethod.sortBy, sortMethod.order));
 
-                return result;
-        };
-
-        useEffect(() => {
-                setProjects(computeProjects());
-        }, [state.projects, sortMethod, searchQuery, filterTags]);
+                setProjects(result);
+        }, [state.projects, sortMethod, searchQuery, filterTags, setProjects]);
 
         useEffect(() => {
                 setFilters(findFilters(state.projects));

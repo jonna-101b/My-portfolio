@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import { EditContext } from './Context/EditContext';
 import ImageInput from './Components/ImageInput';
 import TextInput from './Components/TextInput';
@@ -33,21 +33,23 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay,
         const [ edited, setEdited ] = useState( Object.fromEntries(component.map(input => [input.name, false])) );
         const [ isSubmitting, setIsSubmitting ] = useState(false);
 
-        const handleInputsChange = (name, inputType, change) => {
+        const handleInputsChange = useCallback((name, inputType, change) => {
                 if (inputType === "tag-input" ) {
                         if ( change.action === "entry" ) {
                                 setInputs(prev => ({
                                         ...prev,
-                                        [name]: [ ...prev[name], ...change.values ]
+                                        [name]: [ ...(prev[name] || []), ...change.values ]
                                 }));
                         }
                         else {
-                                const newValues = [...inputs[name]];
-                                newValues.splice(change.index, 1);
-                                setInputs(prev => ({
-                                        ...prev,
-                                        [name]: newValues
-                                }));
+                                setInputs(prev => {
+                                        const newValues = [...(prev[name] || [])];
+                                        newValues.splice(change.index, 1);
+                                        return {
+                                                ...prev,
+                                                [name]: newValues
+                                        };
+                                });
                         }
                 }
                 else if (inputType === "tech-select-input" && typeof change === "object" && change !== null) {
@@ -58,11 +60,11 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay,
                         }));
                 }
                 else if (inputType === "textarea-input") {
-                        if (change.type) {
+                        if (change && change.type) {
                                 setInputs(prev => ({
                                         ...prev,
                                         [name]: {
-                                                ...prev[name],
+                                                ...(prev[name] || {}),
                                                 [change.type]: change.value
                                         }
                                 }));
@@ -80,14 +82,17 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay,
                                 [name]: change
                         }));
                 }
-        };
+        }, []);
 
-        const handleEdit = (name, bool) => {
-                setEdited((prev) => ({
-                        ...prev,
-                        [name]: bool,
-                }));
-        };
+        const handleEdit = useCallback((name, bool) => {
+                setEdited((prev) => {
+                        if (prev[name] === bool) return prev;
+                        return {
+                                ...prev,
+                                [name]: bool,
+                        };
+                });
+        }, []);
 
         // form is "edited" if at least one input is edited
         const formEdited = Object.values(edited).some(Boolean);
@@ -99,7 +104,25 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay,
                         for (let input of component) {
                                 let val = inputs[input.name];
                                 // Handle file uploads
-                                if (val && typeof val === 'object' && val.file instanceof File) {
+                                if (Array.isArray(val)) {
+                                        const uploadedList = [];
+                                        for (const item of val) {
+                                                if (item && typeof item === 'object' && item.file instanceof File) {
+                                                        const uploadRes = await uploadImage(item.file);
+                                                        uploadedList.push(uploadRes.url);
+                                                } else if (item instanceof File) {
+                                                        const uploadRes = await uploadImage(item);
+                                                        uploadedList.push(uploadRes.url);
+                                                } else if (item && typeof item === 'object' && item.preview && !item.file) {
+                                                        uploadedList.push(item.preview);
+                                                } else if (typeof item === 'string') {
+                                                        uploadedList.push(item);
+                                                } else {
+                                                        uploadedList.push(item);
+                                                }
+                                        }
+                                        val = uploadedList;
+                                } else if (val && typeof val === 'object' && val.file instanceof File) {
                                         const uploadRes = await uploadImage(val.file);
                                         val = uploadRes.url;
                                 } else if (val instanceof File) {
@@ -122,12 +145,12 @@ function Wrapper({ componentName, component, editComponent, attr, handleDisplay,
                                 setAction({ type: "edit", component: componentName, name: attr?.name || "" });
                         }
                 } catch (error) {
-                        console.error(`Error updating ${componentName}:`, error);
+                        console.error(`Error updating ${componentName}:`, error?.response?.data || error);
                         if (setAction) {
                                 setAction({
                                         type: "error",
                                         component: componentName,
-                                        message: error?.message || `Failed to update ${componentName}`
+                                        message: error?.response?.data?.message || error?.message || `Failed to update ${componentName}`
                                 });
                         }
                 } finally {

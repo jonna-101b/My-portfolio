@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../../Contexts/ThemeContext';
 import useProfileReducer from '../../Hooks/useProfileReducer';
 import MouseRoundedIcon from '@mui/icons-material/MouseRounded';
 import SouthRoundedIcon from '@mui/icons-material/SouthRounded';
 import NearMeRoundedIcon from '@mui/icons-material/NearMeRounded';
+import { ImageWithFallback } from '../../Utils/imageUtils';
 import SimpleIcon from '../../Utils/simpleIcons';
 import './FrontSection.css';
 
@@ -46,7 +45,6 @@ const ScrollDown = () => {
 function MainSection({ pageTitle, pageIntro, pageDescription, pageImage  }) {
         const { profile } = useProfileReducer();
         const { socialLinks = [] } = profile || {};
-        const{ theme } = useContext(ThemeContext);
         
         return (
                 <div className="front-section">
@@ -83,7 +81,12 @@ function MainSection({ pageTitle, pageIntro, pageDescription, pageImage  }) {
                                 </div>
 
                                 <div className="image">
-                                        <img src={ pageImage } alt="About image" />
+                                        <ImageWithFallback 
+                                                src={pageImage} 
+                                                alt={pageTitle || "Page header image"}
+                                                fallbackColor="rgba(198, 255, 0, 0.04)"
+                                                fallbackText={pageTitle || "Illustration"}
+                                        />
                                 </div>
                         </div>
                         

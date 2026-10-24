@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import '../Styles/TextAreaInput.css';
@@ -14,7 +14,7 @@ function SingleValue({ textarea, value, handleValueChange, added, handleAdd }) {
         const handleChange = (event) => {
                 handleValueChange(textarea.name, textarea.inputType, event.target.value);
 
-                if (textarea.required){
+                if (textarea.required && handleAdd){
                         if ( event.target.value.trim() === "") {
                                 handleAdd(textarea.name, false);
                         }
@@ -36,7 +36,7 @@ function SingleValue({ textarea, value, handleValueChange, added, handleAdd }) {
                                         name={textarea.name}
                                         disabled={disabled}
                                         maxLength={400}
-                                        value={value}
+                                        value={value || ""}
                                         placeholder="Write something down..."
                                         onChange={handleChange}
                                 />
@@ -68,10 +68,9 @@ function SingleValue({ textarea, value, handleValueChange, added, handleAdd }) {
         );
 }
 
-function Options({ textarea, value, handleValueChange, handleAdd }) {
+function Options({ textarea, value, handleValueChange, added, handleAdd }) {
         const [type, setType] = useState("brief");
         const [disabled, setDisabled] = useState(true);
-        const [ added, setAdded ] = useState({ "brief": false, "detailed": false });
 
         const handleDisable = () => {
                 setDisabled((prev) => !prev);
@@ -83,27 +82,27 @@ function Options({ textarea, value, handleValueChange, handleAdd }) {
         };
 
         const handleChange = (event) => {
-                handleValueChange(textarea.name, textarea.inputType, {type: type, value: event.target.value});
+                const newText = event.target.value;
+                handleValueChange(textarea.name, textarea.inputType, { type: type, value: newText });
 
-                if ( event.target.value.trim() === "") {
-                        setAdded(prev => ({ ...prev, [type]: false }));
-                }
-                else {
-                        setAdded(prev => ({ ...prev, [type]: true }));
+                if (textarea.required && handleAdd) {
+                        const otherType = type === "brief" ? "detailed" : "brief";
+                        const isCurrentFilled = newText.trim() !== "";
+                        const otherVal = value && typeof value === 'object' ? (value[otherType] || "") : "";
+                        const isOtherFilled = Boolean(otherVal && String(otherVal).trim() !== "");
+                        handleAdd(textarea.name, isCurrentFilled && isOtherFilled);
                 }
         };
 
-        const optionsAdded = Object.values(added).every(Boolean);
-        
-        useEffect(() => {
-                if (textarea.required) handleAdd(textarea.name, optionsAdded)
-        }, [optionsAdded])
+        const isBriefFilled = Boolean(value?.brief && String(value.brief).trim() !== "");
+        const isDetailedFilled = Boolean(value?.detailed && String(value.detailed).trim() !== "");
+        const optionsAdded = isBriefFilled && isDetailedFilled;
 
         return (
                 <div className="textarea-input">
                         <p className="label">
                                 { textarea.label }
-                                { textarea.required ? <span className={`add-state ${optionsAdded ? "added" : ""}`}></span> : null }
+                                { textarea.required ? <span className={`add-state ${added || optionsAdded ? "added" : ""}`}></span> : null }
                         </p>
 
                         <div className="value">
@@ -120,9 +119,9 @@ function Options({ textarea, value, handleValueChange, handleAdd }) {
                                 <textarea
                                         name={type}
                                         disabled={disabled}
-                                        maxLength={type === "brief" ? 100 : 10000000000}
+                                        maxLength={type === "brief" ? 200 : 1000}
                                         placeholder="Write something down..."
-                                        value={value[type]}
+                                        value={value && typeof value === 'object' ? (value[type] || "") : ""}
                                         onChange={handleChange}
                                 />
 
@@ -146,19 +145,19 @@ function Options({ textarea, value, handleValueChange, handleAdd }) {
 
                                 {type === "brief" ? (
                                         <p className={`editing-text ${disabled ? "disabled" : ""}`}>
-                                                Maximum 100 characters
+                                                Maximum 200 characters
                                         </p>
                                 ) : null}
                         </div>
                 </div>
-  );
+        );
 }
 
 function TextAreaInput({ textarea, value, handleValueChange, added, handleAdd }) {
         return textarea.type === "single" ? 
                 <SingleValue textarea={textarea} value={value} handleValueChange={handleValueChange} added={added} handleAdd={handleAdd} /> 
                 : 
-                <Options textarea={textarea} value={value} handleValueChange={handleValueChange} handleAdd={handleAdd} />
+                <Options textarea={textarea} value={value} handleValueChange={handleValueChange} added={added} handleAdd={handleAdd} />
         ;
 }
 

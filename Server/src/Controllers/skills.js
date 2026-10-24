@@ -1,6 +1,7 @@
-﻿import mongoose from "mongoose";
+import mongoose from "mongoose";
 import { TechnicalSkillsModel, ConceptualSkillsModel } from "../Models/skills.js";
 import { APIError } from "../Errors/APIError.js";
+import { deleteUploadedFile, deleteReplacedFiles } from "../Utils/upload.js";
 
 const getTechnicalSkills = async (req, res, next) => {
     try {
@@ -29,8 +30,16 @@ const updateTechnicalSkill = async (req, res, next) => {
     }
 
     try {
+        const existingSkill = await TechnicalSkillsModel.findById(id);
+        if (!existingSkill) {
+            return next(APIError.notFound('No such skill'));
+        }
+
         const skill = await TechnicalSkillsModel.findByIdAndUpdate(id, { ...req.body }, { new: true, runValidators: true });
         if (skill) {
+            if (req.body.icon !== undefined && existingSkill.icon) {
+                deleteReplacedFiles(existingSkill.icon, req.body.icon);
+            }
             res.status(200).json(skill);
         } else {
             return next(APIError.notFound('No such skill'));
@@ -50,6 +59,9 @@ const deleteTechnicalSkill = async (req, res, next) => {
     try {
         const skill = await TechnicalSkillsModel.findByIdAndDelete(id);
         if (skill) {
+            if (skill.icon) {
+                deleteUploadedFile(skill.icon);
+            }
             res.status(200).json(skill);
         } else {
             return next(APIError.notFound('No such skill'));

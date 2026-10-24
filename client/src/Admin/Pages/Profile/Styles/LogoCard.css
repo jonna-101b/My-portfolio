@@ -70,8 +70,8 @@
         position: absolute;
         bottom: 0px;
         right: 0px;
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         background-color: var(--admin-surface-panel);
         border: 2px solid var(--admin-surface-main);

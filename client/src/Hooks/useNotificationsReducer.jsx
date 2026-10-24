@@ -1,6 +1,6 @@
 import { useContext, useCallback } from "react";
 import { NotificationsContext } from "../Contexts/NotificationsContext";
-import { fetchNotifications, createNotification as createNotificationApi, deleteNotification as deleteNotificationApi } from "../api/NotificationsApi";
+import { fetchNotifications, createNotification as createNotificationApi, deleteNotification as deleteNotificationApi, deleteAllNotifications as deleteAllNotificationsApi } from "../api/NotificationsApi";
 import { APIError } from "../api/APIError";
 
 const useNotificationsReducer = () => {
@@ -49,9 +49,22 @@ const useNotificationsReducer = () => {
                 }
         }, [dispatch]);
 
-        const deleteNotifications = useCallback((notificationIds) => {
-                dispatch({ type: "DELETE_NOTIFICATIONS", payload: notificationIds });
-        }, [dispatch]);
+        const deleteNotifications = useCallback(async (notificationIds) => {
+                try {
+                        dispatch({ type: "SET_LOADING", payload: true });
+                        const ids = Array.isArray(notificationIds)
+                                ? notificationIds
+                                : (state?.notifications || []).map((n) => n._id);
+                        const res = await deleteAllNotificationsApi(ids);
+                        dispatch({ type: "DELETE_NOTIFICATIONS", payload: ids });
+                        return res;
+                } catch (error) {
+                        const apiError = APIError.fromAxiosError(error, "Failed to delete notifications");
+                        console.error("Error deleting notifications:", apiError);
+                        dispatch({ type: "SET_ERROR", payload: apiError });
+                        throw apiError;
+                }
+        }, [dispatch, state?.notifications]);
 
         const clearError = useCallback(() => {
                 dispatch({ type: "CLEAR_ERROR" });
@@ -70,4 +83,4 @@ const useNotificationsReducer = () => {
         };
 };
 
-export default useNotificationsReducer;
+export default useNotificationsReducer;

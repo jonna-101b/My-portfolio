@@ -6,6 +6,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import useProfileReducer from '../../../../../Hooks/useProfileReducer';
+import { ImageWithFallback, parseImageUrl } from '../../../../../Utils/imageUtils';
 import '../Styles/TagInput.css';
 
 const Option = (props) => (
@@ -317,7 +318,12 @@ function TagInput({ tag, values = [] }) {
                                                                                         typeof tag.icon === 'function' || typeof tag.icon === 'object' ? (
                                                                                                 <tag.icon sx={{ fontSize: '2.2vh', color: 'var(--admin-accent)' }} />
                                                                                         ) : typeof tag.icon === 'string' && (tag.icon.endsWith('.png') || tag.icon.startsWith('/') || tag.icon.startsWith('data:')) ? (
-                                                                                                <img src={tag.icon} alt={tag.subLabel} />
+                                                                                                <ImageWithFallback 
+                                                                                                        src={parseImageUrl(tag.icon)} 
+                                                                                                        alt={tag.subLabel} 
+                                                                                                        fallbackColor="transparent"
+                                                                                                        fallbackIcon={<SimpleIcon name="code" size="20px" color="var(--admin-accent)" />}
+                                                                                                />
                                                                                         ) : (
                                                                                                 <SimpleIcon name={tag.icon} size="20px" color="var(--admin-accent)" />
                                                                                         )

@@ -1,7 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import { fetchProfile } from "../api/ProfileApi";
 import { APIError } from "../api/APIError";
-import profile from '../Mock/trialProfile';
+import { parseImageUrl } from "../Utils/imageUtils";
 
 export const ProfileContext = createContext();
 
@@ -70,6 +70,21 @@ const profileReducer = (state, action) => {
 				error: null
 			};
 
+		case "UPDATE_LOGO_VISIBILITY": {
+			const logoVisible = typeof action.payload === 'object' && action.payload !== null && 'logoVisible' in action.payload
+				? Boolean(action.payload.logoVisible)
+				: Boolean(action.payload);
+			return {
+				...state,
+				profile: {
+					...state.profile,
+					logoVisible,
+				},
+				loading: false,
+				error: null
+			};
+		}
+
 		default:
 			return state;
 	}
@@ -77,7 +92,7 @@ const profileReducer = (state, action) => {
 
 export function ProfileContextProvider({ children }) {
 	const [state, dispatch] = useReducer(profileReducer, {
-		profile: profile,
+		profile: {},
 		loading: true,
 		error: null
 	});
@@ -107,6 +122,36 @@ export function ProfileContextProvider({ children }) {
 			isMounted = false;
 		};
 	}, []);
+
+	// Synchronize document title and favicon dynamically from profile
+	useEffect(() => {
+		if (!state.profile || Object.keys(state.profile).length === 0) return;
+
+		const { nickName, firstName, lastName, logo } = state.profile;
+
+		// Dynamic Title: Nickname if available, otherwise First Name + Last Name
+		const trimmedNick = typeof nickName === 'string' ? nickName.trim() : '';
+		const trimmedFirst = typeof firstName === 'string' ? firstName.trim() : '';
+		const trimmedLast = typeof lastName === 'string' ? lastName.trim() : '';
+		const fullName = [trimmedFirst, trimmedLast].filter(Boolean).join(' ');
+
+		const resolvedTitle = trimmedNick || fullName;
+		if (resolvedTitle) {
+			document.title = resolvedTitle;
+		}
+
+		// Dynamic Favicon: Brand logo from profile or fallback icon
+		const fallbackFavicon = "../assets/Logo/Logo.png";
+		const resolvedFavicon = logo ? (parseImageUrl(logo) || fallbackFavicon) : fallbackFavicon;
+
+		let faviconLink = document.querySelector("link[rel*='icon']");
+		if (!faviconLink) {
+			faviconLink = document.createElement("link");
+			faviconLink.rel = "icon";
+			document.head.appendChild(faviconLink);
+		}
+		faviconLink.href = resolvedFavicon;
+	}, [state.profile]);
 
 	return (
 		<ProfileContext.Provider value={{ state, dispatch }}>

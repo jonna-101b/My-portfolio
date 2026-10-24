@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import useProfileReducer from '../../../Hooks/useProfileReducer';
 import Activities from '../Activities/Activities';
 import Notifications from '../Notifications/Notifications';
-import { getAssetUrl } from '../../../Utils/assetUtils';
+import { ImageWithFallback } from '../../../Utils/imageUtils';
 import './TopView.css';
 
 function TopView({ page, subtitle }) {
@@ -36,11 +36,14 @@ function TopView({ page, subtitle }) {
 					title="View Profile"
 				>
 					<span className="profile-avatar">
-						{picture ? (
-							<img src={getAssetUrl(picture)} alt={displayName} className="avatar-img" />
-						) : (
-							<span className="avatar-initials">{initials}</span>
-						)}
+						<ImageWithFallback 
+							src={picture} 
+							alt={displayName} 
+							className="avatar-img"
+							fallbackInitials={initials}
+							fallbackColor="var(--admin-surface-darkest, #151515)"
+							iconSize="1rem"
+						/>
 					</span>
 					<span className="profile-name">{displayName}</span>
 				</NavLink>

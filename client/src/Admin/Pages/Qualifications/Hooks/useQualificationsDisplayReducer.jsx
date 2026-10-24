@@ -32,8 +32,8 @@ function useQualificationsDisplayReducer() {
         const [sortMethod, setSortMethod] = useState({ sortBy: "createdAt", order: "desc"});
         const [searchQuery, setSearchQuery] = useState("");
 
-        const computeQualifications = () => {
-                let result = [...state.qualifications];
+        useEffect(() => {
+                let result = [...(state.qualifications || [])];
 
                 if (searchQuery.trim() !== "") {
                         const q = searchQuery.toLowerCase();
@@ -42,12 +42,8 @@ function useQualificationsDisplayReducer() {
 
                 result.sort((a, b) => sortQualifications(a, b, sortMethod.sortBy, sortMethod.order));
 
-                return result;
-        };
-
-        useEffect(() => {
-                setQualifications(computeQualifications());
-        }, [state.qualifications, sortMethod, searchQuery]);
+                setQualifications(result);
+        }, [state.qualifications, sortMethod, searchQuery, setQualifications]);
 
         const searchComponent = query => setSearchQuery(query);
         

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import useBlogReducer from '../../../Hooks/useBlogReducer';
 import GoToIcon from '../../../assets/Icons/Home/right-arrow with a line.png';
-import { getAssetUrl } from '../../../Utils/assetUtils';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import { ImageWithFallback } from '../../../Utils/imageUtils';
 import '../Styles/ArticlesPreview.css';
 
 function Blog({ blog }) {
@@ -64,11 +65,15 @@ function Blog({ blog }) {
                         </div>
 
                         <div className="sub-content">
-                                { blog?.image && (
-                                        <p className="image">
-                                                <img src={ getAssetUrl(blog.image) } alt={ blog.title || "Blog cover" } />
-                                        </p>
-                                ) }
+                                <p className="image">
+                                        <ImageWithFallback 
+                                                src={Array.isArray(blog?.image) ? blog.image[0] : blog?.image} 
+                                                alt={blog?.title || "Blog cover"} 
+                                                fallbackColor="rgba(56, 189, 248, 0.05)"
+                                                fallbackIcon={<ArticleOutlinedIcon style={{ fontSize: '2.5rem', color: '#38bdf8' }} />}
+                                                fallbackText={blog?.title || "Story Cover"}
+                                        />
+                                </p>
 
                                 <div className="info">
                                         <p className="author">

@@ -161,7 +161,4 @@
 .admin .new.active .wrapper form .changes button .icon svg,
 .admin .new.active .wrapper form .changes button .icon img {
 	font-size: 1.25rem;
-	width: 2.2vh;
-	height: 2.2vh;
-	object-fit: contain;
 }

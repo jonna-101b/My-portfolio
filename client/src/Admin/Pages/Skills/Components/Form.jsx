@@ -1,6 +1,3 @@
-import techs from "../../Projects/trialTechs";
-
-
 export function technicalForm(skill) {
 	const name = skill ? (skill.name || "") : "";
 	const label = skill ? (skill.label || "") : "";

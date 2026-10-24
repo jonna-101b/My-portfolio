@@ -1,2 +1,45 @@
-/Server/node_modules
+# Dependencies
+node_modules/
+/Server/node_modules/
+/client/node_modules/
+
+# Production build output
+dist/
+/client/dist/
+build/
+dist-ssr/
+
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
 Server/.env
+Server/.env.*
+!Server/.env.example
+client/.env
+client/.env.*
+!client/.env.example
+*.local
+
+# Ephemeral runtime uploads
+Server/uploads/
+uploads/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

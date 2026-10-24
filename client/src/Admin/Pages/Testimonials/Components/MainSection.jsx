@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { LayoutContext } from '../Contexts/LayoutContext';
 import { ViewContext } from '../Contexts/ViewContext';
 import { EditContext } from '../../../Components/Edit/Context/EditContext';
@@ -13,7 +13,8 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ShadowIcon from '../../../../assets/Icons/Admin/Common/quote-shadow.png';
 import Form from './Form';
-import { getAssetUrl } from '../../../../Utils/assetUtils';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import { ImageWithFallback } from '../../../../Utils/imageUtils';
 import { AdminTableSkeleton, AdminGridSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/MainSection.css';
 
@@ -24,7 +25,6 @@ function TestimonialsLayout({ testimonial, layout }) {
         const { setAction } = useContext(NotifyContext);
         const { openDeleteModal } = useContext(DeleteContext);
         const { deleteTestimonial } = useTestimonialsReducer();
-        const [imgError, setImgError] = useState(false);
 
         const handleView = () => {
                 setView(testimonial);
@@ -92,16 +92,23 @@ function TestimonialsLayout({ testimonial, layout }) {
 
                         <div className="card-header">
                                 <div className="avatar-container">
-                                        { testimonial.picture && !imgError ? (
-                                                <img 
-                                                        src={getAssetUrl(testimonial.picture)} 
-                                                        alt={testimonial.name} 
-                                                        className="avatar-img" 
-                                                        onError={() => setImgError(true)}
-                                                />
-                                        ) : (
-                                                <span className="avatar-initials">{ getInitials(testimonial.name) }</span>
-                                        ) }
+                                        <ImageWithFallback 
+                                                src={testimonial?.picture}
+                                                alt={testimonial?.name || "Testimonial author"}
+                                                iconColor={'var(--text)'}
+                                                iconSize={'1rem'}
+                                                fallbackInitials={
+                                                        getInitials(testimonial?.name)
+                                                }
+                                                fallbackIcon={
+                                                        <PersonOutlineRoundedIcon 
+                                                                style={{ 
+                                                                        fontSize: '1.8rem', 
+                                                                        color: 'var(--accent, #c6ff00)' 
+                                                                }} 
+                                                        />
+                                                }
+                                        />
                                 </div>
 
                                 <div className="author-info">

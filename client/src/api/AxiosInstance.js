@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../Config/env';
 
-const BASE_URL = 'http://localhost:5000/api';
-// process.env.REACT_APP_API_URL  = base URL for the backend API, can be set in .env file for different environments
+const BASE_URL = API_BASE_URL;
 
 // 1. Public Instance (For Portfolio visitors)
 export const publicApi = axios.create({
@@ -18,6 +18,21 @@ export const protectedApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+});
+
+// Automatically delete Content-Type when sending FormData so browser sets correct boundary
+publicApi.interceptors.request.use((config) => {
+  if (config.data instanceof FormData && config.headers) {
+    delete config.headers['Content-Type'];
+  }
+  return config;
+});
+
+protectedApi.interceptors.request.use((config) => {
+  if (config.data instanceof FormData && config.headers) {
+    delete config.headers['Content-Type'];
+  }
+  return config;
 });
 
 // Used to prevent multiple refresh requests

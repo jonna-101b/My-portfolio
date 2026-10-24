@@ -351,7 +351,44 @@
    Responsive Breakpoints
    -------------------------------------------------------------------------- */
 
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
+        .about-main-wrapper {
+                padding: 0 1.5rem;
+                margin: 6vh 0 10vh 0;
+        }
+
+        .about-main-section {
+                grid-template-columns: 280px minmax(0, 1fr);
+                gap: 2.25rem;
+        }
+
+        .about-profile-col {
+                max-width: 100%;
+                margin: 0;
+                width: 100%;
+        }
+
+        .about-content-col {
+                text-align: left;
+        }
+
+        .greeting-line-1,
+        .greeting-line-2 {
+                font-size: 2.75rem;
+        }
+
+        .bio-paragraph {
+                font-size: 0.95rem;
+                line-height: 1.65;
+        }
+
+        .skill-pill-item {
+                padding: 0.45rem 0.95rem;
+                font-size: 0.85rem;
+        }
+}
+
+@media (max-width: 768px) {
         .about-main-section {
                 grid-template-columns: 1fr;
                 gap: 3.5rem;

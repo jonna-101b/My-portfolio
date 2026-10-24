@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { fetchConceptualSkills } from '../api/SkillsApi';
 import { APIError } from '../api/APIError';
-import skills from '../Mock/trialConceptualSkills';
 
 export const ConceptualSkillsContext = createContext();
 
@@ -61,7 +60,7 @@ const conceptualSkillsReducer = (state, action) => {
 
 export function ConceptualSkillsContextProvider({ children }) {
 	const [state, dispatch] = useReducer(conceptualSkillsReducer, {
-		skills: skills,
+		skills: [],
 		loading: true,
 		error: null
 	});

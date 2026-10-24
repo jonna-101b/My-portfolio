@@ -1,70 +1,91 @@
-﻿import mongoose from "mongoose";
+import mongoose from "mongoose";
 import ProjectModel from "../Models/projects.js";
 import { APIError } from "../Errors/APIError.js";
+import { deleteUploadedFile, deleteReplacedFiles } from "../Utils/upload.js";
 
 const getProjects = async (req, res, next) => {
-        try {
-                const projects = await ProjectModel.find({}).sort({ createdAt: -1 });
-                res.status(200).json(projects);
-        }
-        catch (error) {
-                next(error);
-        }
+	try {
+		const projects = await ProjectModel.find({}).sort({ createdAt: -1 });
+		res.status(200).json(projects);
+	}
+	catch (error) {
+		next(error);
+	}
 };
 
 const addProject = async (req, res, next) => {
-        try {
-                const { title, domains, description, image, features, techStack, projectLink, githubLink, contribution } = req.body;
-                const newProject = await ProjectModel.create({ title, domains, description, image, features, techStack, projectLink, githubLink, contribution });
-                res.status(200).json(newProject);
-        }
-        catch (error) {
-                next(error);
-        }
+	try {
+		const { title, domains, description, image, features, techStack, projectLink, githubLink, contribution } = req.body;
+		const newProject = await ProjectModel.create({ title, domains, description, image, features, techStack, projectLink, githubLink, contribution });
+		res.status(200).json(newProject);
+	}
+	catch (error) {
+		next(error);
+	}
 };
 
 const updateProject = async (req, res, next) => {
-        try {
-                const id = req.params.id;
+	try {
+		const id = req.params.id;
 
-                if (!mongoose.Types.ObjectId.isValid(id)) {
-                        return next(APIError.notFound('No such project!'));
-                }
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return next(APIError.notFound('No such project!'));
+		}
 
-                const updatedProject = await ProjectModel.findByIdAndUpdate(id, { ...req.body }, { new: true });
+		const existingProject = await ProjectModel.findById(id);
+		if (!existingProject) {
+			return next(APIError.notFound('No such project!'));
+		}
 
-                if (updatedProject) {
-                        res.status(200).json(updatedProject);
-                }
-                else {
-                        return next(APIError.notFound('No such project!'));
-                }
-        }
-        catch (error) {
-                next(error);
-        }
+		const updatedProject = await ProjectModel.findByIdAndUpdate(id, { ...req.body }, { new: true });
+
+		if (updatedProject) {
+			// If project image was replaced or cleared, delete the old file from Server/uploads
+			if (req.body.image !== undefined && existingProject.image) {
+				deleteReplacedFiles(existingProject.image, req.body.image);
+			}
+			res.status(200).json(updatedProject);
+		}
+		else {
+			return next(APIError.notFound('No such project!'));
+		}
+	}
+	catch (error) {
+		next(error);
+	}
 };
 
 const deleteProject = async (req, res, next) => {
-        try {
-                const id = req.params.id;
+	try {
+		const id = req.params.id;
 
-                if (!mongoose.Types.ObjectId.isValid(id)) {
-                        return next(APIError.notFound('No such project!'));
-                }
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return next(APIError.notFound('No such project!'));
+		}
 
-                const deletedProject = await ProjectModel.findByIdAndDelete(id);
+		const deletedProject = await ProjectModel.findByIdAndDelete(id);
 
-                if (deletedProject) {
-                        res.status(200).json(deletedProject);
-                }
-                else {
-                        return next(APIError.notFound('No such project!'));
-                }
-        }
-        catch (error) {
-                next(error);
-        }
+		if (deletedProject) {
+			// Delete project image from Server/uploads
+			if (deletedProject.image) {
+				deleteUploadedFile(deletedProject.image);
+			}
+			// Delete any techStack icons that were uploaded files
+			if (Array.isArray(deletedProject.techStack)) {
+				deletedProject.techStack.forEach((tech) => {
+					if (tech?.icon) deleteUploadedFile(tech.icon);
+				});
+			}
+
+			res.status(200).json(deletedProject);
+		}
+		else {
+			return next(APIError.notFound('No such project!'));
+		}
+	}
+	catch (error) {
+		next(error);
+	}
 };
 
 export { getProjects, addProject, updateProject, deleteProject };

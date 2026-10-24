@@ -3,7 +3,7 @@ import useProfileReducer from '../../../../Hooks/useProfileReducer';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import ImageUploadModal from '../Forms/Components/ImageUploadModal';
-import { getAssetUrl } from '../../../../Utils/assetUtils';
+import { ImageWithFallback } from '../../../../Utils/imageUtils';
 import '../Styles/PictureInfo.css';
 
 function PictureInfo() {
@@ -26,14 +26,14 @@ function PictureInfo() {
                 <div className="profile-overview-card">
                         <div className="avatar-wrapper">
                                 <div className="avatar-circle">
-                                        {picture ? (
-                                                <img src={getAssetUrl(picture)} alt={displayName} className="avatar-image" />
-                                        ) : (
-                                                <div className="avatar-fallback">
-                                                        <PersonOutlineRoundedIcon style={{ fontSize: '3.5rem', color: 'var(--admin-text-muted)' }} />
-                                                        <span className="fallback-text">No photo</span>
-                                                </div>
-                                        )}
+                                        <ImageWithFallback 
+                                                src={picture} 
+                                                alt={displayName} 
+                                                className="avatar-image"
+                                                fallbackIcon={<PersonOutlineRoundedIcon style={{ fontSize: '3.5rem', color: 'var(--admin-text-muted)' }} />}
+                                                fallbackText="No photo"
+                                                fallbackColor="var(--admin-surface-darkest, #151515)"
+                                        />
                                 </div>
 
                                 <button

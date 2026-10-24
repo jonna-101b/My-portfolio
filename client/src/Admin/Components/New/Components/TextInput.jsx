@@ -47,7 +47,7 @@ const TextInput = ({ text, added, value, handleValueChange, handleAdd }) => {
                                                 <>
                                                         edit
                                                         <span className="icon">
-                                                                <EditOutlinedIcon fontSize="small" />
+                                                                <EditOutlinedIcon />
                                                         </span>
                                                 </> :
                                                 <>

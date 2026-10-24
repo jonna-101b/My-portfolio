@@ -58,8 +58,8 @@ function useBlogDisplayReducer() {
 
         const [ filters, setFilters ] = useState(findFilters(state.blogs));
 
-        const computeBlogs = () => {
-                let result = [...state.blogs];
+        useEffect(() => {
+                let result = [...(state.blogs || [])];
 
                 if (filterTags.size > 0) result = result.filter(p => hasTags(p.tags, filterTags));
           
@@ -70,12 +70,8 @@ function useBlogDisplayReducer() {
 
                 result.sort((a, b) => sortBlogs(a, b, sortMethod.sortBy, sortMethod.order));
 
-                return result;
-        };
-
-        useEffect(() => {
-                setBlogs(computeBlogs());
-        }, [state.blogs, sortMethod, searchQuery, filterTags]);
+                setBlogs(result);
+        }, [state.blogs, sortMethod, searchQuery, filterTags, setBlogs]);
 
         useEffect(() => {
                 setFilters(findFilters(state.blogs));

@@ -180,13 +180,15 @@
 
 .blog-section-skeleton .sk-blog-layout {
         display: grid;
-        grid-template-columns: 1.7fr 1fr;
+        grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
         gap: 2.5rem;
+        width: 100%;
+        max-width: 100%;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
         .blog-section-skeleton .sk-blog-layout {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
         }
 }
 
@@ -219,7 +221,7 @@
         gap: 2.5rem;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 768px) {
         .about-page-skeleton .sk-about-grid {
                 grid-template-columns: 1fr;
         }
@@ -297,7 +299,7 @@
         width: 100%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
         .admin-dashboard-skeleton-grid {
                 grid-template-columns: 1fr;
         }

@@ -1,7 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import { fetchTechnicalSkills } from '../api/SkillsApi';
 import { APIError } from '../api/APIError';
-import skills from '../Mock/trialTechnicalSkills';
  
 export const TechnicalSkillsContext = createContext();
 
@@ -60,7 +59,7 @@ const technicalSkillsReducer = (state, action) => {
 
 export function TechnicalSkillsContextProvider({ children }) {
 	const [state, dispatch] = useReducer(technicalSkillsReducer, {
-		skills: skills,
+		skills: [],
 		loading: true,
 		error: null
 	});

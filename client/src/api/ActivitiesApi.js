@@ -16,3 +16,10 @@ export const deleteActivity = async (id) => {
   const response = await protectedApi.delete(`/activities/${id}`);
   return response.data;
 };
+
+export const deleteAllActivities = async (ids) => {
+  const response = await protectedApi.delete('/activities', { data: { ids } });
+  return response.data;
+};
+
+export const deleteActivities = deleteAllActivities;

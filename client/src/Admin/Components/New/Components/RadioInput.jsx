@@ -9,8 +9,10 @@ function RadioInput({ radio, value, handleValueChange }) {
 	};
 	
 	useEffect(() => {
-		handleValueChange(radio.name, radio.inputType, radio.options[0].value);
-	} ,[]);
+		if (value === undefined && radio?.options?.[0]?.value !== undefined) {
+			handleValueChange(radio.name, radio.inputType, radio.options[0].value);
+		}
+	}, [value, handleValueChange, radio.name, radio.inputType, radio.options]);
 
 	return (
 		<div className="radio-input">

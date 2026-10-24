@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import '../Styles/RadioInput.css';
 

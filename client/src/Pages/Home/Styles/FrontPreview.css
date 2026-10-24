@@ -5,11 +5,12 @@
 .front-preview {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-end;
         gap: clamp(1.25rem, 3.5vh, 2.5rem);
         min-height: calc(100vh - 60px);
         padding: clamp(6rem, 12vh, 8rem) clamp(1.25rem, 6vw, 10rem) 3rem;
         position: relative;
+        top: 25px;
         overflow: hidden;
 }
 
@@ -17,7 +18,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        width: 55%;
+        width: 50%;
         max-width: 600px;
 }
 
@@ -63,7 +64,7 @@
         flex-wrap: wrap;
         align-items: center;
         gap: 0.5rem 1rem;
-        font-size: clamp(2.2rem, 5vw, 3.75rem);
+        font-size: clamp(2.2rem, 5vw, 3.25rem);
         font-weight: 800;
         letter-spacing: -0.04em;
         line-height: 1.15;
@@ -82,9 +83,9 @@
         justify-content: flex-start;
         text-align: left;
         color: var(--text-muted);
-        font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+        font-size: clamp(0.95rem, 1.8vw, 1rem);
         line-height: 1.7;
-        width: 55%;
+        width: 45%;
         max-width: 580px;
 }
 
@@ -93,8 +94,8 @@
         justify-content: flex-start;
         align-items: center;
         gap: 1.25rem;
-        width: 55%;
-        max-width: 580px;
+        width: 50%;
+        max-width: 550px;
         flex-wrap: wrap;
         margin-top: 0.5rem;
 }
@@ -127,7 +128,7 @@
         gap: 0.6rem;
         border-radius: 9999px;
         outline: none;
-        padding: 0.75rem 2rem;
+        padding: 0.55rem 1.5rem;
         transition: background-color 0.15s linear, transform 0.15s ease, opacity 0.15s linear, box-shadow 0.2s ease;
         cursor: pointer;
         white-space: nowrap;
@@ -189,13 +190,89 @@
    Responsive Breakpoints
    ========================================================================== */
 
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
         .front-preview {
-                padding: 10vh 40vh;
-                gap: 1.75rem;
+                padding: clamp(4.5rem, 8vh, 6rem) clamp(1.5rem, 3.5vw, 2.75rem) 2.5rem;
+                gap: 1.5rem;
+                align-items: flex-start;
+                text-align: left;
+                min-height: calc(100vh - 60px);
+                position: relative;
+                top: 25px;
+        }
+
+        .front-preview .name,
+        .front-preview .professions,
+        .front-preview .hero-text,
+        .front-preview .links {
+                width: 58%;
+                max-width: 520px;
+                justify-content: flex-start;
+                text-align: left;
+        }
+
+        .front-preview .name {
+                justify-content: flex-start;
+        }
+
+        .front-preview .professions {
+                font-size: clamp(2rem, 3.8vw, 2.9rem);
+                line-height: 1.15;
+                gap: 0.4rem 0.75rem;
+        }
+
+        .front-preview .hero-text {
+                font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+                line-height: 1.6;
+        }
+
+        .front-preview .links {
+                flex-direction: row;
+                gap: 0.85rem;
+        }
+
+        .front-preview .links a {
+                padding: 0.65rem 1.4rem;
+                font-size: 0.875rem;
+        }
+
+        .front-preview .front-image {
+                position: absolute;
+                top: 50%;
+                right: 1.5rem;
+                transform: translateY(-50%);
+                height: min(72vh, 520px);
+                max-width: 40%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+                order: initial;
+                pointer-events: none;
+                z-index: 1;
+        }
+
+        .front-preview .front-image img {
+                height: 100%;
+                width: auto;
+                max-width: 100%;
+                object-fit: contain;
+        }
+}
+
+@media (max-width: 768px) {
+        .front-preview {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
                 align-items: center;
                 text-align: center;
                 min-height: auto;
+                padding: 4.75rem 1.25rem 2.5rem;
+                gap: 1.25rem;
+                width: 100%;
+                position: relative;
+                top: 0;
         }
 
         .front-preview .name,
@@ -203,37 +280,15 @@
         .front-preview .hero-text,
         .front-preview .links {
                 width: 100%;
-                max-width: 650px;
+                max-width: 550px;
                 justify-content: center;
                 text-align: center;
         }
 
         .front-preview .name {
+                display: flex;
+                align-items: center;
                 justify-content: center;
-        }
-
-        .front-preview .front-image {
-                order: -1;
-                position: relative;
-                top: auto;
-                right: auto;
-                transform: none;
-                max-width: 380px;
-                height: auto;
-                margin: 1.5rem auto 0;
-                width: 75vw;
-        }
-
-        .front-preview .front-image img {
-                width: 100%;
-                height: auto;
-        }
-}
-
-@media (max-width: 640px) {
-        .front-preview {
-                padding: 5.5rem 1.25rem 2.5rem;
-                gap: 1.25rem;
         }
 
         .front-preview .name p {
@@ -241,32 +296,67 @@
         }
 
         .front-preview .professions {
-                font-size: 2.15rem;
+                font-size: 2rem;
+                justify-content: center;
+                text-align: center;
                 line-height: 1.18;
                 gap: 0.25rem 0.6rem;
+                width: 100%;
         }
 
         .front-preview .hero-text {
                 font-size: 0.95rem;
+                justify-content: center;
+                text-align: center;
                 line-height: 1.6;
+                width: 100%;
         }
 
         .front-preview .links {
                 flex-direction: column;
+                align-items: center;
+                justify-content: center;
                 width: 100%;
                 gap: 0.75rem;
+                margin-top: 0.5rem;
         }
 
         .front-preview .links a {
                 width: 100%;
-                max-width: 320px;
-                padding: 0.85rem 1.5rem;
+                max-width: 225px;
+                padding: 0.75rem 1.25rem;
         }
 
         .front-preview .front-image {
                 order: -1;
-                width: 85vw;
-                max-width: 300px;
-                margin-top: 1rem;
+                position: relative;
+                top: auto;
+                right: auto;
+                left: auto;
+                bottom: auto;
+                transform: none;
+                width: 90vw;
+                max-width: 450px;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+        }
+}
+
+@media (max-width: 480px) {
+        .front-preview {
+                padding: 4.5rem 1rem 2rem;
+                gap: 1rem;
+        }
+
+        .front-preview .professions {
+                font-size: 1.85rem;
+        }
+
+        .front-preview .front-image {
+                max-width: 350px;
+                width: 90vw;
         }
 }

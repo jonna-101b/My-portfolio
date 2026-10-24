@@ -50,10 +50,50 @@
         animation: scaleUp 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.popup-select-row {
+.popup-field-group {
         display: flex;
-        align-items: center;
+        flex-direction: column;
         gap: 6px;
+}
+
+.popup-field-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--admin-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+}
+
+.url-input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+}
+
+.popup-url-input {
+        width: 100%;
+        box-sizing: border-box;
+        background-color: var(--admin-bg-page);
+        border: 1px solid var(--admin-border-base);
+        border-radius: 12px;
+        padding: 9px 12px;
+        font-size: 0.85rem;
+        color: var(--admin-text-primary);
+        outline: none;
+        transition: border-color 0.2s ease;
+}
+
+.popup-url-input:focus {
+        border-color: var(--admin-accent);
+}
+
+.popup-url-input.has-error {
+        border-color: var(--admin-danger-bright);
+}
+
+.url-error-msg {
+        font-size: 0.75rem;
+        color: var(--admin-danger-bright);
 }
 
 .select-container-wrapper {
@@ -71,6 +111,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 0.5rem;
         background-color: var(--admin-bg-page);
         border: 1px solid var(--admin-border-base);
         border-radius: 14px;
@@ -86,6 +127,8 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        flex-grow: 1;
+        width: calc(100% - 2rem);
 }
 
 .platform-icon {
@@ -100,6 +143,30 @@
         font-size: 0.875rem;
         color: var(--admin-text-primary);
         font-weight: 500;
+}
+
+.social-item .item-details {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        overflow: hidden;
+        width: 100%;
+}
+
+.social-item .item-link {
+        font-size: 0.75rem;
+        color: var(--admin-text-muted);
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        transition: color 0.15s ease;
+}
+
+.social-item .item-link:hover {
+        color: var(--admin-accent);
+        text-decoration: underline;
 }
 
 .social-item .item-delete-btn {
