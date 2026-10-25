@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ViewContext } from '../Contexts/ViewContext';
-import { getYear } from 'date-fns';
+import { format } from 'date-fns';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
@@ -14,8 +14,8 @@ function Wrapper({ qualification, handleDisplay }) {
         const formatDuration = (duration) => {
                 if (!duration) return "";
                 try {
-                        const from = duration.from ? getYear(new Date(duration.from)) : "";
-                        const to = duration.to ? getYear(new Date(duration.to)) : "";
+                        const from = duration.from ? format(new Date(duration.from), 'MMM, yyyy') : "";
+                        const to = qualification.active ? 'Present' : duration.to ? format(new Date(duration.to), 'MMM, yyyy') : "";
                         if (from && to) return `${from} — ${to}`;
                         if (from) return `${from}`;
                         return "";

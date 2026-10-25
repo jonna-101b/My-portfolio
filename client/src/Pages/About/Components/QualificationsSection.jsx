@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getYear } from 'date-fns';
+import { format } from 'date-fns';
 import useQualificationsReducer from '../../../Hooks/useQualificationsReducer';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
@@ -28,7 +28,7 @@ function Qualification({ qualification }) {
                                 </div>
 
                                 <div className="duration">
-                                        <p className="duration">{ `${qualification.duration?.from ? getYear(new Date(qualification.duration.from)) : ''} - ${qualification.duration?.to ? getYear(new Date(qualification.duration.to)) : ''}` }</p>
+                                        <p className="duration">{ `${qualification.duration?.from ? format(new Date(qualification.duration.from), 'MMM, yyyy') : ''} - ${qualification.active ? 'Present' : qualification.duration?.to ? format(new Date(qualification.duration.to), 'MMM, yyyy') : ''}` }</p>
                                 </div>
                         </div>
 

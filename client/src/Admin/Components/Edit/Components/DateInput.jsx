@@ -14,12 +14,12 @@ function SingleDatePicker({ value, handleDisplay, handleChange }) {
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
 	};
-	
+
 	const handleCancel = () => {
 		setSelectedDate(null);
 		handleDisplay();
 	};
-	
+
 	const handleDone = () => {
 		handleChange(selectedDate);
 		setSelectedDate(null);
@@ -29,14 +29,14 @@ function SingleDatePicker({ value, handleDisplay, handleChange }) {
 	return (
 		<div className="new-date date-picker">
 			<p className="label">Pick a Date</p>
-			
+
 			<DatePicker
 				selected={selectedDate}
 				onChange={handleDateChange}
 				dateFormat="yyyy-MM-dd"
 				placeholderText="Select a date"
 				className="calendar-input"             // styles the input box
-				calendarClassName="calendar"  
+				calendarClassName="calendar"
 				inline
 			/>
 
@@ -66,15 +66,15 @@ function YearDurationPicker({ from, to, handleDisplay, handleChange }) {
 		setStartDate(start);
 		setEndDate(end);
 	};
-	
+
 	const handleCancel = () => {
 		setStartDate(null);
 		setEndDate(null);
 		handleDisplay();
 	};
-	
+
 	const handleDone = () => {
-		handleChange({ from: startDate, to: endDate});
+		handleChange({ from: startDate, to: endDate });
 		setStartDate(null);
 		setEndDate(null);
 		handleDisplay();
@@ -107,19 +107,19 @@ function YearDurationPicker({ from, to, handleDisplay, handleChange }) {
 				</span>
 			</p>
 		</div>
-  );
+	);
 }
 
 function DateInput({ date, value, handleValueChange, edited, handleEdit }) {
-	const [ displayCalendar, setDisplayCalendar ] = useState(false);
+	const [displayCalendar, setDisplayCalendar] = useState(false);
 
 	const handleDisplay = () => {
 		setDisplayCalendar(prev => !prev);
 	};
 
 	const handleChange = (newValue) => {
-		if ( date.type === "duration" ) {
-			if ( newValue.from !== date.value.from || newValue.to !== date.value.to ) {
+		if (date.type === "duration") {
+			if (newValue.from !== date.value.from || newValue.to !== date.value.to) {
 				handleEdit(date.name, true)
 			}
 			else {
@@ -145,15 +145,15 @@ function DateInput({ date, value, handleValueChange, edited, handleEdit }) {
 			</p>
 
 			<div className="value">
-				{ date.type === "duration" ? 
+				{date.type === "duration" ?
 					<p className="input duration-value">
-						<span>{ getYear(value.from) }</span>
+						<span>{format(value.from, 'MMM, yyyy')}</span>
 						—
-						<span>{ getYear(value.to) }</span>
+						<span>{format(value.to, 'MMM, yyyy')}</span>
 					</p>
 					:
 					<p className="input date-value">
-						<span>{ format(value, "MMMM do, yyyy") }</span>
+						<span>{format(value, "MMMM do, yyyy")}</span>
 					</p>
 				}
 
@@ -162,13 +162,13 @@ function DateInput({ date, value, handleValueChange, edited, handleEdit }) {
 				</p>
 			</div>
 
-			{ displayCalendar ? ( date.type === "duration" ? 
-				<YearDurationPicker  from={date.value.from} to={date.value.to} handleChange={handleChange} handleDisplay={handleDisplay}/> 
-				: 
-				<SingleDatePicker value={date.value} handleChange={handleChange} handleDisplay={handleDisplay} /> ) : null 
+			{displayCalendar ? (date.type === "duration" ?
+				<YearDurationPicker from={date.value.from} to={date.value.to} handleChange={handleChange} handleDisplay={handleDisplay} />
+				:
+				<SingleDatePicker value={date.value} handleChange={handleChange} handleDisplay={handleDisplay} />) : null
 			}
-        </div>
-    );
+		</div>
+	);
 }
 
 export default DateInput;

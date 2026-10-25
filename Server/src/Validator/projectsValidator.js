@@ -14,8 +14,8 @@ const projectCreateFields = [
   body('techStack').isArray({ min: 1, max: 30 }).withMessage('Tech stack must be an array containing 1 to 30 items'),
   body('techStack.*.name').trim().notEmpty().withMessage('Each technology name is required').isLength({ max: 100 }).withMessage('Each technology name must not exceed 100 characters'),
   body('techStack.*.icon').trim().notEmpty().withMessage('Each technology icon is required').isLength({ max: 500 }).withMessage('Each technology icon must not exceed 500 characters'),
-  body('projectLink').trim().optional().isURL().withMessage('Project link must be valid'),
-  body('githubLink').trim().optional().isURL().withMessage('GitHub link must be valid'),
+  body('projectLink').trim().optional({ values: 'falsy' }).isURL().withMessage('Project link must be valid'),
+  body('githubLink').trim().optional({ values: 'falsy' }).isURL().withMessage('GitHub link must be valid'),
   body('contribution').trim().notEmpty().withMessage('Contribution is required').isLength({ min: 3, max: 500 }).withMessage('Contribution must be between 3 and 500 characters'),
 ];
 
@@ -34,8 +34,8 @@ export const updateProjectValidator = [
   body('techStack').optional().isArray({ min: 1, max: 30 }).withMessage('Tech stack must be an array containing 1 to 30 items'),
   body('techStack.*.name').optional().trim().isLength({ min: 1, max: 100 }).withMessage('Each technology name must be between 1 and 100 characters'),
   body('techStack.*.icon').optional().trim().isLength({ min: 1, max: 500 }).withMessage('Each technology icon must be between 1 and 500 characters'),
-  body('projectLink').optional().trim().isURL().withMessage('Project link must be valid'),
-  body('githubLink').optional().trim().isURL().withMessage('GitHub link must be valid'),
+  body('projectLink').optional({ values: 'falsy' }).trim().isURL().withMessage('Project link must be valid'),
+  body('githubLink').optional({ values: 'falsy' }).trim().isURL().withMessage('GitHub link must be valid'),
   body('contribution').optional().trim().isLength({ min: 3, max: 500 }).withMessage('Contribution must be between 3 and 500 characters'),
   parseValidationErrors,
 ];

@@ -137,9 +137,9 @@ function DateInput({ date, added, value, handleValueChange, handleAdd }) {
 			<div className="value">
 				{ date.type === "duration" ? 
 					<p className="input duration-value">
-						<span>{ value ? getYear(value.from) : "- - - -" }</span>
+						<span>{ value ? format(value.from, 'MMM, yyyy') : "- - - -" }</span>
 						—
-						<span>{ value ? getYear(value.to) : "- - - -" }</span>
+						<span>{ value ? format(value.to, 'MMM, yyyy') : "- - - -" }</span>
 					</p>
 					:
 					<p className="input date-value">
