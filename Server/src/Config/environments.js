@@ -21,8 +21,8 @@ const envScchema = joi.object({
         .email({ tlds: { allow: false } })
         .required()
         .messages({
-        'string.email': 'MY_GMAIL must be a valid email address.',
-        'any.required': 'MY_GMAIL environment variable is missing.'
+            'string.email': 'MY_GMAIL must be a valid email address.',
+            'any.required': 'MY_GMAIL environment variable is missing.'
         }),
 
     RESEND_API_KEY: joi.string()
@@ -35,7 +35,7 @@ const envScchema = joi.object({
     MY_PORTFOLIO_PASSWORD: joi.string()
         .required()
         .messages({
-        'any.required': 'MY_PORTFOLIO_PASSWORD environment variable is missing.'
+            'any.required': 'MY_PORTFOLIO_PASSWORD environment variable is missing.'
         }),
     MY_NICKNAME: joi.string()
         .required()

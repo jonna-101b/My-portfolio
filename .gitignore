@@ -15,15 +15,9 @@ dist-ssr/
 !.env.example
 Server/.env
 Server/.env.*
-!Server/.env.example
 client/.env
 client/.env.*
-!client/.env.example
 *.local
-
-# Ephemeral runtime uploads
-Server/uploads/
-uploads/
 
 # Logs
 *.log

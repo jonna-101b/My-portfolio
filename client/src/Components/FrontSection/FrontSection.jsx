@@ -46,6 +46,18 @@ function MainSection({ pageTitle, pageIntro, pageDescription, pageImage  }) {
         const { profile } = useProfileReducer();
         const { socialLinks = [] } = profile || {};
         
+        const handleScrollToContacts = () => {
+                const contactsSection = document.getElementById('contacts');
+                if (contactsSection) {
+                        contactsSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                        window.scrollTo({
+                                top: document.documentElement.scrollHeight,
+                                behavior: 'smooth'
+                        });
+                }
+        };
+
         return (
                 <div className="front-section">
                         <div className="intro">
@@ -74,7 +86,7 @@ function MainSection({ pageTitle, pageIntro, pageDescription, pageImage  }) {
 
 
                                         <div className="contact">
-                                                <button>Contact me
+                                                <button type="button" onClick={handleScrollToContacts} aria-label="Contact me">Contact me
                                                         <NearMeRoundedIcon className="send-icon" />
                                                 </button>
                                         </div>

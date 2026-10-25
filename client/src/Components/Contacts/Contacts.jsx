@@ -71,7 +71,7 @@ function ContactItem({ type, icon, title, value, copyText }) {
         );
 }
 
-function Contacts() {
+function Contacts({ id = 'contacts' }) {
         const { profile } = useProfileReducer();
         const { phone, email, address } = profile || {};
         const { createNotification } = useNotificationsReducer();
@@ -149,7 +149,7 @@ function Contacts() {
         };
 
         return (
-                <div className="contacts">
+                <div className="contacts" id={id}>
                         <div className="get-in-touch">
                                 <div className="title">
                                         <p>Get in Touch</p>
