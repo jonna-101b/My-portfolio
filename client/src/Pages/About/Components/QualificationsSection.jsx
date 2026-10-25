@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { getYear } from 'date-fns';
 import useQualificationsReducer from '../../../Hooks/useQualificationsReducer';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
@@ -43,8 +44,14 @@ function Qualification({ qualification }) {
 }
 
 function QualificationsSection() {
-        const { state } = useQualificationsReducer();
+        const { state, setQualifications } = useQualificationsReducer();
         const { qualifications, loading } = state || {};
+
+        useEffect(() => {
+                if ((!qualifications || qualifications.length === 0) && !loading) {
+                        setQualifications();
+                }
+        }, [qualifications, loading, setQualifications]);
 
         if (loading) {
                 return <QualificationsSectionSkeleton />;

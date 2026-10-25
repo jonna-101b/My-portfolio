@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import useProfileReducer from '../../../../Hooks/useProfileReducer';
-import SimpleIcon, { searchSimpleIcons } from '../../../../Utils/simpleIcons';
+import SimpleIcon from '../../../../Utils/simpleIcons';
+import { searchSimpleIcons } from '../../../../Utils/simpleIconSearch';
 import allSocialLinks from '../trialSocialLinks';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';

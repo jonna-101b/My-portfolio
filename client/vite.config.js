@@ -19,6 +19,13 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     chunkSizeWarningLimit: 1200,
+    modulePreload: {
+      resolveDependencies(filename, deps) {
+        return deps.filter(
+          (dep) => !dep.includes('vendor-charts') && !dep.includes('vendor-icons') && !dep.includes('Admin')
+        );
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {

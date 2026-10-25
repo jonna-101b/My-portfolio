@@ -65,6 +65,14 @@ export function QualificationsContextProvider({ children }) {
 	});
 
 	useEffect(() => {
+		// Only auto-fetch qualifications on routes where they are rendered
+		const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+		const isRelevantRoute = pathname.startsWith('/about') || pathname.startsWith('/admin');
+		if (!isRelevantRoute) {
+			dispatch({ type: "SET_LOADING", payload: false });
+			return;
+		}
+
 		let isMounted = true;
 
 		const loadQualifications = async () => {

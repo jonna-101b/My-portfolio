@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, memo } from 'react';
 import useProjectsReducer from '../../../Hooks/useProjectsReducer';
 import ProjectsPreviewSkeleton from '../../../Components/Skeletons/ProjectsPreviewSkeleton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -12,9 +12,10 @@ import { ImageWithFallback } from '../../../Utils/imageUtils';
 import '../Styles/ProjectsPreview.css';
 
 
-const Project = ({ project }) => {
-        const [shownTechs] = useState(project.techStack.length > 4 ? project.techStack.slice(0, 4) : project.techStack);
-        const [hiddenTechs] = useState(project.techStack.length > 4 ? project.techStack.slice(4) : []);
+const Project = memo(function Project({ project }) {
+        const techStack = Array.isArray(project.techStack) ? project.techStack : [];
+        const shownTechs = techStack.length > 4 ? techStack.slice(0, 4) : techStack;
+        const hiddenTechs = techStack.length > 4 ? techStack.slice(4) : [];
 
         return (
                 <div className="project">
@@ -68,7 +69,7 @@ const Project = ({ project }) => {
                         </div>
                 </div>
         );
-};
+});
 
 function ProjectsPreview() {
         const { state, loading } = useProjectsReducer();
@@ -92,9 +93,20 @@ function ProjectsPreview() {
         };
 
         useEffect(() => {
+                let resizeTimer;
+                const handleResize = () => {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(() => {
+                                updateVisibleCount();
+                        }, 100);
+                };
+
                 updateVisibleCount();
-                window.addEventListener('resize', updateVisibleCount);
-                return () => window.removeEventListener('resize', updateVisibleCount);
+                window.addEventListener('resize', handleResize, { passive: true });
+                return () => {
+                        clearTimeout(resizeTimer);
+                        window.removeEventListener('resize', handleResize);
+                };
         }, []);
 
         const groupSize = visibleCount === 1 ? 3 : 6;

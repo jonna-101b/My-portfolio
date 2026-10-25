@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState, useCallback } from 'react';
+import { useContext, useEffect, useRef, useState, useCallback, memo } from 'react';
 import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTestimonialsReducer from '../../../Hooks/useTestimonialsReducer';
 import TestimonialsPreviewSkeleton from '../../../Components/Skeletons/TestimonialsPreviewSkeleton';
@@ -9,7 +9,7 @@ import QuoteShadowIcon from '../../../assets/Icons/Common/quote-shadow.png';
 import QuoteLightShadowIcon from '../../../assets/Icons/Common/quote-light.png';
 import "../Styles/TestimonialsPreview.css";
 
-function Testimonial({ testimonial }) {
+const Testimonial = memo(function Testimonial({ testimonial }) {
 	const { theme } = useContext(ThemeContext);
 
 	return (
@@ -51,7 +51,7 @@ function Testimonial({ testimonial }) {
 			</div>
 		</div>
 	);
-}
+});
 
 function TestimonialsPreview() {
 	const { state, loading } = useTestimonialsReducer();
@@ -73,9 +73,20 @@ function TestimonialsPreview() {
 	};
 
 	useEffect(() => {
+		let resizeTimer;
+		const handleResize = () => {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(() => {
+				updateVisibleCount();
+			}, 100);
+		};
+
 		updateVisibleCount();
-		window.addEventListener('resize', updateVisibleCount);
-		return () => window.removeEventListener('resize', updateVisibleCount);
+		window.addEventListener('resize', handleResize, { passive: true });
+		return () => {
+			clearTimeout(resizeTimer);
+			window.removeEventListener('resize', handleResize);
+		};
 	}, []);
 
 	const maxIndex = Math.max(1, (testimonials?.length || 0) - visibleCount + 1);

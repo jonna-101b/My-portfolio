@@ -1,4 +1,4 @@
-import { useState, useContext, useMemo } from "react";
+import { useState, useContext, useMemo, memo } from "react";
 import { ThemeContext } from '../../../Contexts/ThemeContext';
 import useTechnicalSkillsReducer from '../../../Hooks/useTechnicalSkillsReducer';
 import useConceptualSkillsReducer from '../../../Hooks/useConceptualSkillsReducer';
@@ -19,7 +19,7 @@ export const getTechIconUrl = (icon) => {
 	return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${clean}/${clean}-original.svg`;
 };
 
-const Tech = ({ tech, color = "var(--icon-opt-1)" }) => {
+const Tech = memo(function Tech({ tech, color = "var(--icon-opt-1)" }) {
 	return (
 		<div className="tech">
 			<p className="icon">
@@ -28,9 +28,9 @@ const Tech = ({ tech, color = "var(--icon-opt-1)" }) => {
 			<p className="name">{tech.name}</p>
 		</div>
 	);
-};
+});
 
-function ConceptualSkill({ skill }) {
+const ConceptualSkill = memo(function ConceptualSkill({ skill }) {
 	const { theme } = useContext(ThemeContext);
 	return (
 		<div className="skill">
@@ -48,7 +48,7 @@ function ConceptualSkill({ skill }) {
 			</div>
 		</div>
 	);
-}
+});
 
 function SkillsPreview() {
 	const { skills: hardSkills = [], loading: techLoading } = useTechnicalSkillsReducer();

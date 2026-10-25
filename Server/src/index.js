@@ -94,8 +94,14 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Serve uploaded files statically
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// Serve uploaded files statically with browser caching
+app.use(
+  '/uploads',
+  express.static(path.join(__dirname, '../uploads'), {
+    maxAge: '7d',
+    etag: true,
+  })
+);
 
 // General API Rate Limiting & Routes
 app.use('/api', apiLimiter, router);

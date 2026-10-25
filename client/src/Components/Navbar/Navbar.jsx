@@ -35,49 +35,56 @@ function Navbar() {
                 setIsMobileMenuOpen(false);
         }, [location.pathname]);
 
-        // Handle smooth slide in/out on scroll
-        useEffect(() => {
-                let lastScrollY = window.scrollY;
+	// Handle smooth slide in/out on scroll using requestAnimationFrame
+	useEffect(() => {
+		let lastScrollY = window.scrollY;
+		let ticking = false;
 
-                const handleScroll = () => {
-                        const currentScrollY = window.scrollY;
+		const handleScroll = () => {
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					const currentScrollY = window.scrollY;
 
-                        // Always display navbar at or near the top of the page
-                        if (currentScrollY <= 10) {
-                                setIsVisible(true);
-                                lastScrollY = currentScrollY;
-                                return;
-                        }
+					// Always display navbar at or near the top of the page
+					if (currentScrollY <= 10) {
+						setIsVisible(true);
+						lastScrollY = currentScrollY;
+						ticking = false;
+						return;
+					}
 
-                        // Ignore negative scroll values (e.g. bounce effect on macOS/iOS)
-                        if (currentScrollY < 0) {
-                                return;
-                        }
+					// Ignore negative scroll values (e.g. bounce effect on macOS/iOS)
+					if (currentScrollY < 0) {
+						ticking = false;
+						return;
+					}
 
-                        const delta = currentScrollY - lastScrollY;
+					const delta = currentScrollY - lastScrollY;
 
-                        // Threshold to avoid micro-jitter
-                        if (Math.abs(delta) < 8) {
-                                return;
-                        }
+					// Threshold to avoid micro-jitter
+					if (Math.abs(delta) >= 8) {
+						if (delta > 0 && currentScrollY > 70) {
+							// Scrolling down -> slide out upwards
+							setIsVisible(false);
+						} else if (delta < 0) {
+							// Scrolling up -> slide in downwards
+							setIsVisible(true);
+						}
+						lastScrollY = currentScrollY;
+					}
 
-                        if (delta > 0 && currentScrollY > 70) {
-                                // Scrolling down -> slide out upwards
-                                setIsVisible(false);
-                        } else if (delta < 0) {
-                                // Scrolling up -> slide in downwards
-                                setIsVisible(true);
-                        }
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
 
-                        lastScrollY = currentScrollY;
-                };
+		window.addEventListener('scroll', handleScroll, { passive: true });
 
-                window.addEventListener('scroll', handleScroll, { passive: true });
-
-                return () => {
-                        window.removeEventListener('scroll', handleScroll);
-                };
-        }, []);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
         return (
                 <header className={`navbar ${isVisible ? '' : 'navbar-hidden'} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>

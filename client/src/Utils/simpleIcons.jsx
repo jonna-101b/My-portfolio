@@ -1,11 +1,11 @@
 import React from 'react';
-import * as simpleIcons from 'simple-icons';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import { ImageWithFallback, parseImageUrl } from './imageUtils';
+import { POPULAR_ICONS } from './popularIcons';
 
-// Extract all valid icon objects from simple-icons
-const rawIcons = Object.values(simpleIcons).filter(
+// Extract all valid icon objects from pre-indexed popular icons
+const rawIcons = Object.values(POPULAR_ICONS).filter(
   (icon) => icon && typeof icon === 'object' && icon.title && icon.slug && icon.path
 );
 
@@ -13,11 +13,12 @@ const rawIcons = Object.values(simpleIcons).filter(
 const slugMap = new Map();
 const titleMap = new Map();
 const normalizedMap = new Map();
+const dynamicIconCache = new Map();
 
 rawIcons.forEach((icon) => {
   slugMap.set(icon.slug.toLowerCase(), icon);
   titleMap.set(icon.title.toLowerCase(), icon);
-  
+
   const normSlug = icon.slug.toLowerCase().replace(/[^a-z0-9]/g, '');
   const normTitle = icon.title.toLowerCase().replace(/[^a-z0-9]/g, '');
   normalizedMap.set(normSlug, icon);
@@ -64,7 +65,7 @@ export const CANVA_ICON = {
 });
 
 // Common tech & social aliases and variations
-const TECH_ALIASES = {
+export const TECH_ALIASES = {
   // Social Media & Platforms
   linkedin: 'linkedin',
   'linked-in': 'linkedin',
@@ -93,10 +94,6 @@ const TECH_ALIASES = {
   medium: 'medium',
   twitch: 'twitch',
   quora: 'quora',
-  wechat: 'wechat',
-  vk: 'vk',
-  line: 'line',
-  mastodon: 'mastodon',
   threads: 'threads',
   bluesky: 'bluesky',
   bsky: 'bluesky',
@@ -104,15 +101,8 @@ const TECH_ALIASES = {
   behance: 'behance',
   stackoverflow: 'stackoverflow',
   'stack overflow': 'stackoverflow',
-  codepen: 'codepen',
   spotify: 'spotify',
-  substack: 'substack',
-  patreon: 'patreon',
   slack: 'slack',
-  skype: 'skype',
-  zoom: 'zoom',
-  signal: 'signal',
-  vimeo: 'vimeo',
   devdotto: 'devdotto',
   'dev.to': 'devdotto',
   devto: 'devdotto',
@@ -135,9 +125,9 @@ const TECH_ALIASES = {
   next: 'nextdotjs',
   nextjs: 'nextdotjs',
   'next.js': 'nextdotjs',
-  nuxt: 'nuxtdotjs',
-  nuxtjs: 'nuxtdotjs',
-  'nuxt.js': 'nuxtdotjs',
+  nuxt: 'nuxt',
+  nuxtjs: 'nuxt',
+  'nuxt.js': 'nuxt',
   express: 'express',
   expressjs: 'express',
   'express.js': 'express',
@@ -225,13 +215,13 @@ const TECH_ALIASES = {
   inkscape: 'inkscape',
   gimp: 'gimp',
 
-  // Testing, Frameworks & Tools
+  // Testing & Tools
   jest: 'jest',
   mocha: 'mocha',
   cypress: 'cypress',
   selenium: 'selenium',
   graphql: 'graphql',
-  spring: 'spring',
+  spring: 'springboot',
   springboot: 'springboot',
   'spring boot': 'springboot',
   electron: 'electron',
@@ -242,15 +232,14 @@ const TECH_ALIASES = {
   mapbox: 'mapbox',
   googlemaps: 'googlemaps',
   'google maps': 'googlemaps',
-  'google maps api': 'googlemaps',
   'aws amplify': 'amazonaws',
   aws: 'amazonaws',
 };
 
 /**
- * Resolves a simple icon by slug, title, alias, or normalized name
+ * Resolves an icon synchronously by slug, title, alias, or normalized name
  * @param {string} name - The icon slug or name
- * @returns {object|null} The simple-icon object or null
+ * @returns {object|null} The icon object or null
  */
 export function getSimpleIcon(name) {
   if (!name || typeof name !== 'string') return null;
@@ -258,7 +247,7 @@ export function getSimpleIcon(name) {
   const trimmed = name.trim();
   const lower = trimmed.toLowerCase();
 
-  // Check for LinkedIn special case (including legacy devicon/flaticon URL remnants)
+  // Check for LinkedIn special case
   if (lower === 'linkedin' || lower.includes('linkedin')) {
     return LINKEDIN_ICON;
   }
@@ -299,100 +288,18 @@ export function getSimpleIcon(name) {
     if (prefixMatch) return prefixMatch;
   }
 
+  // 6. Check dynamic cache (for exotic icons loaded asynchronously)
+  if (dynamicIconCache.has(lower)) {
+    return dynamicIconCache.get(lower);
+  }
+
   return null;
-}
-
-/**
- * Searches simple-icons library for matching icons
- * @param {string} query - Search term
- * @param {number} limit - Maximum number of results
- * @returns {Array<object>} Matching icon options
- */
-export function searchSimpleIcons(query = '', limit = 30) {
-  if (!query || typeof query !== 'string' || !query.trim()) {
-    // Return a curated list of top popular technologies and social platforms when query is empty
-    const popularSlugs = [
-      'linkedin', 'github', 'x', 'facebook', 'instagram', 'youtube',
-      'discord', 'reddit', 'whatsapp', 'tiktok', 'telegram', 'threads', 'bluesky',
-      'react', 'nodedotjs', 'javascript', 'typescript', 'python', 'java',
-      'vuedotjs', 'nextdotjs', 'angular', 'svelte', 'html5',
-      'css', 'tailwindcss', 'mongodb', 'postgresql', 'mysql',
-      'docker', 'figma', 'canva', 'graphql', 'medium', 'dribbble', 'stackoverflow'
-    ];
-    return popularSlugs
-      .map((slug) => slugMap.get(slug) || (slug === 'linkedin' ? LINKEDIN_ICON : null))
-      .filter(Boolean)
-      .map((icon) => ({
-        label: icon.title,
-        value: icon.title,
-        name: icon.title,
-        icon: icon.slug,
-        slug: icon.slug,
-        hex: icon.hex,
-      }));
-  }
-
-  const q = query.trim().toLowerCase();
-  const normQ = q.replace(/[^a-z0-9]/g, '');
-
-  const exactMatches = [];
-  const prefixMatches = [];
-  const containsMatches = [];
-
-  // Check custom icon matches (LinkedIn, Java, Canva)
-  if ('linkedin'.includes(q) || 'linkedin'.includes(normQ) || normQ === 'in' || normQ === 'li') {
-    exactMatches.push(LINKEDIN_ICON);
-  }
-  if ('java'.includes(q) || 'java'.includes(normQ)) {
-    if (!exactMatches.includes(JAVA_ICON)) exactMatches.push(JAVA_ICON);
-  }
-  if ('canva'.includes(q) || 'canva'.includes(normQ)) {
-    if (!exactMatches.includes(CANVA_ICON)) exactMatches.push(CANVA_ICON);
-  }
-
-  // Check alias matches (e.g. searching 'twitter' points to 'x')
-  if (TECH_ALIASES[q] && slugMap.has(TECH_ALIASES[q])) {
-    const aliasIcon = slugMap.get(TECH_ALIASES[q]);
-    if (!exactMatches.includes(aliasIcon)) {
-      exactMatches.push(aliasIcon);
-    }
-  }
-
-  for (const icon of rawIcons) {
-    const titleLower = icon.title.toLowerCase();
-    const slugLower = icon.slug.toLowerCase();
-    const normTitle = titleLower.replace(/[^a-z0-9]/g, '');
-    const normSlug = slugLower.replace(/[^a-z0-9]/g, '');
-
-    if (titleLower === q || slugLower === q || normTitle === normQ || normSlug === normQ) {
-      if (!exactMatches.includes(icon)) exactMatches.push(icon);
-    } else if (titleLower.startsWith(q) || slugLower.startsWith(q) || normTitle.startsWith(normQ) || normSlug.startsWith(normQ)) {
-      prefixMatches.push(icon);
-    } else if (titleLower.includes(q) || slugLower.includes(q) || normTitle.includes(normQ) || normSlug.includes(normQ)) {
-      containsMatches.push(icon);
-    }
-
-    if (exactMatches.length + prefixMatches.length + containsMatches.length >= limit * 2) {
-      break;
-    }
-  }
-
-  const combined = [...exactMatches, ...prefixMatches, ...containsMatches].slice(0, limit);
-
-  return combined.map((icon) => ({
-    label: icon.title,
-    value: icon.title,
-    name: icon.title,
-    icon: icon.slug,
-    slug: icon.slug,
-    hex: icon.hex,
-  }));
 }
 
 /**
  * Generic fallback SVG code icon when an icon is not found
  */
-const FallbackIcon = ({ size, color, className, style }) => (
+export const FallbackIcon = ({ size, color, className, style }) => (
   <svg
     role="img"
     viewBox="0 0 24 24"
@@ -409,15 +316,8 @@ const FallbackIcon = ({ size, color, className, style }) => (
 
 /**
  * SimpleIcon Component
- * Renders an SVG icon from the simple-icons library, Material UI LinkedIn fallback, or an image URL fallback.
- *
- * @param {object} props
- * @param {string|object} props.name - Icon slug, title, or URL
- * @param {string} [props.color='var(--icon-opt-1)'] - Fill color (supports direct hex, CSS variables, currentColor)
- * @param {string|number} [props.size='1em'] - Size of the icon
- * @param {string} [props.className=''] - Custom CSS class
- * @param {object} [props.style={}] - Inline styles
- * @param {string} [props.title] - Tooltip title
+ * Renders an SVG icon from the popular pre-indexed collection, Material UI LinkedIn fallback, or image fallback.
+ * Automatically loads any exotic unlisted icon from the full library in the background if necessary.
  */
 export function SimpleIcon({
   name,
@@ -427,26 +327,50 @@ export function SimpleIcon({
   style = {},
   title,
 }) {
-  if (!name) {
-    return <FallbackIcon size={size} color={color} className={className} style={style} />;
-  }
-
-  // If name is an object (e.g. { name: "React", icon: "react" })
-  const iconKey = typeof name === 'object' ? name.icon || name.name || name.slug : name;
-
-  if (typeof iconKey !== 'string') {
-    return <FallbackIcon size={size} color={color} className={className} style={style} />;
-  }
-
-  const trimmedKey = iconKey.trim();
+  const iconKey = typeof name === 'object' ? name?.icon || name?.name || name?.slug : name;
+  const trimmedKey = typeof iconKey === 'string' ? iconKey.trim() : '';
   const lowerKey = trimmedKey.toLowerCase();
 
+  const isExternalImage = Boolean(
+    trimmedKey &&
+      (trimmedKey.startsWith('http://') ||
+        trimmedKey.startsWith('https://') ||
+        trimmedKey.startsWith('data:') ||
+        trimmedKey.startsWith('/') ||
+        trimmedKey.endsWith('.png') ||
+        trimmedKey.endsWith('.jpg') ||
+        trimmedKey.endsWith('.svg'))
+  );
+
+  const isLinkedIn = Boolean(
+    lowerKey === 'linkedin' || lowerKey === 'linked-in' || lowerKey.includes('linkedin')
+  );
+
+  const synchronousIcon = trimmedKey && !isExternalImage ? getSimpleIcon(trimmedKey) : null;
+  const [asyncIcon, setAsyncIcon] = React.useState(null);
+
+  React.useEffect(() => {
+    if (!trimmedKey || isExternalImage || isLinkedIn || synchronousIcon) {
+      return;
+    }
+
+    import('./simpleIconSearch')
+      .then(({ getDynamicSimpleIcon }) => {
+        const resolved = getDynamicSimpleIcon(trimmedKey);
+        if (resolved) {
+          dynamicIconCache.set(lowerKey, resolved);
+          setAsyncIcon(resolved);
+        }
+      })
+      .catch(() => {});
+  }, [trimmedKey, lowerKey, isExternalImage, isLinkedIn, synchronousIcon]);
+
+  if (!name || typeof iconKey !== 'string' || !trimmedKey) {
+    return <FallbackIcon size={size} color={color} className={className} style={style} />;
+  }
+
   // 1. LinkedIn specific check (Material UI LinkedIn fallback)
-  if (
-    lowerKey === 'linkedin' ||
-    lowerKey === 'linked-in' ||
-    lowerKey.includes('linkedin')
-  ) {
+  if (isLinkedIn) {
     return (
       <LinkedInIcon
         className={`simple-icon mui-linkedin-icon ${className}`.trim()}
@@ -467,15 +391,7 @@ export function SimpleIcon({
   }
 
   // 2. Handle external image URLs or local assets
-  if (
-    trimmedKey.startsWith('http://') ||
-    trimmedKey.startsWith('https://') ||
-    trimmedKey.startsWith('data:') ||
-    trimmedKey.startsWith('/') ||
-    trimmedKey.endsWith('.png') ||
-    trimmedKey.endsWith('.jpg') ||
-    trimmedKey.endsWith('.svg')
-  ) {
+  if (isExternalImage) {
     return (
       <ImageWithFallback
         src={parseImageUrl(trimmedKey)}
@@ -495,7 +411,7 @@ export function SimpleIcon({
     );
   }
 
-  const icon = getSimpleIcon(trimmedKey);
+  const icon = synchronousIcon || asyncIcon;
 
   if (!icon) {
     return <FallbackIcon size={size} color={color} className={className} style={style} />;
@@ -546,4 +462,3 @@ export function SimpleIcon({
 }
 
 export default SimpleIcon;
-

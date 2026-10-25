@@ -15,8 +15,6 @@ import Navbar from './Components/Navbar/Navbar';
 import Contacts from './Components/Contacts/Contacts';
 import Footer from './Components/Footer/Footer';
 import Home from './Pages/Home/Home';
-import About from './Pages/About/About';
-import Projects from './Pages/Projects/Projects';
 import Splash from './Pages/Splash/Splash';
 import DottedBackground from './assets/Images/Background/DottedBackground';
 import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
@@ -26,6 +24,8 @@ import useProfileReducer from './Hooks/useProfileReducer';
 import { parseImageUrl } from './Utils/imageUtils';
 import './App.css';
 
+const About = lazy(() => import('./Pages/About/About'));
+const Projects = lazy(() => import('./Pages/Projects/Projects'));
 const Admin = lazy(() => import('./Admin/Admin'));
 
 
@@ -81,16 +81,18 @@ function MainLayout() {
 				<Navbar />
 
 				<div className="pages">
-					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/about" element={<About />} />
-						{hasProjects && (
-							<>
-								<Route path="/projects" element={<Projects />} />
-								<Route path="/projects/:projectId" element={<Projects />} />
-							</>
-						)}
-					</Routes>
+					<Suspense fallback={null}>
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/about" element={<About />} />
+							{hasProjects && (
+								<>
+									<Route path="/projects" element={<Projects />} />
+									<Route path="/projects/:projectId" element={<Projects />} />
+								</>
+							)}
+						</Routes>
+					</Suspense>
 				</div>
 
 				<Contacts />
@@ -130,31 +132,31 @@ function App() {
 							<TestimonialsContextProvider>
 								<BlogContextProvider>
 									<NotificationsContextProvider>
-										<ActivitiesContextProvider>
 
-											<ThemeContextProvider>
-												<div className="app">
-													<BrowserRouter>
-														<ScrollToTop />
-														<AdminAuthContextProvider>
-														<Routes>
-															<Route path="/*" element={<MainLayout />} />
+										<ThemeContextProvider>
+											<div className="app">
+												<BrowserRouter>
+													<ScrollToTop />
+													<AdminAuthContextProvider>
+													<Routes>
+														<Route path="/*" element={<MainLayout />} />
 
-															<Route 
-																path="/admin/*" 
-																element={
-																	<Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+														<Route 
+															path="/admin/*" 
+															element={
+																<Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+																	<ActivitiesContextProvider>
 																		<Admin />
-																	</Suspense>
-																} 
-															/>
-														</Routes>
-														</AdminAuthContextProvider>
-													</BrowserRouter>
-												</div>
-											</ThemeContextProvider>
+																	</ActivitiesContextProvider>
+																</Suspense>
+															} 
+														/>
+													</Routes>
+													</AdminAuthContextProvider>
+												</BrowserRouter>
+											</div>
+										</ThemeContextProvider>
 
-										</ActivitiesContextProvider>
 									</NotificationsContextProvider>
 								</BlogContextProvider>
 							</TestimonialsContextProvider>

@@ -57,6 +57,13 @@ export function NotificationsContextProvider({ children }) {
 	});
 
 	useEffect(() => {
+		// Only auto-fetch notification records on admin routes where they are viewed
+		const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+		if (!pathname.startsWith('/admin')) {
+			dispatch({ type: "SET_LOADING", payload: false });
+			return;
+		}
+
 		let isMounted = true;
 
 		const loadNotifications = async () => {

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef, memo } from 'react';
 import useProfileReducer from '../../Hooks/useProfileReducer';
 import useNotificationsReducer from '../../Hooks/useNotificationsReducer';
 import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
@@ -8,7 +8,7 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import './Contacts.css';
 
-function ContactItem({ type, icon, title, value, copyText }) {
+const ContactItem = memo(function ContactItem({ type, icon, title, value, copyText }) {
         const [copied, setCopied] = useState(false);
         const timeoutRef = useRef(null);
 
@@ -69,13 +69,9 @@ function ContactItem({ type, icon, title, value, copyText }) {
                         </div>
                 </div>
         );
-}
+});
 
-function Contacts({ id = 'contacts' }) {
-        const { profile } = useProfileReducer();
-        const { phone, email, address } = profile || {};
-        const { createNotification } = useNotificationsReducer();
-
+const ContactForm = memo(function ContactForm({ createNotification }) {
         const [formData, setFormData] = useState({
                 name: '',
                 email: '',
@@ -149,6 +145,79 @@ function Contacts({ id = 'contacts' }) {
         };
 
         return (
+                <div className="form">
+                        <form onSubmit={handleSubmit} noValidate>
+                                <input 
+                                        type="text" 
+                                        name="name" 
+                                        id="name" 
+                                        placeholder="Name" 
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        disabled={status.submitting}
+                                        required
+                                />
+
+                                <input 
+                                        type="email" 
+                                        name="email" 
+                                        id="email" 
+                                        placeholder="Email" 
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        disabled={status.submitting}
+                                        required
+                                />
+
+                                <input 
+                                        type="text" 
+                                        name="subject" 
+                                        id="subject" 
+                                        placeholder="Subject" 
+                                        value={formData.subject}
+                                        onChange={handleChange}
+                                        disabled={status.submitting}
+                                        required
+                                />
+
+                                <textarea 
+                                        name="message" 
+                                        id="message" 
+                                        placeholder="Message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        disabled={status.submitting}
+                                        required
+                                ></textarea>
+
+                                {status.error && (
+                                        <div className="form-feedback error" role="alert">
+                                                <ErrorOutlineRoundedIcon fontSize="small" />
+                                                <span>{status.error}</span>
+                                        </div>
+                                )}
+
+                                {status.success && (
+                                        <div className="form-feedback success" role="status">
+                                                <CheckCircleOutlineRoundedIcon fontSize="small" />
+                                                <span>{status.success}</span>
+                                        </div>
+                                )}
+
+                                <button type="submit" disabled={status.submitting}>
+                                        {status.submitting ? "Sending..." : "Send message"}
+                                </button>
+                        </form>
+                </div>
+        );
+});
+
+function Contacts({ id = 'contacts' }) {
+        const { profile } = useProfileReducer();
+        const { phone, email, address } = profile || {};
+        const { createNotification } = useNotificationsReducer();
+
+        return (
                 <div className="contacts" id={id}>
                         <div className="get-in-touch">
                                 <div className="title">
@@ -189,72 +258,9 @@ function Contacts({ id = 'contacts' }) {
                                 />
                         </div>
 
-                        <div className="form">
-                                <form onSubmit={handleSubmit} noValidate>
-                                        <input 
-                                                type="text" 
-                                                name="name" 
-                                                id="name" 
-                                                placeholder="Name" 
-                                                value={formData.name}
-                                                onChange={handleChange}
-                                                disabled={status.submitting}
-                                                required
-                                        />
-
-                                        <input 
-                                                type="email" 
-                                                name="email" 
-                                                id="email" 
-                                                placeholder="Email" 
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                disabled={status.submitting}
-                                                required
-                                        />
-
-                                        <input 
-                                                type="text" 
-                                                name="subject" 
-                                                id="subject" 
-                                                placeholder="Subject" 
-                                                value={formData.subject}
-                                                onChange={handleChange}
-                                                disabled={status.submitting}
-                                                required
-                                        />
-
-                                        <textarea 
-                                                name="message" 
-                                                id="message" 
-                                                placeholder="Message"
-                                                value={formData.message}
-                                                onChange={handleChange}
-                                                disabled={status.submitting}
-                                                required
-                                        ></textarea>
-
-                                        {status.error && (
-                                                <div className="form-feedback error" role="alert">
-                                                        <ErrorOutlineRoundedIcon fontSize="small" />
-                                                        <span>{status.error}</span>
-                                                </div>
-                                        )}
-
-                                        {status.success && (
-                                                <div className="form-feedback success" role="status">
-                                                        <CheckCircleOutlineRoundedIcon fontSize="small" />
-                                                        <span>{status.success}</span>
-                                                </div>
-                                        )}
-
-                                        <button type="submit" disabled={status.submitting}>
-                                                {status.submitting ? "Sending..." : "Send message"}
-                                        </button>
-                                </form>
-                        </div>
+                        <ContactForm createNotification={createNotification} />
                 </div>
         );
 }
 
-export default Contacts;
+export default memo(Contacts);

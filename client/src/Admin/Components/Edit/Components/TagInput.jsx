@@ -1,7 +1,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import Select, { components } from "react-select";
 import useTechnicalSkillsReducer from '../../../../Hooks/useTechnicalSkillsReducer';
-import SimpleIcon, { searchSimpleIcons } from '../../../../Utils/simpleIcons';
+import SimpleIcon from '../../../../Utils/simpleIcons';
+import { searchSimpleIcons } from '../../../../Utils/simpleIconSearch';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';

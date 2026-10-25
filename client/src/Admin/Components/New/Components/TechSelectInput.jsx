@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import Select, { components } from "react-select";
 import useTechnicalSkillsReducer from '../../../../Hooks/useTechnicalSkillsReducer';
-import SimpleIcon, { searchSimpleIcons } from '../../../../Utils/simpleIcons';
+import SimpleIcon from '../../../../Utils/simpleIcons';
+import { searchSimpleIcons } from '../../../../Utils/simpleIconSearch';
 import '../Styles/TechSelectInput.css';
 
 const Option = (props) => (

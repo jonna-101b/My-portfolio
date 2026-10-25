@@ -227,6 +227,8 @@
         gap: clamp(1.25rem, 3vw, 2rem);
         animation: skills-scroll 30s linear infinite;
         padding: 0.5rem 0;
+        will-change: transform;
+        transform: translateZ(0);
 }
 
 .skills-preview .conceptual-skills .skills-track:hover {

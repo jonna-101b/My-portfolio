@@ -271,6 +271,7 @@ export const ImageWithFallback = forwardRef(function ImageWithFallback(props, re
             ref={ref}
             src={parsedUrl}
             alt={alt}
+            decoding="async"
             className={`app-image ${isLoaded ? 'loaded' : ''} ${className} ${imgClassName}`.trim()}
             style={{ ...style, ...imgStyle }}
             onError={handleImageError}
