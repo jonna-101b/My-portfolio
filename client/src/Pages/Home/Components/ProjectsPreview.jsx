@@ -57,15 +57,21 @@ const Project = memo(function Project({ project }) {
                         </div>
 
                         <div className="links">
-                                <a className="github-link" href={project.githubLink} target="_blank" >
-                                        Github repo
-                                        <GitHubIcon className="github-icon" />
-                                </a>
+                                { project.githubLink ? 
+                                        <a className="github-link" href={project.githubLink} target="_blank" >
+                                                Github repo
+                                                <GitHubIcon className="github-icon" />
+                                        </a>
+                                        : null 
+                                }
 
-                                <a className="project-link" href={project.projectLink} target="_blank" >
-                                        View project
-                                        <LaunchRoundedIcon className="external-link-icon" />
-                                </a>
+                                { project.projectLink ? 
+                                        <a className="project-link" href={project.projectLink} target="_blank" >
+                                                View project
+                                                <LaunchRoundedIcon className="external-link-icon" />
+                                        </a>
+                                        : null 
+                                }
                         </div>
                 </div>
         );
