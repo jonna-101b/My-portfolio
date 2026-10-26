@@ -48,12 +48,12 @@ const Project = memo(function Project({ project }) {
 
                         <div className="techs">
                                 {shownTechs.map((tech, index) => (
-                                        <p className="tech" key={index} style={{ transform: `translateX(${-3 * index}vh)`, zIndex: 4 - index }} >
+                                        <p className="tech" key={index} style={{ transform: `translateX(${-3 * index}vh)`, zIndex: index }} >
                                                 <SimpleIcon name={tech.icon || tech.name} size="2.5vh" color="var(--icon-opt-1)" />
                                         </p>
                                 ))}
 
-                                {hiddenTechs.length ? <p className='more-techs'>+ {hiddenTechs.length}</p> : ""}
+                                {hiddenTechs.length ? <p className='more-techs' style={{ transform: `translateX(${-12}vh)`, zIndex: 5 }} >+ {hiddenTechs.length}</p> : ""}
                         </div>
 
                         <div className="links">

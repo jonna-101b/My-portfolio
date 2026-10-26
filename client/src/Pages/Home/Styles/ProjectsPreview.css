@@ -383,7 +383,7 @@
         font-size: 0.75rem;
         font-weight: bolder;
         color: var(--text);
-        background-color: var(--surface-soft);
+        background-color: var(--surface-strong);
         border: 2px solid var(--surface);
         border-radius: 50%;
         width: 2.25rem;

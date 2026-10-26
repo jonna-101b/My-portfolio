@@ -151,8 +151,7 @@
 
 .projects .main-section .projects .project-card .card-content .card-header {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
         gap: 1.5vh;
 }
 
@@ -174,6 +173,7 @@
         background-color: var(--pill-soft);
         padding: 0.4vh 1.4vh;
         border-radius: 10vh;
+        width: fit-content;
         white-space: nowrap;
         flex-shrink: 0;
 }
