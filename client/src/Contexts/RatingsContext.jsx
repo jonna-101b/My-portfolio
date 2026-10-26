@@ -1,4 +1,5 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useEffect } from 'react';
+import { fetchRatings } from '../api/RatingsApi';
 
 export const RatingsContext = createContext();
 
@@ -23,6 +24,14 @@ const ratingsReducer = (state, action) => {
 
     case 'CLEAR_ERROR':
       return { ...state, error: null };
+
+    case 'SET_RATINGS':
+      return {
+        ...state,
+        ratings: Array.isArray(action.payload) ? action.payload : (action.payload ? [action.payload] : []),
+        loading: false,
+        error: null,
+      };
 
     case 'RATING_SUBMIT_SUCCESS': {
       const rating = action.payload;
@@ -75,10 +84,35 @@ export function RatingsContextProvider({ children }) {
   const [state, dispatch] = useReducer(ratingsReducer, {
     ratings: initialRating ? [initialRating] : [],
     currentRating: initialRating,
-    loading: false,
+    loading: true,
     error: null,
     submitted: false,
   });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadRatings = async () => {
+      try {
+        dispatch({ type: 'SET_LOADING', payload: true });
+        const res = await fetchRatings();
+        if (isMounted && res) {
+          dispatch({ type: 'SET_RATINGS', payload: res });
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error('Error fetching ratings on mount:', error);
+          dispatch({ type: 'SET_LOADING', payload: false });
+        }
+      }
+    };
+
+    loadRatings();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <RatingsContext.Provider value={{ state, dispatch }}>

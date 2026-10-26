@@ -1,6 +1,15 @@
 import { publicApi, protectedApi } from './AxiosInstance';
 
 /**
+ * Fetch all ratings (public endpoint)
+ * @returns {Promise<Array<{ _id: string, rating: number, feedback?: string, createdAt: string, updatedAt: string }>>}
+ */
+export const fetchRatings = async () => {
+  const response = await publicApi.get('/ratings');
+  return response.data;
+};
+
+/**
  * Create a new rating (public endpoint)
  * @param {{ rating: number, feedback?: string }} ratingData - Rating payload
  * @returns {Promise<{ _id: string, rating: number, feedback?: string, createdAt: string, updatedAt: string }>}
@@ -32,6 +41,7 @@ export const deleteRating = async (id) => {
 };
 
 export default {
+  fetchRatings,
   createRating,
   updateRating,
   deleteRating,

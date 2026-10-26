@@ -68,4 +68,13 @@ const deleteRating = async (req, res, next) => {
   }
 };
 
-export { createRating, updateRating, deleteRating };
+const getRatings = async (req, res, next) => {
+  try {
+    const ratings = await RatingModel.find().sort({ createdAt: -1 });
+    res.status(200).json(ratings);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { getRatings, createRating, updateRating, deleteRating };

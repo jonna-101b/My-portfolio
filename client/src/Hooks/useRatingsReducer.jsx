@@ -1,6 +1,7 @@
 import { useContext, useCallback } from 'react';
 import { RatingsContext } from '../Contexts/RatingsContext';
 import {
+  fetchRatings as fetchRatingsApi,
   createRating as createRatingApi,
   updateRating as updateRatingApi,
   deleteRating as deleteRatingApi,
@@ -87,6 +88,20 @@ const useRatingsReducer = () => {
     }
   }, [dispatch]);
 
+  const fetchRatings = useCallback(async () => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      const res = await fetchRatingsApi();
+      dispatch({ type: 'SET_RATINGS', payload: res });
+      return res;
+    } catch (error) {
+      const apiError = APIError.fromAxiosError(error, 'Failed to fetch ratings');
+      console.error('Error fetching ratings:', apiError);
+      dispatch({ type: 'SET_ERROR', payload: apiError });
+      return null;
+    }
+  }, [dispatch]);
+
   const clearError = useCallback(() => {
     dispatch({ type: 'CLEAR_ERROR' });
   }, [dispatch]);
@@ -102,6 +117,8 @@ const useRatingsReducer = () => {
     loading: state.loading,
     error: state.error,
     submitted: state.submitted,
+    fetchRatings,
+    setRatings: fetchRatings,
     submitRating,
     createRating,
     updateRating,

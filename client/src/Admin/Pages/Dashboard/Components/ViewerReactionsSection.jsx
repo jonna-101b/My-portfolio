@@ -1,26 +1,26 @@
-import useTestimonialsReducer from '../../../../Hooks/useTestimonialsReducer';
+import useRatingsReducer from '../../../../Hooks/useRatingsReducer';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { AdminReactionsSkeleton } from '../../../../Components/Skeletons/AdminSkeletons';
 import '../Styles/ViewerReactionsSection.css';
 
 function ViewerReactionsSection() {
-        const { state } = useTestimonialsReducer();
-        const loading = state?.loading;
-        const testimonials = state?.testimonials || [];
+        const { state, ratings: hookRatings, loading: hookLoading } = useRatingsReducer();
+        const loading = hookLoading ?? state?.loading;
+        const ratings = hookRatings || state?.ratings || [];
 
         if (loading) {
                 return <AdminReactionsSkeleton />;
         }
         
-        const reviewCount = testimonials.length;
-        const validRatings = testimonials
-                .map(t => Number(t?.rating))
+        const reviewCount = ratings.length;
+        const validRatings = ratings
+                .map(r => Number(r?.rating))
                 .filter(r => !isNaN(r) && r > 0);
 
         const averageRating = validRatings.length > 0
                 ? (validRatings.reduce((a, b) => a + b, 0) / validRatings.length).toFixed(1)
-                : (testimonials.length > 0 ? "5.0" : "0.0");
+                : (ratings.length > 0 ? "5.0" : "0.0");
 
         const numericAvg = parseFloat(averageRating);
 
