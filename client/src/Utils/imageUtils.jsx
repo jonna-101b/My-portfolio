@@ -77,6 +77,20 @@ export const parseImageUrl = (source) => {
         return trimmed;
     }
 
+    // Cloudinary URLs: ensure https and proper format
+    if (trimmed.includes('res.cloudinary.com')) {
+        if (trimmed.startsWith('http://')) {
+            return trimmed.replace(/^http:\/\//, 'https://');
+        }
+        if (trimmed.startsWith('//')) {
+            return `https:${trimmed}`;
+        }
+        if (!trimmed.startsWith('https://')) {
+            return `https://${trimmed}`;
+        }
+        return trimmed;
+    }
+
     const backendBase = getBackendBaseUrl();
 
     // Legacy port 5000 rewrites
@@ -110,6 +124,53 @@ export const parseImageUrl = (source) => {
 
 // Alias for parseImageUrl
 export const parseImage = parseImageUrl;
+
+/**
+ * Checks if a URL points to Cloudinary
+ * @param {string} url
+ * @returns {boolean}
+ */
+export const isCloudinaryUrl = (url) => {
+    return typeof url === 'string' && url.includes('res.cloudinary.com');
+};
+
+/**
+ * Generates an optimized Cloudinary delivery URL with transformation flags
+ * (e.g. auto-format, auto-quality, responsive widths) while preserving non-Cloudinary URLs.
+ *
+ * @param {string} url - Original URL
+ * @param {object} [options={}] - Transformation options (width, height, crop, quality, format)
+ * @returns {string} Optimized URL
+ */
+export const getOptimizedCloudinaryUrl = (url, options = {}) => {
+    const parsed = parseImageUrl(url);
+    if (!parsed || !isCloudinaryUrl(parsed)) {
+        return parsed;
+    }
+
+    const transforms = [];
+    if (options.format || options.autoFormat !== false) {
+        transforms.push(options.format ? `f_${options.format}` : 'f_auto');
+    }
+    if (options.quality || options.autoQuality !== false) {
+        transforms.push(options.quality ? `q_${options.quality}` : 'q_auto');
+    }
+    if (options.width) transforms.push(`w_${options.width}`);
+    if (options.height) transforms.push(`h_${options.height}`);
+    if (options.crop) transforms.push(`c_${options.crop}`);
+
+    if (transforms.length === 0 || parsed.includes('/upload/' + transforms.join(','))) {
+        return parsed;
+    }
+
+    const transformStr = transforms.join(',');
+    return parsed.replace(/\/upload\/(?:v\d+\/)?/, (match) => {
+        if (match.endsWith('/')) {
+            return `/upload/${transformStr}/${match.slice('/upload/'.length)}`;
+        }
+        return `/upload/${transformStr}/`;
+    });
+};
 
 /**
  * Default fallback configuration

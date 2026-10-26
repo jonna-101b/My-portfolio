@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
-import trackActivity from '../Middlewares/trackActivity.js';
+import trackActivity from '../Middleware/trackActivity.js';
 import { getBlogs, addBlog, updateBlog, deleteBlog } from "../Controllers/blogs.js";
 import { createBlogValidator, updateBlogValidator, blogIdParamValidator } from '../Validator/blogsValidator.js';
 

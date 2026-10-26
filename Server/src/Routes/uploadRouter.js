@@ -5,6 +5,7 @@ import {
   IMAGE_ALLOWED_TYPES,
   DOCUMENT_ALLOWED_TYPES,
   ALL_ALLOWED_TYPES,
+  resolveSubDir,
 } from '../Middleware/upload.js';
 import { uploadSingleFile, deleteFile } from '../Controllers/upload.js';
 import { APIError } from '../Errors/APIError.js';
@@ -15,7 +16,7 @@ const uploadRouter = express.Router();
 /**
  * Flexible middleware that accepts any single file with common field names
  */
-const createFlexibleUploadHandler = (options) => {
+const createFlexibleUploadHandler = (options = {}) => {
   const upload = createUploadMiddleware(options);
   // Accept any of these field names
   const fields = [
@@ -45,6 +46,7 @@ const createFlexibleUploadHandler = (options) => {
         for (const field of fields) {
           if (req.files[field.name] && req.files[field.name].length > 0) {
             req.file = req.files[field.name][0];
+            req.file.subDir = resolveSubDir(req.file, options.subDir || '');
             break;
           }
         }

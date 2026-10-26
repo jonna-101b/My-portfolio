@@ -8,7 +8,7 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import CircularProgress from '@mui/material/CircularProgress';
 import { uploadDocument } from '../../../../api/UploadApi';
-import { getAssetUrl } from '../../../../Utils/assetUtils';
+import { getAssetUrl, getDownloadUrl } from '../../../../Utils/assetUtils';
 import '../Styles/ResumeCard.css';
 
 function ResumeCard() {
@@ -73,6 +73,7 @@ function ResumeCard() {
         };
 
         const resolvedResumeUrl = getAssetUrl(resumeLink);
+        const downloadResumeUrl = getDownloadUrl(resumeLink);
         const resumeDisplayName = resumeLink
                 ? resumeLink.split('/').pop()
                 : 'No resume attached';
@@ -108,7 +109,7 @@ function ResumeCard() {
                                                 </a>
 
                                                 <a
-                                                        href={resolvedResumeUrl}
+                                                        href={downloadResumeUrl}
                                                         download={`${firstName || 'my'}_resume`}
                                                         className="resume-action-btn"
                                                 >

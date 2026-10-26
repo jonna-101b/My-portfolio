@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { TechnicalSkillsModel, ConceptualSkillsModel } from "../Models/skills.js";
 import { APIError } from "../Errors/APIError.js";
-import { deleteUploadedFile, deleteReplacedFiles } from "../Utils/upload.js";
+import { deleteUploadedFile, deleteReplacedFiles, uploadToCloudinary, isCloudinaryUrl } from "../Utils/upload.js";
 
 const getTechnicalSkills = async (req, res, next) => {
     try {
@@ -14,7 +14,17 @@ const getTechnicalSkills = async (req, res, next) => {
 
 const addTechnicalSkill = async (req, res, next) => {
     try {
-        const { name, label, icon } = req.body;
+        let { name, label, icon } = req.body;
+
+        // If file uploaded directly or if icon is base64 data URI
+        if (req.file) {
+            const uploadRes = await uploadToCloudinary(req.file, { folder: 'portfolio/images' });
+            if (uploadRes?.secure_url) icon = uploadRes.secure_url;
+        } else if (typeof icon === 'string' && (icon.startsWith('data:') || (icon.length > 500 && !isCloudinaryUrl(icon)))) {
+            const uploadRes = await uploadToCloudinary(icon, { folder: 'portfolio/images' });
+            if (uploadRes?.secure_url) icon = uploadRes.secure_url;
+        }
+
         const newSkill = await TechnicalSkillsModel.create({ name, label, icon });
         res.status(201).json(newSkill);
     } catch (error) {
@@ -35,10 +45,20 @@ const updateTechnicalSkill = async (req, res, next) => {
             return next(APIError.notFound('No such skill'));
         }
 
-        const skill = await TechnicalSkillsModel.findByIdAndUpdate(id, { ...req.body }, { new: true, runValidators: true });
+        const updates = { ...req.body };
+
+        if (req.file) {
+            const uploadRes = await uploadToCloudinary(req.file, { folder: 'portfolio/images' });
+            if (uploadRes?.secure_url) updates.icon = uploadRes.secure_url;
+        } else if (typeof updates.icon === 'string' && (updates.icon.startsWith('data:') || (updates.icon.length > 500 && !isCloudinaryUrl(updates.icon)))) {
+            const uploadRes = await uploadToCloudinary(updates.icon, { folder: 'portfolio/images' });
+            if (uploadRes?.secure_url) updates.icon = uploadRes.secure_url;
+        }
+
+        const skill = await TechnicalSkillsModel.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
         if (skill) {
-            if (req.body.icon !== undefined && existingSkill.icon) {
-                deleteReplacedFiles(existingSkill.icon, req.body.icon);
+            if (updates.icon !== undefined && existingSkill.icon) {
+                await deleteReplacedFiles(existingSkill.icon, updates.icon);
             }
             res.status(200).json(skill);
         } else {
@@ -60,7 +80,7 @@ const deleteTechnicalSkill = async (req, res, next) => {
         const skill = await TechnicalSkillsModel.findByIdAndDelete(id);
         if (skill) {
             if (skill.icon) {
-                deleteUploadedFile(skill.icon);
+                await deleteUploadedFile(skill.icon);
             }
             res.status(200).json(skill);
         } else {

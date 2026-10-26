@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
-import trackActivity from '../Middlewares/trackActivity.js';
+import trackActivity from '../Middleware/trackActivity.js';
 import { getProfilePage, updateProfilePage, updateDescription, addSocialLinks, updateSocialLink, deleteSocialLink, updateLogoVisibility } from '../Controllers/profile.js';
 import { updateProfileValidator, updateDescriptionValidator, createSocialLinksValidator, updateSocialLinkValidator, socialLinkIdParamValidator, updateLogoVisibilityValidator } from '../Validator/profileValidator.js';
 

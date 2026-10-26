@@ -32,6 +32,35 @@ const envScchema = joi.object({
             'string.pattern.base': 'RESEND_API_KEY must start with "re_" followed by valid key characters.',
             'any.required': 'RESEND_API_KEY environment variable is missing.'
         }),
+    CLOUDINARY_CLOUD_NAME: joi.string()
+        .trim()
+        .pattern(/^[a-z0-9_-]+$/)
+        .required()
+        .description("Cloudinary Cloud Name")
+        .messages({
+            'string.pattern.base': 'CLOUDINARY_CLOUD_NAME must contain only lowercase alphanumeric characters, underscores, or hyphens.',
+            'any.required': 'CLOUDINARY_CLOUD_NAME environment variable is missing.'
+        }),
+
+    CLOUDINARY_API_KEY: joi.string()
+        .trim()
+        .pattern(/^\d{15,16}$/)
+        .required()
+        .description("Cloudinary API Key")
+        .messages({
+            'string.pattern.base': 'CLOUDINARY_API_KEY must be a 15 to 16 digit numeric string.',
+            'any.required': 'CLOUDINARY_API_KEY environment variable is missing.'
+        }),
+
+    CLOUDINARY_API_SECRET: joi.string()
+        .trim()
+        .pattern(/^[a-zA-Z0-9_-]{27}$/)
+        .required()
+        .description("Cloudinary API Secret")
+        .messages({
+            'string.pattern.base': 'CLOUDINARY_API_SECRET must be a 27-character alphanumeric string.',
+            'any.required': 'CLOUDINARY_API_SECRET environment variable is missing.'
+        }),
     MY_PORTFOLIO_PASSWORD: joi.string()
         .required()
         .messages({
@@ -62,6 +91,9 @@ export const config = {
     jwtRefreshSecret: envVars.JWT_REFRESH_SECRET,
     myGmail: envVars.MY_GMAIL,
     resendApiKey: envVars.RESEND_API_KEY,
+    cloudinaryCloudName: envVars.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey: envVars.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: envVars.CLOUDINARY_API_SECRET,
     myPortfolioPassword: envVars.MY_PORTFOLIO_PASSWORD,
     myName: envVars.MY_NICKNAME,
     frontendUrl: envVars.FRONTEND_URL,

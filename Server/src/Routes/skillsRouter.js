@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
-import trackActivity from '../Middlewares/trackActivity.js';
+import trackActivity from '../Middleware/trackActivity.js';
 import {
   getTechnicalSkills,
   addTechnicalSkill,

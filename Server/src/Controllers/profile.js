@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import ProfileModel from "../Models/profile.js";
 import { APIError } from "../Errors/APIError.js";
-import { deleteUploadedFile, deleteReplacedFiles } from "../Utils/upload.js";
+import { deleteUploadedFile, deleteReplacedFiles, uploadToCloudinary, isCloudinaryUrl } from "../Utils/upload.js";
 
 // Get profile page (only one profile in DB)
 const getProfilePage = async (req, res, next) => {
@@ -17,23 +17,70 @@ const getProfilePage = async (req, res, next) => {
 const updateProfilePage = async (req, res, next) => {
 	try {
 		const existingProfile = await ProfileModel.findOne();
+		const updates = { ...req.body };
+
+		// 1. Check if files were uploaded directly via req.file / req.files
+		if (req.file) {
+			const field = req.file.fieldname;
+			const isDoc = field === 'resumeLink' || field === 'resume' || req.file.mimetype === 'application/pdf';
+			const folder = isDoc ? 'portfolio/documents' : 'portfolio/images';
+			const uploadRes = await uploadToCloudinary(req.file, { folder });
+			if (uploadRes?.secure_url) {
+				if (field === 'picture') updates.picture = uploadRes.secure_url;
+				else if (field === 'logo') updates.logo = uploadRes.secure_url;
+				else if (field === 'resumeLink' || field === 'resume') updates.resumeLink = uploadRes.secure_url;
+				else updates[field] = uploadRes.secure_url;
+			}
+		}
+
+		if (req.files) {
+			const fileFields = Array.isArray(req.files) ? req.files : Object.values(req.files).flat();
+			for (const file of fileFields) {
+				const field = file.fieldname;
+				const isDoc = field === 'resumeLink' || field === 'resume' || file.mimetype === 'application/pdf';
+				const folder = isDoc ? 'portfolio/documents' : 'portfolio/images';
+				const uploadRes = await uploadToCloudinary(file, { folder });
+				if (uploadRes?.secure_url) {
+					if (field === 'picture') updates.picture = uploadRes.secure_url;
+					else if (field === 'logo') updates.logo = uploadRes.secure_url;
+					else if (field === 'resumeLink' || field === 'resume') updates.resumeLink = uploadRes.secure_url;
+					else updates[field] = uploadRes.secure_url;
+				}
+			}
+		}
+
+		// 2. Upload any base64 data URIs provided in the body
+		if (typeof updates.picture === 'string' && (updates.picture.startsWith('data:') || (updates.picture.length > 500 && !isCloudinaryUrl(updates.picture)))) {
+			const uploadRes = await uploadToCloudinary(updates.picture, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) updates.picture = uploadRes.secure_url;
+		}
+
+		if (typeof updates.logo === 'string' && (updates.logo.startsWith('data:') || (updates.logo.length > 500 && !isCloudinaryUrl(updates.logo)))) {
+			const uploadRes = await uploadToCloudinary(updates.logo, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) updates.logo = uploadRes.secure_url;
+		}
+
+		if (typeof updates.resumeLink === 'string' && (updates.resumeLink.startsWith('data:') || (updates.resumeLink.length > 500 && !isCloudinaryUrl(updates.resumeLink)))) {
+			const uploadRes = await uploadToCloudinary(updates.resumeLink, { folder: 'portfolio/documents' });
+			if (uploadRes?.secure_url) updates.resumeLink = uploadRes.secure_url;
+		}
 
 		const updatedProfilePage = await ProfileModel.findOneAndUpdate(
 			{},
-			{ ...req.body },
+			updates,
 			{ new: true, upsert: true }
 		);
 
-		// If profile images or resume were replaced or removed, delete old files from Server/uploads
+		// If profile images or resume were replaced or removed, delete old files from Cloudinary or Server/uploads
 		if (existingProfile) {
-			if (req.body.picture !== undefined && existingProfile.picture) {
-				deleteReplacedFiles(existingProfile.picture, req.body.picture);
+			if (updates.picture !== undefined && existingProfile.picture) {
+				await deleteReplacedFiles(existingProfile.picture, updates.picture);
 			}
-			if (req.body.logo !== undefined && existingProfile.logo) {
-				deleteReplacedFiles(existingProfile.logo, req.body.logo);
+			if (updates.logo !== undefined && existingProfile.logo) {
+				await deleteReplacedFiles(existingProfile.logo, updates.logo);
 			}
-			if (req.body.resumeLink !== undefined && existingProfile.resumeLink) {
-				deleteReplacedFiles(existingProfile.resumeLink, req.body.resumeLink);
+			if (updates.resumeLink !== undefined && existingProfile.resumeLink) {
+				await deleteReplacedFiles(existingProfile.resumeLink, updates.resumeLink);
 			}
 		}
 
@@ -66,7 +113,20 @@ const addSocialLinks = async (req, res, next) => {
 			return next(APIError.notFound('Profile not found'));
 		}
 
-		profile.socialLinks.push(...req.body); // req.body should be an array
+		const linksToAdd = Array.isArray(req.body) ? req.body : [req.body];
+
+		// Check if any icon is base64 data URI
+		const processedLinks = await Promise.all(
+			linksToAdd.map(async (link) => {
+				if (link?.icon && typeof link.icon === 'string' && (link.icon.startsWith('data:') || (link.icon.length > 500 && !isCloudinaryUrl(link.icon)))) {
+					const uploadRes = await uploadToCloudinary(link.icon, { folder: 'portfolio/images' });
+					return { ...link, icon: uploadRes?.secure_url || link.icon };
+				}
+				return link;
+			})
+		);
+
+		profile.socialLinks.push(...processedLinks);
 		await profile.save();
 		res.status(200).json(profile);
 	} catch (error) {
@@ -95,12 +155,23 @@ const updateSocialLink = async (req, res, next) => {
 			return next(APIError.notFound('No such social link!'));
 		}
 
+		const updates = { ...req.body };
+
+		// Upload icon if file or data URI provided
+		if (req.file) {
+			const uploadRes = await uploadToCloudinary(req.file, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) updates.icon = uploadRes.secure_url;
+		} else if (typeof updates.icon === 'string' && (updates.icon.startsWith('data:') || (updates.icon.length > 500 && !isCloudinaryUrl(updates.icon)))) {
+			const uploadRes = await uploadToCloudinary(updates.icon, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) updates.icon = uploadRes.secure_url;
+		}
+
 		const oldIcon = socialLink.icon;
-		Object.assign(socialLink, req.body); // merge updates
+		Object.assign(socialLink, updates); // merge updates
 		await profile.save();
 
-		if (req.body.icon !== undefined && oldIcon) {
-			deleteReplacedFiles(oldIcon, req.body.icon);
+		if (updates.icon !== undefined && oldIcon) {
+			await deleteReplacedFiles(oldIcon, updates.icon);
 		}
 
 		res.status(200).json(profile);
@@ -132,7 +203,7 @@ const deleteSocialLink = async (req, res, next) => {
 
 		// If the social link icon is an uploaded file, delete it
 		if (deletedSocialLink.icon) {
-			deleteUploadedFile(deletedSocialLink.icon);
+			await deleteUploadedFile(deletedSocialLink.icon);
 		}
 
 		deletedSocialLink.deleteOne();

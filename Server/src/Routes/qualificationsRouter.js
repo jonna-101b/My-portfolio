@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
-import trackActivity from '../Middlewares/trackActivity.js';
+import trackActivity from '../Middleware/trackActivity.js';
 import { getQualifications, addQualification, updateQualification, deleteQualification } from '../Controllers/qualifications.js';
 import { createQualificationValidator, updateQualificationValidator, qualificationIdParamValidator } from '../Validator/qualificationsValidator.js';
 

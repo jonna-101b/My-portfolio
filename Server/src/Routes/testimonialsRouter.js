@@ -1,7 +1,7 @@
 import express from 'express';
 import authenticate from '../Middleware/authenticate.js';
-import trackActivity from '../Middlewares/trackActivity.js';
-import { getTestimonials, addTestimonial, updateTestimonial,  deleteTestimonial } from '../Controllers/testimonials.js';
+import trackActivity from '../Middleware/trackActivity.js';
+import { getTestimonials, addTestimonial, updateTestimonial, deleteTestimonial } from '../Controllers/testimonials.js';
 import { createTestimonialValidator, updateTestimonialValidator, testimonialIdParamValidator } from '../Validator/testimonialsValidator.js';
 
 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import useBlogReducer from '../../Hooks/useBlogReducer';
+import useRatingsReducer from '../../Hooks/useRatingsReducer';
 import BlogSectionSkeleton from '../Skeletons/BlogSectionSkeleton';
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
@@ -91,25 +92,46 @@ function BlogMedia({ blog }) {
 }
 
 function BlogRatingCard() {
-	const [selectedRating, setSelectedRating] = useState(4);
+	const { currentRating: savedRating, submitRating, loading, error, clearError } = useRatingsReducer();
+	const [selectedRating, setSelectedRating] = useState(savedRating?.rating || 4);
 	const [hoverRating, setHoverRating] = useState(null);
 	const [submitted, setSubmitted] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('');
+
+	useEffect(() => {
+		if (savedRating?.rating) {
+			setSelectedRating(savedRating.rating);
+		}
+	}, [savedRating]);
 
 	const currentRating = hoverRating !== null ? hoverRating : selectedRating;
 
 	const handleRatingClick = (rate) => {
 		setSelectedRating(rate);
+		setSubmitted(false);
+		setErrorMessage('');
+		if (error) clearError();
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setSubmitted(true);
-		setTimeout(() => setSubmitted(false), 3000);
+		if (loading) return;
+		setErrorMessage('');
+
+		try {
+			await submitRating({ rating: selectedRating });
+			setSubmitted(true);
+			setTimeout(() => {
+				setSubmitted(false);
+			}, 3500);
+		} catch (err) {
+			setErrorMessage(err?.message || 'Failed to submit feedback. Please try again.');
+		}
 	};
 
 	return (
 		<section className="blog-rating-card" aria-label="Portfolio rating preview">
-			<h4 className="rating-heading">How Would Your Rate Your Experience?</h4>
+			<h4 className="rating-heading">How Would You Rate Your Experience?</h4>
 
 			<div
 				className="rating-stars"
@@ -126,6 +148,7 @@ function BlogRatingCard() {
 							className={`star-btn ${isFilled ? 'filled' : 'empty'}`}
 							onClick={() => handleRatingClick(starValue)}
 							onMouseEnter={() => setHoverRating(starValue)}
+							disabled={loading}
 							aria-label={`${starValue} star`}
 						>
 							{isFilled ? (
@@ -139,7 +162,13 @@ function BlogRatingCard() {
 			</div>
 
 			<p className="rating-subtitle">
-				{submitted ? 'Thank you for your feedback!' : 'Your feedback matters!'}
+				{errorMessage ? (
+					<span style={{ color: '#ef4444' }}>{errorMessage}</span>
+				) : submitted ? (
+					'Thank you for your feedback!'
+				) : (
+					'Your feedback matters!'
+				)}
 			</p>
 
 			<hr className="rating-divider" />
@@ -148,8 +177,9 @@ function BlogRatingCard() {
 				type="button"
 				className={`rating-submit-btn ${submitted ? 'submitted' : ''}`}
 				onClick={handleSubmit}
+				disabled={loading}
 			>
-				{submitted ? 'Feedback Submitted ✓' : 'Submit Feedback'}
+				{loading ? 'Submitting...' : submitted ? 'Feedback Submitted ✓' : 'Submit Feedback'}
 			</button>
 		</section>
 	);

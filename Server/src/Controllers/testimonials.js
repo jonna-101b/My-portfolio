@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import TestimonialsModel from '../Models/testimonials.js';
 import { APIError } from '../Errors/APIError.js';
-import { deleteUploadedFile, deleteReplacedFiles } from '../Utils/upload.js';
+import { deleteUploadedFile, deleteReplacedFiles, uploadToCloudinary, isCloudinaryUrl } from '../Utils/upload.js';
 
 const getTestimonials = async (req, res, next) => {
 	try {
@@ -15,7 +15,17 @@ const getTestimonials = async (req, res, next) => {
 
 const addTestimonial = async (req, res, next) => {
 	try {
-		const newTestimonial = await TestimonialsModel.create({ ...req.body });
+		const testimonialData = { ...req.body };
+
+		if (req.file) {
+			const uploadRes = await uploadToCloudinary(req.file, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) testimonialData.picture = uploadRes.secure_url;
+		} else if (typeof testimonialData.picture === 'string' && (testimonialData.picture.startsWith('data:') || (testimonialData.picture.length > 500 && !isCloudinaryUrl(testimonialData.picture)))) {
+			const uploadRes = await uploadToCloudinary(testimonialData.picture, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) testimonialData.picture = uploadRes.secure_url;
+		}
+
+		const newTestimonial = await TestimonialsModel.create(testimonialData);
 		res.status(200).json(newTestimonial);
 	}
 	catch (error) {
@@ -36,12 +46,22 @@ const updateTestimonial = async (req, res, next) => {
 			return next(APIError.notFound('No such Testimonial'));
 		}
 
-		const updatedTestimonial = await TestimonialsModel.findByIdAndUpdate(id, { ...req.body }, { new: true });
+		const updates = { ...req.body };
+
+		if (req.file) {
+			const uploadRes = await uploadToCloudinary(req.file, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) updates.picture = uploadRes.secure_url;
+		} else if (typeof updates.picture === 'string' && (updates.picture.startsWith('data:') || (updates.picture.length > 500 && !isCloudinaryUrl(updates.picture)))) {
+			const uploadRes = await uploadToCloudinary(updates.picture, { folder: 'portfolio/images' });
+			if (uploadRes?.secure_url) updates.picture = uploadRes.secure_url;
+		}
+
+		const updatedTestimonial = await TestimonialsModel.findByIdAndUpdate(id, updates, { new: true });
 
 		if (updatedTestimonial) {
-			// If picture was replaced or cleared, remove old file from Server/uploads
-			if (req.body.picture !== undefined && existingTestimonial.picture) {
-				deleteReplacedFiles(existingTestimonial.picture, req.body.picture);
+			// If picture was replaced or cleared, remove old file from Cloudinary or Server/uploads
+			if (updates.picture !== undefined && existingTestimonial.picture) {
+				await deleteReplacedFiles(existingTestimonial.picture, updates.picture);
 			}
 			res.status(200).json(updatedTestimonial);
 		}
@@ -65,9 +85,9 @@ const deleteTestimonial = async (req, res, next) => {
 		const deletedTestimonial = await TestimonialsModel.findByIdAndDelete(id);
 
 		if (deletedTestimonial) {
-			// Delete testimonial picture from Server/uploads
+			// Delete testimonial picture from Cloudinary or Server/uploads
 			if (deletedTestimonial.picture) {
-				deleteUploadedFile(deletedTestimonial.picture);
+				await deleteUploadedFile(deletedTestimonial.picture);
 			}
 			res.status(200).json(deletedTestimonial);
 		}

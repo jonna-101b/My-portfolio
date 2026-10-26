@@ -52,38 +52,43 @@ export const getRelativeFilePath = (filename, subDir = '') => {
   return `/uploads/${filename}`;
 };
 
+import { deleteFromCloudinary, isCloudinaryUrl } from './cloudinary.js';
+export { deleteFromCloudinary, isCloudinaryUrl };
+export { uploadToCloudinary } from './cloudinary.js';
+
 /**
- * Safely deletes a local file from Server/uploads given a URL, relative path, or filename.
+ * Safely deletes a file from Cloudinary (if Cloudinary URL) or local Server/uploads
+ * given a URL, public_id, relative path, or filename.
  * Handles:
- * - Full URLs: 'http://localhost:5000/uploads/images/xyz.jpg'
- * - Relative paths: '/uploads/images/xyz.jpg' or 'uploads/images/xyz.jpg'
- * - Windows paths: '\uploads\images\xyz.jpg' or 'uploads\images\xyz.jpg'
- * - Direct subDir paths: 'images/xyz.jpg' or 'documents/xyz.pdf'
- * - Objects with .url or .path
+ * - Cloudinary URLs: 'https://res.cloudinary.com/...' -> deletes from Cloudinary
+ * - Full local URLs: 'http://localhost:5000/uploads/images/xyz.jpg' -> deletes locally
+ * - Relative paths: '/uploads/images/xyz.jpg' or 'uploads/images/xyz.jpg' -> deletes locally
+ * - Windows paths: '\uploads\images\xyz.jpg' or 'uploads\images\xyz.jpg' -> deletes locally
+ * - Direct subDir paths: 'images/xyz.jpg' or 'documents/xyz.pdf' -> deletes locally
+ * - Objects with .url, .path, or .public_id
  * - Arrays of paths/objects
- * - Ignores external URLs (e.g. cloudinary, unsplash) not in /uploads/
  * - Protects against path traversal outside Server/uploads
  * 
- * @param {string|object|Array} fileSource - Path, URL, object, or array of paths/objects
- * @returns {boolean} Whether file(s) were successfully deleted
+ * @param {string|object|Array} fileSource - Path, URL, public_id, object, or array
+ * @returns {Promise<boolean>|boolean} Whether file(s) were successfully deleted
  */
-export const deleteUploadedFile = (fileSource) => {
+export const deleteUploadedFile = async (fileSource) => {
   if (!fileSource) return false;
 
   // If array, recursively delete each item
   if (Array.isArray(fileSource)) {
     let allDeleted = true;
     for (const item of fileSource) {
-      const res = deleteUploadedFile(item);
+      const res = await deleteUploadedFile(item);
       if (!res) allDeleted = false;
     }
     return allDeleted;
   }
 
-  // If object, extract url, path, or preview
+  // If object, extract url, path, preview, or public_id
   let pathStr = fileSource;
   if (typeof fileSource === 'object' && fileSource !== null) {
-    pathStr = fileSource.url || fileSource.path || fileSource.preview || '';
+    pathStr = fileSource.public_id || fileSource.url || fileSource.path || fileSource.preview || '';
   }
 
   if (typeof pathStr !== 'string' || !pathStr.trim()) {
@@ -92,7 +97,18 @@ export const deleteUploadedFile = (fileSource) => {
 
   pathStr = pathStr.trim();
 
-  // If full URL, parse pathname
+  // 1. If it's a Cloudinary URL or Cloudinary public_id (starts with 'portfolio/')
+  if (isCloudinaryUrl(pathStr) || pathStr.startsWith('portfolio/')) {
+    try {
+      return await deleteFromCloudinary(pathStr);
+    } catch (err) {
+      console.error(`Error deleting Cloudinary asset ${pathStr}:`, err.message);
+      return false;
+    }
+  }
+
+  // 2. Handle local uploads
+  // If full local URL, parse pathname
   if (pathStr.startsWith('http://') || pathStr.startsWith('https://')) {
     try {
       const parsedUrl = new URL(pathStr);
@@ -148,7 +164,7 @@ export const deleteUploadedFile = (fileSource) => {
       const stats = fs.statSync(absolutePath);
       if (stats.isFile()) {
         fs.unlinkSync(absolutePath);
-        console.log(`Successfully deleted uploaded file: ${absolutePath}`);
+        console.log(`Successfully deleted local uploaded file: ${absolutePath}`);
         return true;
       }
     }
@@ -163,20 +179,21 @@ export const deleteUploadedFiles = deleteUploadedFile;
 
 /**
  * Compares previous file value(s) with new file value(s) and deletes any old files that are no longer present.
+ * Works seamlessly with both Cloudinary URLs and local file paths.
  * 
  * @param {string|Array} oldVal - Previous file path/URL or array
  * @param {string|Array} newVal - New file path/URL or array
  */
-export const deleteReplacedFiles = (oldVal, newVal) => {
+export const deleteReplacedFiles = async (oldVal, newVal) => {
   const extractUrls = (val) => {
     if (!val) return [];
     if (Array.isArray(val)) {
       return val
-        .map((item) => (typeof item === 'object' && item !== null ? item.url || item.path || '' : item))
+        .map((item) => (typeof item === 'object' && item !== null ? item.url || item.path || item.public_id || '' : item))
         .filter((item) => typeof item === 'string' && item.trim().length > 0);
     }
     if (typeof val === 'object' && val !== null) {
-      const u = val.url || val.path || '';
+      const u = val.url || val.path || val.public_id || '';
       return typeof u === 'string' && u.trim().length > 0 ? [u] : [];
     }
     if (typeof val === 'string' && val.trim().length > 0) {
@@ -190,7 +207,7 @@ export const deleteReplacedFiles = (oldVal, newVal) => {
 
   for (const oldFile of oldList) {
     if (!newList.includes(oldFile)) {
-      deleteUploadedFile(oldFile);
+      await deleteUploadedFile(oldFile);
     }
   }
 };

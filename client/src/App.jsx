@@ -8,6 +8,7 @@ import { ProjectsContextProvider } from './Contexts/ProjectsContext';
 import { TestimonialsContextProvider } from './Contexts/TestimonialsContext';
 import { BlogContextProvider } from './Contexts/BlogContext';
 import { NotificationsContextProvider } from './Contexts/NotificationsContext';
+import { RatingsContextProvider } from './Contexts/RatingsContext';
 import { ActivitiesContextProvider } from './Contexts/ActivitiesContext';
 import { ThemeContextProvider } from './Contexts/ThemeContext';
 import { AdminAuthContextProvider } from './Contexts/AdminAuthContext';
@@ -132,6 +133,7 @@ function App() {
 							<TestimonialsContextProvider>
 								<BlogContextProvider>
 									<NotificationsContextProvider>
+										<RatingsContextProvider>
 
 										<ThemeContextProvider>
 											<div className="app">
@@ -157,6 +159,7 @@ function App() {
 											</div>
 										</ThemeContextProvider>
 
+										</RatingsContextProvider>
 									</NotificationsContextProvider>
 								</BlogContextProvider>
 							</TestimonialsContextProvider>

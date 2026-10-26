@@ -35,9 +35,10 @@ export const ALL_ALLOWED_TYPES = [
 /**
  * Determine sub-directory based on file MIME type if not explicitly set
  */
-const resolveSubDir = (file, explicitSubDir) => {
+export const resolveSubDir = (file, explicitSubDir) => {
   if (explicitSubDir) return explicitSubDir;
-  if (IMAGE_ALLOWED_TYPES.includes(file.mimetype)) {
+  if (!file) return '';
+  if (IMAGE_ALLOWED_TYPES.includes(file.mimetype) || (file.mimetype && file.mimetype.startsWith('image/'))) {
     return 'images';
   }
   if (DOCUMENT_ALLOWED_TYPES.includes(file.mimetype)) {
@@ -47,23 +48,10 @@ const resolveSubDir = (file, explicitSubDir) => {
 };
 
 /**
- * Create custom disk storage engine with directory and unique UUID naming
+ * Multer in-memory storage engine for streaming uploads to Cloudinary
  */
-const createStorage = (defaultSubDir = '') => {
-  return multer.diskStorage({
-    destination: (req, file, cb) => {
-      const subDir = resolveSubDir(file, defaultSubDir);
-      file.subDir = subDir; // attach to file object for downstream controller use
-      const targetDir = ensureUploadDirectory(subDir);
-      cb(null, targetDir);
-    },
-
-    filename: (req, file, cb) => {
-      const fileExtension = path.extname(file.originalname).toLowerCase();
-      const uniqueFilename = `${randomUUID()}${fileExtension}`;
-      cb(null, uniqueFilename);
-    },
-  });
+const createStorage = () => {
+  return multer.memoryStorage();
 };
 
 /**
@@ -99,11 +87,10 @@ export const createUploadMiddleware = (options = {}) => {
   const {
     allowedTypes = ALL_ALLOWED_TYPES,
     maxFileSize = 10 * 1024 * 1024, // default 10MB
-    subDir = '',
   } = options;
 
   const upload = multer({
-    storage: createStorage(subDir),
+    storage: createStorage(),
     fileFilter: createFileFilter(allowedTypes),
     limits: {
       fileSize: maxFileSize,
@@ -117,7 +104,7 @@ export const createUploadMiddleware = (options = {}) => {
  * Error-wrapping middleware for single file upload
  * Handles multer limit errors and converts them to standard APIError
  */
-export const handleSingleUpload = (multerUpload, fieldName = 'file') => {
+export const handleSingleUpload = (multerUpload, fieldName = 'file', subDir = '') => {
   return (req, res, next) => {
     const uploadHandler = multerUpload.single(fieldName);
 
@@ -131,6 +118,11 @@ export const handleSingleUpload = (multerUpload, fieldName = 'file') => {
         }
         return next(err);
       }
+
+      if (req.file) {
+        req.file.subDir = resolveSubDir(req.file, subDir);
+      }
+
       next();
     });
   };
@@ -142,9 +134,9 @@ export const uploadImageMiddleware = (fieldName = 'image') =>
     createUploadMiddleware({
       allowedTypes: IMAGE_ALLOWED_TYPES,
       maxFileSize: 5 * 1024 * 1024, // 5MB
-      subDir: 'images',
     }),
-    fieldName
+    fieldName,
+    'images'
   );
 
 export const uploadDocumentMiddleware = (fieldName = 'file') =>
@@ -152,9 +144,9 @@ export const uploadDocumentMiddleware = (fieldName = 'file') =>
     createUploadMiddleware({
       allowedTypes: DOCUMENT_ALLOWED_TYPES,
       maxFileSize: 15 * 1024 * 1024, // 15MB
-      subDir: 'documents',
     }),
-    fieldName
+    fieldName,
+    'documents'
   );
 
 export const uploadAnyMiddleware = (fieldName = 'file') =>
